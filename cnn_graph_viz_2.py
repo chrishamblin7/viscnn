@@ -468,14 +468,14 @@ app.layout = html.Div(
                     figure=go.Figure(data=go.Heatmap(
                                         z = np.flip(activations[list_of_input_images[0].split('_')[0]][list_of_input_images[0].split('_')[1]][0][0],0)),
                                         layout=dict(
-                                            height=500,
-                                            width=500)
+                                            height=400,
+                                            width=400)
                                     ),
                     config={
                             'displayModeBar': False
                             }
                 )
-                ], className = "four columns"),
+                ], className = "three columns"),
                 
                 html.Div([
                 html.Label('Edge'),    
@@ -495,7 +495,7 @@ app.layout = html.Div(
                             'displayModeBar': False
                             }
                 )
-                ], className = "two columns")
+                ], className = "three columns")
                 
                 
              ], className= 'row'
@@ -554,7 +554,7 @@ app.layout = html.Div(
                         Figure json info.
                     """),
                     html.Pre(id='figure-data', style=styles['pre']),
-                ], className='four columns')
+                ], className='three columns')
                 
             ], className= 'row'
             )
@@ -639,8 +639,8 @@ def update_node_actmap(node_id,image_name):
     layer, within_id = nodeid_2_perlayerid(node_id)
     
     return go.Figure(data=go.Heatmap( z = np.flip(activations[image_name.split('_')[0]][image_name.split('_')[1]][layer][within_id],0)),
-                     layout=dict(height=500,
-                                 width=500,
+                     layout=dict(height=400,
+                                 width=400,
                                  uirevision=True)) 
 #     return {'data':go.Heatmap(
 #                               z = activations[image_name.split('_')[0]][image_name.split('_')[1]][layer][within_id]),
@@ -655,8 +655,8 @@ def update_node_actmap(node_id,image_name):
     [State('edge-kernel-input', 'value')])
 def update_edge_kernelmap(n_clicks,nodestring):
     return go.Figure(data=go.Heatmap(z = nodestring_2_edge_info(nodestring)),
-                     layout=dict(height=500,
-                                 width=500,
+                     layout=dict(height=200,
+                                 width=200,
                                  uirevision=True)) 
                 
 
