@@ -475,7 +475,7 @@ app.layout = html.Div(
                             'displayModeBar': False
                             }
                 )
-                ], className = "three columns"),
+                ], className = "four columns"),
                 
                 html.Div([
                 html.Label('Edge'),    
@@ -488,14 +488,14 @@ app.layout = html.Div(
                                         z = nodestring_2_edge_info('0-%s'%str(layers[1][0]))
                                         ),
                                         layout=dict(
-                                            height=500,
-                                            width=500)
+                                            height=200,
+                                            width=200)
                             ),
                     config={
                             'displayModeBar': False
                             }
                 )
-                ], className = "three columns")
+                ], className = "two columns")
                 
                 
              ], className= 'row'
@@ -741,7 +741,7 @@ def update_figure(target_class,clickData,edge_thresh):
 
 
 
-app.run_server(debug=True, host = '0.0.0.0')
+app.run_server()
 
 
 
