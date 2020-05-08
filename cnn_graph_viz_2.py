@@ -273,7 +273,7 @@ static_input_image_route = '/static_input_images/'
 #import chart_studio.plotly as py
 import plotly.offline as py    #added
 import plotly.graph_objs as go
-py.init_notebook_mode(connected=True)   #added
+#py.init_notebook_mode(connected=True)   #added
 
 node_data = []
 for layer in layers:
