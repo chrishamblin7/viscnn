@@ -257,7 +257,7 @@ def nodestring_2_edge_info(nodestring):
 import glob
 import os
 
-input_image_directory = '/Users/chrishamblin/Desktop/graph_viz/input_images_testing/'
+input_image_directory = 'input_images_testing/'
 list_of_input_images = [os.path.basename(x) for x in glob.glob('{}*.png'.format(input_image_directory))]
 
 static_input_image_route = '/static_input_images/'
@@ -267,7 +267,7 @@ static_input_image_route = '/static_input_images/'
 # list_of_edge_images = [os.path.basename(x) for x in glob.glob('{}*.png'.format(edge_image_directory))]
 
 # edge_static_image_route = '/static_edge/'
-list_of_input_images[0]
+#list_of_input_images[0]
 
 
 #import chart_studio.plotly as py
