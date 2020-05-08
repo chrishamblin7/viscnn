@@ -475,7 +475,7 @@ app.layout = html.Div(
                             'displayModeBar': False
                             }
                 )
-                ], className = "three columns"),
+                ], className = "four columns"),
                 
                 html.Div([
                 html.Label('Edge'),    
@@ -488,8 +488,8 @@ app.layout = html.Div(
                                         z = nodestring_2_edge_info('0-%s'%str(layers[1][0]))
                                         ),
                                         layout=dict(
-                                            height=200,
-                                            width=200)
+                                            height=300,
+                                            width=300)
                             ),
                     config={
                             'displayModeBar': False
@@ -655,8 +655,8 @@ def update_node_actmap(node_id,image_name):
     [State('edge-kernel-input', 'value')])
 def update_edge_kernelmap(n_clicks,nodestring):
     return go.Figure(data=go.Heatmap(z = nodestring_2_edge_info(nodestring)),
-                     layout=dict(height=200,
-                                 width=200,
+                     layout=dict(height=300,
+                                 width=300,
                                  uirevision=True)) 
                 
 
