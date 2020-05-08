@@ -78,7 +78,7 @@ def layernum2name(layer,offset=1,title = 'layer'):
 
 
 import numpy as np
-import igraph as ig
+#import igraph as ig
 import json
 import urllib
 
@@ -741,7 +741,7 @@ def update_figure(target_class,clickData,edge_thresh):
 
 
 
-app.run_server()
+app.run_server(debug=True, host = '0.0.0.0')
 
 
 
