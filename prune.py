@@ -4,24 +4,34 @@ from torchvision import models
 import cv2
 import sys
 import numpy as np
+import pdb
  
 def replace_layers(model, i, indexes, layers):
     if i in indexes:
         return layers[indexes.index(i)]
     return model[i]
 
-def prune_vgg16_conv_layer(model, layer_index, filter_index, use_cuda=False):
+def prune_conv_layer(model, layer_index, filter_index, use_cuda=False):
+    #pdb.set_trace()
+    #get conv layer for removal
     _, conv = list(model.features._modules.items())[layer_index]
     next_conv = None
+    next_batchnorm = None
     offset = 1
 
+    #find next conv layer
     while layer_index + offset <  len(model.features._modules.items()):
         res =  list(model.features._modules.items())[layer_index+offset]
+        #added
+        #if isinstance(res[1], torch.nn.modules.BatchNorm2d):
+        #    next_batchnorm_name, next_batchnorm = res
+        #end of added
         if isinstance(res[1], torch.nn.modules.conv.Conv2d):
             next_name, next_conv = res
             break
         offset = offset + 1
     
+    #Generate new conv layer with one less filter (This could probably be more efficient)
     new_conv = \
         torch.nn.Conv2d(in_channels = conv.in_channels, \
             out_channels = conv.out_channels - 1,
@@ -32,24 +42,27 @@ def prune_vgg16_conv_layer(model, layer_index, filter_index, use_cuda=False):
             groups = conv.groups,
             bias = (conv.bias is not None))
 
+
+    # Add weights to new conv layer
     old_weights = conv.weight.data.cpu().numpy()
     new_weights = new_conv.weight.data.cpu().numpy()
-
     new_weights[: filter_index, :, :, :] = old_weights[: filter_index, :, :, :]
     new_weights[filter_index : , :, :, :] = old_weights[filter_index + 1 :, :, :, :]
     new_conv.weight.data = torch.from_numpy(new_weights)
     if use_cuda:
         new_conv.weight.data = new_conv.weight.data.cuda()
 
-    bias_numpy = conv.bias.data.cpu().numpy()
+    #bias
+    if conv.bias is not None:
+        bias_numpy = conv.bias.data.cpu().numpy()
+        bias = np.zeros(shape = (bias_numpy.shape[0] - 1), dtype = np.float32)
+        bias[:filter_index] = bias_numpy[:filter_index]
+        bias[filter_index : ] = bias_numpy[filter_index + 1 :]
+        new_conv.bias.data = torch.from_numpy(bias)
+        if use_cuda:
+            new_conv.bias.data = new_conv.bias.data.cuda()
 
-    bias = np.zeros(shape = (bias_numpy.shape[0] - 1), dtype = np.float32)
-    bias[:filter_index] = bias_numpy[:filter_index]
-    bias[filter_index : ] = bias_numpy[filter_index + 1 :]
-    new_conv.bias.data = torch.from_numpy(bias)
-    if use_cuda:
-        new_conv.bias.data = new_conv.bias.data.cuda()
-
+    #update next conv layer to recieve one less input
     if not next_conv is None:
         next_new_conv = \
             torch.nn.Conv2d(in_channels = next_conv.in_channels - 1,\
@@ -70,7 +83,27 @@ def prune_vgg16_conv_layer(model, layer_index, filter_index, use_cuda=False):
         if use_cuda:
             next_new_conv.weight.data = next_new_conv.weight.data.cuda()
 
-        next_new_conv.bias.data = next_conv.bias.data
+        if next_conv.bias is not None:
+            next_new_conv.bias.data = next_conv.bias.data
+    '''
+    #update next batchnorm layer
+    if not next_batchnorm is None:
+        next_new_batchnorm = \
+            torch.nn.BatchNorm2d(next_batchnorm.num_features - 1,\
+                eps =  next_batchnorm.eps, \
+                momentum = next_batchnorm.momentum, \
+                affine = next_batchnorm.affine,
+                track_running_stats = next_batchnorm.track_running_stats)
+
+        old_weights = next_batchnorm.weight.data.cpu().numpy()
+        new_weights = next_new_batchnorm.weight.data.cpu().numpy()
+
+        new_weights[: filter_index] = old_weights[: filter_index]
+        new_weights[filter_index :] = old_weights[filter_index + 1 :]
+        next_new_batchnorm.weight.data = torch.from_numpy(new_weights)
+        if use_cuda:
+            next_new_batchnorm.weight.data = next_new_batchnorm.weight.data.cuda()
+    '''
 
     if not next_conv is None:
         features = torch.nn.Sequential(
@@ -95,7 +128,7 @@ def prune_vgg16_conv_layer(model, layer_index, filter_index, use_cuda=False):
             layer_index = layer_index  + 1
 
         if old_linear_layer is None:
-            raise BaseException("No linear laye found in classifier")
+            raise BaseException("No linear layer found in classifier")
         params_per_input_channel = old_linear_layer.in_features // conv.out_channels
 
         new_linear_layer = \
@@ -110,7 +143,8 @@ def prune_vgg16_conv_layer(model, layer_index, filter_index, use_cuda=False):
         new_weights[:, filter_index * params_per_input_channel :] = \
             old_weights[:, (filter_index + 1) * params_per_input_channel :]
         
-        new_linear_layer.bias.data = old_linear_layer.bias.data
+        if old_linear_layer.bias is not None:
+            new_linear_layer.bias.data = old_linear_layer.bias.data
 
         new_linear_layer.weight.data = torch.from_numpy(new_weights)
         if use_cuda:
