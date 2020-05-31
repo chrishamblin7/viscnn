@@ -27,7 +27,7 @@ if not os.path.exists('../prepped_models/'+params.output_folder):
 
 dummy_path, labels = make_dummy_dir(params.rank_img_path)
 
-
+print('getting node and edge ranks for all subfolders of %s'%params.rank_img_path)
 for label in labels:
 	print(label)
 

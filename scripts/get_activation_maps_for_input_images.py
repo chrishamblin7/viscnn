@@ -2,27 +2,27 @@
 import torch
 from PIL import Image, ImageOps
 import os
-import pickle
 import numpy as np
 from torchvision import datasets, transforms, utils
 from dissected_Conv2d import *
 import parameters as params
 from copy import deepcopy
 
+
+###MODEL LOADING
+model=params.model 
+if params.cuda:
+	model = model.cuda()
+else:
+	model = model.cpu()
+model_dis = dissect_model(deepcopy(model),store_ranks=False,cuda = params.cuda)
+
+###IMAGE LOADING
 image_folder = params.input_img_path
 image_names = os.listdir(image_folder)
 image_names = sorted(image_names)
 
-
-
-
-#model loading
-model=params.model 
-model.eval()
-
-transform = params.preprocess
-
-def image_loader(image_folder = image_folder, transform=transform):
+def image_loader(image_folder = image_folder, transform=params.preprocess):
 	img_names = os.listdir(image_folder)
 	img_names.sort()
 	image_list = []
@@ -39,71 +39,29 @@ def image_loader(image_folder = image_folder, transform=transform):
 
 images = image_loader()
 
-output_dict = {}
 
-print('getting node activation maps\n')
+###RUN MODEL
+output = model_dis(images) #run model forward, storing activations
 
-x = images
-activations = []
-
-def get_node_activations_recursive(x,module):
+#run through all model modules recursively, and pull the activations stored in dissected_Conv2d modules 
+def get_activations_from_dissected_Conv2d_modules(module,layer_activations=None):     
+	if layer_activations is None:    #initialize the output dictionary if we are not recursing and havent done so yet
+		layer_activations = {'nodes':[],'edges':[]}
 	for layer, (name, submodule) in enumerate(module._modules.items()):
-		if len(list(submodule.children())) > 0:
-			x = get_node_activations_recursive(x,submodule)
-		else:
-			try:
-				#print(submodule)
-				x = submodule(x)
-				if isinstance(submodule, torch.nn.modules.conv.Conv2d):
-					#print('found conv2d')
-					activations.append(x.cpu().detach().numpy())
-			except:
-				print('cant continue without specifying forward model')
-				break
-	return x
+		#print(submodule)
+		if isinstance(submodule, dissected_Conv2d):
+			print('here!')
+			layer_activations['nodes'].append(submodule.postbias_out.cpu().detach().numpy())
+			layer_activations['edges'].append(submodule.format_edges(data= 'activations'))
+			print(layer_activations['edges'][-1].shape)
+		elif len(list(submodule.children())) > 0:
+			layer_activations = get_activations_from_dissected_Conv2d_modules(submodule,layer_activations=layer_activations)   #module has modules inside it, so recurse on this module
 
-x = get_node_activations_recursive(x,model)
+	return layer_activations
 
-'''
-for layer, (name, module) in enumerate(model._modules.items()):
-	try:
-		print(module)
-		x = module(x)
-		if isinstance(module, torch.nn.modules.conv.Conv2d):
-			activations.append(x.cpu().detach().numpy())
-	except:
-		print('cant continue without specifying forward model')
-		break
-'''
-output_dict['nodes'] = activations
-
-print('\ngetting edge activation maps\n')
-
-x = images
-activations = []
-dis_model = dissect_model(deepcopy(model),store_activations=True)
-out = dis_model(x)
-
-def get_edge_activations_recursive(x,module):
-	for layer, (name, submodule) in enumerate(module._modules.items()):
-		if len(list(submodule.children())) > 0:
-			get_edge_activations_recursive(x,submodule)
-		else:
-			if isinstance(submodule, dissected_Conv2d):
-				activations.append(submodule.activations.cpu().detach().numpy())
-
-get_edge_activations_recursive(x,model)
-
-'''
-for layer, (name, module) in enumerate(dis_model._modules.items()):
-	if isinstance(module, dissected_Conv2d):
-		#print(module.add_indices)
-		activations.append(module.activations.cpu().detach().numpy())
-'''
-
-output_dict['edges'] = activations
+layer_activations = get_activations_from_dissected_Conv2d_modules(model_dis)
+print(model_dis)
 
 
-
-
-pickle.dump(output_dict,open('activations/cifar_prunned_.816_all_activations.pkl','wb'))
+###SAVE OUTPUT
+torch.save(layer_activations, '../prepped_models/'+params.output_folder+'/input_img_activations.pt')

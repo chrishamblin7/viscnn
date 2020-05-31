@@ -1,15 +1,19 @@
 #get rank with respect to each class in a dataset, do this in a hacky single class way, because for some stupid reason your gpu memory is getting used up otherwise
 
-from torchvision import models
+#from torchvision import models
+import torch
 from subprocess import call
 import os
-import sys
+#import sys
 #sys.path.append('../')
-from model_classes import *
+#from model_classes import *
 import argparse
-import time
+#import time
 import parameters as params
-from ranker import ranker
+from copy import deepcopy
+from dissected_Conv2d import *
+from torch.autograd import Variable
+#from ranker import ranker
 
 
 
@@ -33,7 +37,7 @@ def get_args():
 
 args = get_args()
 
-if args.dummy_path == None or args.label == None:
+if args.dummy_path is None or args.label is None:
 	raise ValueError('must specify dummy_path and label in function call, can\'t be None')
 
 #populate label folder with links
@@ -43,7 +47,7 @@ call('ln -s %s/ %s'%(os.path.join(args.orig_data_path,args.label),os.path.join(a
 
 torch.manual_seed(args.seed)
 
-#model loading
+##MODEL LOADING
 model = params.model
 
 if args.cuda:
@@ -51,8 +55,7 @@ if args.cuda:
 else:
 	model = model.cpu()
 
-for param in model.parameters():  #need gradients for grad*activation rank calculation
-	param.requires_grad = True
+model_dis = dissect_model(deepcopy(model),cuda=params.cuda) #version of model with accessible preadd activations in Conv2d modules 
 
 
 ##DATA LOADER###
@@ -67,17 +70,56 @@ image_loader = data.DataLoader(
         			pin_memory=True)
 
 
-ranker = ranker(model,image_loader,params.criterion,args.cuda)
+##RUNNING DATA THROUGH MODEL
+for param in model_dis.parameters():  #need gradients for grad*activation rank calculation
+	param.requires_grad = True
 
-#Get Node ranks
-print('getting node ranks')
+node_ranks = {}
+edge_ranks = {}
 
-node_ranks = ranker.gen_node_ranks()
+#Pass data through model in batches
+for i, (batch, target) in enumerate(image_loader):
+	print('batch %s'%i)
+	model_dis.zero_grad()
+	batch = Variable(batch)
+	if params.cuda:
+		batch = batch.cuda()
+		target = target.cuda()
+
+	output = model_dis(batch)    #running forward pass sets up hooks and stores activations in each dissected_Conv2d module
+	params.criterion(output, Variable(target)).backward()    #running backward pass calls all the hooks and calculates the ranks of all edges and nodes in the graph 
+
+
+##FETCHING RANKS
+
+def get_ranks_from_dissected_Conv2d_modules(module,layer_ranks=None):     #run through all model modules recursively, and pull the ranks stored in dissected_Conv2d modules 
+	if layer_ranks is None:    #initialize the output dictionary if we are not recursing and havent done so yet
+		layer_ranks = {'nodes':[],'edges':[]}
+	for layer, (name, submodule) in enumerate(module._modules.items()):
+		#print(submodule)
+		if isinstance(submodule, dissected_Conv2d):
+			submodule.normalize_ranks()
+			layer_ranks['nodes'].append(submodule.postbias_ranks.cpu().detach().numpy())
+			layer_ranks['edges'].append(submodule.format_edges(data= 'ranks'))
+			print(layer_ranks['edges'][-1].shape)
+		elif len(list(submodule.children())) > 0:
+			layer_ranks = get_ranks_from_dissected_Conv2d_modules(submodule,layer_ranks=layer_ranks)   #module has modules inside it, so recurse on this module
+
+
+	return layer_ranks
+
+layer_ranks = get_ranks_from_dissected_Conv2d_modules(model_dis)
+
+
+
+
+
+##SAVE LABEL RANKS##
 os.makedirs('../prepped_models/'+args.output_folder+'/ranks/',exist_ok=True)
-torch.save(node_ranks, '../prepped_models/'+args.output_folder+'/ranks/%s_rank.pt'%args.label)
+torch.save(layer_ranks, '../prepped_models/'+args.output_folder+'/ranks/%s_rank.pt'%args.label)
 
 
-#remove links
+#remove symlinks from dummy folder
 call('rm %s'%os.path.join(args.dummy_path,args.label),shell=True)
 os.mkdir(os.path.join(args.dummy_path,args.label))
 
