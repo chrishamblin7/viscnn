@@ -1,0 +1,1124 @@
+batch 0
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 1
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 2
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 3
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 4
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 5
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 6
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 7
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 8
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 9
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 10
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 11
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 12
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 13
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 14
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 15
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 16
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 17
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 18
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 19
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 20
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 21
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 22
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 23
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 24
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 25
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 26
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 27
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 28
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 29
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 30
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 31
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 32
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 33
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 34
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 35
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 36
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 37
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 38
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 39
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 40
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 41
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 42
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 43
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 44
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 45
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 46
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 47
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 48
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 49
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 50
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 51
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 52
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 53
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 54
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 55
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 56
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 57
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 58
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 59
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 60
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 61
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 62
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 63
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+batch 64
+torch.Size([135])
+torch.Size([45])
+torch.Size([1035])
+torch.Size([23])
+torch.Size([1127])
+torch.Size([49])
+torch.Size([2303])
+torch.Size([47])
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+compute node rank called
+compute edge rank called
+Traceback (most recent call last):
+  File "get_ranks_for_single_class.py", line 81, in <module>
+    for i, (batch, target) in enumerate(image_loader):
+  File "/home/chris/miniconda3/envs/pruning/lib/python3.6/site-packages/torch/utils/data/dataloader.py", line 345, in __next__
+    data = self._next_data()
+  File "/home/chris/miniconda3/envs/pruning/lib/python3.6/site-packages/torch/utils/data/dataloader.py", line 856, in _next_data
+    return self._process_data(data)
+  File "/home/chris/miniconda3/envs/pruning/lib/python3.6/site-packages/torch/utils/data/dataloader.py", line 881, in _process_data
+    data.reraise()
+  File "/home/chris/miniconda3/envs/pruning/lib/python3.6/site-packages/torch/_utils.py", line 394, in reraise
+    raise self.exc_type(msg)
+FileNotFoundError: Caught FileNotFoundError in DataLoader worker process 1.
+Original Traceback (most recent call last):
+  File "/home/chris/miniconda3/envs/pruning/lib/python3.6/site-packages/torch/utils/data/_utils/worker.py", line 178, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/chris/miniconda3/envs/pruning/lib/python3.6/site-packages/torch/utils/data/_utils/fetch.py", line 44, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/chris/miniconda3/envs/pruning/lib/python3.6/site-packages/torch/utils/data/_utils/fetch.py", line 44, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/chris/miniconda3/envs/pruning/lib/python3.6/site-packages/torchvision/datasets/folder.py", line 138, in __getitem__
+    sample = self.loader(path)
+  File "/home/chris/miniconda3/envs/pruning/lib/python3.6/site-packages/torchvision/datasets/folder.py", line 174, in default_loader
+    return pil_loader(path)
+  File "/home/chris/miniconda3/envs/pruning/lib/python3.6/site-packages/torchvision/datasets/folder.py", line 155, in pil_loader
+    with open(path, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/chris/projects/categorical_pruning/pruning/data/cifar10/train_dummy/frog/frog/frog/frog/frog/frog/frog/frog/frog/frog/frog/frog/frog/4043.png'
+

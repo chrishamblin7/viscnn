@@ -50,7 +50,6 @@ def get_activations_from_dissected_Conv2d_modules(module,layer_activations=None)
 	for layer, (name, submodule) in enumerate(module._modules.items()):
 		#print(submodule)
 		if isinstance(submodule, dissected_Conv2d):
-			print('here!')
 			layer_activations['nodes'].append(submodule.postbias_out.cpu().detach().numpy())
 			layer_activations['edges'].append(submodule.format_edges(data= 'activations'))
 			print(layer_activations['edges'][-1].shape)
