@@ -62,7 +62,7 @@ for label in labels:
 		for out_channel in range(len(ranks['edges'][layer])):
 			for in_channel in range(len(ranks['edges'][layer][out_channel])):
 				alledge_dflist.append([edge_num,layer,out_channel,in_channel,ranks['edges'][layer][out_channel][in_channel],label])
-			edge_num += 1
+				edge_num += 1
 
 
 #make nodes DF
