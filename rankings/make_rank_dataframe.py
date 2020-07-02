@@ -11,7 +11,7 @@ file_dict = {'animate':torch.load('model_animate_imgnet_6_epochs_rank_v2.pt'),
 			 'faces':torch.load('model_faces_50adam_lr.001_rank.pt'),
 			  'enumeration':torch.load('model_enumeration_rank.pt')}
 '''
-labels = os.listdir('/home/chris/projects/categorical_pruning/data/cifar10/train')
+labels = os.listdir('/home/chris/projects/categorical_pruning/pruning/data/cifar10/train')
 labels.append('overall')
 
 biglist = []
