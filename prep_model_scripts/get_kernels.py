@@ -1,5 +1,8 @@
 import torch
-import parameters as params
+
+import sys
+sys.path.insert(0, '../')
+import prep_model_parameters as params
 
 model = params.model
 

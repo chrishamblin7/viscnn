@@ -4,7 +4,9 @@
 from subprocess import call, Popen
 import os
 import time
-import parameters as params
+import sys
+sys.path.insert(0, '../')
+import prep_model_parameters as params
 
 
 
@@ -102,4 +104,4 @@ edge_df.to_csv('../prepped_models/'+params.output_folder+'/edge_ranks.csv',index
 
 
 #remove ranks folder with individual label ranks
-#call('rm -r ../prepped_models/%s/ranks/'%(params.output_folder),shell=True)
+call('rm -r ../prepped_models/%s/ranks/'%(params.output_folder),shell=True)

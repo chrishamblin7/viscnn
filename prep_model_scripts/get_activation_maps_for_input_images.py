@@ -5,8 +5,10 @@ import os
 import numpy as np
 from torchvision import datasets, transforms, utils
 from dissected_Conv2d import *
-import parameters as params
 from copy import deepcopy
+import sys
+sys.path.insert(0, '../')
+import prep_model_parameters as params
 
 
 ###MODEL LOADING

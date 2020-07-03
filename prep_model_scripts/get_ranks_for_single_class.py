@@ -1,19 +1,15 @@
 #get rank with respect to each class in a dataset, do this in a hacky single class way, because for some stupid reason your gpu memory is getting used up otherwise
 
-#from torchvision import models
 import torch
 from subprocess import call
 import os
-#import sys
-#sys.path.append('../')
-#from model_classes import *
 import argparse
-#import time
-import parameters as params
 from copy import deepcopy
 from dissected_Conv2d import *
 from torch.autograd import Variable
-#from ranker import ranker
+import sys
+sys.path.insert(0, '../')
+import prep_model_parameters as params
 
 
 
