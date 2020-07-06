@@ -44,6 +44,8 @@ batch_size = 200    #batch size for feeding rank image set through model (input 
 
 
 
+
+
 #Clean up (YOU DONT NEED TO EDIT ANYTHING BELOW THIS LINE)
 
 input_img_path =  os.path.abspath(input_img_path)
