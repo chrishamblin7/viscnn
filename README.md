@@ -25,6 +25,7 @@ Prepping your own model requires 3 things:
   * A loadable pytorch model, with a feed-forward cnn architecture
   * An 'input_images' folder, containing images you would like to be able to feed to the model during visualization
   * A 'rank_images' folder, containing subfolders for each subgraph category you'd like to visualize (such as the label categories for a classifier). Each category subfolder should have at least a few hundred examples.
+  Look in `image_data/cifar10` for examples of each of these image folders.
   
 Edit the `prep_model_parameters.py` file, reading it carefully as you go. Primarily you must load (however you see fit) your pytorch model into the `model` variable of this file. 
 Additionally you must specify the 'input_img_path' and 'rank_img_path', pointing to the 'input_images' and 'rank_images' folders described above. These folders can be anywhere, but in keeping with the preloaded models its best if they go in a subfolder of the 'image_data' folder. If you used a `torchvision` transform to preprocess your images before feeding them to your model, assign the transform to the `preprocess` variable in this file. The output_folder variable specifies the name of the 'prepped_models' folder to be generated, and determines the argument that will be passed to `launch_visualizer.py` when visualizing. There are other parameters you can set in this parameter file as well.
