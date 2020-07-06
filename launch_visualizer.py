@@ -1,8 +1,32 @@
+#fetch command line argument (prepped model)
+import sys
+import os
+
+possible_models = os.listdir('prepped_models')
+
+if len(sys.argv) < 2:
+    print('the script must be called with an argument of the name of the prepped model you would like to visualize. Looking in the "prepped_models" folder, your current options are:')
+    for name in possible_models:
+        print(name)
+    exit()
+elif sys.argv[1] not in possible_models:
+    print('%s is not a subfolder of "prepped_models". Your current options are:'%(sys.argv[1]))
+    for name in possible_models:
+        print(name)
+    exit()
+else:
+    prepped_model_folder = sys.argv[1]    
+
+sys.path.append('prepped_models/%s'%prepped_model_folder)
+import prep_model_params_used as params
+
 import pandas as pd
 import numpy as np
 
 #load nodes df
-nodes_df = pd.read_csv('prepped_models/cifar10_testing/node_ranks.csv')
+print('loading nodes data')
+
+nodes_df = pd.read_csv('prepped_models/%s/node_ranks.csv'%prepped_model_folder)
 
 #make wide version
 nodes_wide_df = nodes_df.pivot(index = 'node_num',columns='class', values='rank_score')
@@ -31,8 +55,6 @@ classes.remove('overall')
 classes.insert(0,'overall')
 
 
-nodes_wide_df.head(10)
-
 
 #misc formatting functions
 
@@ -59,10 +81,11 @@ def get_nth_element_from_nested_list(l,n):    #this seems to come up with the ne
 
 
 ## adding images
+print('loading input images')
 
 import os
 
-input_image_directory = 'input_images_testing/'
+input_image_directory = params.input_img_path
 list_of_input_images = os.listdir(input_image_directory)
 list_of_input_images.sort()
 
@@ -121,9 +144,10 @@ def get_channelwise_image(image_name,channel,input_image_directory=input_image_d
 
 
 
+#load edges
+print('loading edge data')
 
-
-edges_df = pd.read_csv('prepped_models/cifar10_testing/edge_ranks.csv')   #load edges
+edges_df = pd.read_csv('prepped_models/%s/edge_ranks.csv'%prepped_model_folder)   
 
 #make edges wide format df
 edges_wide_df = edges_df.pivot(index = 'edge_num',columns='class', values='rank_score')
@@ -141,6 +165,7 @@ num_edges = len(edges_wide_df.index) #number of total edges
 
 
 #generate mds projections of nodes layerwise, as determined by their per class rank scores
+print('generating mds projection of nodes')
 
 import numpy as np
 from sklearn import manifold
@@ -181,8 +206,9 @@ for layer in layer_similarities:
 
 
 #generate node colors based on target class (nodes that aren't important should be faded)
+print('generating node colors')
 
-target_class = 'airplane'
+target_class = classes[0]
 
 #Node Opacity
 layer_colors = ['rgba(31,119,180,', 
@@ -248,6 +274,8 @@ for layer in layer_mds:
 
 
 #image nodes (one for each channel of input image)
+print('generating image channel nodes')
+
 
 num_img_chan = len(edges_df.loc[edges_df['layer'] == 0]['in_channel'].unique()) #number of channels in input image
 
@@ -279,54 +307,14 @@ def gen_imgnode_graphdata(num_chan = num_img_chan):     #returns positions, colo
     
     return positions, colors, names
     
-# def gen_imgnode_positions(num_chan = num_img_chan):
-
-#     if num_chan == 1: #return a centered position
-#         return {'X':[-1],'Y':[0],'Z':[0]}
-    
-#     positions = {'X':[],'Y':[],'Z':[]}     #else return points evenly spaced around a unit circle
-#     a = 2*np.pi/num_chan          #angle to rotate each point
-#     for p in range(num_chan):
-#         positions['X'].append(-1)
-#         positions['Y'].append(np.sin(a*p))
-#         positions['Z'].append(np.cos(a*p))
-#     return positions
-
-# def gen_imgnode_colors(num_chan = num_img_chan):
-#     if num_chan == 1:
-#         return ['rgba(170,170,170,.9)']   #grey
-#     elif num_chan == 3:
-#         return ['rgba(255,0,0,.9)','rgba(0,255,0,.9)','rgba(0,0,255,.9)']             #rgb
-
-#     else:
-#         other_colors = ['rgba(255,0,0,.9)','rgba(0,255,0,.9)','rgba(0,0,255,.9)',
-#                         'rgba(255,150,0,.9)','rgba(0,255,150,.9)','rgba(150,0,255,.9)',
-#                         'rgba(255,0,150,.9)','rgba(150,255,0,.9)','rgba(0,150,255,.9)']
-#         colors = []
-#         for i in num_chan:
-#             colors.append(i%len(other_colors))
-#         return colors
-    
-# def gen_imgnode_names(num_chan = num_img_chan):
-#     if num_chan == 1:
-#         return ['gs'] #grayscale
-#     elif num_chan == 3:
-#         return ['r','g','b']
-#     else:
-#         names = []
-#         for i in range(num_chan):
-#             names.append('img_'+str(i))
-#         return names
 
 imgnode_positions,imgnode_colors,imgnode_names = gen_imgnode_graphdata()
-
-print(imgnode_positions)
 
 
 
 
 #Edge selection
-
+print('edge selection')
 def edge_width_scaling(x):
     return max(.4,(x*10)**1.7)
 
@@ -425,32 +413,20 @@ def get_edge_from_curvenumber(curvenum,edge_names, num_layers= num_layers):
             curve+=1
     return None,None,None
     
-#def get_max_edge_weight(target_class,df = edges_df):
-#    return df.loc[df['class'] == target_class].max().rank_score
+
 
 edge_positions, edge_colors, edge_widths, edge_weights, edge_names, max_edge_width_indices = gen_edge_graphdata()
 #max_edge_width_indices = get_max_edge_widths(edge_widths)
 max_edge_weight = edges_df.max().rank_score
-print(max_edge_weight)
+
 
 
 
 #Format Node Feature Maps
-
-# import pickle
-
-# activations = pickle.load(open('activations/cifar_prunned_.816_activations.pkl','rb'))
-  
-    
-# node_ids = []
-# for layer in layer_nodes:
-#     for i in range(len(layer_nodes[layer])):
-#         node_ids.append(str(layer+1)+'_'+str(i))
-    
-# print(activations['airplane']['0001.png'][0].shape)
+print('loading activation maps')
 
 import torch
-activations = torch.load('prepped_models/cifar10_testing/input_img_activations.pt')
+activations = torch.load('prepped_models/%s/input_img_activations.pt'%prepped_model_folder)
 
 print(activations['edges'][0].shape)
 print(activations['nodes'][0].shape)
@@ -458,11 +434,9 @@ print(activations['nodes'][0].shape)
 
 
 #Format Edge Kernels
+print('loading convolutional kernels')
 
-# kernels = pickle.load(open('kernels/cifar_prunned_.816_kernels.pkl','rb'))
-# print(kernels[0].shape)
-
-kernels = torch.load('prepped_models/cifar10_testing/kernels.pt')
+kernels = torch.load('prepped_models/%s/kernels.pt'%prepped_model_folder)
 
 #print(kernels[0].shape)
 
@@ -512,7 +486,7 @@ print(np.flip(kernels[0][0][2],0))
 
 
 
-
+print('building graph')
 #hidden state, stores python values within the html itself
 state = {'edge_positions':edge_positions,'edge_colors': edge_colors, 'edge_widths':edge_widths,'edge_names':edge_names,
          'edge_threshold':edge_threshold,'edge_weights':edge_weights,'max_edge_width_indices':max_edge_width_indices,
@@ -725,6 +699,7 @@ network_graph_fig=go.Figure(data=combined_traces, layout=network_graph_layout)
 #state['combined_traces']=combined_traces
 
 
+print('setting up dash app')
 
 import dash
 import dash_core_components as dcc
@@ -1113,49 +1088,8 @@ def update_figure(state, fig):
             'layout': layout}
 
 
-# @app.callback(
-#     [Output('edge-thresh-slider', 'max'),
-#     Output('edge-thresh-slider', 'marks'),
-#     Output('edge-thresh-slider', 'value')],
-#     [Input('weight-category', 'value')],
-#     [State('session', 'data')])
-# def update_thresh_slider(target_class,state):
-#     print('Updating edge threshold slider layout')
-#     max_val = np.ceil(state['max_edge_weight']*10)/10
-#     value = [min(state['edge_threshold'][0],max_val),min(state['edge_threshold'][1],max_val)]
-#     marks={i/10: str(i/10) for i in range(0,int(np.ceil(state['max_edge_weight']*10))+1,int(round(np.ceil(state['max_edge_weight']*10)/5)))},
-#     return max_val,marks,value
 
-    
-# @app.callback(
-#     Output('network-graph', 'figure'),
-#     [Input('weight-category', 'value'),
-#      Input('network-graph', 'clickData'),
-#      Input('lower-thresh-slider','value')],
-#     [State('session', 'data')])
-# def update_figure(target_class,clickData,edge_thresh,state):
-#     ctx = dash.callback_context
-#     if not ctx.triggered:
-#         raise Exception('no figure updates yet')
-#     else:
-#         trigger = ctx.triggered[0]['prop_id']
-        
-#     if trigger == 'weight-category.value':
-#         combined_traces = gen_networkgraph_traces()
-#     elif trigger == 'network-graph.clickData':
-#         previous_click = False
-#         if len(state['click_history']['curveNumber']) > 1:
-#             previous_click = state['click_history']['curveNumber'][-2]   #second to last click
-#         highlight_on_click(clickData,state,previous_click=previous_click)
-#     elif trigger == 'lower-thresh-slider.value':
-#         combined_traces = gen_networkgraph_traces()
-#     else:
-#         raise Exception('unknown trigger: %s'%trigger)
-        
-#     layout = graph_layout
-#     layout['uirevision'] = True
-#     return {'data': combined_traces,
-#             'layout': layout}
+#CALLBACKS
 
 @app.callback(
     Output('node-actmap-dropdown', 'value'),
@@ -1187,13 +1121,6 @@ def switch_edge_actmaps_click(clickData,current_value,state):
     return get_nth_element_from_nested_list(state['edge_names'],int(clickData['points'][0]['curveNumber'])-(num_layers+1))
 
 
-
-# #Node activation map
-# @app.callback(
-#     Output('node-actmap-dropdown', 'value'),
-#     [Input('node-actmap-dropdown', 'value'),
-#      Input('input-image-dropdown', 'value')])
-# def update_node_actmap_dropdown()
 
 
 @app.callback(
@@ -1265,20 +1192,6 @@ def update_edge_outmap(edgename,imagename,figure):
         return figure
         
         
-# #Input Images
-# @app.callback(
-#     Output('input-image', 'src'),
-#     [Input('input-image-dropdown', 'value')])
-# def update_input_image_src(value):
-#     return static_input_image_route + value
-
-# @app.server.route('{}<image_path>.png'.format(static_input_image_route))
-# def serve_input_image(image_path):
-#     image_name = '{}.png'.format(image_path)
-#     if image_name not in list_of_input_images:
-#         raise Exception('"{}" is excluded from the allowed static files'.format(image_path))
-#     return flask.send_from_directory(input_image_directory, image_name)
-
 
 
 
@@ -1333,67 +1246,7 @@ def display_trigger(target_class,clickData,edge_thresh,state):
     
     
 
-
-       
-
-# @app.callback(
-#     Output('network-graph', 'figure'),
-#     [Input('weight-category', 'value'),
-#      Input('network-graph', 'clickData'),
-#      Input('lower-thresh-slider','value')])
-# def update_figure(target_class,clickData,edge_thresh):
-#     node_colors = gen_node_colors(target_class)
-#     Edges,edge_weights = gen_edge_subset_and_weights(target_class,edge_threshold=edge_thresh)
-#     edge_positions = gen_edge_positions(Edges)
-#     click_layer = int(clickData['points'][0]['curveNumber'])
-#     for layer in node_colors:
-#         if layer == click_layer:
-#             new_colors = list(node_colors[click_layer])
-#             new_colors[clickData['points'][0]['pointNumber']] = 'rgba(0,0,0,1)'
-#             combined_traces[layer]['marker']['color'] = new_colors
-#         else:
-#             combined_traces[layer]['marker']['color'] = node_colors[layer]
-
-#     for layer in edge_positions:
-#         combined_traces[layer-1+num_layers] = go.Scatter3d(x=edge_positions[layer]['X'],
-#                                 y=edge_positions[layer]['Y'],
-#                                 z=edge_positions[layer]['Z'],
-#                                 name=layernum2name(layer ,title = 'edges'),
-#                                 mode='lines',
-#                                 #line=dict(color=edge_colors_dict[layer], width=1.5),
-#                                 line=dict(color='rgb(100,100,100)', width=1.5),
-#                                 text = list(range(len(Edges[layer])))
-#                                 #hoverinfo='text'
-#                                 )
-   
-#     layout = graph_layout
-#     layout['uirevision'] = True
-#     return {'data': combined_traces,
-#             'layout': layout}
-
-
-
-
-
-
-
-# @app.callback(
-#     Output('relayout-data', 'children'),
-#     [Input('network-graph', 'relayoutData')])
-# def display_relayout_data(relayoutData):
-#     return json.dumps(relayoutData, indent=2)
-
-
-
-
-
-# @app.callback(
-#     Output('figure-data', 'children'),
-#     [Input('network-graph', 'figure')])
-# def display_figure_data(figure):
-#     return json.dumps(figure, indent=2)
-
-
+print('launching dash app')
 app.run_server()
 
 
