@@ -11,8 +11,8 @@ model.load_state_dict(torch.load('./models/cifar/cifar_prunned_0.816_state_dict.
 
 ###IMAGE PATHS
 
-input_img_path =  './image_data/cifar10/input_images'   #Set this to the system path for the folder containing input images you would like to see network activation maps for. (full not relative path)
-rank_img_path = './image_data/cifar10/ranking_images'       #Set this to a path with subfolders, where each subfolder contains a set of images. Subgraph ranks will be based on these subfolders. (full not relative path)
+input_img_path =  './image_data/cifar10/input_images'   #Set this to the system path for the folder containing input images you would like to see network activation maps for.
+rank_img_path = './image_data/cifar10/ranking_images'       #Set this to a path with subfolders, where each subfolder contains a set of images. Subgraph ranks will be based on these subfolders. 
 
 output_folder = 'cifar10_prunned'     #name of folder you want prep model to output to. Not a path here, just a name, it will appear as a folder under prepped_models/. 
 									  #When you launch the visualization tool you will do so with respect to this folder name
