@@ -6,7 +6,7 @@ Once the repository is cloned, the easiest way to set things up is by running:
 
 `python setup.py`
 
-Then answer the prompts to set up your python environment and download supplementary files to large for github storage.
+Then answer the prompts to set up your python environment and download supplementary files too large for github storage.
 
 ## Launching the Visualizer Tool 
 With your setup virtual environment activated, run:
