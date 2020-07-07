@@ -1,5 +1,5 @@
 import os
-from suprocess import call
+from subprocess import call
 
 
 print('Hello! Set up consists of two parts; setting up a python environment,' +
