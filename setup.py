@@ -43,14 +43,14 @@ if resp in ['y','Y','yes','Yes','YES','TRUE','True','true']:
 	try:
 		print('LARGE FOLDER DOWNLOAD\n')
 		print('DOWNLOADING IMAGE-DATA FROM GDRIVE\n')
-		call('wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate \'https://docs.google.com/uc?export=download&id=1QlVe2_uJlHNVwYBiUr1napQtlhkJdG2_\' -O- | sed -rn \'s/.*confirm=([0-9A-Za-z_]+).*/\1\n/p\')&id=1QlVe2_uJlHNVwYBiUr1napQtlhkJdG2_" -O image_data.tgz && rm -rf /tmp/cookies.txt',shell=True)
+		call("wget --load-cookies /tmp/cookies.txt \"https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1QlVe2_uJlHNVwYBiUr1napQtlhkJdG2_' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\\1\\n/p')&id=1QlVe2_uJlHNVwYBiUr1napQtlhkJdG2_\" -O image_data.tgz && rm -rf /tmp/cookies.txt",shell=True)
 		print('\nUNTARING image_data.tgz\n')
-		call('tar -xvzf image_data.tgz',shell=True)
+		call('tar -xzvf image_data.tgz',shell=True)
 
 		print('DOWNLOADING PREPPED-MODELS FROM GDRIVE\n')
-		call('wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate \'https://docs.google.com/uc?export=download&id=1xWf75Cl1RoFcCoPk7fvTsKEMU6xEKcX-\' -O- | sed -rn \'s/.*confirm=([0-9A-Za-z_]+).*/\1\n/p\')&id=1xWf75Cl1RoFcCoPk7fvTsKEMU6xEKcX-" -O prepped_models.tgz && rm -rf /tmp/cookies.txt',shell=True)
+		call("wget --load-cookies /tmp/cookies.txt \"https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1mGsvoRSGW0M9iRYadsBNKSzFfQHlApgF' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\\1\\n/p')&id=1mGsvoRSGW0M9iRYadsBNKSzFfQHlApgF\" -O prepped_models.tgz && rm -rf /tmp/cookies.txt",shell=True)
 		print('\nUNTARING prepped_models.tgz\n')
-		call('tar -xvzf prepped_models.tgz',shell=True)
+		call('tar -xzvf prepped_models.tgz',shell=True)
 	except:
 		print('hmmm something went wrong downloading the google drive files. You can try downloading them manually through the following urls:\n')
 		print('https://drive.google.com/file/d/1QlVe2_uJlHNVwYBiUr1napQtlhkJdG2_/view?usp=sharing')
@@ -64,9 +64,6 @@ else:
 		os.mkdir('./prepped_models')
 
 print('all done!')
-
-
-
 
 
 
