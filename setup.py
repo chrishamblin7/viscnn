@@ -8,11 +8,14 @@ print('Hello! Set up consists of two parts; setting up a python environment,' +
 
 
 #Environment Setup
-resp = raw_input('Would you like to setup a new python environment for this project (y/n): ')
+try:
+	resp = input('Would you like to setup a new python environment for this project (y/n): ')
+except:
+	resp = raw_input('Would you like to setup a new python environment for this project (y/n): ')
 if resp in ['y','Y','yes','Yes','YES','TRUE','True','true']:
 	try:
 		print('Setting up python environment')
-		resp = raw_input('Do you have a conda package manager and would like to use it (y/n): ')
+		resp = input('Do you have a conda package manager and would like to use it (y/n): ')
 		if resp in ['y','Y','yes','Yes','YES','TRUE','True','true']:
 			print('Okay, setting up an environment with conda.')
 			call('conda env create -f setup_scripts/subgraph_visualizer_environment.yml',shell=True)
@@ -38,7 +41,10 @@ if resp in ['y','Y','yes','Yes','YES','TRUE','True','true']:
 #Large Folder Downloading
 print('\nThis repository contains files for models already prepped for visualization' +
 	  'that must be downloaded from google drive.')
-resp = raw_input('Would you like to download these files from google drive now (y/n): ')
+try:
+	resp = input('Would you like to download these files from google drive now (y/n): ')
+except:
+	resp = raw_input('Would you like to download these files from google drive now (y/n): ')
 if resp in ['y','Y','yes','Yes','YES','TRUE','True','true']:
 	try:
 		print('LARGE FOLDER DOWNLOAD\n')
