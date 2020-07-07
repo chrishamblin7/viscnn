@@ -15,7 +15,10 @@ except:
 if resp in ['y','Y','yes','Yes','YES','TRUE','True','true']:
 	try:
 		print('Setting up python environment')
-		resp = input('Do you have a conda package manager and would like to use it (y/n): ')
+		try:
+			resp = input('Do you have a conda package manager and would like to use it (y/n): ')
+		except:
+			resp = raw_input('Do you have a conda package manager and would like to use it (y/n): ')
 		if resp in ['y','Y','yes','Yes','YES','TRUE','True','true']:
 			print('Okay, setting up an environment with conda.')
 			call('conda env create -f setup_scripts/subgraph_visualizer_environment.yml',shell=True)
