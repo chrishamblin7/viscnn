@@ -137,7 +137,7 @@ def image2heatmap(image_path,resize = False,size = (32,32)):          #displays 
 
 def get_channelwise_image(image_name,channel,input_image_directory=input_image_directory):    
     #THIS NEEDS TO BE NORMALIZED AS PER THE MODELS DATALOADER
-    im = Image.open(input_image_directory+image_name)
+    im = Image.open(input_image_directory+'/'+image_name)
     np_full_im = np.array(im)
     return np_full_im[:,:,channel]
 
@@ -795,7 +795,7 @@ app.layout = html.Div(
                 html.Br(),
                 dcc.Graph(
                     id='img-actmap-graph',
-                    figure=image2heatmap(input_image_directory+list_of_input_images[0]),
+                    figure=image2heatmap(input_image_directory+'/'+list_of_input_images[0]),
                     config={
                             'displayModeBar': False
                             }
@@ -1144,7 +1144,7 @@ def update_node_actmap(nodeid,image_name):       #EDIT: needs support for black 
     [Input('input-image-dropdown', 'value')])
 def update_inputimg_actmap(image_name): 
     print('CALLED: update_inputimg_actmap')
-    return image2heatmap(input_image_directory+image_name)
+    return image2heatmap(input_image_directory+'/'+image_name)
 
 
 @app.callback(
