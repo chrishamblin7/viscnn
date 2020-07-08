@@ -208,7 +208,7 @@ for layer in layer_similarities:
 #generate node colors based on target class (nodes that aren't important should be faded)
 print('generating node colors')
 
-target_class = classes[0]
+target_class = classes[1]
 
 #Node Opacity
 layer_colors = ['rgba(31,119,180,', 
