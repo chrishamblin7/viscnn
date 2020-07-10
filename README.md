@@ -8,6 +8,14 @@ Once the repository is cloned, the easiest way to set things up is by running:
 
 Then answer the prompts to set up your python environment and download supplementary files too large for github storage.
 
+`setup.py` will setup a python environment using virtualenv, but if you prefer to  use conda, you can do so with:
+
+`conda env create -f setup_scripts/subgraph_visualizer_environment.yml` 
+
+If using conda, download supplementary files by running the following while in your conda environment:
+
+`python setup_scripts/download_from_gdrive.py`
+
 ## Launching the Visualizer Tool 
 With your setup virtual environment activated, run:
 
