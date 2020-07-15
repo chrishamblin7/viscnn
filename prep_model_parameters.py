@@ -1,6 +1,6 @@
 ### PARAMETER FILE ###
 import torch
-
+import os
 ###MODEL
 
 #There are a lot of ways to load up a model in pytorch, just do whatever you need to do here such that there is a variable 'model' in this file pointing to a working feed-forward CNN
