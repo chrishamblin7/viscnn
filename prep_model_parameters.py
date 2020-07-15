@@ -6,7 +6,7 @@ import torch
 #There are a lot of ways to load up a model in pytorch, just do whatever you need to do here such that there is a variable 'model' in this file pointing to a working feed-forward CNN
 from model_classes import cifar_CNN_prunned
 model = cifar_CNN_prunned()
-model.load_state_dict(torch.load('./models/cifar/cifar_prunned_0.816_state_dict.pt'))
+model.load_state_dict(torch.load('./models/cifar_prunned_0.816_state_dict.pt'))
 
 
 ###IMAGE PATHS
