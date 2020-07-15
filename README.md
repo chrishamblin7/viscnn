@@ -16,7 +16,7 @@ If using conda, download supplementary files by running the following while in y
 
 `python setup_scripts/download_from_gdrive.py`
 
-If setup.py fails to set up your environment for any reason, try setting it up manually using `subgraph_visualizer_pip_requirements.txt` as the requirements file.
+If setup.py fails to set up your environment for any reason, try setting it up manually using `setup_scripts/subgraph_visualizer_pip_requirements.txt` as the requirements file.
 
 ## Launching the Visualizer Tool 
 With your setup virtual environment activated, run:
