@@ -142,6 +142,8 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
     def format_edges(self, data= 'activations'):
         #fetch preadd activations as [img,out_channel, in_channel,h,w]
         #fetch preadd ranks as [out_chan,in_chan]
+
+
         if not self.store_activations:
             print('activations arent stored, use "store_activations=True" on model init. returning None')
             return None
@@ -195,7 +197,9 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 
 
     def forward(self, x):
-        
+        if self.store_activations:
+            self.input = x
+
         preadd_out = self.preadd_conv(x)  #get output of convolutions
 
         #store values of intermediate outputs after convolution

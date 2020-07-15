@@ -48,13 +48,14 @@ output = model_dis(images) #run model forward, storing activations
 #run through all model modules recursively, and pull the activations stored in dissected_Conv2d modules 
 def get_activations_from_dissected_Conv2d_modules(module,layer_activations=None):     
 	if layer_activations is None:    #initialize the output dictionary if we are not recursing and havent done so yet
-		layer_activations = {'nodes':[],'edges':[]}
+		layer_activations = {'nodes':[],'edges_out':[],'edges_in':[]}
 	for layer, (name, submodule) in enumerate(module._modules.items()):
 		#print(submodule)
 		if isinstance(submodule, dissected_Conv2d):
 			layer_activations['nodes'].append(submodule.postbias_out.cpu().detach().numpy())
-			layer_activations['edges'].append(submodule.format_edges(data= 'activations'))
-			print(layer_activations['edges'][-1].shape)
+			layer_activations['edges_in'].append(submodule.input.cpu().detach().numpy())
+			layer_activations['edges_out'].append(submodule.format_edges(data= 'activations'))
+			print(layer_activations['edges_out'][-1].shape)
 		elif len(list(submodule.children())) > 0:
 			layer_activations = get_activations_from_dissected_Conv2d_modules(submodule,layer_activations=layer_activations)   #module has modules inside it, so recurse on this module
 
