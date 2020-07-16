@@ -2,17 +2,34 @@
 
 from google_drive_downloader import GoogleDriveDownloader as gdd
 from subprocess import call
+import os
+
+if not os.path.exists('../image_data'):
+	os.mkdir('../image_data')
+if not os.path.exists('../prepped_data'):
+	os.mkdir('../prepped_models')
+
 
 try:
 	print('LARGE FOLDER DOWNLOAD\n')
 	print('DOWNLOADING IMAGE-DATA FROM GDRIVE\n')
-	gdd.download_file_from_google_drive(file_id='1QlVe2_uJlHNVwYBiUr1napQtlhkJdG2_', dest_path='../image_data.tgz', overwrite=True)
-	print('\nUNTARING image_data.tgz\n')
-	call('tar -xzvf ../image_data.tgz',shell=True)
+	#cifar10
+	print('cifar10')
+	print('downloading')
+	gdd.download_file_from_google_drive(file_id='17pjtPG-MJK7mhTh_KHvHLHUwSButkwLA', dest_path='../image_data/cifar10.tgz', overwrite=True)
+	print('untaring')
+	call('tar -xzvf ../image_data/cifar10.tgz',shell=True)
+	call('rm ../image_data/cifar10.tgz',shell=True)
+
 	print('DOWNLOADING PREPPED-MODELS FROM GDRIVE\n')
-	gdd.download_file_from_google_drive(file_id='1nfGNi7vMch6G1puGAGIokSADsc6mvyoX', dest_path='../prepped_models.tgz', overwrite=True)
-	print('\nUNTARING prepped_models.tgz\n')
-	call('tar -xzvf ../prepped_models.tgz',shell=True)
+	#cifar10_prunned
+	print('cifar10_prunned')
+	print('downloading')
+	gdd.download_file_from_google_drive(file_id='1GY-u1JC2PQaiXznHQ1nkV6lMDI0laJ7G', dest_path='../prepped_models/cifar10_prunned.tgz', overwrite=True)
+	print('untaring')
+	call('tar -xzvf ../prepped_models/cifar10_prunned.tgz',shell=True)
+	call('rm ../prepped_models/cifar10_prunned.tgz',shell=True)
+
 except:
 	print('hmmm something went wrong downloading the google drive files. You can try downloading them manually through the following urls:\n')
 	print('https://drive.google.com/file/d/1QlVe2_uJlHNVwYBiUr1napQtlhkJdG2_/view?usp=sharing')
