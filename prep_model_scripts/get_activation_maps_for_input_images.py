@@ -48,7 +48,7 @@ output = model_dis(images) #run model forward, storing activations
 #run through all model modules recursively, and pull the activations stored in dissected_Conv2d modules 
 def get_activations_from_dissected_Conv2d_modules(module,layer_activations=None):     
 	if layer_activations is None:    #initialize the output dictionary if we are not recursing and havent done so yet
-		layer_activations = {'nodes':[],'edges_out':[],'edges_in':[]}
+		layer_activations = {'nodes':[],'edges_in':[],'edges_out':[]}
 	for layer, (name, submodule) in enumerate(module._modules.items()):
 		#print(submodule)
 		if isinstance(submodule, dissected_Conv2d):
