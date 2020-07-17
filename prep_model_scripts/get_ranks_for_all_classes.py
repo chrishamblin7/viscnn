@@ -4,9 +4,13 @@
 from subprocess import call, Popen
 import os
 import time
+import torch
 import sys
-sys.path.insert(0, '../')
+sys.path.insert(0, os.path.abspath('../'))
+
+os.chdir('../')
 import prep_model_parameters as params
+os.chdir('./prep_model_scripts')
 
 
 
@@ -18,6 +22,7 @@ def make_dummy_dir(orig_path):
 	dummy_path = '/'.join(path_split)
 	os.makedirs(dummy_path,exist_ok=True)
 	subdirs = os.listdir(orig_path)
+	subdirs.sort()
 	for subdir in subdirs:
 		os.makedirs(os.path.join(dummy_path,subdir),exist_ok=True)
 	return dummy_path, subdirs
@@ -72,7 +77,7 @@ node_column_names = ['node_num','layer','node_num_by_layer','rank_score','class'
 node_df = pd.DataFrame(allnode_dflist,columns=node_column_names)
 #add overall (average) rank
 node_overall_list = []
-for i in range(len(node_num)):
+for i in range(node_num):
 	rank = sum(node_df.loc[(node_df['node_num'] == i)]['rank_score'])/len(node_df.loc[(node_df['node_num'] == i)]['rank_score'])
 	layer = node_df.loc[(node_df['node_num'] == i)]['layer'].iloc[0]
 	node_num_by_layer = node_df.loc[(node_df['node_num'] == i)]['node_num_by_layer'].iloc[0]
@@ -89,7 +94,7 @@ edge_column_names = ['edge_num','layer','out_channel','in_channel','rank_score',
 edge_df = pd.DataFrame(alledge_dflist,columns=edge_column_names)
 #add overall (average) rank
 edge_overall_list = []
-for i in range(len(edge_num)):
+for i in range(edge_num):
 	rank = sum(edge_df.loc[(edge_df['edge_num'] == i)]['rank_score'])/len(edge_df.loc[(edge_df['edge_num'] == i)]['rank_score'])
 	layer = edge_df.loc[(edge_df['edge_num'] == i)]['layer'].iloc[0]
 	out_channel = edge_df.loc[(edge_df['edge_num'] == i)]['out_channel'].iloc[0]

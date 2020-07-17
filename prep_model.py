@@ -1,6 +1,6 @@
 import os
 from subprocess import call
-from params import output_folder
+from prep_model_parameters import output_folder
 
 
 #Set up output directory
@@ -11,7 +11,7 @@ if not os.path.exists('prepped_models/'+output_folder):
 	os.mkdir('prepped_models/'+output_folder)
 else:
 	print('prepped_models/%s already exists! It will be overwritten!'%output_folder)
-	resp = raw_input('Are you sure you want to continue and overwrite this folder [y/n]:')
+	resp = input('Are you sure you want to continue and overwrite this folder [y/n]:')
 	if resp not in ['y','Y','yes','Yes','YES','TRUE','True','true']:
 		go = False
 

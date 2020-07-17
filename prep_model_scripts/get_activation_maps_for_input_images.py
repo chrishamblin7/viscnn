@@ -7,9 +7,11 @@ from torchvision import datasets, transforms, utils
 from dissected_Conv2d import *
 from copy import deepcopy
 import sys
-sys.path.insert(0, '../')
-import prep_model_parameters as params
+sys.path.insert(0, os.path.abspath('../'))
 
+os.chdir('../')
+import prep_model_parameters as params
+os.chdir('./prep_model_scripts')
 
 ###MODEL LOADING
 model=params.model 

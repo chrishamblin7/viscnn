@@ -53,3 +53,24 @@ class cifar_CNN_prunned(nn.Module):
 		x = torch.flatten(x, 1)
 		x = self.classifier(x)
 		return x
+
+
+class MNIST(nn.Module):
+	def __init__(self, out_channels = 10):
+		super(MNIST, self).__init__()
+		self.out_channels = out_channels
+
+		self.conv1 = nn.Conv2d(1, 20, 5, 1)
+		self.conv2 = nn.Conv2d(20, 50, 3, 1)
+		self.avgpool = nn.AdaptiveAvgPool2d((4, 4))
+		self.fc1 = nn.Linear(4*4*50, 500)
+		self.fc2 = nn.Linear(500, self.out_channels)
+
+	def forward(self, x):
+		x = F.relu(self.conv1(x))
+		x = F.relu(self.conv2(x))
+		x = self.avgpool(x)
+		x = x.view(-1, 4*4*50)
+		x = F.relu(self.fc1(x))
+		x = self.fc2(x)
+		return F.log_softmax(x, dim=1)

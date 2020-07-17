@@ -1,6 +1,8 @@
 ### PARAMETER FILE ###
 import torch
 import os
+
+
 ###MODEL
 
 #There are a lot of ways to load up a model in pytorch, just do whatever you need to do here such that there is a variable 'model' in this file pointing to a working feed-forward CNN
@@ -50,4 +52,5 @@ batch_size = 200    #batch size for feeding rank image set through model (input 
 
 input_img_path =  os.path.abspath(input_img_path)
 rank_img_path = os.path.abspath(rank_img_path)
+
 
