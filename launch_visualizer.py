@@ -54,6 +54,8 @@ classes = list(nodes_df['class'].unique())
 classes.remove('overall')
 classes.insert(0,'overall')
 
+nodes_wide_df.head(10)
+
 
 
 #misc formatting functions
@@ -79,13 +81,12 @@ def get_nth_element_from_nested_list(l,n):    #this seems to come up with the ne
   
 
 
-
 ## adding images
 print('loading input images')
 
 import os
 
-input_image_directory = params.input_img_path
+input_image_directory = params.input_img_path+'/'
 list_of_input_images = os.listdir(input_image_directory)
 list_of_input_images.sort()
 
@@ -95,32 +96,42 @@ def rgb2hex(r, g, b):
     return '#{:02x}{:02x}{:02x}'.format(r, g, b)
 
 
-def image2heatmap(image_path,resize = False,size = (32,32)):          #displays image as a plotly heatmap object, with colors preserved 
+def image2heatmap(image_path,resize = False,size = (32,32)):          #displays image as a plotly heatmap object, with colors preserved
+    
     img = Image.open(image_path)
     if resize:
         img = img.resize(size,resample=Image.NEAREST)
-    pixels = img.convert('RGBA').load() #rgba values
-    width, height = img.size   #width and height of image
-    num_pixels = width*height
-    step = 1/num_pixels
+    np_img = np.array(img)    
     
-    colorscale = []           
-    z = []
-    
-    i = 0
-    for y in range(height):
-        z.append([])
-        for x in range(width):
-            z[-1].append(step*(i+.5))
-            r, g, b, a = pixels[x, y]
-            #colorscale.append([step*i,'rgba(%s,%s,%s,%s)'%(r,b,g,a)])
-            #colorscale.append([step*(i+1),'rgba(%s,%s,%s,%s)'%(r,b,g,a)])
-            colorscale.append([step*i,rgb2hex(r, g, b)])
-            colorscale.append([step*(i+1),rgb2hex(r, g, b)])
-            i+=1     
-    heatmap = go.Heatmap(z=np.flip(np.array(z),0), 
-                     colorscale = colorscale, 
-                     showscale = False)
+    if len(np_img.shape) == 2: #grayscale img
+        colorscale = [[0,"black"], [1,"white"]]
+        heatmap = go.Heatmap(z=np.flip(np.array(np_img),0), 
+                 colorscale = colorscale, 
+                 showscale = False) 
+        
+    else:   #rgb image
+        pixels = img.convert('RGBA').load() #rgba values
+        width, height = img.size   #width and height of image
+        num_pixels = width*height
+        step = 1/num_pixels
+
+        colorscale = []           
+        z = []
+
+        i = 0
+        for y in range(height):
+            z.append([])
+            for x in range(width):
+                z[-1].append(step*(i+.5))
+                r, g, b, a = pixels[x, y]
+                colorscale.append([step*i,rgb2hex(r, g, b)])
+                colorscale.append([step*(i+1),rgb2hex(r, g, b)])
+                i+=1     
+        heatmap = go.Heatmap(z=np.flip(np.array(z),0), 
+                         colorscale = colorscale, 
+                         showscale = False)
+        
+        
     fig = go.Figure(data=[heatmap])
 
     fig.update_layout(width=350, 
@@ -135,19 +146,19 @@ def image2heatmap(image_path,resize = False,size = (32,32)):          #displays 
                     )
     return fig
 
+
+#this is currently unused as edge_inputs are used for each channel image
 def get_channelwise_image(image_name,channel,input_image_directory=input_image_directory):    
     #THIS NEEDS TO BE NORMALIZED AS PER THE MODELS DATALOADER
-    im = Image.open(input_image_directory+'/'+image_name)
+    im = Image.open(input_image_directory+image_name)
     np_full_im = np.array(im)
     return np_full_im[:,:,channel]
-
-
 
 
 #load edges
 print('loading edge data')
 
-edges_df = pd.read_csv('prepped_models/%s/edge_ranks.csv'%prepped_model_folder)   
+edges_df = pd.read_csv('prepped_models/%s/edge_ranks.csv'%prepped_model_folder)   #load edges
 
 #make edges wide format df
 edges_wide_df = edges_df.pivot(index = 'edge_num',columns='class', values='rank_score')
@@ -156,11 +167,9 @@ edges_wide_df['layer'] = edges_wide_df['edge_num'].apply(get_col, df=edges_df,id
 edges_wide_df['in_channel'] = edges_wide_df['edge_num'].apply(get_col, df=edges_df,idx='edge_num',col='in_channel')
 edges_wide_df['out_channel'] = edges_wide_df['edge_num'].apply(get_col, df=edges_df,idx='edge_num',col='out_channel')
 
-print(edges_df.head(4605))
-edges_wide_df.head(165)
-#edges_df.loc[(edges_df['rank_score'] > .05) & (edges_df['class'] == 'frog')]
-
 num_edges = len(edges_wide_df.index) #number of total edges
+
+print(edges_wide_df.head(10))
 
 
 
@@ -195,20 +204,19 @@ for layer in layer_nodes:
 
 layer_mds = {}
 for layer in layer_similarities:
-	print('layer: %s'%str(layer))
-	mds = manifold.MDS(n_components=2, max_iter=3000, eps=1e-9, 
+    print('layer: %s'%str(layer))
+    mds = manifold.MDS(n_components=2, max_iter=3000, eps=1e-9, 
       random_state=2, dissimilarity="precomputed", n_jobs=1)
-	pos = mds.fit(layer_similarities[layer]).embedding_
-	layer_mds[layer] = pos
+    pos = mds.fit(layer_similarities[layer]).embedding_
+    layer_mds[layer] = pos
 
-#print(layer_mds)
 
 
 
 #generate node colors based on target class (nodes that aren't important should be faded)
 print('generating node colors')
 
-target_class = classes[1]
+target_class = classes[0]
 
 #Node Opacity
 layer_colors = ['rgba(31,119,180,', 
@@ -251,7 +259,7 @@ node_colors,node_weights = gen_node_colors(target_class)     #list of lists
 
 
 #Node positions
-#def gen_node_positions()
+
 layer_distance = 1   # distance in X direction each layer is separated by
 node_positions = []
 layer_offset = 0
@@ -266,8 +274,6 @@ for layer in layer_mds:
         node_positions[-1]['X'].append(layer_offset)
     layer_offset+=1*layer_distance
 
-#print(node_positions[0])
-
 
 
 
@@ -275,7 +281,6 @@ for layer in layer_mds:
 
 #image nodes (one for each channel of input image)
 print('generating image channel nodes')
-
 
 num_img_chan = len(edges_df.loc[edges_df['layer'] == 0]['in_channel'].unique()) #number of channels in input image
 
@@ -306,7 +311,6 @@ def gen_imgnode_graphdata(num_chan = num_img_chan):     #returns positions, colo
         positions['Z'].append(round(np.cos(a*p)/5,2)) 
     
     return positions, colors, names
-    
 
 imgnode_positions,imgnode_colors,imgnode_names = gen_imgnode_graphdata()
 
@@ -315,6 +319,7 @@ imgnode_positions,imgnode_colors,imgnode_names = gen_imgnode_graphdata()
 
 #Edge selection
 print('edge selection')
+
 def edge_width_scaling(x):
     return max(.4,(x*10)**1.7)
 
@@ -326,14 +331,10 @@ def get_thresholded_edges(threshold,df=edges_df,target_class=target_class):     
     if len(threshold) != 2:
         raise Exception('length of threshold needs to be two ([lower, higher])')
     return edges_df.loc[(edges_df['rank_score'] >= threshold[0]) & (edges_df['rank_score'] <= threshold[1]) & (edges_df['class'] == target_class)]
-    #return edges_df.loc[(threshold[0] <= edges_df['rank_score'] <= threshold[1]) & (edges_df['class'] == target_class)]
-    #return edges_df.loc[(edges_df['rank_score'] >= threshold[0]) & (edges_df['class'] == target_class)]
 
 
 edge_threshold = [.1,1]
 edges_select_df = get_thresholded_edges(edge_threshold)
-
-
 
 def get_max_edge_widths(edge_widths):
     maxes = []
@@ -414,11 +415,8 @@ def get_edge_from_curvenumber(curvenum,edge_names, num_layers= num_layers):
     return None,None,None
     
 
-
 edge_positions, edge_colors, edge_widths, edge_weights, edge_names, max_edge_width_indices = gen_edge_graphdata()
-#max_edge_width_indices = get_max_edge_widths(edge_widths)
 max_edge_weight = edges_df.max().rank_score
-
 
 
 
@@ -438,7 +436,6 @@ print('loading convolutional kernels')
 
 kernels = torch.load('prepped_models/%s/kernels.pt'%prepped_model_folder)
 
-#print(kernels[0].shape)
 
 #Function for taking a string of form 'node1-node2' and outputting edge info
 def check_edge_validity(nodestring):
@@ -469,24 +466,24 @@ def edgename_2_edge_figures(edgename,kernels=kernels,activations=activations, im
     if valid:
         kernel = kernels[to_layer][to_within_id][from_within_id]
         if from_layer == 'img':
-            in_map = get_channelwise_image(imagename,from_within_id)
+            #in_map = get_channelwise_image(imagename,from_within_id)
+            in_map = activations['edges_in'][0][list_of_input_images.index(imagename)][from_within_id]
         else:
             ####!!!!!!!! This needs to be put through activation function (relu)
-            in_map = activations['nodes'][from_layer][list_of_input_images.index(imagename)][from_within_id]
-        out_map = activations['edges'][to_layer][list_of_input_images.index(imagename)][to_within_id][from_within_id]
+            #in_map = activations['nodes'][from_layer][list_of_input_images.index(imagename)][from_within_id]
+            in_map = activations['edges_in'][from_layer+1][list_of_input_images.index(imagename)][from_within_id]
+        out_map = activations['edges_out'][to_layer][list_of_input_images.index(imagename)][to_within_id][from_within_id]
         return np.flip(kernel,0),np.flip(in_map,0),np.flip(out_map,0)
         
     else:
         return None,None,None
     
 
-print(edgename_2_edge_figures('b-0')[0])
-print(np.flip(kernels[0][0][2],0))
+#print(edgename_2_edge_figures('b-0')[0])
+#print(np.flip(kernels[0][0][2],0))
 
 
 
-
-print('building graph')
 #hidden state, stores python values within the html itself
 state = {'edge_positions':edge_positions,'edge_colors': edge_colors, 'edge_widths':edge_widths,'edge_names':edge_names,
          'edge_threshold':edge_threshold,'edge_weights':edge_weights,'max_edge_width_indices':max_edge_width_indices,
@@ -497,9 +494,9 @@ state = {'edge_positions':edge_positions,'edge_colors': edge_colors, 'edge_width
 
 
 
-
-
-
+#Generate Network Graph Figure
+print('building graph')
+#hidden state, stores python values within the html itself
 
 #import chart_studio.plotly as py
 import plotly.offline as py    #added
@@ -508,8 +505,7 @@ import plotly.graph_objs as go
 
 from copy import deepcopy
 
-# right now this is called everytime graph is updated, might be more efficient to store combined_traces somehow,
-# and only update whats changed
+
 def gen_networkgraph_traces(state):
     #add imgnodes
     colors = deepcopy(state['imgnode_colors'])
@@ -605,6 +601,12 @@ axis=dict(showbackground=False,
           title=''
           )
 
+camera = dict(
+    up=dict(x=0, y=0, z=1),
+    center=dict(x=0, y=0, z=0),
+    eye=dict(x=-1.00, y=-1.25, z=1.25)
+)
+
 network_graph_layout = go.Layout(
          #title="%s through Prunned Cifar10 CNN"%target_class,
          #title = target_class,
@@ -621,6 +623,7 @@ network_graph_layout = go.Layout(
              aspectmode ="manual", 
              aspectratio = dict(x=1, y=0.5, z=0.5) #adjusting this stretches the network layer-to-layer
          ),
+         scene_camera = camera,
          uirevision =  True   
          #hovermode='closest',
    )
@@ -653,7 +656,7 @@ node_actmap_layout = go.Layout(
 edge_inmap_layout = go.Layout(
     #title = 'edge input map',
     autosize=False,
-    width=260,
+    width=240,
     height=200,
     uirevision = True,
     margin=dict(
@@ -668,7 +671,7 @@ edge_inmap_layout = go.Layout(
 edge_outmap_layout = go.Layout(
     #title = 'edge output map',
     autosize=False,
-    width=260,
+    width=270,
     height=200,
     uirevision = True,
     margin=dict(
@@ -694,11 +697,14 @@ kernel_layout = go.Layout(
         pad=1
     ))
 
+
 network_graph_fig=go.Figure(data=combined_traces, layout=network_graph_layout)
 
-#state['combined_traces']=combined_traces
 
 
+
+
+#Dash App Setup
 print('setting up dash app')
 
 import dash
@@ -728,182 +734,188 @@ styles = {
 }
 
 
-app.layout = html.Div(
-        [html.Div(         #Left side control panel
-            children = [
-             html.Label('Weighting Category'),
-             dcc.Dropdown(
-                id='weight-category',
-                options=[{'label': i, 'value': i} for i in classes],
-                value=target_class
-                ),
-             html.Br(),
-             html.Label('Weighting Criterion'),
-             dcc.Dropdown(
-                id='weight-criterion',
-                options=[
-                    {'label': 'Activations*Grads', 'value': 'actgrads'},
-                    {'label': 'Activations', 'value': 'acts'}
-                ],
-                value='actgrads'
-                ),
-             html.Br(),   
-             html.Label('Layer Projection'),
-             dcc.Dropdown(
-                id = 'layer-projection',
-                options=[
-                    {'label': 'MDS', 'value': 'MDS'},
-                    {'label': 'Grid', 'value': 'grid'},
-                    #{'label': 'SOM', 'value': 'SOM'}
-                ],
-                value='MDS'
-                ),
 
-            html.Br(),
-            html.Label('Edge Thresholds'),
-                dcc.RangeSlider(
-                    id='edge-thresh-slider',
-                    min=0,
-                    max=np.ceil(max_edge_weight*10)/10,
-                    step=0.001,
-                    marks={i/10: str(i/10) for i in range(0,int(np.ceil(max_edge_weight*10))+1,int(round(np.ceil(max_edge_weight*10)/5)))},
-                    value=[.1,np.ceil(max_edge_weight*10)/10],
-                ),
-                
-            ], className="two columns"
-        ),
-
+app.layout = html.Div([
         html.Div(
             children = [
+                
+            html.Div(
+                #Left side control panel
+                children = [
+                 html.Label('Weighting Category'),
+                 dcc.Dropdown(
+                    id='weight-category',
+                    options=[{'label': i, 'value': i} for i in classes],
+                    value=target_class
+                    ),
+                 html.Br(),
+                 html.Label('Weighting Criterion'),
+                 dcc.Dropdown(
+                    id='weight-criterion',
+                    options=[
+                        {'label': 'Activations*Grads', 'value': 'actgrads'},
+                        {'label': 'Activations', 'value': 'acts'}
+                    ],
+                    value='actgrads'
+                    ),
+                 html.Br(),   
+                 html.Label('Layer Projection'),
+                 dcc.Dropdown(
+                    id = 'layer-projection',
+                    options=[
+                        {'label': 'MDS', 'value': 'MDS'},
+                        {'label': 'Grid', 'value': 'grid'},
+                        #{'label': 'SOM', 'value': 'SOM'}
+                    ],
+                    value='MDS'
+                    ),
+
+                html.Br(),
+                html.Label('Edge Thresholds'),
+                    dcc.RangeSlider(
+                        id='edge-thresh-slider',
+                        min=0,
+                        max=np.ceil(max_edge_weight*10)/10,
+                        step=0.001,
+                        marks={i/10: str(i/10) for i in range(0,int(np.ceil(max_edge_weight*10))+1,int(round(np.ceil(max_edge_weight*10)/5)))},
+                        value=[.1,np.ceil(max_edge_weight*10)/10],
+                    ),
+
+                ], className="two columns",
+                ),
                 
             html.Div([
                 dcc.Graph(
                     id='network-graph',
                     figure=network_graph_fig
                 )
-            ], className= 'row'
+                ], className= 'ten columns'
+                ),
+            ], className="row"
+        ),
+
+
+                
+        html.Div([
+            html.Div([
+            html.Label('Input Image'),
+            dcc.Dropdown(
+                id='input-image-dropdown',
+                options=[{'label': i, 'value': i} for i in list_of_input_images],
+                value=list_of_input_images[0]
             ),
-                
+            html.Br(),
+            dcc.Graph(
+                id='img-actmap-graph',
+                figure=image2heatmap(input_image_directory+list_of_input_images[0]),
+                config={
+                        'displayModeBar': False
+                        }
+            )
+            ], className = "three columns"),
+
             html.Div([
-                html.Div([
-                html.Label('Input Image'),
-                dcc.Dropdown(
-                    id='input-image-dropdown',
-                    options=[{'label': i, 'value': i} for i in list_of_input_images],
-                    value=list_of_input_images[0]
-                ),
-                html.Br(),
-                dcc.Graph(
-                    id='img-actmap-graph',
-                    figure=image2heatmap(input_image_directory+'/'+list_of_input_images[0]),
-                    config={
-                            'displayModeBar': False
-                            }
-                )
-                ], className = "three columns"),
-                
-                html.Div([
-                html.Label('Node'),
-                dcc.Dropdown(
-                    id='node-actmap-dropdown',
-                    options=[{'label': str(j), 'value': str(j)} for j in imgnode_names]+[{'label': str(i), 'value': str(i)} for i in range(num_nodes)],
-                    value='0'
-                ),
-                html.Br(),
-                dcc.Graph(
-                    id='node-actmap-graph',
-                    figure=go.Figure(data=go.Heatmap(
-                                        z = np.flip(activations['nodes'][0][0][0],0)),
-                                        layout=input_image_layout
-                                    ),
-                    config={
-                            'displayModeBar': False
-                            }
-                )
-                ], className = "three columns"),
-                
-                html.Div([
-                html.Label('Edge'),    
-                dcc.Input(
-                    id='edge-actmaps-input',value=state['edge_names'][0][0], type='text'),
-                #html.Button(id='edge-kernel-button',n_clicks=0, children='Submit'),
-                html.Br(),
-                html.Br(),
-                dcc.Graph(
-                    id='edge-kernel-graph',
-                    figure=go.Figure(data=go.Heatmap(
-                                        z = edgename_2_edge_figures(state['edge_names'][0][0])[0]),
-                                     layout=kernel_layout
-                                    ),
-                    config={
-                            'displayModeBar': False
-                            }
-                )
-                ], className = "two columns"),
-                
-                
-                html.Div([
-                dcc.Graph(
-                    id='edge-inmap-graph',
-                    figure=go.Figure(data=go.Heatmap(
-                                        z = edgename_2_edge_figures(state['edge_names'][0][0])[1]),
-                                     layout=edge_inmap_layout
-                                    ),
-                    config={
-                            'displayModeBar': False
-                            }
-                ),
-                html.Br(),
-                html.Br(),
-                dcc.Graph(
-                    id='edge-outmap-graph',
-                    figure=go.Figure(data=go.Heatmap(
-                                        z = edgename_2_edge_figures(state['edge_names'][0][0])[2]),
-                                     layout=edge_outmap_layout
-                                    ),
-                    config={
-                            'displayModeBar': False
-                            }
-                )
-                ], className = "three columns")
-                
-                
-             ], className= 'row'
-             ),
-                
-                
+            html.Label('Node'),
+            dcc.Dropdown(
+                id='node-actmap-dropdown',
+                options=[{'label': str(j), 'value': str(j)} for j in imgnode_names]+[{'label': str(i), 'value': str(i)} for i in range(num_nodes)],
+                value='0'
+            ),
+            html.Br(),
+            dcc.Graph(
+                id='node-actmap-graph',
+                figure=go.Figure(data=go.Heatmap(
+                                    z = np.flip(activations['nodes'][0][0][0],0)),
+                                    layout=input_image_layout
+                                ),
+                config={
+                        'displayModeBar': False
+                        }
+            )
+            ], className = "three columns"),
+
             html.Div([
-                html.Div([
-                    dcc.Markdown("""
-                        **Hover Data**
+            html.Label('Edge'),    
+            dcc.Input(
+                id='edge-actmaps-input',value=state['edge_names'][0][0], type='text'),
+            #html.Button(id='edge-kernel-button',n_clicks=0, children='Submit'),
+            html.Br(),
+            html.Br(),
+            dcc.Graph(
+                id='edge-kernel-graph',
+                figure=go.Figure(data=go.Heatmap(
+                                    z = edgename_2_edge_figures(state['edge_names'][0][0])[0]),
+                                 layout=kernel_layout
+                                ),
+                config={
+                        'displayModeBar': False
+                        }
+            )
+            ], className = "three columns"),
 
-                        Mouse over values in the graph.
-                    """),
-                    html.Pre(id='hover-data', style=styles['pre'])
-                ], className='two columns'),
 
-                html.Div([
-                    dcc.Markdown("""
-                        **Click Data**
+            html.Div([
+            dcc.Graph(
+                id='edge-inmap-graph',
+                figure=go.Figure(data=go.Heatmap(
+                                    z = edgename_2_edge_figures(state['edge_names'][0][0])[1]),
+                                 layout=edge_inmap_layout
+                                ),
+                config={
+                        'displayModeBar': False
+                        }
+            ),
+            html.Br(),
+            html.Br(),
+            dcc.Graph(
+                id='edge-outmap-graph',
+                figure=go.Figure(data=go.Heatmap(
+                                    z = edgename_2_edge_figures(state['edge_names'][0][0])[2]),
+                                 layout=edge_outmap_layout
+                                ),
+                config={
+                        'displayModeBar': False
+                        }
+            )
+            ], className = "three columns")
 
-                        Click on points in the graph.
-                    """),
-                    html.Pre(id='click-data', style=styles['pre']),
-                ], className='two columns'),
 
-                html.Div([
-                    dcc.Markdown("""
-                        **Selection Data**
+         ], className= 'row'
+         ),
+                
+                
+        html.Div([
+            html.Div([
+                dcc.Markdown("""
+                    **Hover Data**
 
-                        Choose the lasso or rectangle tool in the graph's menu
-                        bar and then select points in the graph.
+                    Mouse over values in the graph.
+                """),
+                html.Pre(id='hover-data', style=styles['pre'])
+            ], className='two columns'),
 
-                        Note that if `layout.clickmode = 'event+select'`, selection data also 
-                        accumulates (or un-accumulates) selected data if you hold down the shift
-                        button while clicking.
-                    """),
-                    html.Pre(id='selected-data', style=styles['pre']),
-                ], className='two columns'),
+            html.Div([
+                dcc.Markdown("""
+                    **Click Data**
+
+                    Click on points in the graph.
+                """),
+                html.Pre(id='click-data', style=styles['pre']),
+            ], className='two columns'),
+
+            html.Div([
+                dcc.Markdown("""
+                    **Selection Data**
+
+                    Choose the lasso or rectangle tool in the graph's menu
+                    bar and then select points in the graph.
+
+                    Note that if `layout.clickmode = 'event+select'`, selection data also 
+                    accumulates (or un-accumulates) selected data if you hold down the shift
+                    button while clicking.
+                """),
+                html.Pre(id='selected-data', style=styles['pre']),
+            ], className='two columns'),
 
 #                 html.Div([
 #                     dcc.Markdown("""
@@ -917,19 +929,18 @@ app.layout = html.Div(
 #                     html.Pre(id='relayout-data', style=styles['pre']),
 #                 ], className='two columns')
                 
-                html.Div([
-                    dcc.Markdown("""
-                        **Figure Data**
+            html.Div([
+                dcc.Markdown("""
+                    **Figure Data**
 
-                        Figure json info.
-                    """),
-                    html.Pre(id='figure-data', style=styles['pre']),
-                ], className='four columns')
-                
-            ], className= 'row'
-            )
-        ], className="ten columns"
+                    Figure json info.
+                """),
+                html.Pre(id='figure-data', style=styles['pre']),
+            ], className='four columns')
+
+        ], className= 'row'
         ),
+
     #hidden divs for storing intermediate values     
     # The memory store reverts to the default on every page refresh
     dcc.Store(id='memory'),
@@ -945,47 +956,10 @@ app.layout = html.Div(
 
 
 
+
 ####Call Back Functions
 
-
-# @app.callback(
-#     [Output('network-graph', 'figure'),
-#      Output('previous-click','children')],
-#     [Input('network-graph', 'clickData'),
-#      Input('previous-click','children')])
-# def highlight_on_click(clickData,state,previous_click =False):
-#     #if clickData['points'][0]['curveNumber'] == None:
-#     if not clickData:
-#         raise Exception('no point clicked yet') 
-#     #recolor previous click 
-#     if previous_click:
-#         if previous_click == 0:
-#             state['combined_traces'][0]['marker']['color'] = state['imgnode_colors']
-#         elif previous_click < num_layers+1:
-#             state['combined_traces'][previous_click]['marker']['color'] = state['node_colors'][previous_click-1]
-#         else:
-#             layer,position = get_edge_layer_from_curvenumber(previous_click,state['edge_names'])
-#             state['combined_traces'][previous_click]['line']['color'] == state['edge_colors'][layer][position]
-#     #blackout click
-#     trace_num = int(clickData['points'][0]['curveNumber'])
-#     if trace_num == 0:
-#         new_colors = state['imgnode_colors']
-#         new_colors[clickData['points'][0]['pointNumber']] = 'rgba(0,0,0,1)'        
-#     elif trace_num < num_layers +1:   #highlight point
-#         new_colors = list(state['node_colors'][trace_num-1])
-#         new_colors[clickData['points'][0]['pointNumber']] = 'rgba(0,0,0,1)'
-#         state['combined_traces'][trace_num]['marker']['color'] = new_colors
-#     else: #highlight edge
-#         state['combined_traces'][trace_num]['line']['color'] = 'rgba(0,0,0,1)'
-#     return 
-  
-#     layout = graph_layout
-#     layout['uirevision'] = True
-#     previous_click = {'curveNumber':clickData['points'][0]['curveNumber'],'pointNumber':clickData['points'][0]['pointNumber']}
-#     return {'data': combined_traces,'layout': layout},json.dumps(previous_click)
-
-
-
+#Hidden State
 @app.callback(
     Output('session', 'data'),
     [Input('weight-category', 'value'),
@@ -1036,7 +1010,7 @@ def update_store(target_class,node_value,edge_value,edge_threshold,state):
     return state
 
 
-
+#Network Graph Figure
 @app.callback(
     Output('network-graph', 'figure'),
     [Input('session', 'data')],
@@ -1053,7 +1027,7 @@ def update_figure(state, fig):
         flat_edge_names = [item for sublist in state['edge_names'] for item in sublist]
         flat_edge_colors = [item for sublist in state['edge_colors'] for item in sublist]
         try:  #update current edge if it exists to black
-            print(flat_edge_names)
+            #print(flat_edge_names)
             fig['data'][flat_edge_names.index(state['edge_select_history'][-1])+num_layers+1]['line']['color'] = 'rgba(0,0,0,1)'
         except:
             print('select edge, %s,  not recolored as no longer shown'%state['edge_select_history'][-1])
@@ -1079,18 +1053,16 @@ def update_figure(state, fig):
                 fig['data'][prev_select_layer+1]['marker']['color'][prev_select_position] = state['node_colors'][prev_select_layer][prev_select_position]
             else:   #imgnode
                 fig['data'][0]['marker']['color'][fig['data'][0]['text'].index(state['node_select_history'][-2])] = state['imgnode_colors'][fig['data'][0]['text'].index(state['node_select_history'][-2])]
+        #fig['layout']['uirevision']=True   
         return fig    
     else:   #regenerate full traces
         combined_traces = gen_networkgraph_traces(state)    
         layout = network_graph_layout
-        #layout['uirevision'] = True
+        layout['uirevision'] = True
         return {'data': combined_traces,
             'layout': layout}
 
-
-
-#CALLBACKS
-
+#Node Actmap Dropdown
 @app.callback(
     Output('node-actmap-dropdown', 'value'),
     [Input('network-graph', 'clickData')],
@@ -1105,6 +1077,7 @@ def switch_node_actmap_click(clickData,current_value):
         #raise Exception('edge was clicked')
     return clickData['points'][0]['text']
 
+#Edge Actmaps Input
 @app.callback(
     Output('edge-actmaps-input', 'value'),
     [Input('network-graph', 'clickData')],
@@ -1121,8 +1094,7 @@ def switch_edge_actmaps_click(clickData,current_value,state):
     return get_nth_element_from_nested_list(state['edge_names'],int(clickData['points'][0]['curveNumber'])-(num_layers+1))
 
 
-
-
+#Node actmap graph
 @app.callback(
     Output('node-actmap-graph', 'figure'),
     [Input('node-actmap-dropdown', 'value'),
@@ -1131,7 +1103,8 @@ def update_node_actmap(nodeid,image_name):       #EDIT: needs support for black 
     print('CALLED: update_node_actmap')
     layer, within_id = nodeid_2_perlayerid(nodeid)
     if layer == 'img': #code for returning color channel as activation map
-        np_chan_im = get_channelwise_image(image_name,state['imgnode_names'].index(nodeid),input_image_directory=input_image_directory)
+        #np_chan_im = get_channelwise_image(image_name,state['imgnode_names'].index(nodeid),input_image_directory=input_image_directory)
+        np_chan_im = activations['edges_in'][0][list_of_input_images.index(image_name)][within_id]
         return go.Figure(data=go.Heatmap( z = np.flip(np_chan_im,0)),
                         layout=node_actmap_layout) 
     
@@ -1139,14 +1112,16 @@ def update_node_actmap(nodeid,image_name):       #EDIT: needs support for black 
                      layout=node_actmap_layout) 
 
 
+#image graph
 @app.callback(
     Output('img-actmap-graph', 'figure'),
     [Input('input-image-dropdown', 'value')])
 def update_inputimg_actmap(image_name): 
     print('CALLED: update_inputimg_actmap')
-    return image2heatmap(input_image_directory+'/'+image_name)
+    return image2heatmap(input_image_directory+image_name)
 
 
+#kernel
 @app.callback(
     Output('edge-kernel-graph', 'figure'),
     [Input('edge-actmaps-input','value')],
@@ -1161,6 +1136,7 @@ def update_edge_kernelmap(edgename,figure):
         return figure
                 
 
+#edge in        
 @app.callback(
     Output('edge-inmap-graph', 'figure'),
     [Input('edge-actmaps-input','value'),
@@ -1175,7 +1151,8 @@ def update_edge_inmap(edgename,imagename,figure):
     else:
         print('edge inmap error')
         return figure
-    
+
+#edge out
 @app.callback(
     Output('edge-outmap-graph', 'figure'),
     [Input('edge-actmaps-input','value'),
@@ -1192,8 +1169,6 @@ def update_edge_outmap(edgename,imagename,figure):
         return figure
         
         
-
-
 
 # #JSON INFO
 
@@ -1220,10 +1195,6 @@ def display_selected_data(selectedData):
     return json.dumps(selectedData, indent=2)
 
 
-
-
-
-
 @app.callback(
     Output('figure-data', 'children'),
     [Input('weight-category', 'value'),
@@ -1243,7 +1214,7 @@ def display_trigger(target_class,clickData,edge_thresh,state):
         'full_state':state
     }, indent=2)
     return ctx_msg
-    
+
     
 
 print('launching dash app')
