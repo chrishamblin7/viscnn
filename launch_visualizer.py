@@ -426,7 +426,7 @@ print('loading activation maps')
 import torch
 activations = torch.load('prepped_models/%s/input_img_activations.pt'%prepped_model_folder)
 
-print(activations['edges'][0].shape)
+print(activations['edges_out'][0].shape)
 print(activations['nodes'][0].shape)
 
 
