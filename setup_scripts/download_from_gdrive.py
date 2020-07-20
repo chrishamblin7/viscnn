@@ -6,7 +6,7 @@ import os
 
 if not os.path.exists('../image_data'):
 	os.mkdir('../image_data')
-if not os.path.exists('../prepped_data'):
+if not os.path.exists('../prepped_models'):
 	os.mkdir('../prepped_models')
 
 
@@ -14,7 +14,8 @@ def tar_download(id,dest_path):
 	print('downloading')
 	gdd.download_file_from_google_drive(file_id=id, dest_path=dest_path, overwrite=True)
 	print('untaring')
-	call('tar -xzvf %s'%dest_path,shell=True)
+	out_dir = '/'.join(dest_path.split('/')[:-1])
+	call('tar -xzvf %s -C %s'%(dest_path,out_dir),shell=True)
 	call('rm %s'%dest_path,shell=True)	
 
 
