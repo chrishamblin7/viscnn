@@ -59,7 +59,7 @@ RUN pip install googledrivedownloader==0.4
 
 
 #pull project files from github
-RUN git clone https://github.com/chrishamblin7/cnn_subgraph_visualizer.git && cd cnn_subgraph_visualizer && git checkout 27dc118     #Revision make sure to keep this up to date
+RUN git clone https://github.com/chrishamblin7/cnn_subgraph_visualizer.git && cd cnn_subgraph_visualizer && git checkout 4bcec1b     #Revision make sure to keep this up to date
 
 #download extra files from gdrive
 RUN cd cnn_subgraph_visualizer/setup_scripts && python download_from_gdrive.py
