@@ -154,7 +154,6 @@ def get_channelwise_image(image_name,channel,input_image_directory=input_image_d
     np_full_im = np.array(im)
     return np_full_im[:,:,channel]
 
-
 #load edges
 print('loading edge data')
 
@@ -171,6 +170,41 @@ num_edges = len(edges_wide_df.index) #number of total edges
 
 print(edges_wide_df.head(10))
 
+
+#image nodes (one for each channel of input image)
+print('generating image channel nodes')
+
+num_img_chan = len(edges_df.loc[edges_df['layer'] == 0]['in_channel'].unique()) #number of channels in input image
+
+def gen_imgnode_graphdata(num_chan = num_img_chan):     #returns positions, colors and names for imgnode graph points
+    if num_chan == 1: #return a centered position, grey square, with 'gs' label
+        return {'X':[-1*layer_distance],'Y':[0],'Z':[0]}, ['rgba(170,170,170,.7)'], ['gs']
+    if num_chan == 3:
+        colors = ['rgba(255,0,0,.7)','rgba(0,255,0,.7)','rgba(0,0,255,.7)']
+        names = ['r','g','b']
+    else:
+        #colors
+        other_colors = ['rgba(255,0,0,.7)','rgba(0,255,0,.7)','rgba(0,0,255,.7)',
+                        'rgba(255,150,0,.7)','rgba(0,255,150,.7)','rgba(150,0,255,.7)',
+                        'rgba(255,0,150,.7)','rgba(150,255,0,.7)','rgba(0,150,255,.7)']
+        colors = []
+        for i in num_chan:
+            colors.append(i%len(other_colors)) 
+        #names
+        names = []
+        for i in range(num_chan):
+            names.append('img_'+str(i))   
+            
+    positions = {'X':[],'Y':[],'Z':[]}     #else return points evenly spaced around a unit circle
+    a = 2*np.pi/num_chan          #angle to rotate each point
+    for p in range(num_chan):
+        positions['X'].append(-1*layer_distance)
+        positions['Y'].append(round(np.sin(a*p)/5,2))
+        positions['Z'].append(round(np.cos(a*p)/5,2)) 
+    
+    return positions, colors, names
+
+imgnode_positions,imgnode_colors,imgnode_names = gen_imgnode_graphdata()
 
 
 #generate mds projections of nodes layerwise, as determined by their per class rank scores
@@ -209,9 +243,154 @@ for layer in layer_similarities:
       random_state=2, dissimilarity="precomputed", n_jobs=1)
     pos = mds.fit(layer_similarities[layer]).embedding_
     layer_mds[layer] = pos
+    
+    
+#rotation for mds plots
+from scipy.spatial.distance import cdist
+
+def cart2pol(x, y):
+    rho = np.sqrt(x**2 + y**2)
+    phi = np.arctan2(y, x)
+    return(rho, phi)
+
+def pol2cart(rho, phi):
+    x = rho * np.cos(phi)
+    y = rho * np.sin(phi)
+    return(x, y)
+
+
+def rotate_cartesian(vec2d,r):    #rotates 2d cartesian coordinates by some radians 
+    x,y = vec2d[0], vec2d[1]
+    x_out = np.sqrt(x**2+y**2)*np.cos(np.arctan2(y,x)+r)
+    y_out = np.sqrt(x**2+y**2)*np.sin(np.arctan2(y,x)+r)
+    return np.array([x_out,y_out])
+
+def rotate_mds(layer_mds=layer_mds,imgnode_positions=imgnode_positions,max_edges = 50,angles_tested=16):
+    for layer in range(len(layer_mds)):
+        all_layer_positions = layer_mds[layer]
+        layer_df = edges_df.loc[(edges_df['layer']==layer) & (edges_df['class']=='overall')].sort_values('rank_score',ascending=False).head(max_edges)
+        if layer == 0:
+            all_prev_layer_positions = np.swapaxes(np.array([imgnode_positions['Y'],imgnode_positions['Z']]),0,1)
+        else:
+            all_prev_layer_positions = layer_mds[layer-1]
+        #gen positions matrix for important edges
+        select_layer_positions = []
+        select_prev_layer_positions = []
+        for row in layer_df.itertuples():
+            select_layer_positions.append(all_layer_positions[row.out_channel])
+            select_prev_layer_positions.append(all_prev_layer_positions[row.in_channel])
+        #go through discrete rotations and find min distance
+        min_dist = 10000000
+        min_discrete_angle = 0
+        for p in range(0,angles_tested):
+            test_layer_positions=np.apply_along_axis(rotate_cartesian, 1, select_layer_positions,r=p*2*np.pi/angles_tested)
+            dist = sum(np.diagonal(cdist(test_layer_positions,select_prev_layer_positions)))
+            if dist < min_dist:
+                min_discrete_angle = p
+                min_dist = dist
+        #update layer mds at layer by rotating by optimal angle
+        print('rotating layer %s by %s rads'%(str(layer),str(min_discrete_angle*2*np.pi/angles_tested)))
+        layer_mds[layer] = np.apply_along_axis(rotate_cartesian, 1, layer_mds[layer],r=min_discrete_angle*2*np.pi/angles_tested)
+    return layer_mds            
+    
+layer_mds =  rotate_mds()      
 
 
 
+#grid layer projection
+layer_nodes
+def gen_grid_positions():
+    layer_grid = {}
+    for layer in layer_nodes:
+        layer_grid[layer] = []
+        num_nodes = len(layer_nodes[layer])
+        if num_nodes == 1:
+            return np.array([[0,0]])
+        elif num_nodes == 2:
+            return np.array([[.1,0],
+                             [-1.1,0]])
+        elif num_nodes == 3:
+            return np.array([[.1,.1],
+                             [0,0],
+                             [-.1,-.1]])
+        elif num_nodes == 4:
+            return np.array([[.1,.1],
+                             [-.1,.1],
+                             [.1,-1],
+                             [-.1,-.1]])
+        elif num_nodes == 5:
+            return np.array([[.1,.1],
+                             [-.1,.1],
+                             [0,0],
+                             [.1,-1],
+                             [-.1,-.1]])
+        elif num_nodes == 6:
+            return np.array([[.1,.1],
+                             [0,.1],
+                             [-.1,.1],
+                             [.1,-1],
+                             [0,-.1],
+                             [-.1,-.1]])
+        elif num_nodes == 7:
+            return np.array([[.1,.1],
+                             [0,.1],
+                             [-.1,.1],
+                             [0,0],
+                             [.1,-1],
+                             [0,-.1],
+                             [-.1,-.1]])
+        elif num_nodes == 8:
+            return np.array([[.1,.1],
+                             [0,.1],
+                             [-.1,.1],
+                             [-.1,0],
+                             [.1,0],
+                             [.1,-1],
+                             [0,-.1],
+                             [-.1,-.1]])        
+        elif num_nodes == 9:
+            return np.array([[.1,.1],
+                             [0,.1],
+                             [-.1,.1],
+                             [-.1,0],
+                             [0,0],
+                             [.1,0],
+                             [.1,-1],
+                             [0,-.1],
+                             [-.1,-.1]]) 
+        elif num_nodes < 20:
+            max_dis = .2
+        elif num_nodes < 40:
+            max_dis = .3
+        elif num_nodes < 60:
+            max_dis = .4
+        elif num_nodes < 80:
+            max_dis = .5
+        elif num_nodes < 100:
+            max_dis = .6
+        elif num_nodes < 120:
+            max_dis = .7
+        elif num_nodes < 140:
+            max_dis = .8
+        else:
+            max_dis = 1
+        if np.floor(np.sqrt(num_nodes))*np.ceil(np.sqrt(num_nodes)) < num_nodes:
+            x_spaces, y_spaces = np.ceil(np.sqrt(num_nodes)),np.ceil(np.sqrt(num_nodes))
+        else:
+            x_spaces, y_spaces = np.floor(np.sqrt(num_nodes)),np.ceil(np.sqrt(num_nodes))
+        x = np.linspace(max_dis,-1*max_dis,int(x_spaces))
+        y = np.linspace(max_dis,-1*max_dis,int(y_spaces))
+        X,Y = np.meshgrid(x,y)
+        X_flat = [item for sublist in X for item in sublist]
+        Y_flat = [item for sublist in Y for item in sublist]
+        for i in range(num_nodes):
+            layer_grid[layer].append([X_flat[i],Y_flat[i]])    
+        layer_grid[layer] = np.array(layer_grid[layer])
+    return layer_grid
+layer_grid = gen_grid_positions()          
+
+
+all_node_positions_unformatted = {'MDS':layer_mds,'Grid':layer_grid}
 
 #generate node colors based on target class (nodes that aren't important should be faded)
 print('generating node colors')
@@ -256,63 +435,28 @@ def gen_node_colors(target_class):
 node_colors,node_weights = gen_node_colors(target_class)     #list of lists
 
 
-
-
 #Node positions
-
-layer_distance = 1   # distance in X direction each layer is separated by
-node_positions = []
-layer_offset = 0
-for layer in layer_mds:
-    node_positions.append({})
-    node_positions[-1]['X'] = [] 
-    node_positions[-1]['Y'] = [] 
-    node_positions[-1]['Z'] = []  
-    for i in range(len(layer_mds[layer])): 
-        node_positions[-1]['Y'].append(layer_mds[layer][i][0])
-        node_positions[-1]['Z'].append(layer_mds[layer][i][1])
-        node_positions[-1]['X'].append(layer_offset)
-    layer_offset+=1*layer_distance
-
-
-
-
-
-
-#image nodes (one for each channel of input image)
-print('generating image channel nodes')
-
-num_img_chan = len(edges_df.loc[edges_df['layer'] == 0]['in_channel'].unique()) #number of channels in input image
-
-def gen_imgnode_graphdata(num_chan = num_img_chan):     #returns positions, colors and names for imgnode graph points
-    if num_chan == 1: #return a centered position, grey square, with 'gs' label
-        return {'X':[-1*layer_distance],'Y':[0],'Z':[0]}, ['rgba(170,170,170,.7)'], ['gs']
-    if num_chan == 3:
-        colors = ['rgba(255,0,0,.7)','rgba(0,255,0,.7)','rgba(0,0,255,.7)']
-        names = ['r','g','b']
+def format_node_positions(projection='MDS'):
+    layer_distance = 1   # distance in X direction each layer is separated by
+    node_positions = []
+    layer_offset = 0
+    if projection == 'MDS':
+        unformatted = all_node_positions_unformatted['MDS']
     else:
-        #colors
-        other_colors = ['rgba(255,0,0,.7)','rgba(0,255,0,.7)','rgba(0,0,255,.7)',
-                        'rgba(255,150,0,.7)','rgba(0,255,150,.7)','rgba(150,0,255,.7)',
-                        'rgba(255,0,150,.7)','rgba(150,255,0,.7)','rgba(0,150,255,.7)']
-        colors = []
-        for i in num_chan:
-            colors.append(i%len(other_colors)) 
-        #names
-        names = []
-        for i in range(num_chan):
-            names.append('img_'+str(i))   
-            
-    positions = {'X':[],'Y':[],'Z':[]}     #else return points evenly spaced around a unit circle
-    a = 2*np.pi/num_chan          #angle to rotate each point
-    for p in range(num_chan):
-        positions['X'].append(-1*layer_distance)
-        positions['Y'].append(round(np.sin(a*p)/5,2))
-        positions['Z'].append(round(np.cos(a*p)/5,2)) 
-    
-    return positions, colors, names
-
-imgnode_positions,imgnode_colors,imgnode_names = gen_imgnode_graphdata()
+        unformatted = all_node_positions_unformatted['Grid']
+    for layer in unformatted:
+        node_positions.append({})
+        node_positions[-1]['X'] = [] 
+        node_positions[-1]['Y'] = [] 
+        node_positions[-1]['Z'] = []  
+        for i in range(len(unformatted[layer])): 
+            node_positions[-1]['Y'].append(unformatted[layer][i][0])
+            node_positions[-1]['Z'].append(unformatted[layer][i][1])
+            node_positions[-1]['X'].append(layer_offset)
+        layer_offset+=1*layer_distance
+    return node_positions
+        
+node_positions=format_node_positions()
 
 
 
@@ -430,7 +574,6 @@ print(activations['edges_out'][0].shape)
 print(activations['nodes'][0].shape)
 
 
-
 #Format Edge Kernels
 print('loading convolutional kernels')
 
@@ -490,6 +633,7 @@ state = {'edge_positions':edge_positions,'edge_colors': edge_colors, 'edge_width
          'imgnode_positions':imgnode_positions,'imgnode_colors':imgnode_colors,'imgnode_names':imgnode_names,
          'node_positions':node_positions,'node_colors':node_colors,'node_weights':node_weights,'layer_distance':layer_distance,'target_class':target_class,
          'node_select_history':['0'],'edge_select_history':[edge_names[0][0]],'last_trigger':None}
+
 
 
 
@@ -734,6 +878,13 @@ styles = {
 }
 
 
+theme =  {
+    'dark': True,
+    'detail': '#007439',
+    'primary': '#00EA64',
+    'secondary': '#6E6E6E',
+}
+
 
 app.layout = html.Div([
         html.Div(
@@ -833,6 +984,18 @@ app.layout = html.Div([
                         }
             )
             ], className = "three columns"),
+            
+            html.Div([
+            html.Label('Node Inputs'),
+            html.Br(),
+            html.Div(dcc.Graph(
+                id='node-inputs-graph',
+                figure=edges_in,
+                config={
+                        'displayModeBar': False
+                        }
+            ),style={'overflowY': 'scroll', 'height': 500})
+            ], className = "two columns"),
 
             html.Div([
             html.Label('Edge'),    
@@ -851,7 +1014,7 @@ app.layout = html.Div([
                         'displayModeBar': False
                         }
             )
-            ], className = "three columns"),
+            ], className = "two columns"),
 
 
             html.Div([
@@ -877,7 +1040,7 @@ app.layout = html.Div([
                         'displayModeBar': False
                         }
             )
-            ], className = "three columns")
+            ], className = "two columns")
 
 
          ], className= 'row'
@@ -956,7 +1119,6 @@ app.layout = html.Div([
 
 
 
-
 ####Call Back Functions
 
 #Hidden State
@@ -965,9 +1127,10 @@ app.layout = html.Div([
     [Input('weight-category', 'value'),
      Input('node-actmap-dropdown', 'value'),
      Input('edge-actmaps-input', 'value'),
-     Input('edge-thresh-slider','value')],
+     Input('edge-thresh-slider','value'),
+     Input('layer-projection','value')],
     [State('session', 'data')])
-def update_store(target_class,node_value,edge_value,edge_threshold,state):
+def update_store(target_class,node_value,edge_value,edge_threshold,projection,state):
     print('CALLED: update_store\n')
     ctx = dash.callback_context
     if not ctx.triggered:
@@ -1005,6 +1168,11 @@ def update_store(target_class,node_value,edge_value,edge_threshold,state):
         edges_select_df = get_thresholded_edges(threshold=edge_threshold,target_class=target_class)
         print('found %s edges'%len(edges_select_df))
         state['edge_positions'], state['edge_colors'], state['edge_widths'], state['edge_weights'], state['edge_names'], state['max_edge_width_indices'] = gen_edge_graphdata(df = edges_select_df,node_positions = state['node_positions'],target_class=target_class)
+    elif trigger == 'layer-projection.value':
+        print('changing layer projection to %s\n'%projection)
+        state['node_positions']=format_node_positions(projection=projection)
+        edges_select_df = get_thresholded_edges(threshold=edge_threshold,target_class=target_class)
+        state['edge_positions'], state['edge_colors'], state['edge_widths'],state['edge_weights'], state['edge_names'], state['max_edge_width_indices'] = gen_edge_graphdata(df = edges_select_df,node_positions = state['node_positions'],target_class=target_class)
     else:
         raise Exception('unknown trigger: %s'%trigger)    
     return state
@@ -1112,6 +1280,65 @@ def update_node_actmap(nodeid,image_name):       #EDIT: needs support for black 
                      layout=node_actmap_layout) 
 
 
+#Node inputs actmap graph
+@app.callback(
+    Output('node-inputs-graph', 'figure'),
+    [Input('node-actmap-dropdown', 'value'),
+     Input('input-image-dropdown', 'value'),
+     Input('weight-category', 'value')])
+def update_node_inputs(nodeid,image_name,target_class):       #EDIT: needs support for black and white images
+    print('CALLED: update_node_inputs')
+    node_layer,node_within_layer_id = nodeid_2_perlayerid(nodeid)
+    if node_layer == 'img':
+        fig = go.Figure()
+
+        fig.add_trace(go.Scatter(
+            x=[],
+            y=[]))
+        fig.update_layout(xaxis=dict(visible=False),
+                          yaxis=dict(visible=False),
+                          annotations = [dict(text="No Inputs",
+                                              xref="paper",
+                                              yref="paper",
+                                              showarrow=False,
+                                              font=dict(size=28))]
+                         )
+        return fig
+    
+    all_node_edges_df = edges_df.loc[(edges_df['class']==target_class) & (edges_df['layer']==node_layer) & (edges_df['out_channel'] == node_within_layer_id)]
+    #if sort_images:                      
+    all_node_edges_df = all_node_edges_df.sort_values(by=['rank_score'],ascending=False)
+    fig = make_subplots(rows=len(all_node_edges_df)+1, cols=1)
+    i=1
+    for row in all_node_edges_df.itertuples():
+        if node_layer == 0:
+            edge_name = str(imgnode_names[row.in_channel])+'-'+str(nodeid)
+        else:
+            edge_name = str(layer_nodes[node_layer-1][row.in_channel])+'-'+str(nodeid)
+
+        fig.add_trace(
+               go.Heatmap(z = edgename_2_edge_figures(edge_name,imagename=image_name)[2],
+                          name = edge_name,
+                          colorbar = dict(lenmode='fraction',len=1/len(all_node_edges_df), 
+                                          y=(i)/len(all_node_edges_df)-.01,
+                                          thicknessmode = "fraction",thickness=.1,
+                                          ypad=1
+                                         )),
+               row=i, col=1)
+        i+=1
+    fig.update_layout(height=200*len(all_node_edges_df), 
+                      width=200,
+                      #yaxis=dict(scaleanchor="x", scaleratio=1/len(all_node_edges_df)),
+                      #title_text="Inputs to Node",
+                      margin=dict(
+                                    l=0,
+                                    r=0,
+                                    b=0,
+                                    t=0,
+                                    pad=0)
+                     )
+    return fig
+
 #image graph
 @app.callback(
     Output('img-actmap-graph', 'figure'),
@@ -1215,10 +1442,10 @@ def display_trigger(target_class,clickData,edge_thresh,state):
     }, indent=2)
     return ctx_msg
 
-    
 
+    
 print('launching dash app')
-app.run_server()
+app.run_server(port=8050)
 
 
 
