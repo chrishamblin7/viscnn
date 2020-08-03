@@ -93,14 +93,15 @@ for i, (batch, target) in enumerate(image_loader):
 
 def get_ranks_from_dissected_Conv2d_modules(module,layer_ranks=None):     #run through all model modules recursively, and pull the ranks stored in dissected_Conv2d modules 
 	if layer_ranks is None:    #initialize the output dictionary if we are not recursing and havent done so yet
-		layer_ranks = {'nodes':[],'edges':[]}
+		layer_ranks = {'nodes':{'act':[],'grad':[],'actxgrad':[]},'edges':{'act':[],'grad':[],'actxgrad':[]}}
 	for layer, (name, submodule) in enumerate(module._modules.items()):
 		#print(submodule)
 		if isinstance(submodule, dissected_Conv2d):
 			submodule.normalize_ranks()
-			layer_ranks['nodes'].append(submodule.postbias_ranks.cpu().detach().numpy())
-			layer_ranks['edges'].append(submodule.format_edges(data= 'ranks'))
-			print(layer_ranks['edges'][-1].shape)
+			for key in ['act','grad','actxgrad']:
+				layer_ranks['nodes'][key].append(submodule.postbias_ranks[key].cpu().detach().numpy())
+				layer_ranks['edges'][key].append(submodule.format_edges(data= 'ranks')[key])
+				#print(layer_ranks['edges'][-1].shape)
 		elif len(list(submodule.children())) > 0:
 			layer_ranks = get_ranks_from_dissected_Conv2d_modules(submodule,layer_ranks=layer_ranks)   #module has modules inside it, so recurse on this module
 
