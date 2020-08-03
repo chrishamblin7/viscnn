@@ -64,8 +64,8 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
         self.cuda = cuda
         self.store_activations = store_activations
         self.store_ranks = store_ranks
-        self.postbias_ranks = None
-        self.preadd_ranks = None
+        self.postbias_ranks = {'act':None,'grad':None,'actxgrad':None}
+        self.preadd_ranks = {'act':None,'grad':None,'actxgrad':None}
         self.preadd_conv = self.make_preadd_conv(from_conv)
         self.bias = None
         if self.from_conv.bias is not None:
@@ -82,67 +82,34 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
         #print('compute edge rank called')
         activation = self.preadd_out
         taylor = activation * grad 
-        taylor = taylor.mean(dim=(0, 2, 3)).data
-        if self.preadd_ranks is None:
-            self.preadd_ranks = \
-                torch.FloatTensor(activation.size(1)).zero_()
-            if self.cuda:
-                self.preadd_ranks = self.preadd_ranks.cuda()       
-        self.preadd_ranks += taylor
+        rank_key  = {'act':activation,'grad':grad,'actxgrad':taylor}
+        for key in rank_key:
+            if self.preadd_ranks[key] is None: #initialize at 0
+                self.preadd_ranks[key] = torch.FloatTensor(activation.size(1)).zero_()
+                if self.cuda:
+                    self.preadd_ranks[key] = self.preadd_ranks[key].cuda()
+            mean = rank_key[key].mean(dim=(0, 2, 3)).data
+            self.preadd_ranks[key] += mean
+
 
 
     def compute_node_rank(self,grad):
-        #print('compute node rank called')
         activation = self.postbias_out
         taylor = activation * grad 
-        taylor = taylor.mean(dim=(0, 2, 3)).data
-        if self.postbias_ranks is None:
-            self.postbias_ranks = \
-                torch.FloatTensor(activation.size(1)).zero_()
-            if self.cuda:
-                self.postbias_ranks = self.postbias_ranks.cuda()       
-        self.postbias_ranks += taylor
+        rank_key  = {'act':activation,'grad':grad,'actxgrad':taylor}
+        for key in rank_key:
+            if self.postbias_ranks[key] is None: #initialize at 0
+                self.postbias_ranks[key] = torch.FloatTensor(activation.size(1)).zero_()
+                if self.cuda:
+                    self.postbias_ranks[key] = self.postbias_ranks[key].cuda()
+            mean = rank_key[key].mean(dim=(0, 2, 3)).data
+            self.postbias_ranks[key] += mean
 
 
-    '''
-    def compute_rank(self,grad,data='edge'):
-        print('compute_rank called!')
-        if not self.store_activations:
-            print('activations arent stored, use "store_activations=True" on model init. returning None')
-
-        if data == 'edge':
-            activation = self.preadd_out
-        else:
-            activation = self.postbias_out
-
-        taylor = activation * grad     #taylor pruning criterion from nvidia paper
-        # Get the average value for every activation map, 
-        # across all the other dimensions
-        taylor = taylor.mean(dim=(0, 2, 3)).data
-
-        #if this layer doesnt have any batch values for rank yet, initialize it at all zeros
-        if data == 'edge' and not self.preadd_ranks:  
-            self.preadd_ranks = \
-                torch.FloatTensor(activation.size(1)).zero_()
-            if self.cuda:
-                self.preadd_ranks = self.preadd_ranks.cuda()
-        elif not self.postbias_ranks:
-            self.postbias_ranks = \
-                torch.FloatTensor(activation.size(1)).zero_()    
-            if self.cuda:
-                self.postbias_ranks = self.postbias_ranks.cuda()
-
-        #adding rank score for this batch of images to values from previous batch
-        if data == 'edge':
-            self.preadd_ranks += taylor
-        else:
-            self.postbias_ranks += taylor
-    '''       
 
     def format_edges(self, data= 'activations'):
         #fetch preadd activations as [img,out_channel, in_channel,h,w]
         #fetch preadd ranks as [out_chan,in_chan]
-
 
         if not self.store_activations:
             print('activations arent stored, use "store_activations=True" on model init. returning None')
@@ -157,42 +124,30 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
             return torch.cat(out_acts_list,dim=1).cpu().detach().numpy()
 
         else:
-            for out_chan in self.add_indices:
-                in_acts_list = []
-                for in_chan in self.add_indices[out_chan]:
-                    in_acts_list.append(self.preadd_ranks[in_chan].unsqueeze(dim=0).unsqueeze(dim=0))                   
-                out_acts_list.append(torch.cat(in_acts_list,dim=1))
-            return torch.cat(out_acts_list,dim=0).cpu().detach().numpy()
+            output = {}
+            for rank_type in ['act','grad','actxgrad']:
+                out_acts_list = []
+                for out_chan in self.add_indices:
+                    in_acts_list = []
+                    for in_chan in self.add_indices[out_chan]:
+                        in_acts_list.append(self.preadd_ranks[rank_type][in_chan].unsqueeze(dim=0).unsqueeze(dim=0))                   
+                    out_acts_list.append(torch.cat(in_acts_list,dim=1))
+                output[rank_type] = torch.cat(out_acts_list,dim=0).cpu().detach().numpy()
+            return output
                         
 
-    '''
-    def normalize_ranks(self,data='edge'):
-        if data == 'edge':
-            v = torch.abs(self.preadd_ranks)
-        else:
-            v = torch.abs(self.postbias_ranks)
-
-        v = v.cpu()
-        v = v / np.sqrt(torch.sum(v * v))
-
-        if data == 'edge':
-            self.preadd_ranks = v
-        else:
-            self.postbias_ranks = v
-    '''
-
     def normalize_ranks(self):
-        
-        e = torch.abs(self.preadd_ranks)
-        n = torch.abs(self.postbias_ranks)
+        for rank_type in ['act','grad','actxgrad']:
+            e = torch.abs(self.preadd_ranks[rank_type])
+            n = torch.abs(self.postbias_ranks[rank_type])
 
-        e = e.cpu()
-        e = e / np.sqrt(torch.sum(e * e))
-        n = n.cpu()
-        n = n / np.sqrt(torch.sum(n * n))
+            e = e.cpu()
+            e = e / np.sqrt(torch.sum(e * e))
+            n = n.cpu()
+            n = n / np.sqrt(torch.sum(n * n))
 
-        self.preadd_ranks = e
-        self.postbias_ranks = n
+            self.preadd_ranks[rank_type] = e
+            self.postbias_ranks[rank_type] = n
 
 
 
