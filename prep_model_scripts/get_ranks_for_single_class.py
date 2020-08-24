@@ -1,5 +1,5 @@
 #get rank with respect to each class in a dataset, do this in a hacky single class way, because for some stupid reason your gpu memory is getting used up otherwise
-
+import time
 import torch
 from subprocess import call
 import os
@@ -13,7 +13,6 @@ sys.path.insert(0, os.path.abspath('../'))
 os.chdir('../')
 import prep_model_parameters as params
 os.chdir('./prep_model_scripts')
-
 
 
 #command Line argument parsing
@@ -34,6 +33,9 @@ def get_args():
 	args = parser.parse_args()
 	return args
 
+
+start = time.time()
+
 args = get_args()
 
 if args.dummy_path is None or args.label is None:
@@ -47,6 +49,7 @@ call('ln -s %s/ %s'%(os.path.join(args.orig_data_path,args.label),os.path.join(a
 torch.manual_seed(args.seed)
 
 ##MODEL LOADING
+
 model = params.model
 
 if args.cuda:
@@ -54,7 +57,11 @@ if args.cuda:
 else:
 	model = model.cpu()
 
+
 model_dis = dissect_model(deepcopy(model),cuda=params.cuda) #version of model with accessible preadd activations in Conv2d modules 
+
+del model
+torch.cuda.empty_cache()
 
 
 ##DATA LOADER###
@@ -66,7 +73,7 @@ image_loader = data.DataLoader(
         			batch_size=args.batch_size,
         			shuffle=True,
         			num_workers=args.num_workers,
-        			pin_memory=True)
+        			pin_memory=False)
 
 
 ##RUNNING DATA THROUGH MODEL
@@ -76,40 +83,65 @@ for param in model_dis.parameters():  #need gradients for grad*activation rank c
 node_ranks = {}
 edge_ranks = {}
 
+def order_target(target,order_file):
+	file = open(order_file,'r')
+	reorder = [x.strip() for x in file.readlines()]
+	current_order = deepcopy(reorder)
+	current_order.sort()      #current order is alphabetical 
+	if len(target.shape)==1:
+		for i in range(len(target)):
+			class_name = current_order[target[i]]
+			target[i] = reorder.index(class_name)
+		file.close()
+		return target
+	elif len(target.shape)==2:
+		sys.exit('only 1 dimensional target vectors currently supported, not 2 :(')
+	else:
+		sys.exit('target has incompatible shape for reordering: %s'%str(target.shape))
+
+
 #Pass data through model in batches
 for i, (batch, target) in enumerate(image_loader):
 	print('batch %s'%i)
 	model_dis.zero_grad()
 	batch = Variable(batch)
+	if os.path.exists(os.path.join(params.rank_img_path,'label_order.txt')):
+		target = order_target(target,os.path.join(params.rank_img_path,'label_order.txt'))
 	if params.cuda:
 		batch = batch.cuda()
 		target = target.cuda()
 
 	output = model_dis(batch)    #running forward pass sets up hooks and stores activations in each dissected_Conv2d module
-	params.criterion(output, Variable(target)).backward()    #running backward pass calls all the hooks and calculates the ranks of all edges and nodes in the graph 
-
+	try:
+		params.criterion(output, Variable(target)).backward()    #running backward pass calls all the hooks and calculates the ranks of all edges and nodes in the graph 
+	except:
+		torch.sum(output).backward()    # run backward pass with respect to net outputs rather than loss function
 
 ##FETCHING RANKS
 
-def get_ranks_from_dissected_Conv2d_modules(module,layer_ranks=None):     #run through all model modules recursively, and pull the ranks stored in dissected_Conv2d modules 
+def get_ranks_from_dissected_Conv2d_modules(module,prenorm=False,layer_ranks=None):     #run through all model modules recursively, and pull the ranks stored in dissected_Conv2d modules 
 	if layer_ranks is None:    #initialize the output dictionary if we are not recursing and havent done so yet
-		layer_ranks = {'nodes':{'act':[],'grad':[],'actxgrad':[]},'edges':{'act':[],'grad':[],'actxgrad':[]}}
+		layer_ranks = {'nodes':{'act':[],'grad':[],'weight':[],'actxgrad':[]},'edges':{'act':[],'weight':[],'grad':[],'actxgrad':[]}}
 	for layer, (name, submodule) in enumerate(module._modules.items()):
 		#print(submodule)
 		if isinstance(submodule, dissected_Conv2d):
+			submodule.average_ranks()
 			submodule.normalize_ranks()
-			for key in ['act','grad','actxgrad']:
-				layer_ranks['nodes'][key].append(submodule.postbias_ranks[key].cpu().detach().numpy())
-				layer_ranks['edges'][key].append(submodule.format_edges(data= 'ranks')[key])
+			for key in ['act','grad','actxgrad','weight']:
+				if not prenorm:
+					layer_ranks['nodes'][key].append(submodule.postbias_ranks[key].cpu().detach().numpy())
+					layer_ranks['edges'][key].append(submodule.format_edges(data= 'ranks')[key])
+				else:
+					layer_ranks['nodes'][key].append(submodule.postbias_ranks_prenorm[key].cpu().detach().numpy())
+					layer_ranks['edges'][key].append(submodule.format_edges(data= 'ranks',prenorm = True)[key])					
 				#print(layer_ranks['edges'][-1].shape)
 		elif len(list(submodule.children())) > 0:
 			layer_ranks = get_ranks_from_dissected_Conv2d_modules(submodule,layer_ranks=layer_ranks)   #module has modules inside it, so recurse on this module
-
-
 	return layer_ranks
 
-layer_ranks = get_ranks_from_dissected_Conv2d_modules(model_dis)
 
+layer_ranks = get_ranks_from_dissected_Conv2d_modules(model_dis)
+layer_ranks_prenorm = get_ranks_from_dissected_Conv2d_modules(model_dis,prenorm=True)
 
 
 
@@ -118,8 +150,13 @@ layer_ranks = get_ranks_from_dissected_Conv2d_modules(model_dis)
 os.makedirs('../prepped_models/'+args.output_folder+'/ranks/',exist_ok=True)
 torch.save(layer_ranks, '../prepped_models/'+args.output_folder+'/ranks/%s_rank.pt'%args.label)
 
+os.makedirs('../prepped_models/'+args.output_folder+'/extra_data/',exist_ok=True)
+torch.save(layer_ranks_prenorm, '../prepped_models/'+args.output_folder+'/extra_data/%s_prenorm_rank.pt'%args.label)
+
 
 #remove symlinks from dummy folder
 call('rm %s'%os.path.join(args.dummy_path,args.label),shell=True)
 os.mkdir(os.path.join(args.dummy_path,args.label))
 
+
+print('single class rank time: %s'%str(time.time()-start))

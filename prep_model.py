@@ -1,7 +1,7 @@
 import os
 from subprocess import call
-from prep_model_parameters import output_folder
-
+from prep_model_parameters import output_folder, dynamic_input
+import time
 
 #Set up output directory
 go = True
@@ -18,6 +18,8 @@ else:
 if not go:
 	exit()
 
+start= time.time()
+
 call(['cp','prep_model_parameters.py','prepped_models/'+output_folder+'/prep_model_params_used.py'])
 
 #switch into scripts directory
@@ -29,13 +31,16 @@ print('pulling model convolutional kernels . . .')
 call(['python', 'get_kernels.py'])
 
 #activation maps
-print('getting node and edge activation maps for input images')
-call(['python','get_activation_maps_for_input_images.py'])
+if not dynamic_input:
+	print('getting node and edge activation maps for input images')
+	call(['python','get_activation_maps_for_input_images.py'])
+else:
+	print('dynamic input in parameter file, not fetching activations for input images.')
 
 #ranks
 print('getting node and edge subgraph importance ranks')
 call(['python','get_ranks_for_all_classes.py'])
 
 
-
+print('Run Time: %s'%str(time.time()-start))
 
