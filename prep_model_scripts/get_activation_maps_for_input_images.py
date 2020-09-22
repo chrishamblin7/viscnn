@@ -14,12 +14,11 @@ import prep_model_parameters as params
 os.chdir('./prep_model_scripts')
 
 ###MODEL LOADING
-model=params.model 
+
+model_dis = dissect_model(deepcopy(params.model),store_ranks=False,cuda=params.cuda) #version of model with accessible preadd activations in Conv2d modules 
 if params.cuda:
-	model = model.cuda()
-else:
-	model = model.cpu()
-model_dis = dissect_model(deepcopy(model),store_ranks=False,cuda = params.cuda)
+	model_dis.cuda()
+del params.model
 
 ###IMAGE LOADING
 image_folder = params.input_img_path
@@ -64,8 +63,19 @@ def get_activations_from_dissected_Conv2d_modules(module,layer_activations=None)
 	return layer_activations
 
 layer_activations = get_activations_from_dissected_Conv2d_modules(model_dis)
-print(model_dis)
 
+#reformat activations so images dont take up a dimension in the np array, 
+# but rather there is an individual array for each image name key in a dict
+def act_array_2_imgname_dict(layer_activations, image_names):
+	new_activations = {'nodes':{},'edges_in':{},'edges_out':{}}
+	for i in range(len(image_names)):
+		for part in ['nodes','edges_in','edges_out']:
+			new_activations[part][image_names[i]] = []
+			for l in range(len(layer_activations[part])):
+				new_activations[part][image_names[i]].append(layer_activations[part][l][i])
+	return new_activations
+			
+layer_activations = act_array_2_imgname_dict(layer_activations,image_names)
 
 ###SAVE OUTPUT
 torch.save(layer_activations, '../prepped_models/'+params.output_folder+'/input_img_activations.pt')

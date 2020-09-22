@@ -1,5 +1,5 @@
 #Dockerfile for cnn_subgraph_visualizer
-FROM nvidia/cuda:10.2-base-ubuntu18.04
+FROM pytorch/pytorch:1.6.0-cuda10.1-cudnn7-runtime
 
 # Install some basic utilities
 RUN apt-get update && apt-get install -y \
@@ -12,38 +12,9 @@ RUN apt-get update && apt-get install -y \
     nano \
  && rm -rf /var/lib/apt/lists/*
 
-# Create a working directory
-RUN mkdir /app
-WORKDIR /app
 
-# Create a non-root user and switch to it
-RUN adduser --disabled-password --gecos '' --shell /bin/bash user \
- && chown -R user:user /app
-RUN echo "user ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-user
-USER user
 
-# All users can use /home/user as their home directory
-ENV HOME=/home/user
-RUN chmod 777 /home/user
-
-# Install Miniconda and Python 3.8
-ENV CONDA_AUTO_UPDATE_CONDA=false
-ENV PATH=/home/user/miniconda/bin:$PATH
-RUN curl -sLo ~/miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-py38_4.8.2-Linux-x86_64.sh \
- && chmod +x ~/miniconda.sh \
- && ~/miniconda.sh -b -p ~/miniconda \
- && rm ~/miniconda.sh \
- && conda install -y python==3.8.1 \
- && conda clean -ya
-
-# CUDA 10.2-specific steps
-RUN conda install -y -c pytorch \
-    pytorch=1.5.0 \
-    torchvision=0.6.0 \ 
-    cudatoolkit=10.1 \
- && conda clean -ya
-
-#Dash and other app specific packages
+ #Dash and other app specific packages
 RUN conda install -y -c anaconda \
     pandas=1.0.5 \ 
     pillow=7.1.2 \
@@ -63,4 +34,3 @@ RUN git clone https://github.com/chrishamblin7/cnn_subgraph_visualizer.git && cd
 
 #download extra files from gdrive
 RUN cd cnn_subgraph_visualizer/setup_scripts && python download_from_gdrive.py
-

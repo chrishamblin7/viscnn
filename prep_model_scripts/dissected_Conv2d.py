@@ -94,6 +94,8 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
         self.bias = None
         if self.from_conv.bias is not None:
             self.bias = from_conv.bias.unsqueeze(1).unsqueeze(1)
+        if self.cuda:
+            self.bias = self.bias.cuda()
         #generate a dict that says which indices should be added together in for 'permute_add_featuremaps'
 
 

@@ -1,4 +1,4 @@
-#get rank with respect to each class in a dataset, do this in a hacky single class way, because for some stupid reason your gpu memory is getting used up otherwise
+#get rank with respect to each category in a dataset, do this in a hacky single category way, because for some stupid reason your gpu memory is getting used up otherwise
 import time
 import torch
 from subprocess import call
@@ -20,7 +20,7 @@ def get_args():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--orig-data-path", type = str, default = params.rank_img_path)
 	parser.add_argument("--dummy-path", type = str, default = None)
-	parser.add_argument("--label", type = str, default = None)
+	parser.add_argument("--category", type = str, default = None)
 	parser.add_argument("--output_folder", type = str, default = params.output_folder)
 	parser.add_argument('--cuda', action='store_true', default=params.cuda, help='Use CPU not GPU')  
 	parser.add_argument('--seed', type=int, default=params.seed, metavar='S',
@@ -38,36 +38,32 @@ start = time.time()
 
 args = get_args()
 
-if args.dummy_path is None or args.label is None:
-	raise ValueError('must specify dummy_path and label in function call, can\'t be None')
+if args.dummy_path is None or args.category is None:
+	raise ValueError('must specify dummy_path and category in function call, can\'t be None')
 
-#populate label folder with links
-call('rmdir %s'%os.path.join(args.dummy_path,args.label),shell=True)
-call('ln -s %s/ %s'%(os.path.join(args.orig_data_path,args.label),os.path.join(args.dummy_path,args.label)),shell=True)
+#populate category folder with links
+call('rmdir %s'%os.path.join(args.dummy_path,args.category),shell=True)
+call('ln -s %s/ %s'%(os.path.join(args.orig_data_path,args.category),os.path.join(args.dummy_path,args.category)),shell=True)
 
 
 torch.manual_seed(args.seed)
 
 ##MODEL LOADING
 
-model = params.model
-
+model_dis = dissect_model(deepcopy(params.model),cuda=params.cuda) #version of model with accessible preadd activations in Conv2d modules 
 if args.cuda:
-	model = model.cuda()
-else:
-	model = model.cpu()
-
-
-model_dis = dissect_model(deepcopy(model),cuda=params.cuda) #version of model with accessible preadd activations in Conv2d modules 
-
-del model
-torch.cuda.empty_cache()
-
+	model_dis.cuda()
+del params.model
 
 ##DATA LOADER###
 import torch.utils.data as data
 import torchvision.datasets as datasets
 
+
+
+
+###IMPORTANT, THIS NEEDS TO BE CHANGE IF RANKING CATEGORIES ARENT THE SAME AS LABEL CATEGORIES
+### PERHAPS IMAGE_LOADER SHOULD BE SET IN THE PARAMETER FILE????
 image_loader = data.DataLoader(
         			datasets.ImageFolder(args.dummy_path, params.preprocess),
         			batch_size=args.batch_size,
@@ -90,8 +86,8 @@ def order_target(target,order_file):
 	current_order.sort()      #current order is alphabetical 
 	if len(target.shape)==1:
 		for i in range(len(target)):
-			class_name = current_order[target[i]]
-			target[i] = reorder.index(class_name)
+			category_name = current_order[target[i]]
+			target[i] = reorder.index(category_name)
 		file.close()
 		return target
 	elif len(target.shape)==2:
@@ -146,17 +142,21 @@ layer_ranks_prenorm = get_ranks_from_dissected_Conv2d_modules(model_dis,prenorm=
 
 
 
-##SAVE LABEL RANKS##
-os.makedirs('../prepped_models/'+args.output_folder+'/ranks/',exist_ok=True)
-torch.save(layer_ranks, '../prepped_models/'+args.output_folder+'/ranks/%s_rank.pt'%args.label)
+##SAVE category RANKS##
+os.makedirs('../prepped_models/'+args.output_folder+'/ranks/edges/',exist_ok=True)
+os.makedirs('../prepped_models/'+args.output_folder+'/ranks/nodes/',exist_ok=True)
+torch.save(layer_ranks['nodes'], '../prepped_models/'+args.output_folder+'/ranks/nodes/%s_nodes_rank.pt'%args.category)
+torch.save(layer_ranks['edges'], '../prepped_models/'+args.output_folder+'/ranks/edges/%s_edges_rank.pt'%args.category)
 
-os.makedirs('../prepped_models/'+args.output_folder+'/extra_data/',exist_ok=True)
-torch.save(layer_ranks_prenorm, '../prepped_models/'+args.output_folder+'/extra_data/%s_prenorm_rank.pt'%args.label)
 
+os.makedirs('../prepped_models/'+args.output_folder+'/extra_data/prenorm_ranks/edges/',exist_ok=True)
+os.makedirs('../prepped_models/'+args.output_folder+'/extra_data/prenorm_ranks/nodes/',exist_ok=True)
+torch.save(layer_ranks_prenorm['nodes'], '../prepped_models/'+args.output_folder+'/extra_data/prenorm_ranks/nodes/%s_prenorm_nodes_rank.pt'%args.category)
+torch.save(layer_ranks_prenorm['edges'], '../prepped_models/'+args.output_folder+'/extra_data/prenorm_ranks/edges/%s_prenorm_edges_rank.pt'%args.category)
 
 #remove symlinks from dummy folder
-call('rm %s'%os.path.join(args.dummy_path,args.label),shell=True)
-os.mkdir(os.path.join(args.dummy_path,args.label))
+call('rm %s'%os.path.join(args.dummy_path,args.category),shell=True)
+os.mkdir(os.path.join(args.dummy_path,args.category))
 
 
-print('single class rank time: %s'%str(time.time()-start))
+print('single category rank time: %s'%str(time.time()-start))

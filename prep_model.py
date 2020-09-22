@@ -36,11 +36,18 @@ if not dynamic_input:
 	call(['python','get_activation_maps_for_input_images.py'])
 else:
 	print('dynamic input in parameter file, not fetching activations for input images.')
-
+	
 #ranks
 print('getting node and edge subgraph importance ranks')
-call(['python','get_ranks_for_all_classes.py'])
+call(['python','get_ranks_for_all_categories.py'])
 
+#misc graph data
+print('getting miscellaneous graph data')
+call(['python','get_misc_graph_data.py'])
+
+#graph node and edge positions
+print('generating positions of nodes and edges in graph')
+call(['python','get_graph_positions.py'])
 
 print('Run Time: %s'%str(time.time()-start))
 

@@ -14,25 +14,24 @@ import argparse
 
 import sys
 sys.path.insert(0, os.path.abspath('../../'))
-import model_classes
+from model_classes import *
 
 ### PARAMS ###
 #Just stuff you might want to quickly change
 
-output_name = 'MNIST_nobiasblurry2edges'   # base name for various outputs, like the print log and the saved model
+output_name = 'mnist_blurryedges'   # base name for various outputs, like the print log and the saved model
 use_cuda = True   #use GPU acceleration
 
 train_data_path = '/home/chris/projects/testing/mnist/mnist_data/training/'
 test_data_path = '/home/chris/projects/testing/mnist/mnist_data/testing/'
-
 criterion = torch.nn.CrossEntropyLoss()
-epochs = 200
+epochs = 100
 seed = 1
 lr = .001
 batch_size = 300 # size of training minibatches
-test_batch_size = 200 # size of test minibatches
+test_batch_size = 300 # size of test minibatches
 save_model = True    # Should the model be saved?
-acc_thresh = .9925    #how good does the model need to be to save?
+acc_thresh = .98    #how good does the model need to be to save?
 save_only_best = True # if true only keep the model after the epoch with the best accuracy
 save_model_interval = 100 #Save model every X epochs
 num_classes = 10        # number of classes in dataset, 26 for letters in alphabet   
@@ -64,13 +63,8 @@ if use_command_line:
 torch.manual_seed(seed)
 
 #model
-#model = models.alexnet(pretrained=False) #load a model from the models.py script, or switch this to torch.load(path_to_model) to load a model from a .pt file   
-#num_ftrs = model.classifier[6].in_features
-#model.classifier[6] = nn.Linear(num_ftrs,num_classes)
 
-#model = torch.load('../models/customsmall_letter_aug_acc0.944.pt')
-model = model_classes.MNIST_edges()
-model.load_state_dict(torch.load('../../models/MNIST_nobiasstrictedges_ep28_0.993_statedict.pt'))
+model = MNIST_edges()
 
 #freeze weights
 for p in model.conv1.parameters():
@@ -79,10 +73,11 @@ for p in model.conv1.parameters():
 optimizer = optim.Adam(model.parameters(), lr=lr)  # adam optimizer
 
 #data loading
-preprocess =  transforms.Compose([
+preprocess =   transforms.Compose([
                     transforms.Grayscale(num_output_channels=1), 
                     transforms.ToTensor()
                              	 ])
+
 
 import torch.utils.data as data
 import torchvision.datasets as datasets
@@ -211,12 +206,12 @@ if __name__ == '__main__':
 	for epoch in range(1, epochs + 1):
 
 		#######changing learning rate
-		if max_acc > .993:
-			for g in optimizer.param_groups:
-				g['lr'] = .0005
-		if max_acc > .9925:
-			for g in optimizer.param_groups:
-				g['lr'] = .0003
+		# if max_acc > .993:
+		# 	for g in optimizer.param_groups:
+		# 		g['lr'] = .0005
+		# if max_acc > .9925:
+		# 	for g in optimizer.param_groups:
+		# 		g['lr'] = .0003
 
 		train(model, device, train_loader, optimizer, criterion, epoch)
 		max_acc = test(model, device, test_loader, criterion, epoch, max_acc)
