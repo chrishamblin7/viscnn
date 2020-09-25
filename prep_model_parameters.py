@@ -6,15 +6,21 @@ import os
 ###MODEL
 
 #There are a lot of ways to load up a model in pytorch, just do whatever you need to do here such that there is a variable 'model' in this file pointing to a working feed-forward CNN
-from model_classes import AlexNet_format
-model = AlexNet_format()
-model.load_state_dict(torch.load('./models/alexnet_statedict.pt'))
-
+#from model_classes import AlexNet_format
+#model = AlexNet_format()
+#model.load_state_dict(torch.load('./models/alexnet_statedict.pt'))
+from torchvision import models
+model = models.alexnet(pretrained=True)
 
 ###IMAGE PATHS
 
 input_img_path =  './image_data/imagenet_200/input_images'   #Set this to the system path for the folder containing input images you would like to see network activation maps for.
 rank_img_path = './image_data/imagenet_200/ranking_images'       #Set this to a path with subfolders, where each subfolder contains a set of images. Subgraph ranks will be based on these subfolders. 
+
+label_file_path = './image_data/imagenet_200/labels.txt'      #line seperated file with names of label classes as they appear in image names
+						  #set to None if there are no target classes for your model
+						  #make sure the order of labels matches the order in desired target vectors
+ 
 
 output_folder = 'alexnet_200'     #name of folder you want prep model to output to. Not a path here, just a name, it will appear as a folder under prepped_models/. 
 									  #When you launch the visualization tool you will do so with respect to this folder name
@@ -61,3 +67,4 @@ batch_size = 15    #batch size for feeding rank image set through model (input i
 
 input_img_path =  os.path.abspath(input_img_path)
 rank_img_path = os.path.abspath(rank_img_path)
+label_file_path = os.path.abspath(label_file_path)

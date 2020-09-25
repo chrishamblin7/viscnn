@@ -9,6 +9,7 @@ import plotly.graph_objs as go
 import sys
 sys.path.insert(0, os.path.abspath('../prep_model_scripts/'))
 from dissected_Conv2d import *
+from data_loading_functions import *
 
 #DATAFRAME FUNCTIONS
 
@@ -130,6 +131,18 @@ def get_channelwise_image(image_name,channel,input_image_directory):
     im = Image.open(input_image_directory+image_name)
     np_full_im = np.array(im)
     return np_full_im[:,:,channel]
+
+def preprocess_image(image_path,params):
+    preprocess = params['preprocess']
+    cuda = params['cuda']
+    #image loading 
+    image_name = image_path.split('/')[-1]
+    image = Image.open(image_path)
+    image = preprocess(image).float()
+    image = image.unsqueeze(0)
+    if cuda:
+        image = image.cuda()
+    return image
 
 
 #NODE FUNCTIONS
@@ -333,7 +346,6 @@ def get_activations_from_dissected_Conv2d_modules(module,layer_activations=None)
 
 	return layer_activations
 
-
 #reformat activations so images dont take up a dimension in the np array, 
 # but rather there is an individual array for each image name key in a dict
 def act_array_2_imgname_dict(layer_activations, image_names):
@@ -345,18 +357,11 @@ def act_array_2_imgname_dict(layer_activations, image_names):
 				new_activations[part][image_names[i]].append(layer_activations[part][l][i])
 	return new_activations
 
-
 def get_model_activations_from_image(image_path, model_dis, params):
-    preprocess = params['preprocess']
     cuda = params['cuda']
-
     #image loading 
+    image = preprocess_image(image_path,params)
     image_name = image_path.split('/')[-1]
-    image = Image.open(image_path)
-    image = preprocess(image).float()
-    image = image.unsqueeze(0)
-    if cuda:
-        image = image.cuda()
     #pass image through model
     output = model_dis(image)
     #recursively fectch activations in conv2d_dissected modules
@@ -368,7 +373,6 @@ def combine_activation_dicts(all_activations,new_activations):       #when you g
     for key in ['nodes','edges_in','edges_out']:
         all_activations[key].update(new_activations[key])
     return all_activations
-
 
 def update_all_activations(image_path,model_dis,params):
     image_name = image_path.split('/')[-1]
@@ -384,6 +388,17 @@ def update_all_activations(image_path,model_dis,params):
             for key in ['nodes','edges_in','edges_out']:
                 del all_activations[key][activations_cache_order[0]]
             del activations_cache_order[0]
+
+#RANK FUNCTIONS
+
+def get_model_ranks_from_image(image_path, model_dis, params):
+    cuda = params['cuda']
+    #image loading 
+    image = preprocess_image(image_path,params)
+    image_name = image_path.split('/')[-1]
+    #pass image through model
+    output = model_dis(image)
+
 
 
 #NETWORK GRAPH FUNCTIONS

@@ -78,7 +78,7 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 
 
     
-    def __init__(self, from_conv,store_activations=False, store_ranks = False, cuda=True):      # from conv is normal nn.Conv2d object to pull weights and bias from
+    def __init__(self, from_conv,store_activations=False, store_ranks = False, clear_ranks=False, cuda=True):      # from conv is normal nn.Conv2d object to pull weights and bias from
         super(dissected_Conv2d, self).__init__()
         self.from_conv = from_conv
         self.in_channels = self.from_conv.weight.shape[1]
@@ -86,6 +86,7 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
         self.cuda = cuda
         self.store_activations = store_activations
         self.store_ranks = store_ranks
+        self.clear_ranks = clear_ranks
         self.postbias_ranks_prenorm = {'act':None,'grad':None,'actxgrad':None}
         self.preadd_ranks_prenorm = {'act':None,'grad':None,'actxgrad':None}
         self.images_seen = 0
@@ -199,8 +200,16 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
         #self.preadd_ranks['weight'] = torch.abs(self.preadd_ranks_prenorm['weight'] )/np.sqrt(torch.sum(self.preadd_ranks_prenorm['weight'] *self.preadd_ranks_prenorm['weight'] ))
         #self.postbias_ranks['weight'] = torch.abs(self.postbias_ranks_prenorm['weight'])/np.sqrt(torch.sum(self.postbias_ranks_prenorm['weight']*self.postbias_ranks_prenorm['weight']))
 
+    def clear_ranks_func(self): #clear ranks, info that otherwise accumulates with images
+        self.images_seen = 0
+        self.postbias_ranks_prenorm = {'act':None,'grad':None,'actxgrad':None}
+        self.preadd_ranks_prenorm = {'act':None,'grad':None,'actxgrad':None}
+
     def forward(self, x):
-        #pdb.set_trace()
+        
+        if self.clear_ranks:
+            self.clear_ranks_func()
+
         self.images_seen += x.shape[0]    #keep track of how many images weve seen so we know what to divide by when we average ranks
         if self.store_activations:
             self.input = x

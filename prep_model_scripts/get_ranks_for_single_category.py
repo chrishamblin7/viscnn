@@ -6,6 +6,7 @@ import os
 import argparse
 from copy import deepcopy
 from dissected_Conv2d import *
+from data_loading_functions import *
 from torch.autograd import Variable
 import sys
 sys.path.insert(0, os.path.abspath('../'))
@@ -18,8 +19,8 @@ os.chdir('./prep_model_scripts')
 #command Line argument parsing
 def get_args():
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--orig-data-path", type = str, default = params.rank_img_path)
-	parser.add_argument("--dummy-path", type = str, default = None)
+	parser.add_argument("--parent-data-path", type = str, default = params.rank_img_path)
+	parser.add_argument("--data-path", type = str, default = None)
 	parser.add_argument("--category", type = str, default = None)
 	parser.add_argument("--output_folder", type = str, default = params.output_folder)
 	parser.add_argument('--cuda', action='store_true', default=params.cuda, help='Use CPU not GPU')  
@@ -38,80 +39,58 @@ start = time.time()
 
 args = get_args()
 
-if args.dummy_path is None or args.category is None:
-	raise ValueError('must specify dummy_path and category in function call, can\'t be None')
+if args.data_path is None or args.category is None:
+	raise ValueError('must specify data_path and category in function call, can\'t be None')
 
 #populate category folder with links
-call('rmdir %s'%os.path.join(args.dummy_path,args.category),shell=True)
-call('ln -s %s/ %s'%(os.path.join(args.orig_data_path,args.category),os.path.join(args.dummy_path,args.category)),shell=True)
-
+#call('rmdir %s'%os.path.join(args.dummy_path,args.category),shell=True)
+#call('ln -s %s/ %s'%(os.path.join(args.orig_data_path,args.category),os.path.join(args.dummy_path,args.category)),shell=True)
 
 torch.manual_seed(args.seed)
 
+device = torch.device("cuda" if args.cuda else "cpu")
+
 ##MODEL LOADING
 
-model_dis = dissect_model(deepcopy(params.model),cuda=params.cuda) #version of model with accessible preadd activations in Conv2d modules 
+model_dis = dissect_model(deepcopy(params.model),cuda=args.cuda) #version of model with accessible preadd activations in Conv2d modules 
 if args.cuda:
 	model_dis.cuda()
 del params.model
+
+for param in model_dis.parameters():  #need gradients for grad*activation rank calculation
+	param.requires_grad = True
 
 ##DATA LOADER###
 import torch.utils.data as data
 import torchvision.datasets as datasets
 
+kwargs = {'num_workers': 4, 'pin_memory': True} if args.cuda else {}
 
+image_loader = torch.utils.data.DataLoader(
+			rank_image_data(args.data_path,params.preprocess,params.label_file_path),
+			batch_size=batch_size,
+			shuffle=True,
+			**kwargs)			
+			
 
-
-###IMPORTANT, THIS NEEDS TO BE CHANGE IF RANKING CATEGORIES ARENT THE SAME AS LABEL CATEGORIES
-### PERHAPS IMAGE_LOADER SHOULD BE SET IN THE PARAMETER FILE????
-image_loader = data.DataLoader(
-        			datasets.ImageFolder(args.dummy_path, params.preprocess),
-        			batch_size=args.batch_size,
-        			shuffle=True,
-        			num_workers=args.num_workers,
-        			pin_memory=False)
 
 
 ##RUNNING DATA THROUGH MODEL
-for param in model_dis.parameters():  #need gradients for grad*activation rank calculation
-	param.requires_grad = True
 
 node_ranks = {}
 edge_ranks = {}
-
-def order_target(target,order_file):
-	file = open(order_file,'r')
-	reorder = [x.strip() for x in file.readlines()]
-	current_order = deepcopy(reorder)
-	current_order.sort()      #current order is alphabetical 
-	if len(target.shape)==1:
-		for i in range(len(target)):
-			category_name = current_order[target[i]]
-			target[i] = reorder.index(category_name)
-		file.close()
-		return target
-	elif len(target.shape)==2:
-		sys.exit('only 1 dimensional target vectors currently supported, not 2 :(')
-	else:
-		sys.exit('target has incompatible shape for reordering: %s'%str(target.shape))
-
 
 #Pass data through model in batches
 for i, (batch, target) in enumerate(image_loader):
 	print('batch %s'%i)
 	model_dis.zero_grad()
-	batch = Variable(batch)
-	if os.path.exists(os.path.join(params.rank_img_path,'label_order.txt')):
-		target = order_target(target,os.path.join(params.rank_img_path,'label_order.txt'))
-	if params.cuda:
-		batch = batch.cuda()
-		target = target.cuda()
+	batch, target = batch.to(device), target.to(device)
 
 	output = model_dis(batch)    #running forward pass sets up hooks and stores activations in each dissected_Conv2d module
-	try:
-		params.criterion(output, Variable(target)).backward()    #running backward pass calls all the hooks and calculates the ranks of all edges and nodes in the graph 
-	except:
-		torch.sum(output).backward()    # run backward pass with respect to net outputs rather than loss function
+	target = max_likelihood_for_no_target(target,output) 
+	params.criterion(output, Variable(target)).backward()    #running backward pass calls all the hooks and calculates the ranks of all edges and nodes in the graph 
+	#except:
+	#	torch.sum(output).backward()    # run backward pass with respect to net outputs rather than loss function
 
 ##FETCHING RANKS
 

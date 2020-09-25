@@ -13,46 +13,27 @@ from prep_model_parameters import output_folder, rank_img_path, dynamic_input
 os.chdir('./prep_model_scripts')
 
 
-
-# The node and edge ranks are fetched as a different subprocess for each category, this is done by creating a dummy dataset folder with an empty subfolder per category
-#for the torchvision.datasets.ImageFolder data loader. For each category subprocess only the subfolder of that category is symlinked with data from params.rank_img_path.
-def make_dummy_dir(orig_path):
-	path_split = orig_path.split('/')
-	path_split[-1] = path_split[-1] + '_dummy'
-	dummy_path = '/'.join(path_split)
-	if os.path.exists(dummy_path):
-		call('rm -r %s'%dummy_path,shell=True)
-	os.makedirs(dummy_path,exist_ok=True)
-	subdirs = []
-	for fname in os.listdir(orig_path):
-		path = os.path.join(orig_path, fname)
-		if os.path.isdir(path):
-			subdirs.append(fname)
-	subdirs.sort()
-	for subdir in subdirs:
-		os.makedirs(os.path.join(dummy_path,subdir),exist_ok=True)
-	return dummy_path, subdirs
-
-
 if not os.path.exists('../prepped_models/'+output_folder):
 	os.mkdir('../prepped_models/'+output_folder)
 
-dummy_path, categories = make_dummy_dir(rank_img_path)
-
+categories = []
+for subdir in os.listdir(rank_img_path):
+	if os.path.isdir(os.path.join(rank_img_path,subdir)):
+		categories.append(subdir)
 
 #Run a subprocess for each category
 print('getting node and edge ranks for all subfolders of %s'%rank_img_path)
 
 for category in categories:
 	print(category)
-	if not os.path.exists('../prepped_models/'+output_folder+'/ranks/%s_rank.pt'%category):  #####EDDDDDIIIIITTT
-		call('python get_ranks_for_single_category.py --category %s --dummy-path %s'%(category,dummy_path),shell=True)
-	else:
-		print('skipping %s, rank already exists'%category)
+	#if not os.path.exists('../prepped_models/'+output_folder+'/ranks/%s_rank.pt'%category):  #####EDDDDDIIIIITTT
+	call('python get_ranks_for_single_category.py --category %s --data-path %s'%(category,os.path.join(rank_img_path,category)),shell=True)
+	#else:
+	#	print('skipping %s, rank already exists'%category)
 
 
 #Get rid of the dummy folder after all subprocesses have run
-call('rm -r %s'%dummy_path,shell=True)
+#call('rm -r %s'%dummy_path,shell=True)
 
 
 #overall rank
