@@ -1,30 +1,45 @@
+
+#file generates an category 'overall' rank file, which is the average of all other categories
+from subprocess import call, Popen
+import os
 import time
 import torch
-import os
+import pandas as pd
+import sys
+sys.path.insert(0, os.path.abspath('../'))
 
-overall = None
+os.chdir('../')
+from prep_model_parameters import output_folder, rank_img_path, save_activations
+os.chdir('./prep_model_scripts')
 
-ranks_folder = '/mnt/data/chris/dropbox/Research-Hamblin/Projects/cnn_subgraph_visualizer/prepped_models/alexnet_200/ranks/'
 
-rank_files = os.listdir(ranks_folder)
 
-rank_files.sort()
+#overall rank
+print('generating rank of "overall" category, averaging all other ranks')
 
-for rank_file in rank_files:
-    print(rank_file)
-    rank_dict = torch.load(os.path.join(ranks_folder,rank_file))
-    if overall is None:  #init
-        overall = rank_dict
-    else:   #sum all ranks together pointwise
-        for part in ['nodes','edges']:
-            for rank_type in ['actxgrad','act','grad','weight']:
-                for i in range(len(overall[part][rank_type])):
-                    overall[part][rank_type][i] = overall[part][rank_type][i] + rank_dict[part][rank_type][i]
+ranks_folder = '../prepped_models/%s/ranks/'%output_folder
 
-#average by dividing by number of ranks
+if os.path.exists(os.path.join(ranks_folder,'categories_nodes','overall_nodes_rank.pt')):
+	print('overall rank file already exists')
+	exit()
+
 for part in ['nodes','edges']:
-    for rank_type in ['actxgrad','act','grad','weight']:
-        for i in range(len(overall[part][rank_type])):
-            overall[part][rank_type][i] = overall[part][rank_type][i]/len(rank_files)
-
-torch.save(overall,os.path.join(ranks_folder,'overall_rank.pt'))
+	overall = None
+	rank_files = os.listdir(os.path.join(ranks_folder,'categories_%s'%part))
+	rank_files.sort()
+	for rank_file in rank_files:
+		rank_dict = torch.load(os.path.join(ranks_folder,'categories_%s'%part,rank_file))
+		if overall is None:  #init
+			overall = rank_dict
+		else:   #sum all ranks together pointwise
+			for rank_type in ['actxgrad','act','grad']:
+				for norm in ['prenorm','norm']:
+					for i in range(len(overall[rank_type][norm])):
+						overall[rank_type][norm][i] = overall[rank_type][norm][i] + rank_dict[rank_type][norm][i]
+	#average by dividing by number of ranks
+	for rank_type in ['actxgrad','act','grad']:
+		for norm in ['prenorm','norm']:
+			for i in range(len(overall[rank_type][norm])):
+				overall[rank_type][norm][i] = overall[rank_type][norm][i]/len(rank_files)
+	#save file
+	torch.save(overall,os.path.join(ranks_folder,'categories_%s'%part,'overall_%s_rank.pt'%part))

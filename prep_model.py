@@ -1,6 +1,6 @@
 import os
 from subprocess import call
-from prep_model_parameters import output_folder, dynamic_input
+from prep_model_parameters import output_folder, save_activations
 import time
 
 #Set up output directory
@@ -31,15 +31,17 @@ print('pulling model convolutional kernels . . .')
 call(['python', 'get_kernels.py'])
 
 #activation maps
-if not dynamic_input:
+if save_activations:
 	print('getting node and edge activation maps for input images')
 	call(['python','get_activation_maps_for_input_images.py'])
 else:
-	print('dynamic input in parameter file, not fetching activations for input images.')
+	print('save_activations = False in parameter file, not fetching activations for input images.')
 	
 #ranks
 print('getting node and edge subgraph importance ranks')
 call(['python','get_ranks_for_all_categories.py'])
+call(['python','gen_overall_rank.py'])
+call(['python','gen_categories_rank_df.py'])
 
 #misc graph data
 print('getting miscellaneous graph data')

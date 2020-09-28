@@ -12,7 +12,7 @@ os.chdir('./prep_model_scripts')
 
 data = {}
 
-nodes_df = pd.read_csv('../prepped_models/%s/node_ranks.csv'%output_folder)
+nodes_df = pd.read_csv('../prepped_models/%s/ranks/categories_nodes_ranks.csv'%output_folder)
 
 #list of layer nodes
 layer_nodes = {}
@@ -31,9 +31,9 @@ categories.insert(0,'overall')
 
 
 #edges
-overall_edge_ranks = torch.load('../prepped_models/%s/ranks/edges/overall_edges_rank.pt'%output_folder)
+overall_edge_ranks = torch.load('../prepped_models/%s/ranks/categories_edges/overall_edges_rank.pt'%output_folder)
 
-num_img_chan = overall_edge_ranks['actxgrad'][0].shape[1]   #number of channels in input image
+num_img_chan = overall_edge_ranks['actxgrad']['prenorm'][0].shape[1]   #number of channels in input image
 
 #imgnode data
 layer_distance=1

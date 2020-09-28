@@ -41,7 +41,6 @@ def single_image_loader(image_path, transform, label_file_path = None):
 
 	return (image,target)
 
-images = image_loader()
 
 
 class rank_image_data(Dataset):
@@ -69,7 +68,7 @@ class rank_image_data(Dataset):
 
 	def get_label_from_name(self,img_name):
 		if self.label_list is None:
-			return torch.tensor([9999999])
+			return torch.tensor(9999999)
 		label_name = None
 		label_num = None
 		for i in range(len(self.label_list)): # see if any label in file name
@@ -80,9 +79,9 @@ class rank_image_data(Dataset):
 				elif len(self.label_list[i]) > len(label_name):
 					label_name = self.label_list[i]
 					label_num = i
-		target = torch.tensor([9999999])
+		target = torch.tensor(9999999)
 		if label_num is not None:
-			target = torch.tensor([label_num])
+			target = torch.tensor(label_num)
 		return target      
 
 	def __getitem__(self, idx):

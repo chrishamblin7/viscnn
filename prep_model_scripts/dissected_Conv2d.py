@@ -99,18 +99,16 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
                 self.bias = self.bias.cuda()
         #generate a dict that says which indices should be added together in for 'permute_add_featuremaps'
 
-
         self.preadd_ranks_prenorm['weight'],self.postbias_ranks_prenorm['weight'] = self.gen_weight_ranks()
         if self.store_ranks:
             self.preadd_out_hook = None
             self.postbias_out_hook = None
 
     def compute_edge_rank(self,grad):
-        start = time.time()
         activation = self.preadd_out
         #activation_relu = F.relu(activation)
         taylor = activation * grad 
-        rank_key  = {'act':activation,'grad':grad,'actxgrad':taylor}
+        rank_key  = {'act':torch.abs(activation),'grad':torch.abs(grad),'actxgrad':torch.abs(taylor)}
         for key in rank_key:
             if self.preadd_ranks_prenorm[key] is None: #initialize at 0
                 self.preadd_ranks_prenorm[key] = torch.FloatTensor(activation.size(1)).zero_()
@@ -125,11 +123,11 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 
 
     def compute_node_rank(self,grad):
-        start = time.time()
         activation = self.postbias_out
         activation_relu = F.relu(activation)
-        taylor = activation * grad 
-        rank_key  = {'act':activation_relu,'grad':grad,'actxgrad':taylor}
+        taylor = activation_relu * grad 
+        print(grad)
+        rank_key  = {'act':activation_relu,'grad':torch.abs(grad),'actxgrad':taylor}
         for key in rank_key:
             if self.postbias_ranks_prenorm[key] is None: #initialize at 0
                 self.postbias_ranks_prenorm[key] = torch.FloatTensor(activation.size(1)).zero_()
@@ -143,9 +141,13 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 
 
 
-    def format_edges(self, data= 'activations',prenorm=False):
+    def format_edges(self, data= 'activations',prenorm=False,weight_rank=False):
         #fetch preadd activations as [img,out_channel, in_channel,h,w]
         #fetch preadd ranks as [out_chan,in_chan]
+        if weight_rank:
+            rank_types = ['weight']
+        else:
+            rank_types = ['act','grad','actxgrad']
 
         if not self.store_activations:
             print('activations arent stored, use "store_activations=True" on model init. returning None')
@@ -161,7 +163,7 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 
         else:
             output = {}
-            for rank_type in ['act','grad','actxgrad','weight']:
+            for rank_type in rank_types:
                 out_acts_list = []
                 for out_chan in self.add_indices:
                     in_acts_list = []
@@ -179,6 +181,10 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
             self.preadd_ranks_prenorm[rank_type] = self.preadd_ranks_prenorm[rank_type]/self.images_seen
             self.postbias_ranks_prenorm[rank_type] = self.postbias_ranks_prenorm[rank_type]/self.images_seen
 
+    def abs_ranks(self):
+        for rank_type in ['act','grad','actxgrad']:
+            self.preadd_ranks_prenorm[rank_type] = torch.abs(self.preadd_ranks_prenorm[rank_type])
+            self.postbias_ranks_prenorm[rank_type] = torch.abs(self.postbias_ranks_prenorm[rank_type])       
 
     def normalize_ranks(self):
         self.preadd_ranks = {}
@@ -202,8 +208,9 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 
     def clear_ranks_func(self): #clear ranks, info that otherwise accumulates with images
         self.images_seen = 0
-        self.postbias_ranks_prenorm = {'act':None,'grad':None,'actxgrad':None}
-        self.preadd_ranks_prenorm = {'act':None,'grad':None,'actxgrad':None}
+        for rank_type in ['act','grad','actxgrad']:
+            self.postbias_ranks_prenorm[rank_type] = None
+            self.preadd_ranks_prenorm[rank_type] = None
 
     def forward(self, x):
         
@@ -253,15 +260,15 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 
 
 # takes a full model and replaces all conv2d instances with dissected conv 2d instances
-def dissect_model(model,store_activations=True,store_ranks=True,cuda=True):
+def dissect_model(model,store_activations=True,store_ranks=True,clear_ranks = False,cuda=True):
  
     for name, module in reversed(model._modules.items()):
         if len(list(module.children())) > 0:
             # recurse
-            model._modules[name] = dissect_model(module, store_activations=store_activations,store_ranks=store_ranks,cuda=cuda)
+            model._modules[name] = dissect_model(module, store_activations=store_activations,store_ranks=store_ranks,clear_ranks=clear_ranks,cuda=cuda)
 
         if isinstance(module, torch.nn.modules.conv.Conv2d):    # found a 2d conv module to transform
-            new_module = dissected_Conv2d(module, store_activations=store_activations,store_ranks=store_ranks,cuda=cuda) 
+            new_module = dissected_Conv2d(module, store_activations=store_activations,store_ranks=store_ranks,clear_ranks=clear_ranks,cuda=cuda) 
             model._modules[name] = new_module
 
         elif isinstance(module, torch.nn.modules.Dropout):    #make dropout layers not dropout

@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.abspath('../'))
 sys.path.insert(0, os.path.abspath('../visualizer_scripts/'))
 
 os.chdir('../')
-from prep_model_parameters import output_folder, dynamic_input
+from prep_model_parameters import output_folder
 from visualizer_helper_functions import rank_file_2_df
 os.chdir('./prep_model_scripts')
 
@@ -20,8 +20,8 @@ from sklearn import manifold
 from sklearn.metrics import euclidean_distances
 
 
-nodes_df = pd.read_csv('../prepped_models/%s/node_ranks.csv'%output_folder)
-overall_edge_df = rank_file_2_df('../prepped_models/%s/ranks/edges/overall_edges_rank.pt'%output_folder)
+categories_nodes_df = pd.read_csv('../prepped_models/%s/ranks/categories_nodes_ranks.csv'%output_folder)
+overall_edge_df = rank_file_2_df('../prepped_models/%s/ranks/categories_edges/overall_edges_rank.pt'%output_folder)
 
 misc_data = pickle.load(open('../prepped_models/%s/misc_graph_data.pkl'%output_folder,'rb'))
 layer_nodes = misc_data['layer_nodes']
@@ -35,7 +35,7 @@ imgnode_names = misc_data['imgnode_names']
 
 
 #make wide version of nodes_df
-def get_col(node_num, df = nodes_df, idx = 'node_num', col = 'layer'):
+def get_col(node_num, df = categories_nodes_df, idx = 'node_num', col = 'layer'):
     return df.loc[(df[idx] == node_num) & (df['category'] == df['category'].unique()[0]), col].item()
 
 def add_norm_col(df,categories=categories[1:]):
@@ -50,7 +50,7 @@ def add_norm_col(df,categories=categories[1:]):
     df['category_norm'] = norms
     return df
 
-def gen_wide_df(rank_type,df=nodes_df):
+def gen_wide_df(rank_type,df=categories_nodes_df):
     print('making wide version of df')
     nodes_wide_df = df.pivot(index = 'node_num',columns='category', values=rank_type)
     nodes_wide_df.reset_index(inplace=True)
@@ -109,9 +109,9 @@ def rotate_mds(layer_mds,rank_type,imgnode_positions=imgnode_positions,max_edges
     return layer_mds 
 
 
-def gen_layer_mds(nodes_df=nodes_df):
+def gen_layer_mds(nodes_df=categories_nodes_df):
     mds_projections ={}
-    for rank_type in ['actxgrad','act','grad','weight']:
+    for rank_type in ['actxgrad_norm','act_norm','grad_norm']:
         nodes_wide_df = gen_wide_df(rank_type+'_rank',df=nodes_df)
         layer_similarities = {}
         for layer in layer_nodes:
@@ -259,7 +259,7 @@ def format_node_positions(projection='MDS',rank_type = 'actxgrad'):
     return node_positions
 
 all_node_positions_formatted = {'MDS':{}}
-for rank_type in ['actxgrad','act','grad','weight']:
+for rank_type in ['actxgrad_norm','act_norm','grad_norm']:
     all_node_positions_formatted['MDS'][rank_type] =  format_node_positions(projection = 'MDS',rank_type = rank_type) 
 all_node_positions_formatted['Grid'] = format_node_positions(projection = 'Grid') 
 
