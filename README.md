@@ -7,7 +7,7 @@ First things first for all setup methods is to clone this repo:
 `git clone https://github.com/chrishamblin7/cnn_subgraph_visualizer.git`
 
 
-###Docker
+### Docker
 The recommended way of setting up this cnn visualizer tools environment is to use docker. If you dont have docker installed on your computer, you can [download it here](https://docs.docker.com/get-docker/)
 
 Once you have docker install you can use docker commandline tools, and get the environment for this project by running:
