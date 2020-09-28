@@ -2,7 +2,12 @@
 
 ## Setup
 
-Once the repository is cloned, the easiest way to set things up is by running:
+First things first for all setup methods is to clone this repo:
+``
+
+
+###Docker
+The recommended way of setting up this cnn visualizer tools environment is to use docker.
 
 `python setup.py`
 
