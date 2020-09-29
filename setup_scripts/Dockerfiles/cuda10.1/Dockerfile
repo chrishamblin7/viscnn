@@ -24,6 +24,7 @@ RUN conda install -y -c anaconda \
      plotly=4.8.2 \
   && conda install -y -c conda-forge \
      dash=1.13.4 \
+     flask-caching=1.7.1 \
      jupyterlab=2.2.0 \
   && conda clean -ya
 

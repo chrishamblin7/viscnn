@@ -480,7 +480,7 @@ def get_ranks_from_dissected_Conv2d_modules(module,layer_ranks=None,weight_rank=
 						layer_ranks['edges'][key][norm].append(submodule.format_edges(data= 'ranks',prenorm = True,weight_rank=weight_rank)[key])					
 				#print(layer_ranks['edges'][-1].shape)
 		elif len(list(submodule.children())) > 0:
-			layer_ranks = get_ranks_from_dissected_Conv2d_modules(submodule,layer_ranks=layer_ranks)   #module has modules inside it, so recurse on this module
+			layer_ranks = get_ranks_from_dissected_Conv2d_modules(submodule,layer_ranks=layer_ranks,weight_rank=weight_rank)   #module has modules inside it, so recurse on this module
 	return layer_ranks
 
 
