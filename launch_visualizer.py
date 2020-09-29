@@ -1113,4 +1113,4 @@ def display_trigger(target_category,clickData,edge_thresh,state):
 	return ctx_msg
 
 #launch app,   you can now access the tool at localhost:8050  (or whatever port you set)
-app.run_server(port=args.port)
+app.run_server(port=args.port,host='0.0.0.0')
