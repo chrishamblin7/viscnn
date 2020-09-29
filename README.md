@@ -16,5 +16,5 @@ Once you have docker install you can use docker commandline tools, and get the e
 
 That might take a while to download. Once its done you can launch the tool by running:
 
-`docker run -t -v [full/path/to/cloned/repo]:/workspace -p 8050:8050 chrishamblin7/cnn_subgraph_visualizer`
+`docker run -it -v [full/path/to/cloned/repo]:/workspace -p 8050:8050 chrishamblin7/cnn_subgraph_visualizer`
 
