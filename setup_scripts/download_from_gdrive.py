@@ -4,7 +4,7 @@ from google_drive_downloader import GoogleDriveDownloader as gdd
 from subprocess import call
 import os
 
-online_models = {'mnist':{'prepped_model':'1p7ZjoUeexiu3-Fv2wCJT4sTaWVVrtCDD','model':'1AjjInlHlo-dEq4NKcrCANXcKDJ8xocn7','images':'1hHrA8ASShRz_JqDu48rQ5O7uWBwiXZ9X'},
+online_models = {'mnist':{'prepped_model':'1p7ZjoUeexiu3-Fv2wCJT4sTaWVVrtCDD','model':'1NOMKT8hP4RqVu3705PYV3DNaE9S0Baj1','images':'1hHrA8ASShRz_JqDu48rQ5O7uWBwiXZ9X'},
 				 'cifar10':{'prepped_model':'1GY-u1JC2PQaiXznHQ1nkV6lMDI0laJ7G','model':None,'images':'17pjtPG-MJK7mhTh_KHvHLHUwSButkwLA'}
 				}
 
