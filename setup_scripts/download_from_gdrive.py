@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
 	def get_args():
 		parser = argparse.ArgumentParser()
-		parser.add_argument("prepped-model", type = str, choices=online_model_names,
+		parser.add_argument("model", type = str, choices=online_model_names,
 							help="Name of model (the folder names within 'prepped_models'). Can also be model avaiable online.")
 		parser.add_argument("--dont-download-images", action='store_true', 
 							help='Dont download the image_data folder associated with that model.')
@@ -47,15 +47,15 @@ if __name__ == "__main__":
 		os.mkdir('../models')
 
 	if not args.only_download_images:
-		print('Downloading prepped_model: %s\n\n'%args.prepped_model)
-		tar_download(online_models[args.prepped_model]['prepped_model'],'../prepped_models/%s.tgz'%args.prepped_model)
-		if online_models[args.prepped_model]['model'] is not None:
+		print('Downloading prepped_model: %s\n\n'%args.model)
+		tar_download(online_models[args.model]['prepped_model'],'../prepped_models/%s.tgz'%args.model)
+		if online_models[args.model]['model'] is not None:
 			print('Downloading model')
-			file_download(online_models[args.prepped_model]['model'],'../models/%s_statedict.pt'%args.prepped_model)
+			file_download(online_models[args.model]['model'],'../models/%s_statedict.pt'%args.model)
 
 	if not args.dont_download_images:
-		print('Downloading input image data associated with: %s\n\n'%args.prepped_model)
-		tar_download(online_models[args.prepped_model]['images'],'../image_data/%s.tgz'%args.prepped_model)
+		print('Downloading input image data associated with: %s\n\n'%args.model)
+		tar_download(online_models[args.model]['images'],'../image_data/%s.tgz'%args.model)
 
 
 # print('LARGE FOLDER DOWNLOAD\n')
