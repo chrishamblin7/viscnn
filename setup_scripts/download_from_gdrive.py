@@ -18,7 +18,7 @@ def tar_download(id,dest_path):
 	call('tar -xzvf %s -C %s'%(dest_path,out_dir),shell=True)
 	call('rm %s'%dest_path,shell=True)	
 
-def file_download(id,dest_path)
+def file_download(id,dest_path):
 	print('downloading')
 	gdd.download_file_from_google_drive(file_id=id, dest_path=dest_path, overwrite=True)
 

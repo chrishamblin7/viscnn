@@ -66,7 +66,7 @@ def rank_dict_2_df(ranks):      #takes a node or edge 'rank.pt' file and turns i
 	rank_keys = list(ranks['nodes'].keys())
 	node_column_names = ['node_num','layer','node_num_by_layer','act_prenorm_rank','grad_prenorm_rank','actxgrad_prenorm_rank','act_norm_rank','grad_norm_rank','actxgrad_norm_rank']
 	edge_column_names = ['edge_num','layer','out_channel','in_channel','act_prenorm_rank','grad_prenorm_rank','actxgrad_prenorm_rank','act_norm_rank','grad_norm_rank','actxgrad_norm_rank']
-	print(ranks)
+
 	#nodes
 
 	node_dflist = []
@@ -401,7 +401,7 @@ def get_activations_from_dissected_Conv2d_modules(module,layer_activations=None)
 			layer_activations['nodes'].append(submodule.postbias_out.cpu().detach().numpy())
 			layer_activations['edges_in'].append(submodule.input.cpu().detach().numpy())
 			layer_activations['edges_out'].append(submodule.format_edges(data= 'activations'))
-			print(layer_activations['edges_out'][-1].shape)
+			#print(layer_activations['edges_out'][-1].shape)
 		elif len(list(submodule.children())) > 0:
 			layer_activations = get_activations_from_dissected_Conv2d_modules(submodule,layer_activations=layer_activations)   #module has modules inside it, so recurse on this module
 

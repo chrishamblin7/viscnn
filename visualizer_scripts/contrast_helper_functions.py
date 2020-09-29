@@ -87,42 +87,42 @@ def parse_contrast(contrast_string,input_image_list,categories_list):
 class layer_rank_arithmetic_obj():
     def __init__(self,arith_exprs,array_dict):
         self.num_layers = len(array_dict['x0']['nodes']['act']['prenorm'])
-        print('num_layers: ');print(self.num_layers)
+        #print('num_layers: ');print(self.num_layers)
         self.array_dict = array_dict
-        print('array_dict: ');print(self.array_dict)
+        #print('array_dict: ');print(self.array_dict)
         self.arith_exprs = arith_exprs
-        print('arith express: ');print(self.arith_exprs)
+        #print('arith express: ');print(self.arith_exprs)
         self.result_dict = {
                             'nodes':{'act':{'prenorm':[]}, 'grad':{'prenorm':[]}, 'actxgrad':{'prenorm':[]}},
                             'edges':{'act':{'prenorm':[]}, 'grad':{'prenorm':[]}, 'actxgrad':{'prenorm':[]}}
                             }
 
         for part in ['nodes','edges']:      #Can be Parallelized!
-            print('\n'+part+'\n')
+            #print('\n'+part+'\n')
             for rank_type in ['act','grad','actxgrad']:
-                print('\n'+rank_type+'\n')
+                #print('\n'+rank_type+'\n')
                 for layer in range(self.num_layers):
-                    print('\n'+str(layer)+'\n')
+                    #print('\n'+str(layer)+'\n')
                     sym_replace_exprs = self.arith_exprs
-                    print('replace express');print(sym_replace_exprs )
+                    #print('replace express');print(sym_replace_exprs )
                     for k in self.array_dict:
                         sym_replace_exprs = sym_replace_exprs.replace(k,'array_dict["%s"]["%s"]["%s"]["prenorm"][%s]'%(k,part,rank_type,str(layer)))
-                    print('replace express');print(sym_replace_exprs )
+                    #print('replace express');print(sym_replace_exprs )
                     exec_exprs = 'self.result_array = ' + sym_replace_exprs
-                    print('exec express'); print(exec_exprs)
+                    #print('exec express'); print(exec_exprs)
                     exec(exec_exprs)   #perform arithmetic over arrays to get "new_array"
-                    print('result_array');print(self.result_array)
+                    #print('result_array');print(self.result_array)
                     self.thresh_indices = self.result_array < 0 
                     self.result_array[self.thresh_indices] = 0 # Threshold negative values at 0
-                    print('thresh_array');print(self.result_array)
+                    #print('thresh_array');print(self.result_array)
                     dictupdate_exprs = 'self.result_dict["%s"]["%s"]["prenorm"].append(self.result_array)'%(part,rank_type)
-                    print('dictupdate_expr');print(dictupdate_exprs)
+                    #print('dictupdate_expr');print(dictupdate_exprs)
                     exec(dictupdate_exprs)
         
 
 
     def get_result(self):
-        print(self.result_dict)
+        #print(self.result_dict)
         return self.result_dict
 
 def layer_rank_arithmetic(arith_exprs,array_dict):
