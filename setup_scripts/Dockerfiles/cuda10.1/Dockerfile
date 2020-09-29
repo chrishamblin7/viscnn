@@ -19,6 +19,7 @@ RUN conda install -y -c anaconda \
     pandas=1.0.5 \ 
     pillow=7.1.2 \
     scikit-learn=0.23.1 \ 
+    sympy=1.6.2 \
   && conda install -y -c plotly \
      plotly=4.8.2 \
   && conda install -y -c conda-forge \
@@ -30,7 +31,7 @@ RUN pip install googledrivedownloader==0.4
 
 
 #pull project files from github
-RUN git clone https://github.com/chrishamblin7/cnn_subgraph_visualizer.git && cd cnn_subgraph_visualizer && git checkout 4bcec1b     #Revision make sure to keep this up to date
+#RUN git clone https://github.com/chrishamblin7/cnn_subgraph_visualizer.git && cd cnn_subgraph_visualizer && git checkout d1d7acf     #Revision make sure to keep this up to date
 
 #download extra files from gdrive
-RUN cd cnn_subgraph_visualizer/setup_scripts && python download_from_gdrive.py
+#RUN cd cnn_subgraph_visualizer/setup_scripts && python download_from_gdrive.py

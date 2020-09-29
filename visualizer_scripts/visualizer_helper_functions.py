@@ -435,20 +435,20 @@ def combine_activation_dicts(all_activations,new_activations):       #when you g
 		all_activations[key].update(new_activations[key])
 	return all_activations
 
-def update_all_activations(image_path,model_dis,params):
-	image_name = image_path.split('/')[-1]
-	print('dont have activations for %s in memory, fetching by running model'%image_name)
-	global all_activations
-	new_activations = get_model_activations_from_image(image_path, model_dis, params)
-	all_activations = combine_activation_dicts(all_activations,new_activations)
+# def update_all_activations(image_path,model_dis,params):
+# 	image_name = image_path.split('/')[-1]
+# 	print('dont have activations for %s in memory, fetching by running model'%image_name)
+# 	global all_activations
+# 	new_activations = get_model_activations_from_image(image_path, model_dis, params)
+# 	all_activations = combine_activation_dicts(all_activations,new_activations)
 	
-	if params['dynamic_input']:
-		global activations_cache_order
-		activations_cache_order.append(image_name)
-		if len(activations_cache_order) > params['dynamic_act_cache_num']:
-			for key in ['nodes','edges_in','edges_out']:
-				del all_activations[key][activations_cache_order[0]]
-			del activations_cache_order[0]
+# 	if params['dynamic_input']:
+# 		global activations_cache_order
+# 		activations_cache_order.append(image_name)
+# 		if len(activations_cache_order) > params['dynamic_act_cache_num']:
+# 			for key in ['nodes','edges_in','edges_out']:
+# 				del all_activations[key][activations_cache_order[0]]
+# 			del activations_cache_order[0]
 
 #RANK FUNCTIONS
 

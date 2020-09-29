@@ -126,7 +126,6 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
         activation = self.postbias_out
         activation_relu = F.relu(activation)
         taylor = activation_relu * grad 
-        print(grad)
         rank_key  = {'act':activation_relu,'grad':torch.abs(grad),'actxgrad':taylor}
         for key in rank_key:
             if self.postbias_ranks_prenorm[key] is None: #initialize at 0
