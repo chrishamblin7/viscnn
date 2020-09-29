@@ -4,7 +4,7 @@ import requests
 from subprocess import call
 import os
 
-online_models = {'mnist':{'prepped_model':'1p7ZjoUeexiu3-Fv2wCJT4sTaWVVrtCDD','model':'1X6wR6nJ_SguVzd6MVFelvXsH9G2uR4WZ','images':'1hHrA8ASShRz_JqDu48rQ5O7uWBwiXZ9X'},
+online_models = {'mnist':{'prepped_model':'1rRqywhDNIngaOI7wjBNg8ob041k9I1RC','model':'1X6wR6nJ_SguVzd6MVFelvXsH9G2uR4WZ','images':'1imE7zWtnYfRyAzWjKPoNY9VvT9Vgvf2e'},
 				 'cifar10':{'prepped_model':'1GY-u1JC2PQaiXznHQ1nkV6lMDI0laJ7G','model':None,'images':'17pjtPG-MJK7mhTh_KHvHLHUwSButkwLA'}
 				}
 
