@@ -27,7 +27,7 @@ RUN conda install -y -c anaconda \
      jupyterlab=2.2.0 \
   && conda clean -ya
 
-RUN pip install googledrivedownloader==0.4
+#RUN pip install googledrivedownloader==0.4
 
 
 #pull project files from github
