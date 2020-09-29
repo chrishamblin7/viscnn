@@ -24,12 +24,12 @@ def file_download(id,dest_path):
 
 if __name__ == "__main__":
 
-	import argeparse
+	import argparse
 
 	def get_args():
 		parser = argparse.ArgumentParser()
 		parser.add_argument("model", type = str, choices=online_model_names,
-							help="Name of model (the folder names within 'prepped_models'). Can also be model avaiable online.")
+							help="Name of model (the folder names within 'prepped_models'). Can also be model available online.")
 		parser.add_argument("--dont-download-images", action='store_true', 
 							help='Dont download the image_data folder associated with that model.')
 		parser.add_argument("--only-download-images", action='store_true', 
