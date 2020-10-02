@@ -295,11 +295,18 @@ input_image_layout = go.Layout(#width=200,
 					  #height=200,
 					  uirevision = True,
 					  margin=dict(
-						l=1,
+						l=12,
 						r=1,
-						b=1,
+						b=12,
 						t=1,
-						pad=1))
+						pad=10
+						),
+    					paper_bgcolor='rgba(0,0,0,0)',
+    					plot_bgcolor='rgba(0,0,0,0)',
+						xaxis=dict(range=(0,10),showline=False,showgrid=False,showticklabels=False),
+                 		yaxis=dict(range=(0,10),showline=False,showgrid=False,showticklabels=False))
+
+
 
 node_actmap_layout = go.Layout(
 	#autosize=False,
@@ -495,7 +502,7 @@ app.layout = html.Div([
 			   'width': '14vw',
 			   'height':'14vw'
 				},
-				figure=image2heatmap(params['input_image_directory']+input_image_name,input_image_layout),
+				figure=image2plot(params['input_image_directory']+input_image_name,input_image_layout),
 				config={
 						'displayModeBar': False
 						}
@@ -999,7 +1006,7 @@ def update_node_inputs(nodeid,image_name,target_category,rank_type,max_num = par
 	[Input('input-image-dropdown', 'value')])
 def update_inputimg_actmap(image_name): 
 	print('CALLED: update_inputimg_actmap')
-	return image2heatmap(params['input_image_directory']+image_name,input_image_layout)
+	return image2plot(params['input_image_directory']+image_name,input_image_layout)
 
 
 #kernel

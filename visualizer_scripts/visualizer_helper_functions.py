@@ -123,6 +123,28 @@ def get_nth_element_from_nested_list(l,n):    #this seems to come up with the ne
 def rgb2hex(r, g, b):
 	return '#{:02x}{:02x}{:02x}'.format(r, g, b)
 
+def image2plot(image_path,layout,resize = False,size = (32,32)):
+	img = Image.open(image_path)
+	if resize:
+		img = img.resize(size,resample=Image.NEAREST)
+
+	trace1 = go.Scatter(x=[],y=[])
+	fig=go.Figure(data=[trace1],layout=layout)
+	fig.update_layout(images= [dict(
+									source= img,
+									xref= "x",
+									yref= "y",
+									x= 0,
+									y= 10,
+									sizex= 10,
+									sizey= 10,
+									sizing= "stretch",
+									opacity= 1,
+									layer= "below"
+									)
+								]
+					 )
+	return fig
 
 def image2heatmap(image_path,layout,resize = False,size = (32,32)):          #displays image as a plotly heatmap object, with colors preserved
 	
