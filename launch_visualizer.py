@@ -274,8 +274,8 @@ network_graph_layout = go.Layout(
 		 #title = target_category,
 		 #width=1000,
 		 clickmode = 'event+select',
-		 transition = {'duration': 500},
-		 height=600,
+		 transition = {'duration': 20},
+		 height=400,
 		 #showlegend=False,
 		 margin = dict(l=20, r=20, t=20, b=20),
 		 scene=dict(
@@ -463,15 +463,20 @@ app.layout = html.Div([
 
 				html.Br(),
 				html.Label('Edge Thresholds'),
-					dcc.RangeSlider(
-						id='edge-thresh-slider',
-						min=0,
-						max=np.ceil(params['max_edge_weight']*10)/10,
-						step=0.001,
-						marks={i/10: str(i/10) for i in range(0,int(np.ceil(params['max_edge_weight']*10))+1,int(round(np.ceil(params['max_edge_weight']*10)/5)))},
-						value=[.1,np.ceil(params['max_edge_weight']*10)/10],
-					),
-
+				dcc.RangeSlider(
+					id='edge-thresh-slider',
+					min=0,
+					max=np.ceil(params['max_edge_weight']*10)/10,
+					step=0.001,
+					marks={i/10: str(i/10) for i in range(0,int(np.ceil(params['max_edge_weight']*10))+1,int(round(np.ceil(params['max_edge_weight']*10)/5)))},
+					value=[.1,np.ceil(params['max_edge_weight']*10)/10],
+				),
+				# dcc.Checklist(
+				# 				id='normalize-box'
+				# 				options=[{'label': 'Per-Layer Normalize', 'value': 'normalize'}],
+				# 				value=['normalize']
+							)
+  
 				], className="two columns",
 				),
 				
@@ -1018,7 +1023,8 @@ def update_edge_kernelmap(edge_name,figure):
 	print('CALLED: update_edge_kernelmap')
 	kernel,inmap,outmap = edgename_2_edge_figures(edge_name, None, kernels, None,categories_nodes_df,params)
 	if kernel is not None:
-		return go.Figure(data=go.Heatmap(z = kernel,zmin=-.5,zmax=.5),
+		return go.Figure(data=go.Heatmap(z = kernel)
+						#,zmin=-.5,zmax=.5),
 						 layout=kernel_layout)
 	else:
 		return figure
