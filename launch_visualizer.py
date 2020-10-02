@@ -1023,7 +1023,7 @@ def update_edge_kernelmap(edge_name,figure):
 	print('CALLED: update_edge_kernelmap')
 	kernel,inmap,outmap = edgename_2_edge_figures(edge_name, None, kernels, None,categories_nodes_df,params)
 	if kernel is not None:
-		return go.Figure(data=go.Heatmap(z = kernel)
+		return go.Figure(data=go.Heatmap(z = kernel),
 						#,zmin=-.5,zmax=.5),
 						 layout=kernel_layout)
 	else:
