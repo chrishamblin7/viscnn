@@ -475,7 +475,7 @@ app.layout = html.Div([
 				# 				id='normalize-box'
 				# 				options=[{'label': 'Per-Layer Normalize', 'value': 'normalize'}],
 				# 				value=['normalize']
-							)
+							# )
   
 				], className="two columns",
 				),
