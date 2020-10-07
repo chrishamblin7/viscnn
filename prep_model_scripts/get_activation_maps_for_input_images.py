@@ -18,6 +18,8 @@ os.chdir('./prep_model_scripts')
 model_dis = dissect_model(deepcopy(params.model),store_ranks=False,cuda=params.cuda) #version of model with accessible preadd activations in Conv2d modules 
 if params.cuda:
 	model_dis.cuda()
+
+model_dis.eval()
 del params.model
 
 ###IMAGE LOADING

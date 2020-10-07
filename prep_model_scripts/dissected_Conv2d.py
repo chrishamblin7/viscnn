@@ -270,8 +270,9 @@ def dissect_model(model,store_activations=True,store_ranks=True,clear_ranks = Fa
             new_module = dissected_Conv2d(module, store_activations=store_activations,store_ranks=store_ranks,clear_ranks=clear_ranks,cuda=cuda) 
             model._modules[name] = new_module
 
-        elif isinstance(module, torch.nn.modules.Dropout):    #make dropout layers not dropout
+        elif isinstance(module, torch.nn.modules.Dropout):    #make dropout layers not dropout  #also set batchnorm to eval
             model._modules[name].eval() 
+
 
         else:    #make activation functions not 'inplace'
             model._modules[name].inplace=False                    

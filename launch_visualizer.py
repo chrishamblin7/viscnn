@@ -156,6 +156,8 @@ params['max_edge_weight'] = 1  #for the edge threshold slider, this dynamically 
 model_dis = dissect_model(deepcopy(prep_model_params.model),store_ranks=True,clear_ranks=True,cuda=params['cuda']) #version of model with accessible preadd activations in Conv2d modules 
 if params['cuda']:
 	model_dis.cuda()
+model_dis.eval()
+
 print('loaded model:')
 print(prep_model_params.model)
 print('\n')
