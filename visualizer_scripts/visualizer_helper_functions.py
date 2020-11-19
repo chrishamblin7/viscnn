@@ -96,7 +96,7 @@ def rank_dict_2_df(ranks):      #takes a node or edge 'rank.pt' file and turns i
 
 #MISC FORMATTING FUNCTIONS
 
-def nodeid_2_perlayerid(nodeid,nodes_df,params):    #takes in node unique id outputs tuple of layer and within layer id
+def nodeid_2_perlayerid(nodeid,params):    #takes in node unique id outputs tuple of layer and within layer id
 	imgnode_names = params['imgnode_names']
 	layer_nodes = params['layer_nodes']
 	if isinstance(nodeid,str):
@@ -105,8 +105,15 @@ def nodeid_2_perlayerid(nodeid,nodes_df,params):    #takes in node unique id out
 			within_layer_id = imgnode_names.index(nodeid)
 			return layer,within_layer_id
 	nodeid = int(nodeid)
-	layer = nodes_df[nodes_df['category']=='overall'][nodes_df['node_num'] == nodeid]['layer'].item()
-	within_layer_id = nodes_df[nodes_df['category']=='overall'][nodes_df['node_num'] == nodeid]['node_num_by_layer'].item()
+	total= 0
+	for i in range(len(layer_nodes)):
+		total += len(layer_nodes[i])
+		if total > nodeid:
+			layer = i
+			within_layer_id = layer_nodes[i].index(nodeid)
+			break
+	#layer = nodes_df[nodes_df['category']=='overall'][nodes_df['node_num'] == nodeid]['layer'].item()
+	#within_layer_id = nodes_df[nodes_df['category']=='overall'][nodes_df['node_num'] == nodeid]['node_num_by_layer'].item()
 	return layer,within_layer_id
 
 def layernum2name(layer,offset=1,title = 'layer'):
@@ -365,12 +372,12 @@ def get_edge_from_curvenumber(curvenum, edge_names, num_layers):
 			curve+=1
 	return None,None,None
 
-def check_edge_validity(nodestring,nodes_df,params):
+def check_edge_validity(nodestring,params):
 	from_node = nodestring.split('-')[0]
 	to_node = nodestring.split('-')[1]
 	try:
-		from_layer,from_within_id = nodeid_2_perlayerid(from_node,nodes_df,params)
-		to_layer,to_within_id = nodeid_2_perlayerid(to_node,nodes_df,params)
+		from_layer,from_within_id = nodeid_2_perlayerid(from_node,params)
+		to_layer,to_within_id = nodeid_2_perlayerid(to_node,params)
 		#check for valid edge
 		valid_edge = False
 		if from_layer=='img':
@@ -387,7 +394,7 @@ def check_edge_validity(nodestring,nodes_df,params):
 		return [False, None, None, None, None] 
 
 def edgename_2_edge_figures(edgename, image_name, kernels, activations, nodes_df, params):  #returns truth value of valid edge and kernel if valid
-	valid,from_layer,to_layer,from_within_id,to_within_id  = check_edge_validity(edgename,nodes_df,params)
+	valid,from_layer,to_layer,from_within_id,to_within_id  = check_edge_validity(edgename,params)
 	if valid:
 		kernel=None
 		in_map=None
@@ -505,10 +512,60 @@ def get_ranks_from_dissected_Conv2d_modules(module,layer_ranks=None,weight_rank=
 			layer_ranks = get_ranks_from_dissected_Conv2d_modules(submodule,layer_ranks=layer_ranks,weight_rank=weight_rank)   #module has modules inside it, so recurse on this module
 	return layer_ranks
 
+def get_model_ranks_for_category(category, target_node, model_dis,params):
+
+	device = torch.device("cuda" if params['cuda'] else "cpu")
+
+	####SET UP MODEL
+	model_dis = set_across_model(model_dis,'target_node',None)
+	if target_node is not 'loss':
+		target_node_layer,target_node_within_layer_id = nodeid_2_perlayerid(target_node,params)
+		model_dis=set_model_target_node(model_dis,target_node_layer,target_node_within_layer_id)
+
+	model_dis = set_across_model(model_dis,'clear_ranks',False)
+
+	node_ranks = {}
+	edge_ranks = {}
 
 
+	####SET UP DATALOADER
+	kwargs = {'num_workers': params['num_workers'], 'pin_memory': True} if params['cuda'] else {}
 
-def get_model_ranks_from_image(image_path, model_dis, params): 
+	if category =='overall':
+		categories = os.listdir(params['rank_img_path'])
+	else:
+		categories = [category]
+	for cat in categories:
+
+		image_loader = torch.utils.data.DataLoader(
+				rank_image_data(params['rank_img_path']+'/'+cat,params['preprocess'],params['label_file_path']),
+				batch_size=params['batch_size'],
+				shuffle=True,
+				**kwargs)	
+
+		##RUNNING DATA THROUGH MODEL
+		#Pass data through model in batches
+		for i, (batch, target) in enumerate(image_loader):
+			print('batch %s'%i)
+			model_dis.zero_grad()
+			batch, target = batch.to(device), target.to(device)
+			try:
+				output = model_dis(batch)    #running forward pass sets up hooks and stores activations in each dissected_Conv2d module
+				if target_node == 'loss':
+					target = max_likelihood_for_no_target(target,output) 
+					params.criterion(output, Variable(target)).backward()    #running backward pass calls all the hooks and calculates the ranks of all edges and nodes in the graph 
+			except TargetReached:
+				print('target node %s reached, halted forward pass'%str(target_node))
+
+			#	torch.sum(output).backward()    # run backward pass with respect to net outputs rather than loss function
+
+	layer_ranks = get_ranks_from_dissected_Conv2d_modules(model_dis)
+
+	model_dis = set_across_model(model_dis,'clear_ranks',True)
+
+	return layer_ranks
+
+def get_model_ranks_from_image(image_path, target_node, model_dis, params): 
 	#model_dis.clear_ranks_func()  #so ranks dont accumulate
 	cuda = params['cuda']
 	device = torch.device("cuda" if cuda else "cpu")
@@ -516,10 +573,19 @@ def get_model_ranks_from_image(image_path, model_dis, params):
 	image_name = image_path.split('/')[-1]
 	image,target = single_image_loader(image_path, params['preprocess'], label_file_path = params['label_file_path'])
 	image, target = image.to(device), target.to(device)
+
+	model_dis = set_across_model(model_dis,'target_node',None)
+	if target_node is not 'loss':
+		target_node_layer,target_node_within_layer_id = nodeid_2_perlayerid(nodeid,params)
+		model_dis=set_model_target_node(model_dis,target_node_layer,target_node_within_layer_id)
+		output = model_dis(image)
+
 	#pass image through model
-	output = model_dis(image)
-	target = max_likelihood_for_no_target(target,output) 
-	params['criterion'](output, Variable(target)).backward()
+	else:
+		output = model_dis(image)
+		target = max_likelihood_for_no_target(target,output) 
+		params['criterion'](output, Variable(target)).backward()
+
 	layer_ranks = get_ranks_from_dissected_Conv2d_modules(model_dis)
 	return layer_ranks
 
@@ -558,7 +624,7 @@ def gen_networkgraph_traces(state,params,nodes_df):
 	node_traces = []
 	select_layer,select_position = None,None
 	if str(state['node_select_history'][-1]).isnumeric():
-		select_layer,select_position = nodeid_2_perlayerid(state['node_select_history'][-1],nodes_df,params)
+		select_layer,select_position = nodeid_2_perlayerid(state['node_select_history'][-1],params)
 	for layer in layer_nodes:
 		#add nodes
 		colors = deepcopy(state['node_colors'][layer])

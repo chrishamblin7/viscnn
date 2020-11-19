@@ -925,8 +925,8 @@ def update_node_actmap(nodeid,image_name):       #EDIT: needs support for black 
 						layout=node_actmap_layout) 
 	
 	return go.Figure(data=go.Heatmap( z = np.flip(activations['nodes'][image_name][layer][within_id],0),
-									  zmin=-1,
-									  zmax=1,
+									  #zmin=-1,
+									  #zmax=1,
 									  colorbar = dict(thicknessmode = "fraction",thickness=.1)
 									),
 					 layout=node_actmap_layout) 
@@ -983,8 +983,8 @@ def update_node_inputs(nodeid,image_name,target_category,rank_type,max_num = par
 
 		fig.add_trace(
 			   go.Heatmap(z = edgename_2_edge_figures(edge_name, image_name, kernels, activations,categories_nodes_df,params)[2],
-						  zmin = -1,
-						  zmax = 1,
+						  #zmin = -1,
+						  #zmax = 1,
 						  name = edge_name,
 						  showscale = False,
 						  colorbar = dict(lenmode='fraction',len=1/len(top_node_edges_df), 
@@ -1048,7 +1048,7 @@ def update_edge_inmap(edge_name,image_name,figure):
 		
 	kernel,inmap,outmap = edgename_2_edge_figures(edge_name, image_name, kernels, activations,categories_nodes_df,params)
 	if inmap is not None:
-		return go.Figure(data=go.Heatmap(z = inmap,zmin=-1,zmax=1,
+		return go.Figure(data=go.Heatmap(z = inmap,#zmin=-1,zmax=1,
 										 colorbar = dict(thicknessmode = "fraction",thickness=.1)
 										),
 						 layout=edge_inmap_layout)
@@ -1072,7 +1072,7 @@ def update_edge_outmap(edge_name,image_name,figure):
 		
 	kernel,inmap,outmap = edgename_2_edge_figures(edge_name, image_name, kernels, activations,categories_nodes_df,params)
 	if outmap is not None:
-		return go.Figure(data=go.Heatmap(z = outmap,zmin=-1,zmax=1,
+		return go.Figure(data=go.Heatmap(z = outmap,#zmin=-1,zmax=1,
 										 colorbar = dict(thicknessmode = "fraction",thickness=.1)
 										),
 						 layout=edge_outmap_layout)

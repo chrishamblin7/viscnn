@@ -15,11 +15,16 @@ data = {}
 nodes_df = pd.read_csv('../prepped_models/%s/ranks/categories_nodes_ranks.csv'%output_folder)
 
 #list of layer nodes
-layer_nodes = {}
+layer_nodes_dict = {}
 for row in nodes_df[nodes_df['category'] == 'overall'].itertuples(): 
     if row.layer not in layer_nodes:
         layer_nodes[row.layer] = []
     layer_nodes[row.layer].append(row.node_num)
+layer_nodes = []
+for l in range(len(layer_nodes_dict)):
+    layer_nodes.append(layer_nodes_dict[l])
+
+
 
 num_layers = max(layer_nodes.keys()) + 1
 num_nodes = len(nodes_df.loc[nodes_df['category']=='overall'])
