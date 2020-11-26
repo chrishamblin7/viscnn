@@ -133,7 +133,7 @@ def var_dict_2_array_dict(var_dict,model_dis,params):
     array_dict = {}
     for var in var_dict:
         if var in params['input_image_list']:
-            array_dict[var_dict[var]] = get_model_ranks_from_image(params['input_image_directory']+'/'+var, model_dis, params)
+            array_dict[var_dict[var]] = get_model_ranks_from_image(params['input_image_directory']+'/'+var,target_node, model_dis, params)
         else:
             category_dict = {'nodes':{},'edges':{}} 
             category_dict['nodes'] = torch.load(os.path.join(params['ranks_data_path'],'categories_nodes','%s_nodes_rank.pt'%var))
