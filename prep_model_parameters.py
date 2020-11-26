@@ -10,15 +10,6 @@ output_folder = 'letter_mixed_not_trained'     #name of folder you want prep mod
 ###MODEL
 
 #There are a lot of ways to load up a model in pytorch, just do whatever you need to do here such that there is a variable 'model' in this file pointing to a working feed-forward CNN
-#from model_classes import AlexNet_format
-#model = AlexNet_format()
-#model.load_state_dict(torch.load('./models/alexnet_statedict.pt'))
-
-#sys.path.insert(0, os.path.abspath('./model_scripts/'))
-#from model_classes import MNIST_edges
-#model = MNIST_edges()
-#model.load_state_dict(torch.load('models/mnist_statedict.pt'))
-#model = torch.load('../cnn_letter_rsa/models/mixednet/alexnet_mixed_letters_normed_ep1_imnet0.466_letter0.955.pt')
 from torchvision import models
 import torch.nn as nn
 model = models.alexnet(pretrained=True) #load a model from the models.py script, or switch this to torch.load(path_to_model) to load a model from a .pt file   
