@@ -62,6 +62,9 @@ model_dis.eval()
 for param in model_dis.parameters():  #need gradients for grad*activation rank calculation
 	param.requires_grad = True
 
+print('loaded model')
+#import pdb; pdb.set_trace()
+
 ##DATA LOADER###
 import torch.utils.data as data
 import torchvision.datasets as datasets
@@ -104,7 +107,6 @@ def get_ranks_from_dissected_Conv2d_modules(module,layer_ranks=None,weight_rank=
 						   'edges':{'act':{'prenorm':[],'norm':[]},'grad':{'prenorm':[],'norm':[]},'actxgrad':{'prenorm':[],'norm':[]}}}
 
 	for layer, (name, submodule) in enumerate(module._modules.items()):
-		#print(submodule)
 		if isinstance(submodule, dissected_Conv2d):
 			submodule.average_ranks()
 			submodule.normalize_ranks()
@@ -117,10 +119,12 @@ def get_ranks_from_dissected_Conv2d_modules(module,layer_ranks=None,weight_rank=
 				for norm in ['prenorm','norm']:
 					if norm == 'norm':
 						layer_ranks['nodes'][key][norm].append(submodule.postbias_ranks[key].cpu().detach().numpy())
-						layer_ranks['edges'][key][norm].append(submodule.format_edges(data= 'ranks',weight_rank=weight_rank)[key])
+						#layer_ranks['edges'][key][norm].append(submodule.format_edges(data= 'ranks',weight_rank=weight_rank)[key])
+						layer_ranks['edges'][key][norm].append(submodule.preadd_ranks[key].cpu().detach().numpy())
 					else:
 						layer_ranks['nodes'][key][norm].append(submodule.postbias_ranks_prenorm[key].cpu().detach().numpy())
-						layer_ranks['edges'][key][norm].append(submodule.format_edges(data= 'ranks',prenorm = True,weight_rank=weight_rank)[key])					
+						#layer_ranks['edges'][key][norm].append(submodule.format_edges(data= 'ranks',prenorm = True,weight_rank=weight_rank)[key])		
+						layer_ranks['edges'][key][norm].append(submodule.preadd_ranks[key].cpu().detach().numpy())			
 				#print(layer_ranks['edges'][-1].shape)
 		elif len(list(submodule.children())) > 0:
 			layer_ranks = get_ranks_from_dissected_Conv2d_modules(submodule,layer_ranks=layer_ranks,weight_rank=weight_rank)   #module has modules inside it, so recurse on this module
@@ -128,6 +132,7 @@ def get_ranks_from_dissected_Conv2d_modules(module,layer_ranks=None,weight_rank=
 
 
 layer_ranks = get_ranks_from_dissected_Conv2d_modules(model_dis)
+
 #layer_ranks_prenorm = get_ranks_from_dissected_Conv2d_modules(model_dis,prenorm=True)
 
 ##SAVE category RANKS##
@@ -143,10 +148,7 @@ torch.save(layer_ranks['edges'], '../prepped_models/'+args.output_folder+'/ranks
 
 #CHECK FOR WEIGHT RANK
 if not os.path.exists('../prepped_models/'+args.output_folder+'/ranks/weight_nodes_ranks.csv'):
-	print('generating weight rank csvs')
-
 	weight_ranks = get_ranks_from_dissected_Conv2d_modules(model_dis,weight_rank=True)
-
 	#save node csv
 	node_num = 0
 	weightnode_dflist = []
@@ -160,6 +162,7 @@ if not os.path.exists('../prepped_models/'+args.output_folder+'/ranks/weight_nod
 	node_df.to_csv('../prepped_models/'+args.output_folder+'/ranks/weight_nodes_ranks.csv',index=False)
 
 	#save edge csv
+	'''
 	edge_num = 0
 	weightedge_dflist = []
 	for layer in range(len(weight_ranks['edges']['weight']['prenorm'])):
@@ -171,6 +174,7 @@ if not os.path.exists('../prepped_models/'+args.output_folder+'/ranks/weight_nod
 	edge_df = pd.DataFrame(weightedge_dflist,columns=edge_column_names)
 	#save
 	edge_df.to_csv('../prepped_models/'+args.output_folder+'/ranks/weight_edges_ranks.csv',index=False)
+	'''
 
 	#torch.save(weight_ranks['nodes'], '../prepped_models/'+args.output_folder+'/ranks/weight_nodes_rank.pt')
 	#torch.save(weight_ranks['edges'], '../prepped_models/'+args.output_folder+'/ranks/weight_edges_rank.pt')

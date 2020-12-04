@@ -4,7 +4,7 @@ import os
 import sys
 
 
-output_folder = 'letter_mixed_not_trained'     #name of folder you want prep model to output to. Not a path here, just a name, it will appear as a folder under prepped_models/. 
+output_folder = 'googlenet10_test'     #name of folder you want prep model to output to. Not a path here, just a name, it will appear as a folder under prepped_models/. 
 									  #When you launch the visualization tool you will do so with respect to this folder name
 
 ###MODEL
@@ -12,23 +12,15 @@ output_folder = 'letter_mixed_not_trained'     #name of folder you want prep mod
 #There are a lot of ways to load up a model in pytorch, just do whatever you need to do here such that there is a variable 'model' in this file pointing to a working feed-forward CNN
 from torchvision import models
 import torch.nn as nn
-model = models.alexnet(pretrained=True) #load a model from the models.py script, or switch this to torch.load(path_to_model) to load a model from a .pt file   
+model = models.googlenet(pretrained=True) #load a model from the models.py script, or switch this to torch.load(path_to_model) to load a model from a .pt file   
 
-num_ftrs = model.classifier[6].in_features
-letter_linear = nn.Linear(num_ftrs,26)
-new_classifier_weights = torch.cat((model.classifier[6].weight, letter_linear.weight), 0)
-new_classifier_bias = torch.cat((model.classifier[6].bias, letter_linear.bias), 0)
-new_classifier = nn.Linear(num_ftrs,1026)
-new_classifier.weight = torch.nn.Parameter(new_classifier_weights)
-new_classifier.bias = torch.nn.Parameter(new_classifier_bias)
-model.classifier[6] = new_classifier
 
 ###IMAGE PATHS
 
 input_img_path =  './image_data/imagenet_200/input_images'   #Set this to the system path for the folder containing input images you would like to see network activation maps for.
-rank_img_path = './image_data/mixed10/ranking_images'       #Set this to a path with subfolders, where each subfolder contains a set of images. Subgraph ranks will be based on these subfolders. 
+rank_img_path = './image_data/googlenet10/ranking_images'       #Set this to a path with subfolders, where each subfolder contains a set of images. Subgraph ranks will be based on these subfolders. 
 
-label_file_path = './image_data/mixed10/labels.txt'      #line seperated file with names of label classes as they appear in image names
+label_file_path = './image_data/googlenet10/labels.txt'      #line seperated file with names of label classes as they appear in image names
 						  #set to None if there are no target classes for your model
 						  #make sure the order of labels matches the order in desired target vectors
  
@@ -48,7 +40,7 @@ preprocess =  transforms.Compose([
 
 
 #GPU
-cuda = True       #use GPU acceleration
+cuda = True      #use GPU acceleration
 
 #LOSS
 criterion = torch.nn.CrossEntropyLoss()   #this should be set to whatever loss function was used to train your model
@@ -61,7 +53,7 @@ save_activations=False    #If getting activations for the input images is causin
 #AUX (these params arent super important but you might want to change them)
 num_workers = 4     #num workers argument in dataloader
 seed = 2            #manual seed
-batch_size = 10    #batch size for feeding rank image set through model (input image set is sent through all at once)
+batch_size = 2    #batch size for feeding rank image set through model (input image set is sent through all at once)
 
 
 
