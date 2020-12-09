@@ -3,35 +3,24 @@ import torch
 import os
 import sys
 
-
-output_folder = 'letter_mixed_not_trained'     #name of folder you want prep model to output to. Not a path here, just a name, it will appear as a folder under prepped_models/. 
-									  #When you launch the visualization tool you will do so with respect to this folder name
-
 ###MODEL
 
 #There are a lot of ways to load up a model in pytorch, just do whatever you need to do here such that there is a variable 'model' in this file pointing to a working feed-forward CNN
 from torchvision import models
-import torch.nn as nn
-model = models.alexnet(pretrained=True) #load a model from the models.py script, or switch this to torch.load(path_to_model) to load a model from a .pt file   
-
-num_ftrs = model.classifier[6].in_features
-letter_linear = nn.Linear(num_ftrs,26)
-new_classifier_weights = torch.cat((model.classifier[6].weight, letter_linear.weight), 0)
-new_classifier_bias = torch.cat((model.classifier[6].bias, letter_linear.bias), 0)
-new_classifier = nn.Linear(num_ftrs,1026)
-new_classifier.weight = torch.nn.Parameter(new_classifier_weights)
-new_classifier.bias = torch.nn.Parameter(new_classifier_bias)
-model.classifier[6] = new_classifier
+model = models.alexnet(pretrained=True)
 
 ###IMAGE PATHS
 
 input_img_path =  './image_data/imagenet_200/input_images'   #Set this to the system path for the folder containing input images you would like to see network activation maps for.
-rank_img_path = './image_data/mixed10/ranking_images'       #Set this to a path with subfolders, where each subfolder contains a set of images. Subgraph ranks will be based on these subfolders. 
+rank_img_path = './image_data/imagenet_50/ranking_images'       #Set this to a path with subfolders, where each subfolder contains a set of images. Subgraph ranks will be based on these subfolders. 
 
-label_file_path = './image_data/mixed10/labels.txt'      #line seperated file with names of label classes as they appear in image names
+label_file_path = './image_data/imagenet_50/labels.txt'      #line seperated file with names of label classes as they appear in image names
 						  #set to None if there are no target classes for your model
 						  #make sure the order of labels matches the order in desired target vectors
  
+
+output_folder = 'alexnet'     #name of folder you want prep model to output to. Not a path here, just a name, it will appear as a folder under prepped_models/. 
+									  #When you launch the visualization tool you will do so with respect to this folder name
 
 ###IMAGE PREPROCESSING
 
@@ -40,11 +29,14 @@ from torchvision import transforms
 #preprocess = None     # Set this to None or False if you dont want your input images to be preprocessed. Or set this to a torchvision transform, as in the example below. If you use
 					  # a transform to load your test data set when training your model, put that in below.
 
-preprocess =  transforms.Compose([
-        						transforms.Resize((224,224)),
-        						transforms.ToTensor(),
-								transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                                     	 			 std=[0.229, 0.224, 0.225])])
+normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                 std=[0.229, 0.224, 0.225])
+
+preprocess = transforms.Compose([
+				transforms.CenterCrop(224),
+				transforms.ToTensor(),
+				normalize
+				])
 
 
 #GPU
