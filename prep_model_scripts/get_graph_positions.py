@@ -23,8 +23,6 @@ from sklearn.metrics import euclidean_distances
 categories_nodes_df = pd.read_csv('../prepped_models/%s/ranks/categories_nodes_ranks.csv'%output_folder)
 overall_edge_df = rank_file_2_df('../prepped_models/%s/ranks/categories_edges/overall_edges_rank.pt'%output_folder)
 
-import pdb;pdb.set_trace()
-
 misc_data = pickle.load(open('../prepped_models/%s/misc_graph_data.pkl'%output_folder,'rb'))
 layer_nodes = misc_data['layer_nodes']
 num_layers = misc_data['num_layers']
