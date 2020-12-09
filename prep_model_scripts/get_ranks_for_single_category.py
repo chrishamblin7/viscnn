@@ -11,6 +11,8 @@ from torch.autograd import Variable
 import pandas as pd
 import sys
 sys.path.insert(0, os.path.abspath('../'))
+sys.path.insert(0, os.path.abspath('../visualizer_scripts/'))
+from visualizer_helper_functions import get_ranks_from_dissected_Conv2d_modules
 
 os.chdir('../')
 import prep_model_parameters as params
@@ -95,37 +97,7 @@ for i, (batch, target) in enumerate(image_loader):
 
 ##FETCHING RANKS
 
-def get_ranks_from_dissected_Conv2d_modules(module,layer_ranks=None,weight_rank=False):     #run through all model modules recursively, and pull the ranks stored in dissected_Conv2d modules 
-	if layer_ranks is None:    #initialize the output dictionary if we are not recursing and havent done so yet
-		if weight_rank:
-			layer_ranks = {'nodes':{'weight':{'prenorm':[],'norm':[]}},'edges':{'weight':{'prenorm':[],'norm':[]}}}
-		else:
-			layer_ranks = {'nodes':{'act':{'prenorm':[],'norm':[]},'grad':{'prenorm':[],'norm':[]},'actxgrad':{'prenorm':[],'norm':[]}},
-						   'edges':{'act':{'prenorm':[],'norm':[]},'grad':{'prenorm':[],'norm':[]},'actxgrad':{'prenorm':[],'norm':[]}}}
-
-	for layer, (name, submodule) in enumerate(module._modules.items()):
-		#print(submodule)
-		if isinstance(submodule, dissected_Conv2d):
-			submodule.average_ranks()
-			submodule.normalize_ranks()
-			if weight_rank:
-				rank_keys = ['weight']
-			else:
-				rank_keys = ['act','grad','actxgrad']
-
-			for key in rank_keys:
-				for norm in ['prenorm','norm']:
-					if norm == 'norm':
-						layer_ranks['nodes'][key][norm].append(submodule.postbias_ranks[key].cpu().detach().numpy())
-						layer_ranks['edges'][key][norm].append(submodule.format_edges(data= 'ranks',weight_rank=weight_rank)[key])
-					else:
-						layer_ranks['nodes'][key][norm].append(submodule.postbias_ranks_prenorm[key].cpu().detach().numpy())
-						layer_ranks['edges'][key][norm].append(submodule.format_edges(data= 'ranks',prenorm = True,weight_rank=weight_rank)[key])					
-				#print(layer_ranks['edges'][-1].shape)
-		elif len(list(submodule.children())) > 0:
-			layer_ranks = get_ranks_from_dissected_Conv2d_modules(submodule,layer_ranks=layer_ranks,weight_rank=weight_rank)   #module has modules inside it, so recurse on this module
-	return layer_ranks
-
+#import pdb; pdb.set_trace()
 
 layer_ranks = get_ranks_from_dissected_Conv2d_modules(model_dis)
 #layer_ranks_prenorm = get_ranks_from_dissected_Conv2d_modules(model_dis,prenorm=True)
@@ -151,10 +123,11 @@ if not os.path.exists('../prepped_models/'+args.output_folder+'/ranks/weight_nod
 	node_num = 0
 	weightnode_dflist = []
 	for layer in range(len(weight_ranks['nodes']['weight']['prenorm'])):
-		for num_by_layer in range(len(weight_ranks['nodes']['weight']['prenorm'][layer])):
-			weightnode_dflist.append([node_num,layer,num_by_layer,weight_ranks['nodes']['weight']['prenorm'][layer][num_by_layer],weight_ranks['nodes']['weight']['norm'][layer][num_by_layer]])
+		layer_name = weight_ranks['nodes']['weight']['prenorm'][layer][0]
+		for num_by_layer in range(len(weight_ranks['nodes']['weight']['prenorm'][layer][1])):
+			weightnode_dflist.append([node_num,layer_name,layer,num_by_layer,weight_ranks['nodes']['weight']['prenorm'][layer][1][num_by_layer],weight_ranks['nodes']['weight']['norm'][layer][1][num_by_layer]])
 			node_num += 1
-	node_column_names = ['node_num','layer','node_num_by_layer','weight_prenorm_rank','weight_norm_rank']
+	node_column_names = ['node_num','layer_name','layer','node_num_by_layer','weight_prenorm_rank','weight_norm_rank']
 	node_df = pd.DataFrame(weightnode_dflist,columns=node_column_names)
 	#save
 	node_df.to_csv('../prepped_models/'+args.output_folder+'/ranks/weight_nodes_ranks.csv',index=False)
@@ -163,11 +136,12 @@ if not os.path.exists('../prepped_models/'+args.output_folder+'/ranks/weight_nod
 	edge_num = 0
 	weightedge_dflist = []
 	for layer in range(len(weight_ranks['edges']['weight']['prenorm'])):
-		for out_channel in range(len(weight_ranks['edges']['weight']['prenorm'][layer])):
-			for in_channel in range(len(weight_ranks['edges']['weight']['prenorm'][layer][out_channel])):
-				weightedge_dflist.append([edge_num,layer,out_channel,in_channel,weight_ranks['edges']['weight']['prenorm'][layer][out_channel][in_channel],weight_ranks['edges']['weight']['norm'][layer][out_channel][in_channel]])
+		layer_name = weight_ranks['edges']['weight']['prenorm'][layer][0]
+		for out_channel in range(len(weight_ranks['edges']['weight']['prenorm'][layer][1])):
+			for in_channel in range(len(weight_ranks['edges']['weight']['prenorm'][layer][1][out_channel])):
+				weightedge_dflist.append([edge_num,layer_name,layer,out_channel,in_channel,weight_ranks['edges']['weight']['prenorm'][layer][1][out_channel][in_channel],weight_ranks['edges']['weight']['norm'][layer][1][out_channel][in_channel]])
 				edge_num += 1
-	edge_column_names = ['edge_num','layer','out_channel','in_channel','weight_prenorm_rank','weight_norm_rank']
+	edge_column_names = ['edge_num','layer_name','layer','out_channel','in_channel','weight_prenorm_rank','weight_norm_rank']
 	edge_df = pd.DataFrame(weightedge_dflist,columns=edge_column_names)
 	#save
 	edge_df.to_csv('../prepped_models/'+args.output_folder+'/ranks/weight_edges_ranks.csv',index=False)

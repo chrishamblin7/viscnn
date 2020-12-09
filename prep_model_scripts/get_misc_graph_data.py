@@ -14,19 +14,23 @@ data = {}
 
 nodes_df = pd.read_csv('../prepped_models/%s/ranks/categories_nodes_ranks.csv'%output_folder)
 
+
 #list of layer nodes
 layer_nodes_dict = {}
+
 for row in nodes_df[nodes_df['category'] == 'overall'].itertuples(): 
-    if row.layer not in layer_nodes:
-        layer_nodes[row.layer] = []
-    layer_nodes[row.layer].append(row.node_num)
+    if row.layer not in layer_nodes_dict:
+        layer_nodes_dict[row.layer] = [row.layer_name,[]]
+    layer_nodes_dict[row.layer][1].append(row.node_num)
 layer_nodes = []
 for l in range(len(layer_nodes_dict)):
     layer_nodes.append(layer_nodes_dict[l])
 
 
 
-num_layers = max(layer_nodes.keys()) + 1
+
+
+num_layers = max(layer_nodes_dict.keys()) + 1
 num_nodes = len(nodes_df.loc[nodes_df['category']=='overall'])
 
 #list of categories
@@ -38,7 +42,7 @@ categories.insert(0,'overall')
 #edges
 overall_edge_ranks = torch.load('../prepped_models/%s/ranks/categories_edges/overall_edges_rank.pt'%output_folder)
 
-num_img_chan = overall_edge_ranks['actxgrad']['prenorm'][0].shape[1]   #number of channels in input image
+num_img_chan = overall_edge_ranks['actxgrad']['prenorm'][0][1].shape[1]   #number of channels in input image
 
 #imgnode data
 layer_distance=1
@@ -74,6 +78,7 @@ def gen_imgnode_graphdata(num_chan = num_img_chan, layer_distance=1):     #retur
 imgnode_positions,imgnode_colors,imgnode_names = gen_imgnode_graphdata()
 
 data['layer_nodes'] = layer_nodes
+data['layer_nodes_dict'] = layer_nodes_dict
 data['num_layers'] = num_layers
 data['num_nodes'] = num_nodes
 data['categories'] = categories

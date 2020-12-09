@@ -23,6 +23,8 @@ from sklearn.metrics import euclidean_distances
 categories_nodes_df = pd.read_csv('../prepped_models/%s/ranks/categories_nodes_ranks.csv'%output_folder)
 overall_edge_df = rank_file_2_df('../prepped_models/%s/ranks/categories_edges/overall_edges_rank.pt'%output_folder)
 
+import pdb;pdb.set_trace()
+
 misc_data = pickle.load(open('../prepped_models/%s/misc_graph_data.pkl'%output_folder,'rb'))
 layer_nodes = misc_data['layer_nodes']
 num_layers = misc_data['num_layers']
@@ -114,7 +116,7 @@ def gen_layer_mds(nodes_df=categories_nodes_df):
     for rank_type in ['actxgrad_norm','act_norm','grad_norm']:
         nodes_wide_df = gen_wide_df(rank_type+'_rank',df=nodes_df)
         layer_similarities = {}
-        for layer in layer_nodes:
+        for layer in range(len(layer_nodes)):
             layer_df = nodes_wide_df[nodes_wide_df['layer'] == layer]
             for category in categories:
                 layer_df[category] = layer_df.apply(lambda row : row[category]/row['category_norm'], axis = 1)   
@@ -136,9 +138,9 @@ def gen_layer_mds(nodes_df=categories_nodes_df):
 
 def gen_grid_positions():
     grid_projections = {}
-    for layer in layer_nodes:
+    for layer in range(len(layer_nodes)):
         grid_projections[layer] = []
-        num_nodes = len(layer_nodes[layer])
+        num_nodes = len(layer_nodes[layer][1])
         if num_nodes == 1:
             grid_projections[layer] = np.array([[0,0]])
             continue

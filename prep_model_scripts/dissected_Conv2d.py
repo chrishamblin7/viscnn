@@ -15,7 +15,6 @@ class ModelBreak(Exception):
 
 class TargetReached(ModelBreak):
 	"""Raised when the output target for a subgraph is reached, so the model doesnt neeed to be run forward any farther"""
-	print('target reached, breaking model forward pass')
 	pass
 
 
@@ -44,7 +43,7 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 		return torch.LongTensor(weight_perm),torch.LongTensor(add_perm),add_indices
 
 
-	def make_preadd_conv(self):
+	def make_preadd_conv(self,from_conv):
 		'''
 		nn.Conv2d takes in 'in_channel' number of feature maps, and outputs 'out_channel' number of maps. 
 		internally it has in_channel*out_channel number of 2d conv kernels. Normally, featuremaps associated 
@@ -55,13 +54,13 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 		in_chan = self.in_channels
 		out_chan = self.out_channels
 		
-		kernel_size = self.from_conv.kernel_size
-		padding = self.from_conv.padding
-		stride = self.from_conv.stride
+		kernel_size = from_conv.kernel_size
+		padding = from_conv.padding
+		stride = from_conv.stride
 		new_conv = nn.Conv2d(in_chan,in_chan*out_chan,kernel_size = kernel_size,
 							 bias = False, padding=padding,stride=stride,groups= in_chan)
 		new_conv.weight = torch.nn.parameter.Parameter(
-				self.from_conv.weight.view(in_chan*out_chan,1,kernel_size[0],kernel_size[1])[self.weight_perm])
+				from_conv.weight.view(in_chan*out_chan,1,kernel_size[0],kernel_size[1])[self.weight_perm])
 		return new_conv
 
 		
@@ -90,11 +89,12 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 
 
 	
-	def __init__(self, from_conv,store_activations=False, store_ranks = False, clear_ranks=False, target_node=None, cuda=True):      # from conv is normal nn.Conv2d object to pull weights and bias from
+	def __init__(self, from_conv,name,store_activations=False, store_ranks = False, clear_ranks=False, target_node=None, cuda=True):      # from conv is normal nn.Conv2d object to pull weights and bias from
 		super(dissected_Conv2d, self).__init__()
-		self.from_conv = from_conv
-		self.in_channels = self.from_conv.weight.shape[1]
-		self.out_channels = self.from_conv.weight.shape[0]
+		#self.from_conv = from_conv
+		self.name = name
+		self.in_channels = from_conv.weight.shape[1]
+		self.out_channels = from_conv.weight.shape[0]
 		self.target_node= target_node
 		self.cuda = cuda
 		self.store_activations = store_activations
@@ -112,9 +112,9 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 
 		self.images_seen = 0
 		self.weight_perm,self.add_perm,self.add_indices = self.gen_inout_permutation()
-		self.preadd_conv = self.make_preadd_conv()
+		self.preadd_conv = self.make_preadd_conv(from_conv)
 		self.bias = None
-		if self.from_conv.bias is not None:
+		if from_conv.bias is not None:
 			self.bias = from_conv.bias.unsqueeze(1).unsqueeze(1)
 			if self.cuda:
 				self.bias = self.bias.cuda()
@@ -166,7 +166,7 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 
 
 
-	def format_edges(self, data= 'activations',prenorm=False,weight_rank=False):
+	def format_edges(self, data= 'activations',rank_type='actxgrad',prenorm=False,weight_rank=False):
 		#fetch preadd activations as [img,out_channel, in_channel,h,w]
 		#fetch preadd ranks as [out_chan,in_chan]
 		if weight_rank:
@@ -187,18 +187,16 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 			return torch.cat(out_acts_list,dim=1).cpu().detach().numpy()
 
 		else:
-			output = {}
-			for rank_type in rank_types:
-				out_acts_list = []
-				for out_chan in self.add_indices:
-					in_acts_list = []
-					for in_chan in self.add_indices[out_chan]:
-						if not prenorm:
-							in_acts_list.append(self.preadd_ranks[rank_type][in_chan].unsqueeze(dim=0).unsqueeze(dim=0)) 
-						else:
-							in_acts_list.append(self.preadd_ranks_prenorm[rank_type][in_chan].unsqueeze(dim=0).unsqueeze(dim=0))                 
-					out_acts_list.append(torch.cat(in_acts_list,dim=1))
-				output[rank_type] = torch.cat(out_acts_list,dim=0).cpu().detach().numpy()
+			out_acts_list = []
+			for out_chan in self.add_indices:
+				in_acts_list = []
+				for in_chan in self.add_indices[out_chan]:
+					if not prenorm:
+						in_acts_list.append(self.preadd_ranks[rank_type][in_chan].unsqueeze(dim=0).unsqueeze(dim=0)) 
+					else:
+						in_acts_list.append(self.preadd_ranks_prenorm[rank_type][in_chan].unsqueeze(dim=0).unsqueeze(dim=0))                 
+				out_acts_list.append(torch.cat(in_acts_list,dim=1))
+			output = torch.cat(out_acts_list,dim=0).cpu().detach().numpy()
 			return output
 						
 	def average_ranks(self):
@@ -290,7 +288,7 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 			#    print(self.postbias_ranks.shape)
 		
 		if self.target_node is not None:
-			print('got here')
+			print('target reached, breaking model forward pass in %s'%self.name)
 			print(self.target_node)
 			avg_activations = self.postbias_out.mean(dim=(0, 2, 3))
 			optim_target = avg_activations[self.target_node]
@@ -304,15 +302,17 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 
 
 # takes a full model and replaces all conv2d instances with dissected conv 2d instances
-def dissect_model(model,store_activations=True,store_ranks=True,clear_ranks = False,cuda=True):
- 
+def dissect_model(model,mod_names = [],store_activations=True,store_ranks=True,clear_ranks = False,cuda=True):
+
 	for name, module in reversed(model._modules.items()):
 		if len(list(module.children())) > 0:
+			mod_names.append(str(name))
 			# recurse
-			model._modules[name] = dissect_model(module, store_activations=store_activations,store_ranks=store_ranks,clear_ranks=clear_ranks,cuda=cuda)
+			model._modules[name] = dissect_model(module,mod_names =mod_names, store_activations=store_activations,store_ranks=store_ranks,clear_ranks=clear_ranks,cuda=cuda)
+			mod_names.pop()
 
 		if isinstance(module, torch.nn.modules.conv.Conv2d):    # found a 2d conv module to transform
-			new_module = dissected_Conv2d(module, store_activations=store_activations,store_ranks=store_ranks,clear_ranks=clear_ranks,cuda=cuda) 
+			new_module = dissected_Conv2d(module, name='_'.join(mod_names+[name]), store_activations=store_activations,store_ranks=store_ranks,clear_ranks=clear_ranks,cuda=cuda) 
 			model._modules[name] = new_module
 
 		elif isinstance(module, torch.nn.modules.Dropout):    #make dropout layers not dropout  #also set batchnorm to eval
@@ -323,6 +323,7 @@ def dissect_model(model,store_activations=True,store_ranks=True,clear_ranks = Fa
 			model._modules[name].inplace=False                    
 
 	return model
+
 
 
 def set_model_target_node(model,target_layer,within_layer_id,layer=0):
@@ -350,9 +351,15 @@ def set_across_model(model,setting,value):
 		if isinstance(module, dissected_Conv2d):    # found a 2d conv module to transform
 			if setting == 'target_node':
 				module.target_node = value
-			if setting == 'clear_ranks':
+			elif setting == 'clear_ranks':
 				module.clear_ranks=value
-			 
+			elif setting == 'store_activations':
+				module.store_activations = value
+			elif setting == 'store_ranks':
+			 	module.store_ranks = value
+			else:
+				print('Error! setting "%s" is not valid'%str(setting))
+
 
 	return model
 

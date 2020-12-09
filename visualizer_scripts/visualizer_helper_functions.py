@@ -21,23 +21,24 @@ def rank_file_2_df(file_path):      #takes a node or edge 'rank.pt' file and tur
 	rank_keys = list(ranks.keys())
 
 	if 'weight' in rank_keys:
-		node_column_names = ['node_num','layer','node_num_by_layer','weight_prenorm_rank','weight_norm_rank']
-		edge_column_names = ['edge_num','layer','out_channel','in_channel','weight_prenorm_rank','weight_norm_rank']
+		node_column_names = ['node_num','layer_name','layer','node_num_by_layer','weight_prenorm_rank','weight_norm_rank']
+		edge_column_names = ['edge_num','layer_name','layer','out_channel','in_channel','weight_prenorm_rank','weight_norm_rank']
 	else:
-		node_column_names = ['node_num','layer','node_num_by_layer','act_prenorm_rank','grad_prenorm_rank','actxgrad_prenorm_rank','act_norm_rank','grad_norm_rank','actxgrad_norm_rank']
-		edge_column_names = ['edge_num','layer','out_channel','in_channel','act_prenorm_rank','grad_prenorm_rank','actxgrad_prenorm_rank','act_norm_rank','grad_norm_rank','actxgrad_norm_rank']
+		node_column_names = ['node_num','layer_name','layer','node_num_by_layer','act_prenorm_rank','grad_prenorm_rank','actxgrad_prenorm_rank','act_norm_rank','grad_norm_rank','actxgrad_norm_rank']
+		edge_column_names = ['edge_num','layer_name','layer','out_channel','in_channel','act_prenorm_rank','grad_prenorm_rank','actxgrad_prenorm_rank','act_norm_rank','grad_norm_rank','actxgrad_norm_rank']
 
 	#nodes
 	if 'node' in file_path.split('/')[-1]:
 		node_dflist = []
 		node_num = 0
 		for layer in range(len(ranks[rank_keys[0]]['prenorm'])):
-			for num_by_layer in range(len(ranks[rank_keys[0]]['prenorm'][layer])):
+			layer_name = ranks[rank_keys[0]]['prenorm'][layer][0]
+			for num_by_layer in range(len(ranks[rank_keys[0]]['prenorm'][layer][1])):
 				if 'weight' in rank_keys:
-					node_dflist.append([node_num,layer,num_by_layer,ranks['weight']['prenorm'][layer][num_by_layer],ranks['weight']['norm'][layer][num_by_layer]])              
+					node_dflist.append([node_num,layer_name,layer,num_by_layer,ranks['weight']['prenorm'][layer][1][num_by_layer],ranks['weight']['norm'][layer][1][num_by_layer]])              
 				else:
-					node_dflist.append([node_num,layer,num_by_layer,ranks['act']['prenorm'][layer][num_by_layer],ranks['grad']['prenorm'][layer][num_by_layer],ranks['actxgrad']['prenorm'][layer][num_by_layer],
-										ranks['act']['norm'][layer][num_by_layer],ranks['grad']['norm'][layer][num_by_layer],ranks['actxgrad']['norm'][layer][num_by_layer]])
+					node_dflist.append([node_num,layer_name,layer,num_by_layer,ranks['act']['prenorm'][layer][1][num_by_layer],ranks['grad']['prenorm'][layer][1][num_by_layer],ranks['actxgrad']['prenorm'][layer][1][num_by_layer],
+										ranks['act']['norm'][layer][1][num_by_layer],ranks['grad']['norm'][layer][1][num_by_layer],ranks['actxgrad']['norm'][layer][1][num_by_layer]])
 				node_num += 1
 		#make nodes DF
 		df = pd.DataFrame(node_dflist,columns=node_column_names)
@@ -47,13 +48,14 @@ def rank_file_2_df(file_path):      #takes a node or edge 'rank.pt' file and tur
 		edge_dflist = []
 		edge_num = 0
 		for layer in range(len(ranks[rank_keys[0]]['prenorm'])):
-			for out_channel in range(len(ranks[rank_keys[0]]['prenorm'][layer])):
-				for in_channel in range(len(ranks[rank_keys[0]]['prenorm'][layer][out_channel])):
+			layer_name = ranks[rank_keys[0]]['prenorm'][layer][0]
+			for out_channel in range(len(ranks[rank_keys[0]]['prenorm'][layer][1])):
+				for in_channel in range(len(ranks[rank_keys[0]]['prenorm'][layer][1][out_channel])):
 					if 'weight' in rank_keys:
-						edge_dflist.append([edge_num,layer,out_channel,in_channel,ranks['weight']['prenorm'][layer][out_channel][in_channel],ranks['weight']['norm'][layer][out_channel][in_channel]])
+						edge_dflist.append([edge_num,layer_name,layer,out_channel,in_channel,ranks['weight']['prenorm'][layer][1][out_channel][in_channel],ranks['weight']['norm'][layer][1][out_channel][in_channel]])
 					else:
-						edge_dflist.append([edge_num,layer,out_channel,in_channel,ranks['act']['prenorm'][layer][out_channel][in_channel],ranks['grad']['prenorm'][layer][out_channel][in_channel],ranks['actxgrad']['prenorm'][layer][out_channel][in_channel],
-										   ranks['act']['norm'][layer][out_channel][in_channel],ranks['grad']['norm'][layer][out_channel][in_channel],ranks['actxgrad']['norm'][layer][out_channel][in_channel]])
+						edge_dflist.append([edge_num,layer_name,layer,out_channel,in_channel,ranks['act']['prenorm'][layer][1][out_channel][in_channel],ranks['grad']['prenorm'][layer][1][out_channel][in_channel],ranks['actxgrad']['prenorm'][layer][1][out_channel][in_channel],
+										   ranks['act']['norm'][layer][1][out_channel][in_channel],ranks['grad']['norm'][layer][1][out_channel][in_channel],ranks['actxgrad']['norm'][layer][1][out_channel][in_channel]])
 					edge_num += 1
 		df = pd.DataFrame(edge_dflist,columns=edge_column_names)
 	
@@ -64,17 +66,18 @@ def rank_file_2_df(file_path):      #takes a node or edge 'rank.pt' file and tur
 
 def rank_dict_2_df(ranks):      #takes a node or edge 'rank.pt' file and turns it into a pandas dataframe, or takes the dict itself not file path
 	rank_keys = list(ranks['nodes'].keys())
-	node_column_names = ['node_num','layer','node_num_by_layer','act_prenorm_rank','grad_prenorm_rank','actxgrad_prenorm_rank','act_norm_rank','grad_norm_rank','actxgrad_norm_rank']
-	edge_column_names = ['edge_num','layer','out_channel','in_channel','act_prenorm_rank','grad_prenorm_rank','actxgrad_prenorm_rank','act_norm_rank','grad_norm_rank','actxgrad_norm_rank']
+	node_column_names = ['node_num','layer_name','layer','node_num_by_layer','act_prenorm_rank','grad_prenorm_rank','actxgrad_prenorm_rank','act_norm_rank','grad_norm_rank','actxgrad_norm_rank']
+	edge_column_names = ['edge_num','layer_name','layer','out_channel','in_channel','act_prenorm_rank','grad_prenorm_rank','actxgrad_prenorm_rank','act_norm_rank','grad_norm_rank','actxgrad_norm_rank']
 
 	#nodes
 
 	node_dflist = []
 	node_num = 0
 	for layer in range(len(ranks['nodes'][rank_keys[0]]['prenorm'])):
-		for num_by_layer in range(len(ranks['nodes'][rank_keys[0]]['prenorm'][layer])):
-			node_dflist.append([node_num,layer,num_by_layer,ranks['nodes']['act']['prenorm'][layer][num_by_layer],ranks['nodes']['grad']['prenorm'][layer][num_by_layer],ranks['nodes']['actxgrad']['prenorm'][layer][num_by_layer],
-								ranks['nodes']['act']['norm'][layer][num_by_layer],ranks['nodes']['grad']['norm'][layer][num_by_layer],ranks['nodes']['actxgrad']['norm'][layer][num_by_layer]])
+		layer_name = ranks['nodes'][rank_keys[0]]['prenorm'][layer][0]
+		for num_by_layer in range(len(ranks['nodes'][rank_keys[0]]['prenorm'][layer][1])):
+			node_dflist.append([node_num,layer_name,layer,num_by_layer,ranks['nodes']['act']['prenorm'][layer][1][num_by_layer],ranks['nodes']['grad']['prenorm'][layer][1][num_by_layer],ranks['nodes']['actxgrad']['prenorm'][layer][1][num_by_layer],
+								ranks['nodes']['act']['norm'][layer][1][num_by_layer],ranks['nodes']['grad']['norm'][layer][1][num_by_layer],ranks['nodes']['actxgrad']['norm'][layer][1][num_by_layer]])
 			node_num += 1
 	#make nodes DF
 	nodes_df = pd.DataFrame(node_dflist,columns=node_column_names)
@@ -84,10 +87,11 @@ def rank_dict_2_df(ranks):      #takes a node or edge 'rank.pt' file and turns i
 	edge_dflist = []
 	edge_num = 0
 	for layer in range(len(ranks['edges'][rank_keys[0]]['prenorm'])):
-		for out_channel in range(len(ranks['edges'][rank_keys[0]]['prenorm'][layer])):
-			for in_channel in range(len(ranks['edges'][rank_keys[0]]['prenorm'][layer][out_channel])):
-				edge_dflist.append([edge_num,layer,out_channel,in_channel,ranks['edges']['act']['prenorm'][layer][out_channel][in_channel],ranks['edges']['grad']['prenorm'][layer][out_channel][in_channel],ranks['edges']['actxgrad']['prenorm'][layer][out_channel][in_channel],
-									ranks['edges']['act']['norm'][layer][out_channel][in_channel],ranks['edges']['grad']['norm'][layer][out_channel][in_channel],ranks['edges']['actxgrad']['norm'][layer][out_channel][in_channel]])
+		layer_name = ranks['edges'][rank_keys[0]]['prenorm'][layer][0]
+		for out_channel in range(len(ranks['edges'][rank_keys[0]]['prenorm'][layer][1])):
+			for in_channel in range(len(ranks['edges'][rank_keys[0]]['prenorm'][layer][1][out_channel])):
+				edge_dflist.append([edge_num,layer_name,layer,out_channel,in_channel,ranks['edges']['act']['prenorm'][layer][1][out_channel][in_channel],ranks['edges']['grad']['prenorm'][layer][1][out_channel][in_channel],ranks['edges']['actxgrad']['prenorm'][layer][1][out_channel][in_channel],
+									ranks['edges']['act']['norm'][layer][1][out_channel][in_channel],ranks['edges']['grad']['norm'][layer][1][out_channel][in_channel],ranks['edges']['actxgrad']['norm'][layer][1][out_channel][in_channel]])
 				edge_num += 1
 	edges_df = pd.DataFrame(edge_dflist,columns=edge_column_names)
 
@@ -102,19 +106,21 @@ def nodeid_2_perlayerid(nodeid,params):    #takes in node unique id outputs tupl
 	if isinstance(nodeid,str):
 		if not nodeid.isnumeric():
 			layer = 'img'
+			layer_name='img'
 			within_layer_id = imgnode_names.index(nodeid)
-			return layer,within_layer_id
+			return layer,within_layer_id, layer_name
 	nodeid = int(nodeid)
 	total= 0
 	for i in range(len(layer_nodes)):
-		total += len(layer_nodes[i])
+		total += len(layer_nodes[i][1])
 		if total > nodeid:
 			layer = i
-			within_layer_id = layer_nodes[i].index(nodeid)
+			layer_name = layer_nodes[i][0]
+			within_layer_id = layer_nodes[i][1].index(nodeid)
 			break
 	#layer = nodes_df[nodes_df['category']=='overall'][nodes_df['node_num'] == nodeid]['layer'].item()
 	#within_layer_id = nodes_df[nodes_df['category']=='overall'][nodes_df['node_num'] == nodeid]['node_num_by_layer'].item()
-	return layer,within_layer_id
+	return layer,within_layer_id,layer_name
 
 def layernum2name(layer,offset=1,title = 'layer'):
 	return title+' '+str(layer+offset)
@@ -124,8 +130,44 @@ def get_nth_element_from_nested_list(l,n):    #this seems to come up with the ne
 	return flat_list[n]
   
 
+def layer_2_dissected_conv2d(target_layer,module, index=0, found=None):
+	for layer, (name, submodule) in enumerate(module._modules.items()):
+		if isinstance(submodule, dissected_Conv2d):
+			if index==target_layer:
+				found = submodule
+			index+=1
+		elif len(list(submodule.children())) > 0:
+			found, index = layer_2_dissected_conv2d(target_layer,submodule, index=index, found=found)
+	return found, index
+
+
+def get_activations_from_dissected_Conv2d_modules(module,layer_activations=None):     
+	if layer_activations is None:    #initialize the output dictionary if we are not recursing and havent done so yet
+		layer_activations = {'nodes':[],'edges_in':[],'edges_out':[]}
+	for layer, (name, submodule) in enumerate(module._modules.items()):
+		#print(submodule)
+		if isinstance(submodule, dissected_Conv2d):
+			layer_activations['nodes'].append(submodule.postbias_out.cpu().detach().numpy())
+			layer_activations['edges_in'].append(submodule.input.cpu().detach().numpy())
+			layer_activations['edges_out'].append(submodule.format_edges(data= 'activations'))
+			#print(layer_activations['edges_out'][-1].shape)
+		elif len(list(submodule.children())) > 0:
+			layer_activations = get_activations_from_dissected_Conv2d_modules(submodule,layer_activations=layer_activations)   #module has modules inside it, so recurse on this module
+
+	return layer_activations
 
 #INPUT IMAGE FUNCTIONS
+
+def get_image_path(image_name,params):
+	found = False
+	path = None
+	if image_name in params['input_image_list']:
+		found = True
+		path = params['input_image_directory']+'/'+image_name
+	elif image_name in os.listdir(params['prepped_model_path']+'/visualizations/images/'):
+		found = True
+		path = params['prepped_model_path']+'/visualizations/images/'+image_name
+	return found, path
 
 def rgb2hex(r, g, b):
 	return '#{:02x}{:02x}{:02x}'.format(r, g, b)
@@ -234,10 +276,10 @@ def gen_node_colors(nodes_df,rank_type,params):
 
 	node_colors = []
 	node_weights = []
-	for layer in layer_nodes:
+	for layer in range(len(layer_nodes)):
 		node_colors.append([])
 		node_weights.append([])
-		for node in layer_nodes[layer]:
+		for node in layer_nodes[layer][1]:
 			node_weight = nodes_df.iloc[node][rank_type+'_norm_rank']
 			node_weights[-1].append(node_weight)
 			alpha = node_color_scaling(node_weight)
@@ -346,9 +388,9 @@ def gen_edge_graphdata(df, node_positions, rank_type, target_category, params, n
 		weights[row.layer].append(row[edges_df_columns.index(rank_type+'_norm_rank')+1])
 		#max_weight = max(max_weight, row.rank_score)
 		#names
-		out_node = layer_nodes[row.layer][row.out_channel]
+		out_node = layer_nodes[row.layer][1][row.out_channel]
 		if row.layer != 0:
-			in_node = layer_nodes[row.layer-1][row.in_channel]
+			in_node = layer_nodes[row.layer-1][1][row.in_channel]
 		else:
 			in_node = imgnode_names[row.in_channel]
 		names[row.layer].append(str(in_node)+'-'+str(out_node))
@@ -376,8 +418,8 @@ def check_edge_validity(nodestring,params):
 	from_node = nodestring.split('-')[0]
 	to_node = nodestring.split('-')[1]
 	try:
-		from_layer,from_within_id = nodeid_2_perlayerid(from_node,params)
-		to_layer,to_within_id = nodeid_2_perlayerid(to_node,params)
+		from_layer,from_within_id,from_layer_name = nodeid_2_perlayerid(from_node,params)
+		to_layer,to_within_id,to_layer_name = nodeid_2_perlayerid(to_node,params)
 		#check for valid edge
 		valid_edge = False
 		if from_layer=='img':
@@ -392,6 +434,13 @@ def check_edge_validity(nodestring,params):
 	except:
 		#print('exception')
 		return [False, None, None, None, None] 
+
+def edgename_2_singlenum(model,edgename,params):
+	valid, from_layer,to_layer,from_within_id,to_within_id = check_edge_validity(edgename,params)
+	if not valid:
+		raise ValueError('edgename %s is invalid'%edgename)
+	conv_module = layer_2_dissected_conv2d(int(to_layer),model)
+	return conv_module.add_indices[int(to_within_id)][int(from_within_id)]
 
 def edgename_2_edge_figures(edgename, image_name, kernels, activations, nodes_df, params):  #returns truth value of valid edge and kernel if valid
 	valid,from_layer,to_layer,from_within_id,to_within_id  = check_edge_validity(edgename,params)
@@ -502,24 +551,26 @@ def get_ranks_from_dissected_Conv2d_modules(module,layer_ranks=None,weight_rank=
 			for key in rank_keys:
 				for norm in ['prenorm','norm']:
 					if norm == 'norm':
-						layer_ranks['nodes'][key][norm].append(submodule.postbias_ranks[key].cpu().detach().numpy())
-						layer_ranks['edges'][key][norm].append(submodule.format_edges(data= 'ranks',weight_rank=weight_rank)[key])
+						layer_ranks['nodes'][key][norm].append([submodule.name,submodule.postbias_ranks[key].cpu().detach().numpy()])
+						layer_ranks['edges'][key][norm].append([submodule.name,submodule.format_edges(data= 'ranks',rank_type=key,weight_rank=weight_rank)])
 					else:
-						layer_ranks['nodes'][key][norm].append(submodule.postbias_ranks_prenorm[key].cpu().detach().numpy())
-						layer_ranks['edges'][key][norm].append(submodule.format_edges(data= 'ranks',prenorm = True,weight_rank=weight_rank)[key])					
+						layer_ranks['nodes'][key][norm].append([submodule.name,submodule.postbias_ranks_prenorm[key].cpu().detach().numpy()])
+						layer_ranks['edges'][key][norm].append([submodule.name,submodule.format_edges(data= 'ranks',rank_type=key,prenorm = True,weight_rank=weight_rank)])				
 				#print(layer_ranks['edges'][-1].shape)
 		elif len(list(submodule.children())) > 0:
 			layer_ranks = get_ranks_from_dissected_Conv2d_modules(submodule,layer_ranks=layer_ranks,weight_rank=weight_rank)   #module has modules inside it, so recurse on this module
 	return layer_ranks
 
+
+
 def get_model_ranks_for_category(category, target_node, model_dis,params):
 
 	device = torch.device("cuda" if params['cuda'] else "cpu")
-
+	criterion = params['criterion']
 	####SET UP MODEL
 	model_dis = set_across_model(model_dis,'target_node',None)
 	if target_node is not 'loss':
-		target_node_layer,target_node_within_layer_id = nodeid_2_perlayerid(target_node,params)
+		target_node_layer,target_node_within_layer_id,target_node_layer_name = nodeid_2_perlayerid(target_node,params)
 		model_dis=set_model_target_node(model_dis,target_node_layer,target_node_within_layer_id)
 
 	model_dis = set_across_model(model_dis,'clear_ranks',False)
@@ -553,7 +604,7 @@ def get_model_ranks_for_category(category, target_node, model_dis,params):
 				output = model_dis(batch)    #running forward pass sets up hooks and stores activations in each dissected_Conv2d module
 				if target_node == 'loss':
 					target = max_likelihood_for_no_target(target,output) 
-					params.criterion(output, Variable(target)).backward()    #running backward pass calls all the hooks and calculates the ranks of all edges and nodes in the graph 
+					criterion(output, Variable(target)).backward()    #running backward pass calls all the hooks and calculates the ranks of all edges and nodes in the graph 
 			except TargetReached:
 				print('target node %s reached, halted forward pass'%str(target_node))
 
@@ -569,22 +620,26 @@ def get_model_ranks_from_image(image_path, target_node, model_dis, params):
 	#model_dis.clear_ranks_func()  #so ranks dont accumulate
 	cuda = params['cuda']
 	device = torch.device("cuda" if cuda else "cpu")
+	criterion = params['criterion']
 	#image loading 
 	image_name = image_path.split('/')[-1]
 	image,target = single_image_loader(image_path, params['preprocess'], label_file_path = params['label_file_path'])
 	image, target = image.to(device), target.to(device)
 
 	model_dis = set_across_model(model_dis,'target_node',None)
-	if target_node is not 'loss':
-		target_node_layer,target_node_within_layer_id = nodeid_2_perlayerid(nodeid,params)
+	if target_node != 'loss':
+		target_node_layer,target_node_within_layer_id,target_node_layer_name = nodeid_2_perlayerid(target_node,params)
 		model_dis=set_model_target_node(model_dis,target_node_layer,target_node_within_layer_id)
-		output = model_dis(image)
+
 
 	#pass image through model
-	else:
-		output = model_dis(image)
-		target = max_likelihood_for_no_target(target,output) 
-		params['criterion'](output, Variable(target)).backward()
+	try:
+		output = model_dis(image)    #running forward pass sets up hooks and stores activations in each dissected_Conv2d module
+		if target_node == 'loss':
+			target = max_likelihood_for_no_target(target,output) 
+			criterion(output, Variable(target)).backward()    #running backward pass calls all the hooks and calculates the ranks of all edges and nodes in the graph 
+	except TargetReached:
+		print('target node %s reached, halted forward pass'%str(target_node))
 
 	layer_ranks = get_ranks_from_dissected_Conv2d_modules(model_dis)
 	return layer_ranks
@@ -624,8 +679,8 @@ def gen_networkgraph_traces(state,params,nodes_df):
 	node_traces = []
 	select_layer,select_position = None,None
 	if str(state['node_select_history'][-1]).isnumeric():
-		select_layer,select_position = nodeid_2_perlayerid(state['node_select_history'][-1],params)
-	for layer in layer_nodes:
+		select_layer,select_position, select_layer_name = nodeid_2_perlayerid(state['node_select_history'][-1],params)
+	for layer in range(len(layer_nodes)):
 		#add nodes
 		colors = deepcopy(state['node_colors'][layer])
 		if layer == select_layer:
@@ -634,7 +689,7 @@ def gen_networkgraph_traces(state,params,nodes_df):
 				   y=state['node_positions'][layer]['Y'],
 				   z=state['node_positions'][layer]['Z'],
 				   mode='markers',
-				   name=layernum2name(layer,title = 'nodes'),
+				   name=layer_nodes[layer][0],
 				   marker=dict(symbol='circle',
 								 size=6,
 								 opacity=.99,
@@ -642,7 +697,7 @@ def gen_networkgraph_traces(state,params,nodes_df):
 								 #colorscale='Viridis',
 								 line=dict(color='rgb(50,50,50)', width=.5)
 								 ),
-				   text=layer_nodes[layer],
+				   text=layer_nodes[layer][1],
 				   hoverinfo='text'
 				   )
 
@@ -665,7 +720,7 @@ def gen_networkgraph_traces(state,params,nodes_df):
 									z=state['edge_positions'][layer]['Z'][edge_num],
 									legendgroup=legendgroup,
 									showlegend=showlegend,
-									name=layernum2name(layer ,title = 'edges'),
+									name=layer_nodes[layer][0],
 									mode='lines',
 									#line=dict(color=edge_colors_dict[layer], width=1.5),
 									line=dict(color=color, width=state['edge_widths'][layer][edge_num]),

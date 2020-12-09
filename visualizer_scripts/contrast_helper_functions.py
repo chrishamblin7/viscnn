@@ -22,10 +22,11 @@ def is_number(s):
         return False
 
 
-def image_category_or_contrast(contrast_string,input_image_list,categories_list):
-    if contrast_string.strip() in input_image_list:
+def image_category_or_contrast(contrast_string,params):
+    is_image,image_path = get_image_path(contrast_string.strip(),params)
+    if is_image:
         return 'input_image'
-    if contrast_string.strip() in categories_list:
+    if contrast_string.strip() in params['categories']:
         return 'category'
     return 'contrast'
     
@@ -132,8 +133,9 @@ def layer_rank_arithmetic(arith_exprs,array_dict):
 def var_dict_2_array_dict(var_dict,model_dis,params):
     array_dict = {}
     for var in var_dict:
-        if var in params['input_image_list']:
-            array_dict[var_dict[var]] = get_model_ranks_from_image(params['input_image_directory']+'/'+var,target_node, model_dis, params)
+        is_image, image_path = get_image_path(var,params)
+        if is_image:
+            array_dict[var_dict[var]] = get_model_ranks_from_image(image_path,target_node, model_dis, params)
         else:
             category_dict = {'nodes':{},'edges':{}} 
             category_dict['nodes'] = torch.load(os.path.join(params['ranks_data_path'],'categories_nodes','%s_nodes_rank.pt'%var))
@@ -158,7 +160,8 @@ def add_norm_2_prenorm_dict(prenorm_dict):
     return prenorm_dict
 
 def contrast_str_2_dfs(contrast_string,model_dis,params):
-    var_dict, sym_contrast_string = parse_contrast(contrast_string,params['input_image_list'],params['categories'])
+    all_input_images = params['input_image_list']+os.listdir(params['prepped_model_path']+'/visualizations/images/')
+    var_dict, sym_contrast_string = parse_contrast(contrast_string,all_input_images,params['categories'])
     array_dict = var_dict_2_array_dict(var_dict,model_dis,params)
     prenorm_contrast_dict = layer_rank_arithmetic(sym_contrast_string,array_dict)
     contrast_dict = add_norm_2_prenorm_dict(prenorm_contrast_dict)

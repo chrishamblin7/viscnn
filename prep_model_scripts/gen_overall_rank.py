@@ -23,6 +23,7 @@ if os.path.exists(os.path.join(ranks_folder,'categories_nodes','overall_nodes_ra
 	print('overall rank file already exists')
 	exit()
 
+
 for part in ['nodes','edges']:
 	overall = None
 	rank_files = os.listdir(os.path.join(ranks_folder,'categories_%s'%part))
@@ -35,11 +36,11 @@ for part in ['nodes','edges']:
 			for rank_type in ['actxgrad','act','grad']:
 				for norm in ['prenorm','norm']:
 					for i in range(len(overall[rank_type][norm])):
-						overall[rank_type][norm][i] = overall[rank_type][norm][i] + rank_dict[rank_type][norm][i]
+						overall[rank_type][norm][i][1] = overall[rank_type][norm][i][1] + rank_dict[rank_type][norm][i][1]
 	#average by dividing by number of ranks
 	for rank_type in ['actxgrad','act','grad']:
 		for norm in ['prenorm','norm']:
 			for i in range(len(overall[rank_type][norm])):
-				overall[rank_type][norm][i] = overall[rank_type][norm][i]/len(rank_files)
+				overall[rank_type][norm][i][1] = overall[rank_type][norm][i][1]/len(rank_files)
 	#save file
 	torch.save(overall,os.path.join(ranks_folder,'categories_%s'%part,'overall_%s_rank.pt'%part))
