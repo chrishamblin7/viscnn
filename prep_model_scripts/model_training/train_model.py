@@ -14,16 +14,17 @@ import argparse
 
 import sys
 sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(0, os.path.abspath('../../model_scripts/'))
 from model_classes import *
 
 ### PARAMS ###
 #Just stuff you might want to quickly change
 
-output_name = 'mnist_blurryedges'   # base name for various outputs, like the print log and the saved model
+output_name = 'cifar10'   # base name for various outputs, like the print log and the saved model
 use_cuda = True   #use GPU acceleration
 
-train_data_path = '/home/chris/projects/testing/mnist/mnist_data/training/'
-test_data_path = '/home/chris/projects/testing/mnist/mnist_data/testing/'
+train_data_path = '/home/chris/mnt/DatasetsRemote/pruning_datasets/cifar10/train/'
+test_data_path = '/home/chris/mnt/DatasetsRemote/pruning_datasets/cifar10/test/'
 criterion = torch.nn.CrossEntropyLoss()
 epochs = 100
 seed = 1
@@ -31,7 +32,7 @@ lr = .001
 batch_size = 300 # size of training minibatches
 test_batch_size = 300 # size of test minibatches
 save_model = True    # Should the model be saved?
-acc_thresh = .98    #how good does the model need to be to save?
+acc_thresh = .75    #how good does the model need to be to save?
 save_only_best = True # if true only keep the model after the epoch with the best accuracy
 save_model_interval = 100 #Save model every X epochs
 num_classes = 10        # number of classes in dataset, 26 for letters in alphabet   
@@ -64,19 +65,21 @@ torch.manual_seed(seed)
 
 #model
 
-model = MNIST_edges()
+model = cifar_CNN_prunned()
 
 #freeze weights
-for p in model.conv1.parameters():
+for p in model.parameters():
 	p.requires_grad = True
 
 optimizer = optim.Adam(model.parameters(), lr=lr)  # adam optimizer
 
 #data loading
 preprocess =   transforms.Compose([
-                    transforms.Grayscale(num_output_channels=1), 
-                    transforms.ToTensor()
+								 transforms.Resize((32,32)),
+                                 transforms.ToTensor(),
+                                 transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
                              	 ])
+
 
 
 import torch.utils.data as data

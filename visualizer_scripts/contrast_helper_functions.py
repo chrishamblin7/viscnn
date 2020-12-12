@@ -159,10 +159,10 @@ def add_norm_2_prenorm_dict(prenorm_dict):
 
     return prenorm_dict
 
-def contrast_str_2_dfs(contrast_string,model_dis,params):
+def contrast_str_2_dfs(contrast_string,target_node,model_dis,params):
     all_input_images = params['input_image_list']+os.listdir(params['prepped_model_path']+'/visualizations/images/')
     var_dict, sym_contrast_string = parse_contrast(contrast_string,all_input_images,params['categories'])
-    array_dict = var_dict_2_array_dict(var_dict,model_dis,params)
+    array_dict = var_dict_2_array_dict(var_dict,target_node,model_dis,params)
     prenorm_contrast_dict = layer_rank_arithmetic(sym_contrast_string,array_dict)
     contrast_dict = add_norm_2_prenorm_dict(prenorm_contrast_dict)
     nodes_df, edges_df = rank_dict_2_df(contrast_dict)

@@ -439,10 +439,10 @@ def edgename_2_singlenum(model,edgename,params):
 	valid, from_layer,to_layer,from_within_id,to_within_id = check_edge_validity(edgename,params)
 	if not valid:
 		raise ValueError('edgename %s is invalid'%edgename)
-	conv_module = layer_2_dissected_conv2d(int(to_layer),model)
+	conv_module = layer_2_dissected_conv2d(int(to_layer),model)[0]
 	return conv_module.add_indices[int(to_within_id)][int(from_within_id)]
 
-def edgename_2_edge_figures(edgename, image_name, kernels, activations, nodes_df, params):  #returns truth value of valid edge and kernel if valid
+def edgename_2_edge_figures(edgename, image_name, kernels, activations, params):  #returns truth value of valid edge and kernel if valid
 	valid,from_layer,to_layer,from_within_id,to_within_id  = check_edge_validity(edgename,params)
 	if valid:
 		kernel=None
@@ -498,6 +498,7 @@ def act_array_2_imgname_dict(layer_activations, image_names):
 
 def get_model_activations_from_image(image_path, model_dis, params):
 	cuda = params['cuda']
+	model_dis = set_across_model(model_dis,'target_node',None)
 	#image loading 
 	image = preprocess_image(image_path,params)
 	image_name = image_path.split('/')[-1]

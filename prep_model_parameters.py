@@ -29,14 +29,11 @@ from torchvision import transforms
 #preprocess = None     # Set this to None or False if you dont want your input images to be preprocessed. Or set this to a torchvision transform, as in the example below. If you use
 					  # a transform to load your test data set when training your model, put that in below.
 
-normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                                 std=[0.229, 0.224, 0.225])
-
-preprocess = transforms.Compose([
-				transforms.CenterCrop(224),
-				transforms.ToTensor(),
-				normalize
-				])
+preprocess =  transforms.Compose([
+        						transforms.Resize((224,224)),
+        						transforms.ToTensor(),
+								transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                     	 			 std=[0.229, 0.224, 0.225])])
 
 
 #GPU

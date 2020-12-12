@@ -60,7 +60,7 @@ if args.cuda:
 	model_dis.cuda()
 del params.model
 
-model_dis.eval()
+model_dis = model_dis.eval()
 for param in model_dis.parameters():  #need gradients for grad*activation rank calculation
 	param.requires_grad = True
 

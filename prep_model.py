@@ -13,7 +13,7 @@ if not os.path.exists('prepped_models/'+output_folder):
 	os.mkdir('prepped_models/'+output_folder+'/visualizations/')
 	os.mkdir('prepped_models/'+output_folder+'/visualizations/images')
 	with open('prepped_models/'+output_folder+'/visualizations/images.csv', 'a') as images_csv:
-		images_csv.write('image_name,nodeid,obj,parametrizer,optimizer,tranforms\n')
+		images_csv.write('image_name,targetid,objective,parametrizer,optimizer,transforms\n')
 
 else:
 	print('prepped_models/%s already exists! It will be overwritten!'%output_folder)
