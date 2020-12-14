@@ -34,13 +34,11 @@ for part in ['nodes','edges']:
 			overall = rank_dict
 		else:   #sum all ranks together pointwise
 			for rank_type in ['actxgrad','act','grad']:
-				for norm in ['prenorm','norm']:
-					for i in range(len(overall[rank_type][norm])):
-						overall[rank_type][norm][i][1] = overall[rank_type][norm][i][1] + rank_dict[rank_type][norm][i][1]
+				for i in range(len(overall[rank_type])):
+					overall[rank_type][i][1] = overall[rank_type][i][1] + rank_dict[rank_type][i][1]
 	#average by dividing by number of ranks
 	for rank_type in ['actxgrad','act','grad']:
-		for norm in ['prenorm','norm']:
-			for i in range(len(overall[rank_type][norm])):
-				overall[rank_type][norm][i][1] = overall[rank_type][norm][i][1]/len(rank_files)
+		for i in range(len(overall[rank_type])):
+			overall[rank_type][i][1] = overall[rank_type][i][1]/len(rank_files)
 	#save file
 	torch.save(overall,os.path.join(ranks_folder,'categories_%s'%part,'overall_%s_rank.pt'%part))

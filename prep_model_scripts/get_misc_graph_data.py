@@ -42,7 +42,7 @@ categories.insert(0,'overall')
 #edges
 overall_edge_ranks = torch.load('../prepped_models/%s/ranks/categories_edges/overall_edges_rank.pt'%output_folder)
 
-num_img_chan = overall_edge_ranks['actxgrad']['prenorm'][0][1].shape[1]   #number of channels in input image
+num_img_chan = overall_edge_ranks['actxgrad'][0][1].shape[1]   #number of channels in input image
 
 #imgnode data
 layer_distance=1

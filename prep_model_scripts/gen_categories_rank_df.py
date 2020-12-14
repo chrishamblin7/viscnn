@@ -35,15 +35,13 @@ for category in categories:
 	ranks = torch.load('../prepped_models/'+output_folder+'/ranks/categories_nodes/%s_nodes_rank.pt'%category)
 	#nodes
 	node_num = 0
-	for layer in range(len(ranks['act']['prenorm'])):
-		layer_name = ranks['act']['prenorm'][layer][0]
-		for num_by_layer in range(len(ranks['act']['prenorm'][layer][1])):
-			allnode_dflist.append([node_num,layer_name,layer,num_by_layer,ranks['act']['prenorm'][layer][1][num_by_layer],ranks['grad']['prenorm'][layer][1][num_by_layer],ranks['actxgrad']['prenorm'][layer][1][num_by_layer],
-								   ranks['act']['norm'][layer][1][num_by_layer],ranks['grad']['norm'][layer][1][num_by_layer],ranks['actxgrad']['norm'][layer][1][num_by_layer],category])
+	for layer in range(len(ranks['act'])):
+		layer_name = ranks['act'][layer][0]
+		for num_by_layer in range(len(ranks['act'][layer][1])):
+			allnode_dflist.append([node_num,layer_name,layer,num_by_layer,ranks['act'][layer][1][num_by_layer],ranks['grad'][layer][1][num_by_layer],ranks['actxgrad'][layer][1][num_by_layer],category])
 			node_num += 1
 #make nodes DF
-node_column_names = ['node_num','layer_name','layer','node_num_by_layer','act_prenorm_rank','grad_prenorm_rank','actxgrad_prenorm_rank',
-					 'act_norm_rank','grad_norm_rank','actxgrad_norm_rank','category']
+node_column_names = ['node_num','layer_name','layer','node_num_by_layer','act_rank','grad_rank','actxgrad_rank','category']
 node_df = pd.DataFrame(allnode_dflist,columns=node_column_names)
 #save
 node_df.to_csv('../prepped_models/'+output_folder+'/ranks/categories_nodes_ranks.csv',index=False)
@@ -55,16 +53,14 @@ if save_activations:     #dont save edge dataframe if using dynamic input, too m
 	for category in categories:
 		ranks = torch.load('../prepped_models/'+output_folder+'/ranks/categories_edges/%s_edges_rank.pt'%category)		
 		edge_num = 0
-		for layer in range(len(ranks['act']['prenorm'])):
-			layer_name = ranks['act']['prenorm'][layer][0]
-			for out_channel in range(len(ranks['act']['prenorm'][layer][1])):
-				for in_channel in range(len(ranks['act']['prenorm'][layer][1][out_channel])):
-					alledge_dflist.append([edge_num,layer_name,layer,out_channel,in_channel,ranks['act']['prenorm'][layer][1][out_channel][in_channel],ranks['grad']['prenorm'][layer][1][out_channel][in_channel],ranks['actxgrad']['prenorm'][1][out_channel][in_channel],
-										   ranks['act']['norm'][1][out_channel][in_channel],ranks['grad']['norm'][layer][1][out_channel][in_channel],ranks['actxgrad']['norm'][layer][1][out_channel][in_channel],category])
+		for layer in range(len(ranks['act'])):
+			layer_name = ranks['act'][layer][0]
+			for out_channel in range(len(ranks['act'][layer][1])):
+				for in_channel in range(len(ranks['act'][layer][1][out_channel])):
+					alledge_dflist.append([edge_num,layer_name,layer,out_channel,in_channel,ranks['act'][layer][1][out_channel][in_channel],ranks['grad'][layer][1][out_channel][in_channel],ranks['actxgrad'][layer][1][out_channel][in_channel],category])
 					edge_num += 1
 
-	edge_column_names = ['edge_num','layer_name','layer','out_channel','in_channel','act_prenorm_rank','grad_prenorm_rank','actxgrad_prenorm_rank',
-					 	 'act_norm_rank','grad_norm_rank','actxgrad_norm_rank','category']
+	edge_column_names = ['edge_num','layer_name','layer','out_channel','in_channel','act_rank','grad_rank','actxgrad_rank','category']
 	edge_df = pd.DataFrame(alledge_dflist,columns=edge_column_names)
 	#save
 	edge_df.to_csv('../prepped_models/'+output_folder+'/ranks/categories_edges_ranks.csv',index=False)

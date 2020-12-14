@@ -111,7 +111,7 @@ def rotate_mds(layer_mds,rank_type,imgnode_positions=imgnode_positions,max_edges
 
 def gen_layer_mds(nodes_df=categories_nodes_df):
     mds_projections ={}
-    for rank_type in ['actxgrad_norm','act_norm','grad_norm']:
+    for rank_type in ['actxgrad','act','grad']:
         nodes_wide_df = gen_wide_df(rank_type+'_rank',df=nodes_df)
         layer_similarities = {}
         for layer in range(len(layer_nodes)):
@@ -259,7 +259,7 @@ def format_node_positions(projection='MDS',rank_type = 'actxgrad'):
     return node_positions
 
 all_node_positions_formatted = {'MDS':{}}
-for rank_type in ['actxgrad_norm','act_norm','grad_norm']:
+for rank_type in ['actxgrad','act','grad']:
     all_node_positions_formatted['MDS'][rank_type] =  format_node_positions(projection = 'MDS',rank_type = rank_type) 
 all_node_positions_formatted['Grid'] = format_node_positions(projection = 'Grid') 
 

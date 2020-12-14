@@ -87,15 +87,15 @@ def parse_contrast(contrast_string,input_image_list,categories_list):
 
 class layer_rank_arithmetic_obj():
     def __init__(self,arith_exprs,array_dict):
-        self.num_layers = len(array_dict['x0']['nodes']['act']['prenorm'])
+        self.num_layers = len(array_dict['x0']['nodes']['act'])
         #print('num_layers: ');print(self.num_layers)
         self.array_dict = array_dict
         #print('array_dict: ');print(self.array_dict)
         self.arith_exprs = arith_exprs
         #print('arith express: ');print(self.arith_exprs)
         self.result_dict = {
-                            'nodes':{'act':{'prenorm':[]}, 'grad':{'prenorm':[]}, 'actxgrad':{'prenorm':[]}},
-                            'edges':{'act':{'prenorm':[]}, 'grad':{'prenorm':[]}, 'actxgrad':{'prenorm':[]}}
+                            'nodes':{'act':[], 'grad':[], 'actxgrad':[]},
+                            'edges':{'act':[], 'grad':[], 'actxgrad':[]}
                             }
 
         for part in ['nodes','edges']:      #Can be Parallelized!
@@ -107,7 +107,7 @@ class layer_rank_arithmetic_obj():
                     sym_replace_exprs = self.arith_exprs
                     #print('replace express');print(sym_replace_exprs )
                     for k in self.array_dict:
-                        sym_replace_exprs = sym_replace_exprs.replace(k,'array_dict["%s"]["%s"]["%s"]["prenorm"][%s]'%(k,part,rank_type,str(layer)))
+                        sym_replace_exprs = sym_replace_exprs.replace(k,'array_dict["%s"]["%s"]["%s"][%s][1]'%(k,part,rank_type,str(layer)))
                     #print('replace express');print(sym_replace_exprs )
                     exec_exprs = 'self.result_array = ' + sym_replace_exprs
                     #print('exec express'); print(exec_exprs)
@@ -116,7 +116,7 @@ class layer_rank_arithmetic_obj():
                     self.thresh_indices = self.result_array < 0 
                     self.result_array[self.thresh_indices] = 0 # Threshold negative values at 0
                     #print('thresh_array');print(self.result_array)
-                    dictupdate_exprs = 'self.result_dict["%s"]["%s"]["prenorm"].append(self.result_array)'%(part,rank_type)
+                    dictupdate_exprs = 'self.result_dict["%s"]["%s"].append([array_dict["x0"]["nodes"]["act"][%s][0],self.result_array])'%(part,rank_type,str(layer))
                     #print('dictupdate_expr');print(dictupdate_exprs)
                     exec(dictupdate_exprs)
         
@@ -130,7 +130,7 @@ def layer_rank_arithmetic(arith_exprs,array_dict):
     obj = layer_rank_arithmetic_obj(arith_exprs,array_dict)
     return obj.get_result()
 
-def var_dict_2_array_dict(var_dict,model_dis,params):
+def var_dict_2_array_dict(var_dict,target_node,model_dis,params):
     array_dict = {}
     for var in var_dict:
         is_image, image_path = get_image_path(var,params)
@@ -143,7 +143,7 @@ def var_dict_2_array_dict(var_dict,model_dis,params):
             array_dict[var_dict[var]] = category_dict
     return array_dict
 
-
+'''
 def add_norm_2_prenorm_dict(prenorm_dict):
     num_layers = len(prenorm_dict['nodes']['act']['prenorm'])
     for part in ['nodes','edges']:
@@ -158,13 +158,14 @@ def add_norm_2_prenorm_dict(prenorm_dict):
                 prenorm_dict[part][rank_type]['norm'].append(norm_a)
 
     return prenorm_dict
+'''
 
 def contrast_str_2_dfs(contrast_string,target_node,model_dis,params):
     all_input_images = params['input_image_list']+os.listdir(params['prepped_model_path']+'/visualizations/images/')
     var_dict, sym_contrast_string = parse_contrast(contrast_string,all_input_images,params['categories'])
     array_dict = var_dict_2_array_dict(var_dict,target_node,model_dis,params)
-    prenorm_contrast_dict = layer_rank_arithmetic(sym_contrast_string,array_dict)
-    contrast_dict = add_norm_2_prenorm_dict(prenorm_contrast_dict)
+    contrast_dict = layer_rank_arithmetic(sym_contrast_string,array_dict)
+    #contrast_dict = add_norm_2_prenorm_dict(prenorm_contrast_dict)
     nodes_df, edges_df = rank_dict_2_df(contrast_dict)
     return nodes_df, edges_df 
 

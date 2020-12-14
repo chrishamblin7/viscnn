@@ -19,7 +19,57 @@ class TargetReached(ModelBreak):
 
 
 class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has presum activation maps as intermediate output
-	
+
+	def __init__(self, from_conv,name,store_activations=False, store_ranks = False, clear_ranks=False, target_node=None, cuda=True):      # from conv is normal nn.Conv2d object to pull weights and bias from
+		super(dissected_Conv2d, self).__init__()
+		#self.from_conv = from_conv
+		self.name = name
+		self.in_channels = from_conv.weight.shape[1]
+		self.out_channels = from_conv.weight.shape[0]
+		self.target_node= target_node
+		self.cuda = cuda
+		self.store_activations = store_activations
+		self.store_ranks = store_ranks
+		self.clear_ranks = clear_ranks
+
+		self.postbias_ranks = {'act':None,'grad':None,'actxgrad':None}
+		self.preadd_ranks = {'act':None,'grad':None,'actxgrad':None}
+		for rank_type in ['act','grad','actxgrad']:
+			self.postbias_ranks[rank_type] = torch.FloatTensor(self.out_channels).zero_()
+			self.preadd_ranks[rank_type] = torch.FloatTensor(self.out_channels*self.in_channels).zero_()
+			if self.cuda:
+				self.postbias_ranks[rank_type] = self.postbias_ranks[rank_type].cuda()
+				self.preadd_ranks[rank_type] = self.preadd_ranks[rank_type].cuda()
+
+		self.normalizations = {'nodes':{			
+							   'act':{'mean':None,'std':None,'l2':None,'l1':None,'max':None},
+							   'grad':{'mean':None,'std':None,'l2':None,'l1':None,'max':None},
+							   'actxgrad':{'mean':None,'std':None,'l2':None,'l1':None,'max':None},
+							   'weight':{'mean':None,'std':None,'l2':None,'l1':None,'max':None}
+							   },
+							   'edges':{			
+							   'act':{'mean':None,'std':None,'l2':None,'l1':None,'max':None},
+							   'grad':{'mean':None,'std':None,'l2':None,'l1':None,'max':None},
+							   'actxgrad':{'mean':None,'std':None,'l2':None,'l1':None,'max':None},
+							   'weight':{'mean':None,'std':None,'l2':None,'l1':None,'max':None}
+							   }}
+
+		self.images_seen = 0
+		self.weight_perm,self.add_perm,self.add_indices = self.gen_inout_permutation()
+		self.preadd_conv = self.make_preadd_conv(from_conv)
+		self.bias = None
+		if from_conv.bias is not None:
+			self.bias = from_conv.bias.unsqueeze(1).unsqueeze(1)
+			if self.cuda:
+				self.bias = self.bias.cuda()
+		#generate a dict that says which indices should be added together in for 'permute_add_featuremaps'
+
+		self.preadd_ranks['weight'],self.postbias_ranks['weight'] = self.gen_weight_ranks()
+		if self.store_ranks:
+			self.preadd_out_hook = None
+			self.postbias_out_hook = None	
+
+
 	def gen_inout_permutation(self):
 		'''
 		When we flatten out all the output channels not to be grouped by 'output channel', we still want the outputs sorted
@@ -87,57 +137,19 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 		node_weight_ranks = edge_weight_ranks.mean(dim=1)
 		return weight_ranks_flat, node_weight_ranks
 
-
-	
-	def __init__(self, from_conv,name,store_activations=False, store_ranks = False, clear_ranks=False, target_node=None, cuda=True):      # from conv is normal nn.Conv2d object to pull weights and bias from
-		super(dissected_Conv2d, self).__init__()
-		#self.from_conv = from_conv
-		self.name = name
-		self.in_channels = from_conv.weight.shape[1]
-		self.out_channels = from_conv.weight.shape[0]
-		self.target_node= target_node
-		self.cuda = cuda
-		self.store_activations = store_activations
-		self.store_ranks = store_ranks
-		self.clear_ranks = clear_ranks
-
-		self.postbias_ranks_prenorm = {'act':None,'grad':None,'actxgrad':None}
-		self.preadd_ranks_prenorm = {'act':None,'grad':None,'actxgrad':None}
-		for rank_type in ['act','grad','actxgrad']:
-			self.postbias_ranks_prenorm[rank_type] = torch.FloatTensor(self.out_channels).zero_()
-			self.preadd_ranks_prenorm[rank_type] = torch.FloatTensor(self.out_channels*self.in_channels).zero_()
-			if self.cuda:
-				self.postbias_ranks_prenorm[rank_type] = self.postbias_ranks_prenorm[rank_type].cuda()
-				self.preadd_ranks_prenorm[rank_type] = self.preadd_ranks_prenorm[rank_type].cuda()
-
-		self.images_seen = 0
-		self.weight_perm,self.add_perm,self.add_indices = self.gen_inout_permutation()
-		self.preadd_conv = self.make_preadd_conv(from_conv)
-		self.bias = None
-		if from_conv.bias is not None:
-			self.bias = from_conv.bias.unsqueeze(1).unsqueeze(1)
-			if self.cuda:
-				self.bias = self.bias.cuda()
-		#generate a dict that says which indices should be added together in for 'permute_add_featuremaps'
-
-		self.preadd_ranks_prenorm['weight'],self.postbias_ranks_prenorm['weight'] = self.gen_weight_ranks()
-		if self.store_ranks:
-			self.preadd_out_hook = None
-			self.postbias_out_hook = None
-
 	def compute_edge_rank(self,grad):
 		activation = self.preadd_out
 		#activation_relu = F.relu(activation)
 		taylor = activation * grad 
 		rank_key  = {'act':torch.abs(activation),'grad':torch.abs(grad),'actxgrad':torch.abs(taylor)}
 		for key in rank_key:
-			if self.preadd_ranks_prenorm[key] is None: #initialize at 0
-				self.preadd_ranks_prenorm[key] = torch.FloatTensor(activation.size(1)).zero_()
+			if self.preadd_ranks[key] is None: #initialize at 0
+				self.preadd_ranks[key] = torch.FloatTensor(activation.size(1)).zero_()
 				if self.cuda:
-					self.preadd_ranks_prenorm[key] = self.preadd_ranks_prenorm[key].cuda()
+					self.preadd_ranks[key] = self.preadd_ranks[key].cuda()
 			map_mean = rank_key[key].mean(dim=(2, 3)).data
 			mean_sum = map_mean.sum(dim=0).data      
-			self.preadd_ranks_prenorm[key] += mean_sum    # we sum up the mean activations over all images, after all batches
+			self.preadd_ranks[key] += mean_sum    # we sum up the mean activations over all images, after all batches
 
 		#print('length edge_rank: ', len(self.preadd_ranks_prenorm['actxgrad']))
 		#print('length outdimxindim: ', self.out_channels*self.in_channels)
@@ -149,16 +161,16 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 	def compute_node_rank(self,grad):
 		activation = self.postbias_out
 		activation_relu = F.relu(activation)
-		taylor = activation_relu * grad 
+		taylor = activation_relu * torch.abs(grad) 
 		rank_key  = {'act':activation_relu,'grad':torch.abs(grad),'actxgrad':taylor}
 		for key in rank_key:
-			if self.postbias_ranks_prenorm[key] is None: #initialize at 0
-				self.postbias_ranks_prenorm[key] = torch.FloatTensor(activation.size(1)).zero_()
+			if self.postbias_ranks[key] is None: #initialize at 0
+				self.postbias_ranks[key] = torch.FloatTensor(activation.size(1)).zero_()
 				if self.cuda:
-					self.postbias_ranks_prenorm[key] = self.postbias_ranks_prenorm[key].cuda()
+					self.postbias_ranks[key] = self.postbias_ranks[key].cuda()
 			map_mean = rank_key[key].mean(dim=(2, 3)).data
 			mean_sum = map_mean.sum(dim=0).data      
-			self.postbias_ranks_prenorm[key] += mean_sum    # we sum up the mean activations over all images, after all batches
+			self.postbias_ranks[key] += mean_sum    # we sum up the mean activations over all images, after all batches
 			#have passed through we will average by the number of images seen with self.average_ranks
 		#print('length node_rank: ', len(self.postbias_ranks_prenorm['actxgrad']))
 		#print('length outdim: ', self.out_channels)
@@ -166,7 +178,7 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 
 
 
-	def format_edges(self, data= 'activations',rank_type='actxgrad',prenorm=False,weight_rank=False):
+	def format_edges(self, data= 'activations',rank_type='actxgrad',weight_rank=False):
 		#fetch preadd activations as [img,out_channel, in_channel,h,w]
 		#fetch preadd ranks as [out_chan,in_chan]
 		if weight_rank:
@@ -191,10 +203,7 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 			for out_chan in self.add_indices:
 				in_acts_list = []
 				for in_chan in self.add_indices[out_chan]:
-					if not prenorm:
-						in_acts_list.append(self.preadd_ranks[rank_type][in_chan].unsqueeze(dim=0).unsqueeze(dim=0)) 
-					else:
-						in_acts_list.append(self.preadd_ranks_prenorm[rank_type][in_chan].unsqueeze(dim=0).unsqueeze(dim=0))                 
+					in_acts_list.append(self.preadd_ranks[rank_type][in_chan].unsqueeze(dim=0).unsqueeze(dim=0))                 
 				out_acts_list.append(torch.cat(in_acts_list,dim=1))
 			output = torch.cat(out_acts_list,dim=0).cpu().detach().numpy()
 			return output
@@ -202,33 +211,33 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 	def average_ranks(self):
 		for rank_type in ['act','grad','actxgrad']:
 			if self.images_seen > 0:
-				self.preadd_ranks_prenorm[rank_type] = self.preadd_ranks_prenorm[rank_type]/self.images_seen
-				self.postbias_ranks_prenorm[rank_type] = self.postbias_ranks_prenorm[rank_type]/self.images_seen
+				self.preadd_ranks[rank_type] = self.preadd_ranks[rank_type]/self.images_seen
+				self.postbias_ranks[rank_type] = self.postbias_ranks[rank_type]/self.images_seen
 
 	def abs_ranks(self):
 		for rank_type in ['act','grad','actxgrad']:
-			self.preadd_ranks_prenorm[rank_type] = torch.abs(self.preadd_ranks_prenorm[rank_type])
-			self.postbias_ranks_prenorm[rank_type] = torch.abs(self.postbias_ranks_prenorm[rank_type])       
+			self.preadd_ranks[rank_type] = torch.abs(self.preadd_ranks[rank_type])
+			self.postbias_ranks[rank_type] = torch.abs(self.postbias_ranks[rank_type])       
 
-	def normalize_ranks(self):
-		self.preadd_ranks = {}
-		self.postbias_ranks = {}
-		for rank_type in ['act','grad','actxgrad','weight']:
-			if self.images_seen > 0:
-				e = torch.abs(self.preadd_ranks_prenorm[rank_type])
-				n = torch.abs(self.postbias_ranks_prenorm[rank_type])
-
-				e = e.cpu()
-				e = e / np.sqrt(torch.sum(e * e))
-				n = n.cpu()
-				n = n / np.sqrt(torch.sum(n * n))
-
-				self.preadd_ranks[rank_type] = e
-				self.postbias_ranks[rank_type] = n
-			else:
-				self.preadd_ranks[rank_type] = self.preadd_ranks_prenorm[rank_type]
-				self.postbias_ranks[rank_type] = self.postbias_ranks_prenorm[rank_type]
-
+	def gen_normalizations(self,rank_type):
+		if self.images_seen > 0 or rank_type == 'weight':
+			e = torch.abs(self.preadd_ranks[rank_type])
+			n = torch.abs(self.postbias_ranks[rank_type])
+			#std
+			self.normalizations['nodes'][rank_type]['std'] = float(torch.std(n))
+			self.normalizations['edges'][rank_type]['std'] = float(torch.std(e))
+			#mean
+			self.normalizations['nodes'][rank_type]['mean'] = float(torch.mean(n))
+			self.normalizations['edges'][rank_type]['mean'] = float(torch.mean(e))
+			#max
+			self.normalizations['nodes'][rank_type]['max'] = float(torch.max(n))
+			self.normalizations['edges'][rank_type]['max'] = float(torch.max(e))
+			#l1
+			self.normalizations['nodes'][rank_type]['l1'] = float(torch.sum(n))
+			self.normalizations['edges'][rank_type]['l1'] = float(torch.sum(e))
+			#l2
+			self.normalizations['nodes'][rank_type]['l2'] = float(np.sqrt(torch.sum(n * n)))
+			self.normalizations['edges'][rank_type]['l2'] = float(np.sqrt(torch.sum(e * e)))
 
 		#self.preadd_ranks_prenorm['weight'] = self.preadd_ranks_prenorm['weight'].cpu()
 		#self.postbias_ranks_prenorm['weight'] = self.postbias_ranks_prenorm['weight'].cpu()
@@ -238,11 +247,11 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 	def clear_ranks_func(self): #clear ranks, info that otherwise accumulates with images
 		self.images_seen = 0
 		for rank_type in ['act','grad','actxgrad']:
-			self.postbias_ranks_prenorm[rank_type] = torch.FloatTensor(self.out_channels).zero_()
-			self.preadd_ranks_prenorm[rank_type] = torch.FloatTensor(self.out_channels*self.in_channels).zero_()
+			self.postbias_ranks[rank_type] = torch.FloatTensor(self.out_channels).zero_()
+			self.preadd_ranks[rank_type] = torch.FloatTensor(self.out_channels*self.in_channels).zero_()
 			if self.cuda:
-				self.postbias_ranks_prenorm[rank_type] = self.postbias_ranks_prenorm[rank_type].cuda()
-				self.preadd_ranks_prenorm[rank_type] = self.preadd_ranks_prenorm[rank_type].cuda()
+				self.postbias_ranks[rank_type] = self.postbias_ranks[rank_type].cuda()
+				self.preadd_ranks[rank_type] = self.preadd_ranks[rank_type].cuda()
 
 	def forward(self, x):
 		

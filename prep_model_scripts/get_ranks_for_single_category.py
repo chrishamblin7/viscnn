@@ -122,12 +122,12 @@ if not os.path.exists('../prepped_models/'+args.output_folder+'/ranks/weight_nod
 	#save node csv
 	node_num = 0
 	weightnode_dflist = []
-	for layer in range(len(weight_ranks['nodes']['weight']['prenorm'])):
-		layer_name = weight_ranks['nodes']['weight']['prenorm'][layer][0]
-		for num_by_layer in range(len(weight_ranks['nodes']['weight']['prenorm'][layer][1])):
-			weightnode_dflist.append([node_num,layer_name,layer,num_by_layer,weight_ranks['nodes']['weight']['prenorm'][layer][1][num_by_layer],weight_ranks['nodes']['weight']['norm'][layer][1][num_by_layer]])
+	for layer in range(len(weight_ranks['nodes']['weight'])):
+		layer_name = weight_ranks['nodes']['weight'][layer][0]
+		for num_by_layer in range(len(weight_ranks['nodes']['weight'][layer][1])):
+			weightnode_dflist.append([node_num,layer_name,layer,num_by_layer,weight_ranks['nodes']['weight'][layer][1][num_by_layer]])
 			node_num += 1
-	node_column_names = ['node_num','layer_name','layer','node_num_by_layer','weight_prenorm_rank','weight_norm_rank']
+	node_column_names = ['node_num','layer_name','layer','node_num_by_layer','weight_rank']
 	node_df = pd.DataFrame(weightnode_dflist,columns=node_column_names)
 	#save
 	node_df.to_csv('../prepped_models/'+args.output_folder+'/ranks/weight_nodes_ranks.csv',index=False)
@@ -135,13 +135,13 @@ if not os.path.exists('../prepped_models/'+args.output_folder+'/ranks/weight_nod
 	#save edge csv
 	edge_num = 0
 	weightedge_dflist = []
-	for layer in range(len(weight_ranks['edges']['weight']['prenorm'])):
-		layer_name = weight_ranks['edges']['weight']['prenorm'][layer][0]
-		for out_channel in range(len(weight_ranks['edges']['weight']['prenorm'][layer][1])):
-			for in_channel in range(len(weight_ranks['edges']['weight']['prenorm'][layer][1][out_channel])):
-				weightedge_dflist.append([edge_num,layer_name,layer,out_channel,in_channel,weight_ranks['edges']['weight']['prenorm'][layer][1][out_channel][in_channel],weight_ranks['edges']['weight']['norm'][layer][1][out_channel][in_channel]])
+	for layer in range(len(weight_ranks['edges']['weight'])):
+		layer_name = weight_ranks['edges']['weight'][layer][0]
+		for out_channel in range(len(weight_ranks['edges']['weight'][layer][1])):
+			for in_channel in range(len(weight_ranks['edges']['weight'][layer][1][out_channel])):
+				weightedge_dflist.append([edge_num,layer_name,layer,out_channel,in_channel,weight_ranks['edges']['weight'][layer][1][out_channel][in_channel]])
 				edge_num += 1
-	edge_column_names = ['edge_num','layer_name','layer','out_channel','in_channel','weight_prenorm_rank','weight_norm_rank']
+	edge_column_names = ['edge_num','layer_name','layer','out_channel','in_channel','weight_rank']
 	edge_df = pd.DataFrame(weightedge_dflist,columns=edge_column_names)
 	#save
 	edge_df.to_csv('../prepped_models/'+args.output_folder+'/ranks/weight_edges_ranks.csv',index=False)
