@@ -496,6 +496,7 @@ def edgename_2_singlenum(model,edgename,params):
 	return conv_module.add_indices[int(to_within_id)][int(from_within_id)]
 
 def edgename_2_edge_figures(edgename, image_name, kernels, activations, params):  #returns truth value of valid edge and kernel if valid
+	#import pdb; pdb.set_trace()
 	valid,from_layer,to_layer,from_within_id,to_within_id  = check_edge_validity(edgename,params)
 	if valid:
 		kernel=None
@@ -550,6 +551,7 @@ def act_array_2_imgname_dict(layer_activations, image_names):
 	return new_activations
 
 def get_model_activations_from_image(image_path, model_dis, params):
+	print('running model to fetch activations')
 	cuda = params['cuda']
 	model_dis = set_across_model(model_dis,'target_node',None)
 	#image loading 
@@ -566,6 +568,16 @@ def combine_activation_dicts(all_activations,new_activations):       #when you g
 	for key in ['nodes','edges_in','edges_out']:
 		all_activations[key].update(new_activations[key])
 	return all_activations
+
+
+
+
+
+def relu(array):
+	neg_indices = array < 0
+	array[neg_indices] = 0
+	return array
+
 
 # def update_all_activations(image_path,model_dis,params):
 # 	image_name = image_path.split('/')[-1]
@@ -613,7 +625,7 @@ def get_ranks_from_dissected_Conv2d_modules(module,layer_ranks=None,layer_normal
 
 
 def get_model_ranks_for_category(category, target_node, model_dis,params):
-
+	print('running model to get ranks for %s'%str(category))
 	device = torch.device("cuda" if params['cuda'] else "cpu")
 	criterion = params['criterion']
 	####SET UP MODEL
@@ -666,6 +678,7 @@ def get_model_ranks_for_category(category, target_node, model_dis,params):
 	return layer_ranks
 
 def get_model_ranks_from_image(image_path, target_node, model_dis, params): 
+	print('running model to get ranks for image: %s'%str(image_path))
 	#model_dis.clear_ranks_func()  #so ranks dont accumulate
 	cuda = params['cuda']
 	device = torch.device("cuda" if cuda else "cpu")
