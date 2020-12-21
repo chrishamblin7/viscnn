@@ -12,11 +12,11 @@ The recommended way of setting up this cnn visualizer tools environment is to us
 
 Once you have docker install you can use docker commandline tools, and get the environment for this project by running:
 
-`docker pull chrishamblin7/cnn_subgraph_visualizer:latest`
+`docker pull chrishamblin7/viscnn:latest`
 
 That might take a while to download. Once its done you can launch the tool by running:
 
-`docker run -it -v [full/path/to/cloned/repo]:/workspace -p 8050:8050 chrishamblin7/cnn_subgraph_visualizer`
+`docker run -it -v [full/path/to/cloned/repo]:/workspace -p 8050:8050 chrishamblin7/viscnn`
 
 ## Running Visualizer
 
