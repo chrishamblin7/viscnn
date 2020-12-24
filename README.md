@@ -30,7 +30,7 @@ The visualizer takes some command line arguments, to see what they are use;
 
 The only required positional argument specifies the model you would like to visualize (all possible options are shown when you run with the --help flag). So a full call to this function might look like;
 
-`python launch_visualizer alexnet --cuda --port 8050`
+`python launch_visualizer.py alexnet --cuda --port 8050`
 
 Accessing the tool is then possible in a local web browser at the URL 'http://localhost:8050/'
 
