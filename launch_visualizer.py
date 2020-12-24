@@ -132,7 +132,7 @@ params['layer_colors'] = ['rgba(31,119,180,',
 target_category = 'overall'     #category of images edges and nodes are weighted based on (which subgraph) 
 rank_type = 'actxgrad'       #weighting criterion (actxgrad, act, grad, or weight)
 projection = 'MDS'           #how nodes within a layer are projected into the 2d plane (MDS or Grid)
-edge_threshold = [.1,1]     #what range do edge ranks need to be in to be visualized
+edge_threshold = [.7,1]     #what range do edge ranks need to be in to be visualized
 
 #######           END OF PARAMETERS          ########
 #######            DONT EDIT BELOW           ########
@@ -164,16 +164,20 @@ params['max_edge_weight'] = 1  #for the edge threshold slider, this dynamically 
 model_dis = dissect_model(deepcopy(prep_model_params.model),store_ranks=True,clear_ranks=True,cuda=params['cuda']) #version of model with accessible preadd activations in Conv2d modules 
 if params['cuda']:
     model_dis.cuda()
-model_dis.eval()
+model_dis = model_dis.eval()    
 
 print('loaded model:')
 print(prep_model_params.model)
-print('\n')
+        
+#del prep_model_params.model
+model = prep_model_params.model
+if params['cuda']:
+    model.cuda()
+model = model.eval()
 
-del prep_model_params.model
 
 #load misc graph data
-print('loading misc graph data'+'\n')
+print('loading misc graph data')
 misc_data = pickle.load(open('./prepped_models/%s/misc_graph_data.pkl'%prepped_model_folder,'rb'))
 params['layer_nodes'] = misc_data['layer_nodes']
 params['num_layers'] = misc_data['num_layers']
@@ -185,7 +189,6 @@ params['imgnode_colors'] = misc_data['imgnode_colors']
 params['imgnode_names'] = misc_data['imgnode_names']
 params['prepped_model_path'] = full_prepped_model_folder
 params['ranks_data_path'] = full_prepped_model_folder+'/ranks/'
-params['flat_nodes'] = [str(item) for sublist in params['layer_nodes'] for item in params['layer_nodes'][sublist]]
 
 #fix legacy dictionary layer_nodes
 if isinstance(params['layer_nodes'],dict):
@@ -198,7 +201,6 @@ print(params['categories'])
 print('\n')
 
 
-
 #load nodes df
 print('loading nodes rank data')
 target_node = 'loss'
@@ -206,7 +208,11 @@ target_node = 'loss'
 categories_nodes_df = pd.read_csv('prepped_models/%s/ranks/categories_nodes_ranks.csv'%prepped_model_folder)
 target_nodes_df = categories_nodes_df.loc[categories_nodes_df['category']==target_category]
 
+target_nodes_df = minmax_normalize_ranks_df(target_nodes_df,params,weight=False)
+
 weight_nodes_df = pd.read_csv('prepped_models/%s/ranks/weight_nodes_ranks.csv'%prepped_model_folder)
+
+weight_nodes_df = minmax_normalize_ranks_df(weight_nodes_df,params,weight=True)
 
 node_colors,node_weights = gen_node_colors(target_nodes_df,rank_type,params) 
 
@@ -215,7 +221,7 @@ print('loading node position data')
 all_node_positions = pickle.load(open('./prepped_models/%s/node_positions.pkl'%prepped_model_folder,'rb'))
 
 if projection == 'MDS':
-    node_positions = all_node_positions[projection][rank_type+'_norm']
+    node_positions = all_node_positions[projection][rank_type]
 else:
     node_positions = all_node_positions[projection]
 
@@ -235,11 +241,15 @@ else:
     #overall_edges_df = rank_file_2_df(os.path.join(params['ranks_data_path'],'categories_edges','overall_edges_rank.pt'))
     target_edges_df = rank_file_2_df(os.path.join(params['ranks_data_path'],'categories_edges','%s_edges_rank.pt'%target_category))
 
+target_edges_df = minmax_normalize_ranks_df(target_edges_df,params,weight=False)
 
 weight_edges_df = pd.read_csv('prepped_models/%s/ranks/weight_edges_ranks.csv'%prepped_model_folder)
-
+  
+weight_edges_df = minmax_normalize_ranks_df(weight_edges_df,params,weight=True)    
+    
 edges_thresholded_df = get_thresholded_edges(edge_threshold,rank_type,target_edges_df,target_category)
-
+ 
+    
 num_edges = len(target_edges_df)
 edges_df_columns = list(target_edges_df.columns)
 
@@ -261,6 +271,7 @@ print('loading activation maps')
 all_activations = {'nodes':{},'edges_in':{},'edges_out':{}}
 if os.path.exists('prepped_models/%s/input_img_activations.pt'%prepped_model_folder):
     all_activations = torch.load('prepped_models/%s/input_img_activations.pt'%prepped_model_folder)
+
 
 
 #hidden state, stores python values within the html itself
@@ -295,7 +306,7 @@ network_graph_layout = go.Layout(
          #width=1000,
          clickmode = 'event+select',
          transition = {'duration': 20},
-         height=400,
+         height=500,
          #showlegend=False,
          margin = dict(l=20, r=20, t=20, b=20),
          scene=dict(
@@ -325,7 +336,6 @@ input_image_layout = go.Layout(#width=200,
                         plot_bgcolor='rgba(0,0,0,0)',
                         xaxis=dict(range=(0,10),showline=False,showgrid=False,showticklabels=False),
                         yaxis=dict(range=(0,10),showline=False,showgrid=False,showticklabels=False))
-
 
 
 node_actmap_layout = go.Layout(
@@ -386,8 +396,9 @@ kernel_layout = go.Layout(
         pad=1
     ))
 
+
 #Generate Network Graph
-combined_traces = gen_networkgraph_traces(state,params,categories_nodes_df)
+combined_traces = gen_networkgraph_traces(state,params)
 network_graph_fig=go.Figure(data=combined_traces, layout=network_graph_layout)
 
 
@@ -424,7 +435,7 @@ CACHE_CONFIG = {
     'CACHE_DIR': full_prepped_model_folder+'/cache/'}
 cache = Cache()
 cache.init_app(app.server, config=CACHE_CONFIG)
-
+    
 
 
 styles = {
@@ -446,7 +457,7 @@ theme =  {
 app.layout = html.Div([
         html.Div(
             children = [
-
+                
             html.Div(
                 #Left side control panel
                 children = [
@@ -457,6 +468,8 @@ app.layout = html.Div([
                  #   value=target_category
                  #   ),
                 dcc.Input(id='input-category',value=state['target_category']),
+                html.Br(),
+                html.Br(),
                 html.Label('Output'),
                  #dcc.Dropdown(
                  #  id='weight-category',
@@ -466,7 +479,7 @@ app.layout = html.Div([
                 dcc.Dropdown(
                     id='target-node',
                     options=[
-                    {'label': i, 'value': i} for i in ['loss']+params['flat_nodes']
+                    {'label': i, 'value': i} for i in ['loss']+[str(node) for node in list(range(params['num_nodes']))]
                     ],
                     value=state['target_node']),
                  html.Br(),
@@ -495,23 +508,18 @@ app.layout = html.Div([
 
                 html.Br(),
                 html.Label('Edge Thresholds'),
-                dcc.RangeSlider(
-                    id='edge-thresh-slider',
-                    min=0,
-                    max=np.ceil(params['max_edge_weight']*10)/10,
-                    step=0.001,
-                    marks={i/10: str(i/10) for i in range(0,int(np.ceil(params['max_edge_weight']*10))+1,int(round(np.ceil(params['max_edge_weight']*10)/5)))},
-                    value=[.1,np.ceil(params['max_edge_weight']*10)/10],
-                ),
-                # dcc.Checklist(
-                # 				id='normalize-box'
-                # 				options=[{'label': 'Per-Layer Normalize', 'value': 'normalize'}],
-                # 				value=['normalize']
-                            # )
+                    dcc.RangeSlider(
+                        id='edge-thresh-slider',
+                        min=0,
+                        max=np.ceil(params['max_edge_weight']*10)/10,
+                        step=0.001,
+                        marks={i/10: str(i/10) for i in range(0,int(np.ceil(params['max_edge_weight']*10))+1,int(round(np.ceil(params['max_edge_weight']*10)/5)))},
+                        value=[.7,np.ceil(params['max_edge_weight']*10)/10],
+                    ),
 
                 ], className="two columns",
                 ),
-
+                
             html.Div([
                 dcc.Graph(
                     id='network-graph',
@@ -523,13 +531,13 @@ app.layout = html.Div([
         ),
 
 
-
+                
         html.Div([
             html.Div([
             html.Label('Input Image'),
             dcc.Dropdown(
                 id='input-image-dropdown',
-                options=[{'label': i, 'value': i} for i in params['input_image_list']],
+                options=[{'label': i, 'value': i} for i in params['input_image_list']+os.listdir(params['prepped_model_path']+'/visualizations/images/')],
                 value=input_image_name
             ),
             html.Br(),
@@ -539,7 +547,7 @@ app.layout = html.Div([
                'width': '14vw',
                'height':'14vw'
                 },
-                figure=image2plot(params['input_image_directory']+input_image_name,input_image_layout),
+                figure=image2heatmap(params['input_image_directory']+input_image_name,input_image_layout),
                 config={
                         'displayModeBar': False
                         }
@@ -564,9 +572,28 @@ app.layout = html.Div([
                 config={
                         'displayModeBar': False
                         }
+            ),
+            dcc.Checklist(
+                id = 'relu-checkbox',
+                options = [{'label':'relu','value':'relu'}],
+                value = []
+                
+            ),
+            html.Br(),
+            html.Br(),
+            dcc.Graph(
+                id='node-deepviz-image',
+                style={
+               'width': '14vw',
+               'height':'14vw'
+                },
+                figure=figure_init,
+                config={
+                        'displayModeBar': False
+                        }
             )
             ], className = "three columns"),
-
+            
             html.Div([
             html.Label('Node Inputs'),
             html.Br(),
@@ -593,17 +620,32 @@ app.layout = html.Div([
                'height':'10vw'
                 },
                 figure=go.Figure(data=go.Heatmap(
-                                    z = edgename_2_edge_figures(state['edge_names'][0][0], input_image_name, kernels, None,categories_nodes_df,params)[0]),
+                                    z = edgename_2_edge_figures(state['edge_names'][0][0], input_image_name, kernels, None,params)[0]),
                                  layout=kernel_layout
                                 ),
                 config={
                         'displayModeBar': False
                         }
-            )
+            ),
+            html.Br(),
+            html.Br(),
+            #dcc.Graph(
+            #    id='edge-deepviz-image',
+            #    style={
+            #   'width': '14vw',
+            #   'height':'14vw'
+            #    },
+            #    figure=figure_init,
+            #    config={
+            #            'displayModeBar': False
+            #            }
+            #)
             ], className = "two columns"),
 
 
             html.Div([
+            html.Label('Edge Input'),
+            html.Br(),
             dcc.Graph(
                 id='edge-inmap-graph',
                 style={
@@ -617,6 +659,8 @@ app.layout = html.Div([
             ),
             html.Br(),
             html.Br(),
+            html.Label('Edge Output'),
+            html.Br(),
             dcc.Graph(
                 id='edge-outmap-graph',
                 style={
@@ -628,81 +672,82 @@ app.layout = html.Div([
                         'displayModeBar': False
                         }
             )
+
             ], className = "three columns")
 
 
          ], className= 'row'
          ),
+                
+                
+        html.Div([
+            html.Div([
+                dcc.Markdown("""
+                    **Hover Data**
 
+                    Mouse over values in the graph.
+                """),
+                html.Pre(id='hover-data', style=styles['pre'])
+            ], className='two columns'),
 
-# 		html.Div([
-# 			html.Div([
-# 				dcc.Markdown("""
-# 					**Hover Data**
+            html.Div([
+                dcc.Markdown("""
+                    **Click Data**
 
-# 					Mouse over values in the graph.
-# 				"""),
-# 				html.Pre(id='hover-data', style=styles['pre'])
-# 			], className='two columns'),
+                    Click on points in the graph.
+                """),
+                html.Pre(id='click-data', style=styles['pre']),
+            ], className='two columns'),
 
-# 			html.Div([
-# 				dcc.Markdown("""
-# 					**Click Data**
+            html.Div([
+                dcc.Markdown("""
+                    **Selection Data**
 
-# 					Click on points in the graph.
-# 				"""),
-# 				html.Pre(id='click-data', style=styles['pre']),
-# 			], className='two columns'),
+                    Choose the lasso or rectangle tool in the graph's menu
+                    bar and then select points in the graph.
 
-# 			html.Div([
-# 				dcc.Markdown("""
-# 					**Selection Data**
+                    Note that if `layout.clickmode = 'event+select'`, selection data also 
+                    accumulates (or un-accumulates) selected data if you hold down the shift
+                    button while clicking.
+                """),
+                html.Pre(id='selected-data', style=styles['pre']),
+            ], className='two columns'),
 
-# 					Choose the lasso or rectangle tool in the graph's menu
-# 					bar and then select points in the graph.
+#                 html.Div([
+#                     dcc.Markdown("""
+#                         **Zoom and Relayout Data**
 
-# 					Note that if `layout.clickmode = 'event+select'`, selection data also 
-# 					accumulates (or un-accumulates) selected data if you hold down the shift
-# 					button while clicking.
-# 				"""),
-# 				html.Pre(id='selected-data', style=styles['pre']),
-# 			], className='two columns'),
+#                         Click and drag on the graph to zoom or click on the zoom
+#                         buttons in the graph's menu bar.
+#                         Clicking on legend items will also fire
+#                         this event.
+#                     """),
+#                     html.Pre(id='relayout-data', style=styles['pre']),
+#                 ], className='two columns')
+                
+            html.Div([
+                dcc.Markdown("""
+                    **Figure Data**
 
-# #                 html.Div([
-# #                     dcc.Markdown("""
-# #                         **Zoom and Relayout Data**
+                    Figure json info.
+                """),
+                html.Pre(id='figure-data', style=styles['pre']),
+            ], className='four columns')
 
-# #                         Click and drag on the graph to zoom or click on the zoom
-# #                         buttons in the graph's menu bar.
-# #                         Clicking on legend items will also fire
-# #                         this event.
-# #                     """),
-# #                     html.Pre(id='relayout-data', style=styles['pre']),
-# #                 ], className='two columns')
-
-# 			html.Div([
-# 				dcc.Markdown("""
-# 					**Figure Data**
-
-# 					Figure json info.
-# 				"""),
-# 				html.Pre(id='figure-data', style=styles['pre']),
-# 			], className='four columns')
-
-# 		], className= 'row'
-# 		),
+        ], className= 'row'
+        ),
 
     #hidden divs for storing intermediate values     
     # The memory store reverts to the default on every page refresh
-    dcc.Store(id='memory'),
+    dcc.Store(id='memory',data=state),
     # The local store will take the initial data
     # only the first time the page is loaded
     # and keep it until it is cleared.
-    dcc.Store(id='local', storage_type='local'),
+    #dcc.Store(id='local', storage_type='local'),
     # Same as the local store but will lose the data
     # when the browser/tab closes.
-    dcc.Store(id='session', storage_type='session',data=state),
-
+    #dcc.Store(id='session', storage_type='session',data=state),
+    
 
     # hidden signal value
     html.Div(id='input-image-signal',  style={'display': 'none'}),
@@ -720,8 +765,8 @@ app.layout = html.Div([
 def activations_store(image_name):
 
     print('Updating cached activations with {}'.format(image_name))
-    activations = get_model_activations_from_image(params['input_image_directory']+image_name, model_dis, params)
-
+    activations = get_model_activations_from_image(get_image_path(image_name,params)[1], model_dis, params)
+    
     return activations
 
 @app.callback(Output('input-image-signal', 'children'), 
@@ -736,7 +781,7 @@ def update_activations_store(image_name):
 def ranksdf_store(target_category, target_node,model_dis=model_dis):
     print('Updating cached rank dfs with {}'.format(target_category))
     model_dis = clear_ranks_across_model(model_dis)
-    target_type = image_category_or_contrast(target_category,params['input_image_list'],params['categories'])
+    target_type = image_category_or_contrast(target_category,params)
     target_category_nodes_df = None
     target_category_edges_df = None
     if target_type == 'category' and target_node == 'loss':
@@ -755,10 +800,12 @@ def ranksdf_store(target_category, target_node,model_dis=model_dis):
     elif target_type == 'category':
         target_category_nodes_df,target_category_edges_df = rank_dict_2_df(get_model_ranks_for_category(target_category, target_node, model_dis,params))
     elif target_type == 'input_image':
-        target_category_nodes_df,target_category_edges_df = rank_dict_2_df(get_model_ranks_from_image(params['input_image_directory']+'/'+target_category,target_node, model_dis, params))
-    else:  #contrast
-        target_category_nodes_df,target_category_edges_df = contrast_str_2_dfs(target_category,model_dis,params)
+        target_category_nodes_df,target_category_edges_df = rank_dict_2_df(get_model_ranks_from_image(get_image_path(target_category,params)[1],target_node, model_dis, params))
 
+    else:  #contrast
+        target_category_nodes_df,target_category_edges_df = contrast_str_2_dfs(target_category,target_node,model_dis,params)
+    print('FROM RANKS DF STORE')
+    print(target_category_edges_df)
     return target_category_nodes_df,target_category_edges_df
 
 @app.callback(Output('target-signal', 'children'), 
@@ -776,14 +823,14 @@ def update_ranksdf_store(target_category,target_node):
 
 #Hidden State
 @app.callback(
-    Output('session', 'data'),
+    Output('memory', 'data'),
     [Input('target-signal', 'children'),
      Input('node-actmap-dropdown', 'value'),
      Input('edge-actmaps-input', 'value'),
      Input('edge-thresh-slider','value'),
      Input('layer-projection','value'),
      Input('subgraph-criterion','value')],
-    [State('session', 'data')])
+    [State('memory', 'data')])
 def update_store(target,node_value,edge_value,edge_threshold,projection,rank_type,state):
     print('CALLED: update_store\n')
     ctx = dash.callback_context
@@ -800,14 +847,19 @@ def update_store(target,node_value,edge_value,edge_threshold,projection,rank_typ
         if rank_type == 'weight':
             target_edges_df = weight_edges_df
             target_nodes_df = weight_nodes_df
-            edges_thresholded_df = get_thresholded_edges(edge_threshold,rank_type,target_edges_df,target_category)
+            weight=True
         else:   
             target_nodes_df,target_edges_df = ranksdf_store(target_category,target_node)
-            edges_thresholded_df = get_thresholded_edges(edge_threshold,rank_type,target_edges_df,target_category)
+            weight=False   
+        target_edges_df = minmax_normalize_ranks_df(target_edges_df,params,weight=weight)
+        target_nodes_df = minmax_normalize_ranks_df(target_nodes_df,params,weight=weight)
+        print("MINMAX EDGES DF")
+        print(target_edges_df)
+        edges_thresholded_df = get_thresholded_edges(edge_threshold,rank_type,target_edges_df,target_category)
 
     if trigger == 'target-signal.children':
         print('changing target category to %s'%target_category)
-        print(target_nodes_df)
+        #print(target_nodes_df)
         state['node_colors'], state['node_weights'] = gen_node_colors(target_nodes_df,rank_type,params)
         #state['max_edge_weight'] = get_max_edge_weight(target_category)
         state['edge_positions'], state['edge_colors'], state['edge_widths'],state['edge_weights'], state['edge_names'], state['max_edge_width_indices'] = gen_edge_graphdata(edges_thresholded_df, state['node_positions'], rank_type, target_category,params)
@@ -822,7 +874,7 @@ def update_store(target,node_value,edge_value,edge_threshold,projection,rank_typ
             if len(state['node_select_history']) > 10:
                 del state['node_select_history'][0] 
         #update edge if button value different than store value
-        if state['edge_select_history'][-1] != edge_value and check_edge_validity(edge_value.strip(),categories_nodes_df,params)[0]:
+        if state['edge_select_history'][-1] != edge_value and check_edge_validity(edge_value.strip(),params)[0]:
             print('changing selected edge to %s'%edge_value)
             state['edge_select_history'].append(edge_value)
             print(state['edge_select_history'])
@@ -839,7 +891,7 @@ def update_store(target,node_value,edge_value,edge_threshold,projection,rank_typ
         print('changing layer projection to %s\n'%projection)
         state['projection']=projection
         if projection == 'MDS':
-            state['node_positions'] = all_node_positions[projection][rank_type+'_norm']
+            state['node_positions'] = all_node_positions[projection][rank_type]
         else:
             state['node_positions'] = all_node_positions[projection]
         state['edge_positions'], state['edge_colors'], state['edge_widths'],state['edge_weights'], state['edge_names'], state['max_edge_width_indices'] = gen_edge_graphdata(edges_thresholded_df, state['node_positions'], rank_type, target_category,params)
@@ -859,12 +911,14 @@ def update_store(target,node_value,edge_value,edge_threshold,projection,rank_typ
 #Network Graph Figure
 @app.callback(
     Output('network-graph', 'figure'),
-    [Input('session', 'data')],
+    [Input('memory', 'data')],
     [State('network-graph','figure')])
 def update_figure(state, fig):
     #network_graph_layout['uirevision'] = True
     print('CALLED: update_figure\n')
     print(state['edge_threshold'])
+    print(state['edge_select_history'])
+    print(state['node_select_history'])
     if state['last_trigger'] == 'selection_change':   #minimal updates
         #hightlight edge
         print('updating edge highlight to %s'%state['edge_select_history'][-1])
@@ -888,21 +942,22 @@ def update_figure(state, fig):
         #    if state['node_select_history'][-1] != state['node_select_history'][-2]: 
                 #update current node color to black
         if str(state['node_select_history'][-1]).isnumeric():  #if normal node
-            select_layer,select_position = nodeid_2_perlayerid(state['node_select_history'][-1],params)
+            select_layer,select_position,select_layer_name = nodeid_2_perlayerid(state['node_select_history'][-1],params)
             fig['data'][select_layer+1]['marker']['color'][select_position] = 'rgba(0,0,0,1)'
         else:   #imgnode
             fig['data'][0]['marker']['color'][fig['data'][0]['text'].index(state['node_select_history'][-1])] = 'rgba(0,0,0,1)'
         #update previous node color to its usual color
         if len(state['node_select_history']) > 1: #there is a previous node to unselect
             if str(state['node_select_history'][-2]).isnumeric():  #if normal node
-                prev_select_layer,prev_select_position = nodeid_2_perlayerid(state['node_select_history'][-2],params)
+                prev_select_layer,prev_select_position,prev_select_layer_name = nodeid_2_perlayerid(state['node_select_history'][-2],params)
+                print(prev_select_layer,prev_select_position,prev_select_layer_name)
                 fig['data'][prev_select_layer+1]['marker']['color'][prev_select_position] = state['node_colors'][prev_select_layer][prev_select_position]
             else:   #imgnode
                 fig['data'][0]['marker']['color'][fig['data'][0]['text'].index(state['node_select_history'][-2])] = state['imgnode_colors'][fig['data'][0]['text'].index(state['node_select_history'][-2])]
         #fig['layout']['uirevision']=True   
         return fig    
     else:   #regenerate full traces
-        combined_traces = gen_networkgraph_traces(state,params,categories_nodes_df)
+        combined_traces = gen_networkgraph_traces(state,params)
         fig['data'] = combined_traces
         #layout = network_graph_layout
         #layout['uirevision'] = True
@@ -928,7 +983,7 @@ def switch_node_actmap_click(clickData,current_value):
     Output('edge-actmaps-input', 'value'),
     [Input('network-graph', 'clickData')],
     [State('edge-actmaps-input', 'value'),
-     State('session', 'data')])
+     State('memory', 'data')])
 def switch_edge_actmaps_click(clickData,current_value,state):
     print('CALLED: switch_edge_actmaps_click')
     if clickData is None:
@@ -944,29 +999,61 @@ def switch_edge_actmaps_click(clickData,current_value,state):
 @app.callback(
     Output('node-actmap-graph', 'figure'),
     [Input('node-actmap-dropdown', 'value'),
+     Input('relu-checkbox','value'),
      Input('input-image-signal', 'children')])
-def update_node_actmap(nodeid,image_name):       #EDIT: needs support for black and white images
+def update_node_actmap(nodeid,relu_checked,image_name):       #EDIT: needs support for black and white images
     print('CALLED: update_node_actmap')
-    layer, within_id = nodeid_2_perlayerid(nodeid,params)
+    layer, within_id,layer_name = nodeid_2_perlayerid(nodeid,params)
     #fetch activations
     if image_name in all_activations['nodes']:
         activations = all_activations
     else:
-        activations = activations = activations_store(image_name)
-
+        activations  = activations_store(image_name)
+        
     if layer == 'img': #code for returning color channel as activation map
         #np_chan_im = get_channelwise_image(image_name,state['imgnode_names'].index(nodeid),params['input_image_directory']=params['input_image_directory'])
         np_chan_im = activations['edges_in'][image_name][0][within_id]
         return go.Figure(data=go.Heatmap( z = np.flip(np_chan_im,0)),
                         layout=node_actmap_layout) 
-
-    return go.Figure(data=go.Heatmap( z = np.flip(activations['nodes'][image_name][layer][within_id],0),
-                                      #zmin=-1,
-                                      #zmax=1,
+    act_map = activations['nodes'][image_name][layer][within_id]
+    if relu_checked != []:
+        act_map = relu(act_map)
+    return go.Figure(data=go.Heatmap( z = np.flip(act_map,0),
+                                      #zmin=-11,
+                                      #zmax=14,
                                       colorbar = dict(thicknessmode = "fraction",thickness=.1)
                                     ),
                      layout=node_actmap_layout) 
 
+
+#Node deepviz graph
+@app.callback(
+    Output('node-deepviz-image', 'figure'),
+    [Input('node-actmap-dropdown', 'value')])
+def update_node_deepviz(nodeid):       #EDIT: needs support for black and white images
+    print('CALLED: update_node_deepviz')
+    layer,within_layer_id,layer_name = nodeid_2_perlayerid(nodeid,params)    
+    if layer == 'img': 
+        return figure_init
+    image_name = fetch_deepviz_img(model,str(nodeid),params)
+    image_path = params['prepped_model_path']+'/visualizations/images/'+image_name
+    return image2plot(image_path,input_image_layout)
+    
+
+'''
+#Edge deepviz graph
+@app.callback(
+    Output('edge-deepviz-image', 'figure'),
+    [Input('edge-actmaps-input', 'value')])
+def update_edge_deepviz(edgename):       #EDIT: needs support for black and white images
+    print('CALLED: update_edge_deepviz')
+    #layer,within_layer_id,layer_name = nodeid_2_perlayerid(nodeid,params)    
+    #if layer == 'img': 
+    #    return figure_init
+    image_name = fetch_deepviz_img(model_dis,edgename,params)
+    image_path = params['prepped_model_path']+'/visualizations/images/'+image_name
+    return image2plot(image_path,input_image_layout)
+'''      
 
 #Node inputs actmap graph
 @app.callback(
@@ -978,7 +1065,7 @@ def update_node_actmap(nodeid,image_name):       #EDIT: needs support for black 
 def update_node_inputs(nodeid,image_name,target,rank_type,max_num = params['max_node_inputs']):       
     print('CALLED: update_node_inputs')
     target_category,target_node = target[0],target[1]
-    node_layer,node_within_layer_id = nodeid_2_perlayerid(nodeid,params)
+    node_layer,node_within_layer_id,layer_name = nodeid_2_perlayerid(nodeid,params)
     #fetch activations
     if image_name in all_activations['nodes']:
         activations = all_activations
@@ -1008,18 +1095,19 @@ def update_node_inputs(nodeid,image_name,target,rank_type,max_num = params['max_
 
     all_node_edges_df = target_edges_df.loc[(target_edges_df['layer']==node_layer) & (target_edges_df['out_channel'] == node_within_layer_id)]
     #if sort_images:                      
-    all_node_edges_df = all_node_edges_df.sort_values(by=[rank_type+'_norm_rank'],ascending=False)
+    all_node_edges_df = all_node_edges_df.sort_values(by=[rank_type+'_rank'],ascending=False)
     top_node_edges_df = all_node_edges_df.head(max_num)
     fig = make_subplots(rows=len(top_node_edges_df)+1, cols=1)
+    #print(top_node_edges_df)
     i=1
     for row in top_node_edges_df.itertuples():
         if node_layer == 0:
             edge_name = str(params['imgnode_names'][row.in_channel])+'-'+str(nodeid)
         else:
-            edge_name = str(params['layer_nodes'][node_layer-1][row.in_channel])+'-'+str(nodeid)
+            edge_name = str(params['layer_nodes'][node_layer-1][1][row.in_channel])+'-'+str(nodeid)
 
         fig.add_trace(
-               go.Heatmap(z = edgename_2_edge_figures(edge_name, image_name, kernels, activations,categories_nodes_df,params)[2],
+               go.Heatmap(z = edgename_2_edge_figures(edge_name, image_name, kernels, activations,params)[2],
                           #zmin = -1,
                           #zmax = 1,
                           name = edge_name,
@@ -1050,7 +1138,19 @@ def update_node_inputs(nodeid,image_name,target,rank_type,max_num = params['max_
     [Input('input-image-dropdown', 'value')])
 def update_inputimg_actmap(image_name): 
     print('CALLED: update_inputimg_actmap')
-    return image2plot(params['input_image_directory']+image_name,input_image_layout)
+    #if os.path.exists(params['input_image_directory']+image_name):
+    return image2plot(get_image_path(image_name,params)[1],input_image_layout)
+    #else:
+        #return image2plot(params['prepped_model_path']+'/visualizations/'+image_name,input_image_layout)
+    
+#image dropdown
+@app.callback(
+    Output('input-image-dropdown', 'options'),
+    [Input('node-deepviz-image', 'figure'),
+     Input('edge-deepviz-image', 'figure')])
+def update_inputimg_dropdown(node_fig,edge_fig): 
+    print('CALLED: update_inputimg_dropdown options')
+    return [{'label': i, 'value': i} for i in params['input_image_list']+os.listdir(params['prepped_model_path']+'/visualizations/images/')]
 
 
 #kernel
@@ -1060,14 +1160,16 @@ def update_inputimg_actmap(image_name):
     [State('edge-kernel-graph','figure')])
 def update_edge_kernelmap(edge_name,figure):
     print('CALLED: update_edge_kernelmap')
-    kernel,inmap,outmap = edgename_2_edge_figures(edge_name, None, kernels, None,categories_nodes_df,params)
+    kernel,inmap,outmap = edgename_2_edge_figures(edge_name, None, kernels, None,params)
     if kernel is not None:
-        return go.Figure(data=go.Heatmap(z = kernel),
-                        #,zmin=-.5,zmax=.5),
+        return go.Figure(data=go.Heatmap(z = kernel,
+                                         #zmin=-.5,
+                                         #zmax=.5,
+                                         colorbar = dict(thicknessmode = "fraction",thickness=.1)),
                          layout=kernel_layout)
     else:
         return figure
-
+                
 
 #edge in        
 @app.callback(
@@ -1082,10 +1184,11 @@ def update_edge_inmap(edge_name,image_name,figure):
         activations = all_activations
     else:
         activations = activations = activations_store(image_name)
-
-    kernel,inmap,outmap = edgename_2_edge_figures(edge_name, image_name, kernels, activations,categories_nodes_df,params)
+        
+    kernel,inmap,outmap = edgename_2_edge_figures(edge_name, image_name, kernels, activations,params)
     if inmap is not None:
-        return go.Figure(data=go.Heatmap(z = inmap,#zmin=-1,zmax=1,
+        return go.Figure(data=go.Heatmap(z = inmap,
+                                         #zmin=-2,zmax=2,
                                          colorbar = dict(thicknessmode = "fraction",thickness=.1)
                                         ),
                          layout=edge_inmap_layout)
@@ -1106,18 +1209,20 @@ def update_edge_outmap(edge_name,image_name,figure):
         activations = all_activations
     else:
         activations = activations = activations_store(image_name)
-
-    kernel,inmap,outmap = edgename_2_edge_figures(edge_name, image_name, kernels, activations,categories_nodes_df,params)
+        
+    kernel,inmap,outmap = edgename_2_edge_figures(edge_name, image_name, kernels, activations,params)
     if outmap is not None:
-        return go.Figure(data=go.Heatmap(z = outmap,#zmin=-1,zmax=1,
+        return go.Figure(data=go.Heatmap(z = outmap,
+                                         #zmin=-11,
+                                         #zmax=14,
                                          colorbar = dict(thicknessmode = "fraction",thickness=.1)
                                         ),
                          layout=edge_outmap_layout)
     else:
         print('edge outmap error')
         return figure
-
-
+        
+        
 
 # #JSON INFO
 
@@ -1149,7 +1254,7 @@ def display_selected_data(selectedData):
     [Input('input-category', 'value'),
      Input('network-graph', 'clickData'),
      Input('edge-thresh-slider','value'),
-     Input('session','data')])
+     Input('memory','data')])
 def display_trigger(target_category,clickData,edge_thresh,state):
     ctx = dash.callback_context
     if not ctx.triggered:
@@ -1164,5 +1269,6 @@ def display_trigger(target_category,clickData,edge_thresh,state):
     }, indent=2)
     return ctx_msg
 
+
 #launch app,   you can now access the tool at localhost:8050  (or whatever port you set)
-app.run_server(port=8050,host='0.0.0.0')
+app.run_server(port=args.port,host='0.0.0.0')

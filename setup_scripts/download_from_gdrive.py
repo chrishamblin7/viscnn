@@ -5,7 +5,8 @@ from subprocess import call
 import os
 
 online_models = {'mnist':{'prepped_model':'1rRqywhDNIngaOI7wjBNg8ob041k9I1RC','model':'1X6wR6nJ_SguVzd6MVFelvXsH9G2uR4WZ','images':'1rGXi_pWGvz3UsdO1FpkWc2WsU-M42Z3v'},
-				 'cifar10':{'prepped_model':'1GY-u1JC2PQaiXznHQ1nkV6lMDI0laJ7G','model':None,'images':'17pjtPG-MJK7mhTh_KHvHLHUwSButkwLA'}
+				 'cifar10':{'prepped_model':'1GY-u1JC2PQaiXznHQ1nkV6lMDI0laJ7G','model':None,'images':'17pjtPG-MJK7mhTh_KHvHLHUwSButkwLA'},
+				 'alexnet':{'prepped_model':'1Kuahs5UNDU6m6AOz2g69wvPoDMQdmZjZ','model':None,'images':'1NRbJJebFnyuqezFqMQ1qY53w5mXmelEl'}
 				}
 
 online_model_names = list(online_models.keys())
