@@ -97,6 +97,11 @@ print(params['input_image_directory'])
 
 #Non-GUI parameters
 
+#deepviz
+params['deepviz_param'] = None
+params['deepviz_optim'] = None
+params['deepviz_transforms'] = None
+
 #backend
 #params['cuda'] = prep_model_params.cuda
 params['preprocess'] = prep_model_params.preprocess     #torchvision transfrom to pass input images through
