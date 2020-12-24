@@ -97,7 +97,7 @@ print(params['input_image_directory'])
 #Non-GUI parameters
 
 #backend
-params['cuda'] = prep_model_params.cuda
+#params['cuda'] = prep_model_params.cuda
 params['preprocess'] = prep_model_params.preprocess     #torchvision transfrom to pass input images through
 params['label_file_path'] = prep_model_params.label_file_path
 params['criterion'] = prep_model_params.criterion
