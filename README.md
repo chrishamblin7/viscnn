@@ -1,10 +1,10 @@
-# CNN Subgraph Visualizer
+# VISCNN - Visualizing Inpterpretable Subgraphs of CNNs
 
 ## Setup
 
 First things first for all setup methods is to clone this repo:
 
-`git clone https://github.com/chrishamblin7/cnn_subgraph_visualizer.git`
+`git clone https://github.com/chrishamblin7/viscnn.git`
 
 
 ### Docker
@@ -12,11 +12,11 @@ The recommended way of setting up this cnn visualizer tools environment is to us
 
 Once you have docker install you can use docker commandline tools, and get the environment for this project by running:
 
-`docker pull chrishamblin7/cnn_subgraph_visualizer:latest`
+`docker pull chrishamblin7/viscnn:latest`
 
 That might take a while to download. Once its done you can launch the tool by running:
 
-`docker run -it -v [full/path/to/cloned/repo]:/workspace -p 8050:8050 chrishamblin7/cnn_subgraph_visualizer`
+`docker run -it -v [full/path/to/cloned/repo]:/workspace -p 8050:8050 chrishamblin7/viscnn`
 
 ## Running Visualizer
 
@@ -30,7 +30,7 @@ The visualizer takes some command line arguments, to see what they are use;
 
 The only required positional argument specifies the model you would like to visualize (all possible options are shown when you run with the --help flag). So a full call to this function might look like;
 
-`python launch_visualizer mnist --cuda --port 8051`
+`python launch_visualizer mnist --cuda --port 8050`
 
 Accessing the tool is then possible in a local web browser at the URL 'http://localhost:8050/'
 
