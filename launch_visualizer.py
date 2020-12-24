@@ -18,6 +18,7 @@ sys.path.insert(0, os.path.abspath('./prep_model_scripts/'))
 sys.path.insert(0, os.path.abspath('./visualizer_scripts/'))
 from visualizer_helper_functions import *
 from contrast_helper_functions import *
+from featureviz_helper_functions import *
 from download_from_gdrive import online_model_names
 from dissected_Conv2d import *
 from copy import deepcopy
