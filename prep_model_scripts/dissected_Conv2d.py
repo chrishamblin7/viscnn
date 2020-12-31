@@ -140,7 +140,11 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 	def compute_edge_rank(self,grad):
 		activation = self.preadd_out
 		#activation_relu = F.relu(activation)
+		print('GRAD')
+		print(grad)
 		taylor = activation * grad 
+		print('Taylor')
+		print(taylor)
 		rank_key  = {'act':torch.abs(activation),'grad':torch.abs(grad),'actxgrad':torch.abs(taylor)}
 		for key in rank_key:
 			if self.preadd_ranks[key] is None: #initialize at 0
@@ -150,6 +154,10 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 			map_mean = rank_key[key].mean(dim=(2, 3)).data
 			mean_sum = map_mean.sum(dim=0).data      
 			self.preadd_ranks[key] += mean_sum    # we sum up the mean activations over all images, after all batches
+		print('GRAD')
+		print(grad)
+		print('Taylor')
+		print(taylor)
 
 		#print('length edge_rank: ', len(self.preadd_ranks_prenorm['actxgrad']))
 		#print('length outdimxindim: ', self.out_channels*self.in_channels)
