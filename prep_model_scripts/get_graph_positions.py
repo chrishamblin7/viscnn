@@ -40,8 +40,8 @@ def get_col(node_num, df = categories_nodes_df, idx = 'node_num', col = 'layer')
 
 def add_norm_col(df,categories=categories[1:]):
     norms = []
-    norm = 0
     for index, row in df.iterrows():
+        norm = 0
         for category in categories:
             norm += row[category]**2
         norm = np.sqrt(norm)
@@ -234,6 +234,7 @@ def gen_grid_positions():
     return grid_projections
 
 
+
 grid_projections = gen_grid_positions()       
 mds_projections = gen_layer_mds()
 all_node_positions_unformatted = {'MDS':mds_projections,'Grid':grid_projections}
@@ -264,4 +265,4 @@ for rank_type in ['actxgrad','act','grad']:
 all_node_positions_formatted['Grid'] = format_node_positions(projection = 'Grid') 
 
 
-pickle.dump(all_node_positions_formatted, open('../prepped_models/%s/node_positions.pkl'%output_folder,'wb'))
+pickle.dump(all_node_positions_formatted, open('../prepped_models/%s/node_positions_2.pkl'%output_folder,'wb'))

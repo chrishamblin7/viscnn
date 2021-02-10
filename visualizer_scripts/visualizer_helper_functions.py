@@ -226,7 +226,8 @@ def image2plot(image_path,layout,resize = False,size = (32,32)):
 	img = Image.open(image_path)
 	if resize:
 		img = img.resize(size,resample=Image.NEAREST)
-
+	
+	#fig = go.Figure(data=go.Image(z=img,dx=244,dy=244))
 	trace1 = go.Scatter(x=[],y=[])
 	fig=go.Figure(data=[trace1],layout=layout)
 	fig.update_layout(images= [dict(

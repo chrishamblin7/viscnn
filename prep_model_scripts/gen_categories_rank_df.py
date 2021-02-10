@@ -44,7 +44,7 @@ for category in categories:
 node_column_names = ['node_num','layer_name','layer','node_num_by_layer','act_rank','grad_rank','actxgrad_rank','category']
 node_df = pd.DataFrame(allnode_dflist,columns=node_column_names)
 #save
-node_df.to_csv('../prepped_models/'+output_folder+'/ranks/categories_nodes_ranks.csv',index=False)
+node_df.to_csv('../prepped_models/'+output_folder+'/ranks/categories_nodes_ranks_2.csv',index=False)
 
 
 #make edges DF

@@ -57,5 +57,10 @@ call(['python','get_misc_graph_data.py'])
 print('generating positions of nodes and edges in graph')
 call(['python','get_graph_positions.py'])
 
+#deep visualizations
+if save_node_visualizations:
+	call(['python','gen_deepviz_for_nodes.py'])
+if save_edge_visualizations:
+	call(['python','gen_deepviz_for_edges.py'])
 print('Run Time: %s'%str(time.time()-start))
 

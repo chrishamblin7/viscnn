@@ -78,7 +78,6 @@ image_loader = torch.utils.data.DataLoader(
 			
 
 
-
 ##RUNNING DATA THROUGH MODEL
 
 node_ranks = {}
