@@ -130,17 +130,19 @@ def layer_rank_arithmetic(arith_exprs,array_dict):
     obj = layer_rank_arithmetic_obj(arith_exprs,array_dict)
     return obj.get_result()
 
-def var_dict_2_array_dict(var_dict,target_node,model_dis,params):
+def var_dict_2_array_dict(var_dict,target_node,model_dis,params, ablation_list):
     array_dict = {}
     for var in var_dict:
         is_image, image_path = get_image_path(var,params)
         if is_image:
             array_dict[var_dict[var]] = get_model_ranks_from_image(image_path,target_node, model_dis, params)
-        else:
+        elif target_node == 'loss' and ablation_list == []:
             category_dict = {'nodes':{},'edges':{}} 
             category_dict['nodes'] = torch.load(os.path.join(params['ranks_data_path'],'categories_nodes','%s_nodes_rank.pt'%var))
             category_dict['edges'] = torch.load(os.path.join(params['ranks_data_path'],'categories_edges','%s_edges_rank.pt'%var))
             array_dict[var_dict[var]] = category_dict
+        else:
+            array_dict[var_dict[var]] = get_model_ranks_for_category(var, target_node, model_dis,params)
     return array_dict
 
 '''
@@ -160,10 +162,10 @@ def add_norm_2_prenorm_dict(prenorm_dict):
     return prenorm_dict
 '''
 
-def contrast_str_2_dfs(contrast_string,target_node,model_dis,params):
+def contrast_str_2_dfs(contrast_string,target_node,model_dis,params,ablation_list = []):
     all_input_images = params['input_image_list']+os.listdir(params['prepped_model_path']+'/visualizations/images/')
     var_dict, sym_contrast_string = parse_contrast(contrast_string,all_input_images,params['categories'])
-    array_dict = var_dict_2_array_dict(var_dict,target_node,model_dis,params)
+    array_dict = var_dict_2_array_dict(var_dict,target_node,model_dis,params,ablation_list)
     contrast_dict = layer_rank_arithmetic(sym_contrast_string,array_dict)
     #contrast_dict = add_norm_2_prenorm_dict(prenorm_contrast_dict)
     nodes_df, edges_df = rank_dict_2_df(contrast_dict)

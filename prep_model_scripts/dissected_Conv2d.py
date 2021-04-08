@@ -32,6 +32,9 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 		self.store_ranks = store_ranks
 		self.clear_ranks = clear_ranks
 
+		self.edge_ablations = []
+		self.node_ablations = []
+
 		self.postbias_ranks = {'act':None,'grad':None,'actxgrad':None}
 		self.preadd_ranks = {'act':None,'grad':None,'actxgrad':None}
 		for rank_type in ['act','grad','actxgrad']:
@@ -264,6 +267,10 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 
 		preadd_out = self.preadd_conv(x)  #get output of convolutions
 
+		#set ablated edges to 0
+		for i in self.edge_ablations:
+			preadd_out[:,i,:,:] = 0
+
 		#store values of intermediate outputs after convolution
 		if self.store_activations:
 			self.preadd_out = preadd_out
@@ -283,6 +290,10 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 		else:
 			postbias_out = added_out
 
+		#set ablated nodes to 0
+		for i in self.node_ablations:
+			postbias_out[:,i,:,:] = 0
+
 		#Store values of final module output
 		if self.store_activations:
 			self.postbias_out = postbias_out
@@ -294,8 +305,8 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 				self.postbias_out_hook.remove()
 			self.postbias_out_hook = self.postbias_out.register_hook(self.compute_node_rank)
 			#if self.postbias_ranks is not None:
-			#    print(self.postbias_ranks.shape)
-		
+			#    print(self.postbias_ranks.shape)		
+
 		if self.target_node is not None:
 			print('target reached, breaking model forward pass in %s'%self.name)
 			print(self.target_node)
@@ -305,9 +316,7 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 			optim_target.backward()
 			raise TargetReached
 			
-		
 		return postbias_out
-
 
 
 # takes a full model and replaces all conv2d instances with dissected conv 2d instances
@@ -366,6 +375,9 @@ def set_across_model(model,setting,value):
 				module.store_activations = value
 			elif setting == 'store_ranks':
 			 	module.store_ranks = value
+			elif setting == 'clear_ablations':
+				module.edge_ablations = []
+				module.node_ablations = []
 			else:
 				print('Error! setting "%s" is not valid'%str(setting))
 

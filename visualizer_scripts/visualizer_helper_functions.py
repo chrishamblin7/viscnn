@@ -316,6 +316,7 @@ def preprocess_image(image_path,params):
 	return image
 
 
+
 #NODE FUNCTIONS
 
 def node_color_scaling(x):
@@ -626,12 +627,12 @@ def get_ranks_from_dissected_Conv2d_modules(module,layer_ranks=None,layer_normal
 
 
 def get_model_ranks_for_category(category, target_node, model_dis,params):
-	print('running model to get ranks for %s'%str(category))
+	print('running model to get ranks for "%s" on target "%s"'%(str(category),str(target_node)))
 	device = torch.device("cuda" if params['cuda'] else "cpu")
 	criterion = params['criterion']
 	####SET UP MODEL
 	model_dis = set_across_model(model_dis,'target_node',None)
-	if target_node is not 'loss':
+	if target_node != 'loss':
 		target_node_layer,target_node_within_layer_id,target_node_layer_name = nodeid_2_perlayerid(target_node,params)
 		model_dis=set_model_target_node(model_dis,target_node_layer,target_node_within_layer_id)
 
@@ -715,7 +716,7 @@ def gen_networkgraph_traces(state,params):
 	print('building graph from browser "state"')
 	layer_colors = params['layer_colors']
 	layer_nodes = params['layer_nodes']
-
+	
 	#add imgnodes
 	colors = deepcopy(state['imgnode_colors'])
 	if not str(state['node_select_history'][-1]).isnumeric():
@@ -748,6 +749,18 @@ def gen_networkgraph_traces(state,params):
 		colors = deepcopy(state['node_colors'][layer])
 		if layer == select_layer:
 			colors[select_position] = 'rgba(0,0,0,1)'
+
+		within_layer_ids = list(range(len(state['node_positions'][layer]['X'])))
+		scores = state['node_weights'][layer]
+		ids = layer_nodes[layer][1]
+		#print(np.dstack((ids,within_layer_ids,scores)).shape)
+		#print(np.dstack((ids,within_layer_ids,scores)))
+		# hovertext = ['<b>%{id}</b>' +
+    	# 			'<br><i>layerwise ID</i>: %{within_layer_id}'+
+    	# 			'<br><i>Score</i>: %{score}<br>'
+  		# 			 for id, within_layer_id, score in
+		# 			 zip(ids, within_layer_ids, scores)]
+		#print(hovertext) 
 		node_trace=go.Scatter3d(x=state['node_positions'][layer]['X'],
 				   y=state['node_positions'][layer]['Y'],
 				   z=state['node_positions'][layer]['Z'],
@@ -760,8 +773,13 @@ def gen_networkgraph_traces(state,params):
 								 #colorscale='Viridis',
 								 line=dict(color='rgb(50,50,50)', width=.5)
 								 ),
-				   text=layer_nodes[layer][1],
-				   hoverinfo='text'
+				   text=ids,
+				   #customdata = np.dstack((ids,within_layer_ids,scores)),
+				   customdata = np.stack((ids,within_layer_ids,scores),axis=-1),
+				   hovertemplate =	'<b>%{customdata[0]}</b>' +
+    	 					'<br><i>layerwise ID</i>: %{customdata[1]}'+
+    	 					'<br><i>Score</i>: %{customdata[2]:.3f}<br>'
+				   #hoverinfo='text'
 				   )
 
 		node_traces.append(node_trace)

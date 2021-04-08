@@ -28,6 +28,7 @@ RUN conda install -y -c anaconda \
      jupyterlab=2.2.0 \
   && conda clean -ya
 
+RUN pip install torch-lucent
 #RUN pip install googledrivedownloader==0.4
 
 

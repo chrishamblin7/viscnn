@@ -7,17 +7,30 @@ from torchvision import datasets, transforms, utils
 from dissected_Conv2d import *
 from copy import deepcopy
 import sys
-sys.path.insert(0, os.path.abspath('../'))
+import argparse
 
-os.chdir('../')
-import prep_model_parameters as params
-os.chdir('./prep_model_scripts')
+def get_args():
+	parser = argparse.ArgumentParser()
+	parser.add_argument("output_folder", type = str, help='the folder name for this prepped model')
+	args = parser.parse_args()
+	return args
+
+args = get_args()
+output_folder = args.output_folder
+
+sys.path.insert(0, os.path.abspath('../prepped_models/%s'%output_folder))
+
+os.chdir(os.path.abspath('../prepped_models/%s'%output_folder))
+import prep_model_params_used as params
+os.chdir('../../prep_model_scripts')
+
 
 ###MODEL LOADING
 
 model_dis = dissect_model(deepcopy(params.model),store_ranks=False,cuda=params.cuda) #version of model with accessible preadd activations in Conv2d modules 
 if params.cuda:
 	model_dis.cuda()
+
 
 model_dis.eval()
 del params.model

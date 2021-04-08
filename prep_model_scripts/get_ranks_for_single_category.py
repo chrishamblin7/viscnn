@@ -10,37 +10,44 @@ from data_loading_functions import *
 from torch.autograd import Variable
 import pandas as pd
 import sys
-sys.path.insert(0, os.path.abspath('../'))
-sys.path.insert(0, os.path.abspath('../visualizer_scripts/'))
-from visualizer_helper_functions import get_ranks_from_dissected_Conv2d_modules
 
-os.chdir('../')
-import prep_model_parameters as params
-os.chdir('./prep_model_scripts')
-
-
-#command Line argument parsing
 def get_args():
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--parent-data-path", type = str, default = params.rank_img_path)
-	parser.add_argument("--data-path", type = str, default = None)
+	parser.add_argument("output_folder", type = str, help='the folder name for this prepped model')
 	parser.add_argument("--category", type = str, default = None)
-	parser.add_argument("--output_folder", type = str, default = params.output_folder)
-	parser.add_argument('--cuda', action='store_true', default=params.cuda, help='Use CPU not GPU')  
-	parser.add_argument('--seed', type=int, default=params.seed, metavar='S',
-						help='random seed (default set in parameters file)')
-	parser.add_argument('--batch-size', type=int, default=params.batch_size, metavar='BS',
-						help='size of batch to run through model at a time (default set in parameter file)')
-	parser.add_argument('--num-workers', type=int, default=params.num_workers, metavar='W',
-						help='number of parallel batches to process. Rule of thumb 4*num_gpus (default set in parameters file)')
+	parser.add_argument("--data-path", type = str, default = None)
+	#parser.add_argument("--parent-data-path", type = str, default = params.rank_img_path)
+	#parser.add_argument("--data-path", type = str, default = None)
+	#parser.add_argument("--category", type = str, default = None)
+	#parser.add_argument("--output_folder", type = str, default = params.output_folder)
+	#parser.add_argument('--cuda', action='store_true', default=params.cuda, help='Use CPU not GPU')  
+	#parser.add_argument('--seed', type=int, default=params.seed, metavar='S',
+	#					help='random seed (default set in parameters file)')
+	#parser.add_argument('--batch-size', type=int, default=params.batch_size, metavar='BS',
+	#					help='size of batch to run through model at a time (default set in parameter file)')
+	#parser.add_argument('--num-workers', type=int, default=params.num_workers, metavar='W',
+	#					help='number of parallel batches to process. Rule of thumb 4*num_gpus (default set in parameters file)')
+
 
 	args = parser.parse_args()
 	return args
 
-
 start = time.time()
 
 args = get_args()
+output_folder = args.output_folder
+
+sys.path.insert(0, os.path.abspath('../'))
+sys.path.insert(0, os.path.abspath('../visualizer_scripts/'))
+from visualizer_helper_functions import get_ranks_from_dissected_Conv2d_modules
+
+sys.path.insert(0, os.path.abspath('../prepped_models/%s'%output_folder))
+os.chdir(os.path.abspath('../prepped_models/%s'%output_folder))
+import prep_model_params_used as params
+os.chdir('../../prep_model_scripts')
+
+
+
 
 if args.data_path is None or args.category is None:
 	raise ValueError('must specify data_path and category in function call, can\'t be None')
@@ -49,14 +56,14 @@ if args.data_path is None or args.category is None:
 #call('rmdir %s'%os.path.join(args.dummy_path,args.category),shell=True)
 #call('ln -s %s/ %s'%(os.path.join(args.orig_data_path,args.category),os.path.join(args.dummy_path,args.category)),shell=True)
 
-torch.manual_seed(args.seed)
+torch.manual_seed(params.seed)
 
-device = torch.device("cuda" if args.cuda else "cpu")
+device = torch.device("cuda" if params.cuda else "cpu")
 
 ##MODEL LOADING
 
-model_dis = dissect_model(deepcopy(params.model),cuda=args.cuda) #version of model with accessible preadd activations in Conv2d modules 
-if args.cuda:
+model_dis = dissect_model(deepcopy(params.model),cuda=params.cuda) #version of model with accessible preadd activations in Conv2d modules 
+if params.cuda:
 	model_dis.cuda()
 del params.model
 
@@ -68,7 +75,7 @@ for param in model_dis.parameters():  #need gradients for grad*activation rank c
 import torch.utils.data as data
 import torchvision.datasets as datasets
 
-kwargs = {'num_workers': params.num_workers, 'pin_memory': True} if args.cuda else {}
+kwargs = {'num_workers': params.num_workers, 'pin_memory': True} if params.cuda else {}
 
 image_loader = torch.utils.data.DataLoader(
 			rank_image_data(args.data_path,params.preprocess,params.label_file_path),
@@ -102,10 +109,10 @@ layer_ranks = get_ranks_from_dissected_Conv2d_modules(model_dis)
 #layer_ranks_prenorm = get_ranks_from_dissected_Conv2d_modules(model_dis,prenorm=True)
 
 ##SAVE category RANKS##
-os.makedirs('../prepped_models/'+args.output_folder+'/ranks/categories_edges/',exist_ok=True)
-os.makedirs('../prepped_models/'+args.output_folder+'/ranks/categories_nodes/',exist_ok=True)
-torch.save(layer_ranks['nodes'], '../prepped_models/'+args.output_folder+'/ranks/categories_nodes/%s_nodes_rank.pt'%args.category)
-torch.save(layer_ranks['edges'], '../prepped_models/'+args.output_folder+'/ranks/categories_edges/%s_edges_rank.pt'%args.category)
+os.makedirs('../prepped_models/'+output_folder+'/ranks/categories_edges/',exist_ok=True)
+os.makedirs('../prepped_models/'+output_folder+'/ranks/categories_nodes/',exist_ok=True)
+torch.save(layer_ranks['nodes'], '../prepped_models/'+output_folder+'/ranks/categories_nodes/%s_nodes_rank.pt'%args.category)
+torch.save(layer_ranks['edges'], '../prepped_models/'+output_folder+'/ranks/categories_edges/%s_edges_rank.pt'%args.category)
 
 #os.makedirs('../prepped_models/'+args.output_folder+'/ranks/prenorm/categories_edges/',exist_ok=True)
 #os.makedirs('../prepped_models/'+args.output_folder+'/ranks/prenorm/categories_nodes/',exist_ok=True)
@@ -113,7 +120,7 @@ torch.save(layer_ranks['edges'], '../prepped_models/'+args.output_folder+'/ranks
 #torch.save(layer_ranks_prenorm['edges'], '../prepped_models/'+args.output_folder+'/ranks/prenorm/categories_edges/%s_prenorm_edges_rank.pt'%args.category)
 
 #CHECK FOR WEIGHT RANK
-if not os.path.exists('../prepped_models/'+args.output_folder+'/ranks/weight_nodes_ranks.csv'):
+if not os.path.exists('../prepped_models/'+output_folder+'/ranks/weight_nodes_ranks.csv'):
 	print('generating weight rank csvs')
 
 	weight_ranks = get_ranks_from_dissected_Conv2d_modules(model_dis,weight_rank=True)
@@ -129,7 +136,7 @@ if not os.path.exists('../prepped_models/'+args.output_folder+'/ranks/weight_nod
 	node_column_names = ['node_num','layer_name','layer','node_num_by_layer','weight_rank']
 	node_df = pd.DataFrame(weightnode_dflist,columns=node_column_names)
 	#save
-	node_df.to_csv('../prepped_models/'+args.output_folder+'/ranks/weight_nodes_ranks.csv',index=False)
+	node_df.to_csv('../prepped_models/'+output_folder+'/ranks/weight_nodes_ranks.csv',index=False)
 
 	#save edge csv
 	edge_num = 0
@@ -143,7 +150,7 @@ if not os.path.exists('../prepped_models/'+args.output_folder+'/ranks/weight_nod
 	edge_column_names = ['edge_num','layer_name','layer','out_channel','in_channel','weight_rank']
 	edge_df = pd.DataFrame(weightedge_dflist,columns=edge_column_names)
 	#save
-	edge_df.to_csv('../prepped_models/'+args.output_folder+'/ranks/weight_edges_ranks.csv',index=False)
+	edge_df.to_csv('../prepped_models/'+output_folder+'/ranks/weight_edges_ranks.csv',index=False)
 
 	#torch.save(weight_ranks['nodes'], '../prepped_models/'+args.output_folder+'/ranks/weight_nodes_rank.pt')
 	#torch.save(weight_ranks['edges'], '../prepped_models/'+args.output_folder+'/ranks/weight_edges_rank.pt')

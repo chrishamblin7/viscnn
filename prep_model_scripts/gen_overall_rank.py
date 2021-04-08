@@ -5,13 +5,23 @@ import os
 import time
 import torch
 import pandas as pd
+import argparse
 import sys
-sys.path.insert(0, os.path.abspath('../'))
 
-os.chdir('../')
-from prep_model_parameters import output_folder, rank_img_path, save_activations
-os.chdir('./prep_model_scripts')
+def get_args():
+	parser = argparse.ArgumentParser()
+	parser.add_argument("output_folder", type = str, help='the folder name for this prepped model')
+	args = parser.parse_args()
+	return args
 
+args = get_args()
+output_folder = args.output_folder
+
+sys.path.insert(0, os.path.abspath('../prepped_models/%s'%output_folder))
+
+os.chdir(os.path.abspath('../prepped_models/%s'%output_folder))
+from prep_model_params_used import rank_img_path, save_activations
+os.chdir('../../prep_model_scripts')
 
 
 #overall rank

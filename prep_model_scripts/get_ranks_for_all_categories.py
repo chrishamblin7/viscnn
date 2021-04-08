@@ -5,12 +5,24 @@ import os
 import time
 import torch
 import pandas as pd
-import sys
-sys.path.insert(0, os.path.abspath('../'))
 
-os.chdir('../')
-from prep_model_parameters import output_folder, rank_img_path, save_activations
-os.chdir('./prep_model_scripts')
+import argparse
+import sys
+
+def get_args():
+	parser = argparse.ArgumentParser()
+	parser.add_argument("output_folder", type = str, help='the folder name for this prepped model')
+	args = parser.parse_args()
+	return args
+
+args = get_args()
+output_folder = args.output_folder
+
+sys.path.insert(0, os.path.abspath('../prepped_models/%s'%output_folder))
+
+os.chdir(os.path.abspath('../prepped_models/%s'%output_folder))
+from prep_model_params_used import rank_img_path, save_activations
+os.chdir('../../prep_model_scripts')
 
 
 if not os.path.exists('../prepped_models/'+output_folder):
@@ -27,7 +39,7 @@ print('getting node and edge ranks for all subfolders of %s'%rank_img_path)
 for category in categories:
 	print(category)
 	if not os.path.exists('../prepped_models/'+output_folder+'/ranks/%s_rank.pt'%category):  #####EDDDDDIIIIITTT
-		call('python get_ranks_for_single_category.py --category %s --data-path %s'%(category,os.path.join(rank_img_path,category)),shell=True)
+		call('python get_ranks_for_single_category.py %s --category %s --data-path %s'%(output_folder,category,os.path.join(rank_img_path,category)),shell=True)
 	else:
 		print('skipping %s, rank already exists'%category)
 
