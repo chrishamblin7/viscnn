@@ -313,20 +313,27 @@ def preprocess_image(image_path,params):
 	image = image.unsqueeze(0)
 	if cuda:
 		image = image.cuda()
+	if 'device' in params.keys():
+		image.to(params['device'])
 	return image
 
 
 
 #NODE FUNCTIONS
 
-def node_color_scaling(x):
-	return x
+def node_color_scaling(x,node_min,min_color=.4):
+	if node_min is None:
+		return x
+	else:
+		if x>=node_min:
+			return (1-min_color)*(x-node_min)/(1-node_min)+min_color
+		else:
+			return 0
 	#return -(x-1)**4+1
 
-def gen_node_colors(nodes_df,rank_type,params):
+def gen_node_colors(nodes_df,rank_type,params,node_min=None):
 	layer_nodes = params['layer_nodes']
 	layer_colors = params['layer_colors']
-
 	node_colors = []
 	node_weights = []
 	for layer in range(len(layer_nodes)):
@@ -335,7 +342,10 @@ def gen_node_colors(nodes_df,rank_type,params):
 		for node in layer_nodes[layer][1]:
 			node_weight = nodes_df.iloc[node][rank_type+'_rank']
 			node_weights[-1].append(node_weight)
-			alpha = node_color_scaling(node_weight)
+			if node_min is None:
+				alpha = node_color_scaling(node_weight,node_min)
+			else:
+				alpha = node_color_scaling(node_weight,node_min[layer])
 			node_colors[-1].append(layer_colors[layer%len(layer_colors)]+str(round(alpha,3))+')')
 			
 	return node_colors,node_weights
@@ -379,10 +389,170 @@ def edge_color_scaling(x):
 	return max(.7, x)
 
 
-def get_thresholded_edges(threshold,rank_type,df,target_category):          #just get those edges that pass the threshold criteria for the target category
+def get_thresholded_ranksdf(threshold,rank_type,df):          #just get those edges that pass the threshold criteria for the target category
 	if len(threshold) != 2:
 		raise Exception('length of threshold needs to be two ([lower, higher])')
 	return df.loc[(df[rank_type+'_rank'] >= threshold[0]) & (df[rank_type+'_rank'] <= threshold[1])]
+
+def filter_edges_by_nodes(edges_df,thresholded_nodes_df):
+	valid_nodes = {}
+
+	for row in thresholded_nodes_df.itertuples():
+		if row.layer not in valid_nodes.keys():
+			valid_nodes[row.layer] = [row.node_num_by_layer]
+		else:
+			valid_nodes[row.layer].append(row.node_num_by_layer)
+			
+	# def filter_edges_fn(row):
+	# 	try: 
+	# 		if (row['out_channel'] in valid_nodes[row['layer']]): #try block because maybe no valid nodes in row['layer']
+	# 			if row['layer'] == 0:
+	# 				return True
+	# 			elif row['in_channel'] in valid_nodes[row['layer']-1]:
+	# 				return True
+	# 	except:
+	# 		return False
+	# 	return False
+	
+	# mask = edges_df.apply(filter_edges_fn, axis=1)
+	# return edges_df[mask]
+	filtered_df = pd.DataFrame(columns = edges_df.columns)
+	entries = []
+	for i in valid_nodes:
+		entry = edges_df.loc[(edges_df['out_channel'].isin(valid_nodes[i])) & (edges_df['layer'] == i)]
+		if i != 0:
+			entry =  entry.loc[entry['in_channel'].isin(valid_nodes[i-1])]
+		entries.append(entry)
+
+	found_df = pd.concat(entries)
+	filtered_df = pd.concat([filtered_df, found_df])
+	return filtered_df
+
+def hierarchically_threshold_edges(threshold,rank_type,edges_df,nodes_thresholded_df):          #just get those edges that pass the threshold criteria for the target category
+	if len(threshold) != 2:
+		raise Exception('length of threshold needs to be two ([lower, higher])')
+		
+	valid_nodes = {}
+	for row in nodes_thresholded_df.itertuples():
+		if row.layer not in valid_nodes.keys():
+			valid_nodes[row.layer] = [row.node_num_by_layer]
+		else:
+			valid_nodes[row.layer].append(row.node_num_by_layer)
+
+	
+	filtered_df = pd.DataFrame(columns = edges_df.columns)
+	
+	layers_edges = []
+	for layer in valid_nodes:
+		layer_edges = edges_df.loc[(edges_df['out_channel'].isin(valid_nodes[layer])) & (edges_df['layer'] == layer)]
+		if layer != 0:
+			layer_edges =  layer_edges.loc[layer_edges['in_channel'].isin(valid_nodes[layer-1])]
+			
+		nodes_edges = []
+		for node in valid_nodes[layer]:
+			node_edges = layer_edges.loc[layer_edges['out_channel']== node]
+			minmax = [node_edges[rank_type+'_rank'].min(),node_edges[rank_type+'_rank'].max()]
+			minmax_t = [threshold[0]*(minmax[1]-minmax[0])+minmax[0],threshold[1]*(minmax[1]-minmax[0])+minmax[0]]
+			node_edges = node_edges.loc[(node_edges[rank_type+'_rank'] >= minmax_t[0]) & (node_edges[rank_type+'_rank'] <= minmax_t[1])]
+			nodes_edges.append(node_edges)
+										 
+		layer_edges= pd.concat(nodes_edges)                               
+		layers_edges.append(layer_edges)
+
+	found_df = pd.concat(layers_edges)
+	filtered_df = pd.concat([filtered_df, found_df])     
+	
+	return filtered_df
+
+def hierarchical_accum_threshold(threshold_node,threshold_edge,rank_type,edges_df,nodes_df,ascending=False):
+	threshed_nodes_df = get_accum_thresholded_ranksdf(threshold_node,rank_type,nodes_df, ascending=ascending)
+	
+	valid_nodes = {}
+	for row in threshed_nodes_df.itertuples():
+		if row.layer not in valid_nodes.keys():
+			valid_nodes[row.layer] = [row.node_num_by_layer]
+		else:
+			valid_nodes[row.layer].append(row.node_num_by_layer)
+
+
+	threshed_edges_df = pd.DataFrame(columns = edges_df.columns)
+	
+	layers_edges = []
+	for layer in valid_nodes:
+		if isinstance(threshold_edge,float):
+			thresh_edge = threshold_edge
+		else:
+			thresh_edge = threshold_edge[layer]
+		layer_edges = edges_df.loc[(edges_df['out_channel'].isin(valid_nodes[layer])) & (edges_df['layer'] == layer)]
+		if layer != 0:
+			layer_edges =  layer_edges.loc[layer_edges['in_channel'].isin(valid_nodes[layer-1])]
+
+		nodes_edges = []
+		for node_out in layer_edges['out_channel'].unique():
+			node_out_edges = layer_edges.loc[layer_edges['out_channel']== node_out]
+			node_out_edges = node_out_edges.sort_values(rank_type+'_rank',ascending=ascending)
+			total_imp = node_out_edges[rank_type+'_rank'].sum()
+			running_total = 0
+			for i in range(len(node_out_edges)):
+				running_total+=node_out_edges.iloc[i][rank_type+'_rank']
+				if running_total/total_imp >= thresh_edge:
+					break
+			node_out_edges = node_out_edges.iloc[0:i+1]
+			nodes_edges.append(node_out_edges)
+		for node_in in layer_edges['in_channel'].unique():
+			node_in_edges = layer_edges.loc[layer_edges['in_channel']== node_in]
+			node_in_edges = node_in_edges.sort_values(rank_type+'_rank',ascending=ascending)
+			total_imp = node_in_edges[rank_type+'_rank'].sum()
+			running_total = 0
+			for i in range(len(node_in_edges)):
+				running_total+=node_in_edges.iloc[i][rank_type+'_rank']
+				if running_total/total_imp >= thresh_edge:
+					break
+			node_in_edges = node_in_edges.iloc[0:i+1]
+			nodes_edges.append(node_in_edges)
+			
+		layer_edges= pd.concat(nodes_edges).drop_duplicates()                               
+		layers_edges.append(layer_edges)
+
+	found_df = pd.concat(layers_edges).drop_duplicates()
+	threshed_edges_df = pd.concat([threshed_edges_df, found_df])     
+	
+	return threshed_nodes_df,threshed_edges_df
+
+
+def get_accum_thresholded_ranksdf(threshold,rank_type,df, ascending=False):          #just get those edges that pass the threshold criteria for the target category
+	layers = df['layer'].unique()
+	print(layers)
+	layers.sort()
+	threshold_df = pd.DataFrame(columns = df.columns)
+	
+	layers_dfs = []   
+	for layer in layers:
+		if isinstance(threshold,float):
+			thresh = threshold
+		else:
+			thresh = threshold[layer]
+		layer_df = df.loc[df['layer'] == layer]
+		if not (layer_df[rank_type+'_rank'].max()> 0):
+			continue
+		layer_df = layer_df.sort_values(rank_type+'_rank',ascending=ascending)
+		
+		total_imp = layer_df[rank_type+'_rank'].sum()
+		
+
+		running_total = 0
+		for i in range(len(layer_df)):
+			running_total+=layer_df.iloc[i][rank_type+'_rank']
+			if running_total/total_imp >= thresh:
+				break
+		layer_df = layer_df.iloc[0:i+1]
+
+		layers_dfs.append(layer_df)
+	
+	found_df = pd.concat(layers_dfs)
+	threshold_df = pd.concat([threshold_df, found_df])
+	return threshold_df
+
 
 def get_max_edge_widths(edge_widths):
 	maxes = []
@@ -556,6 +726,8 @@ def get_model_activations_from_image(image_path, model_dis, params):
 	print('running model to fetch activations')
 	cuda = params['cuda']
 	model_dis = set_across_model(model_dis,'target_node',None)
+	if 'device' in params.keys():
+		model_dis.to(params['device'])
 	#image loading 
 	image = preprocess_image(image_path,params)
 	image_name = image_path.split('/')[-1]
@@ -629,6 +801,9 @@ def get_ranks_from_dissected_Conv2d_modules(module,layer_ranks=None,layer_normal
 def get_model_ranks_for_category(category, target_node, model_dis,params):
 	print('running model to get ranks for "%s" on target "%s"'%(str(category),str(target_node)))
 	device = torch.device("cuda" if params['cuda'] else "cpu")
+	if 'device' in params.keys():
+		device = params['device']
+	print('using device %s'%device)
 	criterion = params['criterion']
 	####SET UP MODEL
 	model_dis = set_across_model(model_dis,'target_node',None)
@@ -637,7 +812,7 @@ def get_model_ranks_for_category(category, target_node, model_dis,params):
 		model_dis=set_model_target_node(model_dis,target_node_layer,target_node_within_layer_id)
 
 	model_dis = set_across_model(model_dis,'clear_ranks',False)
-
+	model_dis.to(device)
 	node_ranks = {}
 	edge_ranks = {}
 
@@ -684,6 +859,9 @@ def get_model_ranks_from_image(image_path, target_node, model_dis, params):
 	#model_dis.clear_ranks_func()  #so ranks dont accumulate
 	cuda = params['cuda']
 	device = torch.device("cuda" if cuda else "cpu")
+	if 'device' in params.keys():
+		device = params['device']
+
 	criterion = params['criterion']
 	#image loading 
 	image_name = image_path.split('/')[-1]
@@ -694,7 +872,7 @@ def get_model_ranks_from_image(image_path, target_node, model_dis, params):
 	if target_node != 'loss':
 		target_node_layer,target_node_within_layer_id,target_node_layer_name = nodeid_2_perlayerid(target_node,params)
 		model_dis=set_model_target_node(model_dis,target_node_layer,target_node_within_layer_id)
-
+	model_dis.to(device)
 
 	#pass image through model
 	try:
@@ -756,8 +934,8 @@ def gen_networkgraph_traces(state,params):
 		#print(np.dstack((ids,within_layer_ids,scores)).shape)
 		#print(np.dstack((ids,within_layer_ids,scores)))
 		# hovertext = ['<b>%{id}</b>' +
-    	# 			'<br><i>layerwise ID</i>: %{within_layer_id}'+
-    	# 			'<br><i>Score</i>: %{score}<br>'
+		# 			'<br><i>layerwise ID</i>: %{within_layer_id}'+
+		# 			'<br><i>Score</i>: %{score}<br>'
   		# 			 for id, within_layer_id, score in
 		# 			 zip(ids, within_layer_ids, scores)]
 		#print(hovertext) 
@@ -777,8 +955,8 @@ def gen_networkgraph_traces(state,params):
 				   #customdata = np.dstack((ids,within_layer_ids,scores)),
 				   customdata = np.stack((ids,within_layer_ids,scores),axis=-1),
 				   hovertemplate =	'<b>%{customdata[0]}</b>' +
-    	 					'<br><i>layerwise ID</i>: %{customdata[1]}'+
-    	 					'<br><i>Score</i>: %{customdata[2]:.3f}<br>'
+		 					'<br><i>layerwise ID</i>: %{customdata[1]}'+
+		 					'<br><i>Score</i>: %{customdata[2]:.3f}<br>'
 				   #hoverinfo='text'
 				   )
 
