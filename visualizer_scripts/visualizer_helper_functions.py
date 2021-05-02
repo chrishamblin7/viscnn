@@ -223,7 +223,10 @@ def rgb2hex(r, g, b):
 	return '#{:02x}{:02x}{:02x}'.format(r, g, b)
 
 def image2plot(image_path,layout,resize = False,size = (32,32)):
-	img = Image.open(image_path)
+	if isinstance(image_path,str):
+		img = Image.open(image_path)
+	else:
+		img=image_path
 	if resize:
 		img = img.resize(size,resample=Image.NEAREST)
 	
@@ -393,165 +396,6 @@ def get_thresholded_ranksdf(threshold,rank_type,df):          #just get those ed
 	if len(threshold) != 2:
 		raise Exception('length of threshold needs to be two ([lower, higher])')
 	return df.loc[(df[rank_type+'_rank'] >= threshold[0]) & (df[rank_type+'_rank'] <= threshold[1])]
-
-def filter_edges_by_nodes(edges_df,thresholded_nodes_df):
-	valid_nodes = {}
-
-	for row in thresholded_nodes_df.itertuples():
-		if row.layer not in valid_nodes.keys():
-			valid_nodes[row.layer] = [row.node_num_by_layer]
-		else:
-			valid_nodes[row.layer].append(row.node_num_by_layer)
-			
-	# def filter_edges_fn(row):
-	# 	try: 
-	# 		if (row['out_channel'] in valid_nodes[row['layer']]): #try block because maybe no valid nodes in row['layer']
-	# 			if row['layer'] == 0:
-	# 				return True
-	# 			elif row['in_channel'] in valid_nodes[row['layer']-1]:
-	# 				return True
-	# 	except:
-	# 		return False
-	# 	return False
-	
-	# mask = edges_df.apply(filter_edges_fn, axis=1)
-	# return edges_df[mask]
-	filtered_df = pd.DataFrame(columns = edges_df.columns)
-	entries = []
-	for i in valid_nodes:
-		entry = edges_df.loc[(edges_df['out_channel'].isin(valid_nodes[i])) & (edges_df['layer'] == i)]
-		if i != 0:
-			entry =  entry.loc[entry['in_channel'].isin(valid_nodes[i-1])]
-		entries.append(entry)
-
-	found_df = pd.concat(entries)
-	filtered_df = pd.concat([filtered_df, found_df])
-	return filtered_df
-
-def hierarchically_threshold_edges(threshold,rank_type,edges_df,nodes_thresholded_df):          #just get those edges that pass the threshold criteria for the target category
-	if len(threshold) != 2:
-		raise Exception('length of threshold needs to be two ([lower, higher])')
-		
-	valid_nodes = {}
-	for row in nodes_thresholded_df.itertuples():
-		if row.layer not in valid_nodes.keys():
-			valid_nodes[row.layer] = [row.node_num_by_layer]
-		else:
-			valid_nodes[row.layer].append(row.node_num_by_layer)
-
-	
-	filtered_df = pd.DataFrame(columns = edges_df.columns)
-	
-	layers_edges = []
-	for layer in valid_nodes:
-		layer_edges = edges_df.loc[(edges_df['out_channel'].isin(valid_nodes[layer])) & (edges_df['layer'] == layer)]
-		if layer != 0:
-			layer_edges =  layer_edges.loc[layer_edges['in_channel'].isin(valid_nodes[layer-1])]
-			
-		nodes_edges = []
-		for node in valid_nodes[layer]:
-			node_edges = layer_edges.loc[layer_edges['out_channel']== node]
-			minmax = [node_edges[rank_type+'_rank'].min(),node_edges[rank_type+'_rank'].max()]
-			minmax_t = [threshold[0]*(minmax[1]-minmax[0])+minmax[0],threshold[1]*(minmax[1]-minmax[0])+minmax[0]]
-			node_edges = node_edges.loc[(node_edges[rank_type+'_rank'] >= minmax_t[0]) & (node_edges[rank_type+'_rank'] <= minmax_t[1])]
-			nodes_edges.append(node_edges)
-										 
-		layer_edges= pd.concat(nodes_edges)                               
-		layers_edges.append(layer_edges)
-
-	found_df = pd.concat(layers_edges)
-	filtered_df = pd.concat([filtered_df, found_df])     
-	
-	return filtered_df
-
-def hierarchical_accum_threshold(threshold_node,threshold_edge,rank_type,edges_df,nodes_df,ascending=False):
-	threshed_nodes_df = get_accum_thresholded_ranksdf(threshold_node,rank_type,nodes_df, ascending=ascending)
-	
-	valid_nodes = {}
-	for row in threshed_nodes_df.itertuples():
-		if row.layer not in valid_nodes.keys():
-			valid_nodes[row.layer] = [row.node_num_by_layer]
-		else:
-			valid_nodes[row.layer].append(row.node_num_by_layer)
-
-
-	threshed_edges_df = pd.DataFrame(columns = edges_df.columns)
-	
-	layers_edges = []
-	for layer in valid_nodes:
-		if isinstance(threshold_edge,float):
-			thresh_edge = threshold_edge
-		else:
-			thresh_edge = threshold_edge[layer]
-		layer_edges = edges_df.loc[(edges_df['out_channel'].isin(valid_nodes[layer])) & (edges_df['layer'] == layer)]
-		if layer != 0:
-			layer_edges =  layer_edges.loc[layer_edges['in_channel'].isin(valid_nodes[layer-1])]
-
-		nodes_edges = []
-		for node_out in layer_edges['out_channel'].unique():
-			node_out_edges = layer_edges.loc[layer_edges['out_channel']== node_out]
-			node_out_edges = node_out_edges.sort_values(rank_type+'_rank',ascending=ascending)
-			total_imp = node_out_edges[rank_type+'_rank'].sum()
-			running_total = 0
-			for i in range(len(node_out_edges)):
-				running_total+=node_out_edges.iloc[i][rank_type+'_rank']
-				if running_total/total_imp >= thresh_edge:
-					break
-			node_out_edges = node_out_edges.iloc[0:i+1]
-			nodes_edges.append(node_out_edges)
-		for node_in in layer_edges['in_channel'].unique():
-			node_in_edges = layer_edges.loc[layer_edges['in_channel']== node_in]
-			node_in_edges = node_in_edges.sort_values(rank_type+'_rank',ascending=ascending)
-			total_imp = node_in_edges[rank_type+'_rank'].sum()
-			running_total = 0
-			for i in range(len(node_in_edges)):
-				running_total+=node_in_edges.iloc[i][rank_type+'_rank']
-				if running_total/total_imp >= thresh_edge:
-					break
-			node_in_edges = node_in_edges.iloc[0:i+1]
-			nodes_edges.append(node_in_edges)
-			
-		layer_edges= pd.concat(nodes_edges).drop_duplicates()                               
-		layers_edges.append(layer_edges)
-
-	found_df = pd.concat(layers_edges).drop_duplicates()
-	threshed_edges_df = pd.concat([threshed_edges_df, found_df])     
-	
-	return threshed_nodes_df,threshed_edges_df
-
-
-def get_accum_thresholded_ranksdf(threshold,rank_type,df, ascending=False):          #just get those edges that pass the threshold criteria for the target category
-	layers = df['layer'].unique()
-	print(layers)
-	layers.sort()
-	threshold_df = pd.DataFrame(columns = df.columns)
-	
-	layers_dfs = []   
-	for layer in layers:
-		if isinstance(threshold,float):
-			thresh = threshold
-		else:
-			thresh = threshold[layer]
-		layer_df = df.loc[df['layer'] == layer]
-		if not (layer_df[rank_type+'_rank'].max()> 0):
-			continue
-		layer_df = layer_df.sort_values(rank_type+'_rank',ascending=ascending)
-		
-		total_imp = layer_df[rank_type+'_rank'].sum()
-		
-
-		running_total = 0
-		for i in range(len(layer_df)):
-			running_total+=layer_df.iloc[i][rank_type+'_rank']
-			if running_total/total_imp >= thresh:
-				break
-		layer_df = layer_df.iloc[0:i+1]
-
-		layers_dfs.append(layer_df)
-	
-	found_df = pd.concat(layers_dfs)
-	threshold_df = pd.concat([threshold_df, found_df])
-	return threshold_df
 
 
 def get_max_edge_widths(edge_widths):

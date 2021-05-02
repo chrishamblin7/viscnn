@@ -269,8 +269,8 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 		preadd_out = self.preadd_conv(x)  #get output of convolutions
 
 		#set ablated edges to 0
-		if self.edge_ablations is not None:
-			preadd_out.index_fill_(1,self.edge_ablations,0)
+		if (self.edge_ablations is not None) and (self.edge_ablations != []):
+			preadd_out.index_fill_(1,torch.tensor(self.edge_ablations).to(self.device),0)
 
 		#store values of intermediate outputs after convolution
 		if self.store_activations:
@@ -292,8 +292,8 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 			postbias_out = added_out
 
 		#set ablated nodes to 0
-		if self.node_ablations is not None:
-			postbias_out.index_fill_(1,self.node_ablations,0)
+		if (self.node_ablations is not None) and (self.node_ablations != []):
+			postbias_out.index_fill_(1,torch.tensor(self.node_ablations).to(self.device),0)
 
 		#Store values of final module output
 		if self.store_activations:
