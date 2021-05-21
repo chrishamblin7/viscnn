@@ -1657,7 +1657,7 @@ def update_featviz_image(n_clicks,edge,neuron,nodeid,edgeid):       #EDIT: needs
 #     return ctx_msg
 
 
-def extract_subgraph(name,model,thresholded_nodes_df,thresholded_egdes_df,params, save=True):
+def extract_subgraph(model,thresholded_nodes_df,thresholded_egdes_df,params, save=True):
     #this is currently hacky only works on models with all nn.sequential or .features module
     model.to('cpu')
     l = 0
