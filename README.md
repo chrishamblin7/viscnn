@@ -1,6 +1,6 @@
 # VISCNN - Visualizing Inpterpretable Subgraphs of CNNs
 
-![Alt Text](http://chrishamblin.xyz/images/visccn_demo.gif)
+![Alt Text](http://chrishamblin.xyz/images/viscnn_demo.gif)
 
 ## Setup
 
