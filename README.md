@@ -1,5 +1,7 @@
 # VISCNN - Visualizing Inpterpretable Subgraphs of CNNs
 
+![Alt Text](http://chrishamblin.xyz/images/visccn_demo.gif)
+
 ## Setup
 
 First things first for all setup methods is to clone this repo:
