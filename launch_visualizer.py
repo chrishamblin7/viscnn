@@ -116,7 +116,6 @@ params['deepviz_transforms'] = None
 params['deepviz_image_size'] = prep_model_params.deepviz_image_size
 
 #backend
-params['cuda'] = prep_model_params.cuda    #use gpu acceleration when running model forward
 params['input_image_directory'] = prep_model_params.input_img_path+'/'   #path to directory of imput images you want fed through the network
 params['preprocess'] = prep_model_params.preprocess     #torchvision transfrom to pass input images through
 params['label_file_path'] = prep_model_params.label_file_path

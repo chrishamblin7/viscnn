@@ -4,9 +4,12 @@ import requests
 from subprocess import call
 import os
 
+
+#Dictionary with the online gdrive keys for models image fodler etc.
 online_models = {'mnist':{'prepped_model':'1rRqywhDNIngaOI7wjBNg8ob041k9I1RC','model':'1X6wR6nJ_SguVzd6MVFelvXsH9G2uR4WZ','images':'1rGXi_pWGvz3UsdO1FpkWc2WsU-M42Z3v'},
 				 'cifar10':{'prepped_model':'1GY-u1JC2PQaiXznHQ1nkV6lMDI0laJ7G','model':None,'images':'17pjtPG-MJK7mhTh_KHvHLHUwSButkwLA'},
-				 'alexnet':{'prepped_model':'1Kuahs5UNDU6m6AOz2g69wvPoDMQdmZjZ','model':None,'images':'1NRbJJebFnyuqezFqMQ1qY53w5mXmelEl'}
+				 'alexnet':{'prepped_model':'1Kuahs5UNDU6m6AOz2g69wvPoDMQdmZjZ','model':None,'images':'1NRbJJebFnyuqezFqMQ1qY53w5mXmelEl'},
+				 'alexnet_sparse':{'prepped_model':'1-MvNlyFpl6zB5FsjQFYTC9DYAmdT6xyq','model':'14116VmfKwBqQRpDf00S-uuK6SQzC6Yrx','images':'1NRbJJebFnyuqezFqMQ1qY53w5mXmelEl'},
 				}
 
 online_model_names = list(online_models.keys())
@@ -78,6 +81,11 @@ if __name__ == "__main__":
 	if not args.only_download_images:
 		print('Downloading prepped_model: %s\n\n'%args.model)
 		tar_download(online_models[args.model]['prepped_model'],'../prepped_models/%s.tgz'%args.model)
+		if not os.path.exist('../prepped_models/%s/subgraphs'%args.model):
+			os.mkdir('../prepped_models/%s/subgraphs'%args.model)
+			os.mkdir('../prepped_models/%s/subgraphs/info'%args.model)
+			os.mkdir('../prepped_models/%s/subgraphs/models'%args.model)
+			os.mkdir('../prepped_models/%s/subgraphs/visualizations'%args.model)
 		if online_models[args.model]['model'] is not None:
 			print('Downloading model')
 			file_download(online_models[args.model]['model'],'../models/%s_statedict.pt'%args.model)
