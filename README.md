@@ -6,7 +6,7 @@ https://user-images.githubusercontent.com/13317792/119274860-08d24b00-bbe0-11eb-
 -->
 [[`Paper`](http://chrishamblin.xyz/writing/plai_final.pdf)] [[`Youtube Demo`](https://www.youtube.com/watch?v=_67kk1lmWXI)]
 
-![Alt Text](http://chrishamblin.xyz/images/viscnn_demo_vshort.webp)
+![Alt Text](http://chrishamblin.xyz/images/viscnn_demo_comp_vshort.webp)
 
 
 
