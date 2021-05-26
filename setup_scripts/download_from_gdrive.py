@@ -81,7 +81,7 @@ if __name__ == "__main__":
 	if not args.only_download_images:
 		print('Downloading prepped_model: %s\n\n'%args.model)
 		tar_download(online_models[args.model]['prepped_model'],'../prepped_models/%s.tgz'%args.model)
-		if not os.path.exist('../prepped_models/%s/subgraphs'%args.model):
+		if not os.path.exists('../prepped_models/%s/subgraphs'%args.model):
 			os.mkdir('../prepped_models/%s/subgraphs'%args.model)
 			os.mkdir('../prepped_models/%s/subgraphs/info'%args.model)
 			os.mkdir('../prepped_models/%s/subgraphs/models'%args.model)
