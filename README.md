@@ -1,9 +1,9 @@
 # VISCNN - Visualizing Inpterpretable Subgraphs of CNNs
 
-
+<!---
 https://user-images.githubusercontent.com/13317792/119274860-08d24b00-bbe0-11eb-8dad-e12c5a8f638d.mp4
-
-
+-->
+[![VISCNN VSS2021](https://img.youtube.com/vi/_67kk1lmWXI/0.jpg)](https://www.youtube.com/watch?v=_67kk1lmWXI)
 
 
 ## Setup
