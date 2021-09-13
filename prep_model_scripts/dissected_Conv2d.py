@@ -20,7 +20,7 @@ class TargetReached(ModelBreak):
 
 class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has presum activation maps as intermediate output
 
-	def __init__(self, from_conv,name,store_activations=False, store_ranks = False, clear_ranks=False, target_node=None, cuda=True, device='cuda'):      # from conv is normal nn.Conv2d object to pull weights and bias from
+	def __init__(self, from_conv,name,store_activations=False, store_ranks = False, clear_ranks=False, target_node=None, cuda=True,rank_field = 'image', device='cuda'):      # from conv is normal nn.Conv2d object to pull weights and bias from
 		super(dissected_Conv2d, self).__init__()
 		#self.from_conv = from_conv
 		self.name = name
@@ -32,6 +32,7 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 		self.store_activations = store_activations
 		self.store_ranks = store_ranks
 		self.clear_ranks = clear_ranks
+		self.rank_field = rank_field    #'image' means average over activation map, 'max' means rank with respect to maximum activation
 
 		self.edge_ablations = None
 		self.node_ablations = None
@@ -309,11 +310,24 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 			#    print(self.postbias_ranks.shape)		
 
 		if self.target_node is not None:
-			print('target reached, breaking model forward pass in %s'%self.name)
-			print(self.target_node)
-			avg_activations = self.postbias_out.mean(dim=(0, 2, 3))
-			optim_target = avg_activations[self.target_node]
-			print(optim_target)
+			#print('target reached, breaking model forward pass in %s'%self.name)
+			#print(self.target_node)
+			if self.rank_field == 'image':
+				avg_activations = self.postbias_out.mean(dim=(0, 2, 3))
+				optim_target = avg_activations[self.target_node]
+			elif self.rank_field == 'max':
+				max_acts = self.postbias_out.view(self.postbias_out.size(0),self.postbias_out.size(1), self.postbias_out.size(2)*self.postbias_out.size(3)).max(dim=-1).values
+				max_acts_target = max_acts[:,self.target_node]
+				optim_target = max_acts_target.mean()
+			elif self.rank_field == 'min':
+				min_acts = self.postbias_out.view(self.postbias_out.size(0),self.postbias_out.size(1), self.postbias_out.size(2)*self.postbias_out.size(3)).min(dim=-1).values
+				min_acts_target = min_acts[:,self.target_node]
+				optim_target = min_acts_target.mean()
+			elif isinstance(self.rank_field,list):
+				raise Exception('List type rank field not yet implemented, use "min", "max",or "image" as the rank field')
+				#target_acts = 
+				#optim_target = target_acts.mean()
+			#print(optim_target)
 			optim_target.backward()
 			raise TargetReached
 			
@@ -372,6 +386,8 @@ def set_across_model(model,setting,value):
 				module.target_node = value
 			elif setting == 'clear_ranks':
 				module.clear_ranks=value
+			elif setting == 'rank_field':
+				module.rank_field = value
 			elif setting == 'store_activations':
 				module.store_activations = value
 			elif setting == 'store_ranks':

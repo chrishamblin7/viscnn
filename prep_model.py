@@ -1,6 +1,6 @@
 import os
 from subprocess import call
-from prep_model_parameters import output_folder, save_activations, save_node_visualizations, save_edge_visualizations
+from prep_model_parameters import output_folder, save_activations, save_node_visualizations, save_edge_visualizations, deepviz_projections
 import time
 
 #Set up output directory
@@ -13,7 +13,7 @@ if not os.path.exists('prepped_models/'+output_folder):
 	os.mkdir('prepped_models/'+output_folder+'/visualizations/')
 	os.mkdir('prepped_models/'+output_folder+'/visualizations/images')
 	with open('prepped_models/'+output_folder+'/visualizations/images.csv', 'a') as images_csv:
-		images_csv.write('image_name,targetid,objective,parametrizer,optimizer,transforms\n')
+		images_csv.write('image_name,targetid,objective,parametrizer,optimizer,transforms,neuron\n')
 
 else:
 	print('prepped_models/%s already exists! It will be overwritten!'%output_folder)
@@ -53,14 +53,22 @@ call(['python','gen_categories_rank_df.py',output_folder])
 print('getting miscellaneous graph data')
 call(['python','get_misc_graph_data.py',output_folder])
 
-#graph node and edge positions
-print('generating positions of nodes and edges in graph')
-call(['python','get_graph_positions.py', output_folder])
 
 #deep visualizations
 if save_node_visualizations:
 	call(['python','gen_deepviz_for_nodes.py', output_folder])
+
 if save_edge_visualizations:
 	call(['python','gen_deepviz_for_edges.py', output_folder])
+
+
+#generate graph projections using deep visualizations as basis
+if deepviz_projections:
+	call(['python','gen_model_activations_from_deepviz.py', output_folder])
+
+#graph node and edge positions
+print('generating positions of nodes and edges in graph')
+call(['python','get_graph_positions.py', output_folder])
+
 print('Run Time: %s'%str(time.time()-start))
 

@@ -150,6 +150,68 @@ def minmax_normalize_ranks_df(df,params,weight=False):
 
 #MISC FORMATTING FUNCTIONS
 
+#naming
+
+#return list of names for conv modules based on their nested module names '_' seperated
+def get_conv_full_names(model,mod_names = [],mod_full_names = []):
+    #gen names based on nested modules
+    for name, module in model._modules.items():
+        if len(list(module.children())) > 0:
+            mod_names.append(str(name))
+            # recurse
+            mod_full_names = get_conv_full_names(module,mod_names = mod_names, mod_full_names = mod_full_names)
+            mod_names.pop()
+
+        if isinstance(module, torch.nn.modules.conv.Conv2d):    # found a 2d conv module
+            mod_full_names.append('_'.join(mod_names+[name]))
+            #new_module = dissected_Conv2d(module, name='_'.join(mod_names+[name]), store_activations=store_activations,store_ranks=store_ranks,clear_ranks=clear_ranks,cuda=cuda,device=device) 
+            #model._modules[name] = new_module
+    return mod_full_names     
+
+    
+#return list of names for conv modules based on their simple order, first conv is 'conv1', then 'conv2' etc. 
+def get_conv_simple_names(model):
+    names = []
+    count = 0
+    for layer in model.modules():
+        if isinstance(layer, nn.Conv2d):
+            names.append('conv'+str(count))
+            count+=1
+    return names
+ 
+# returns a dict that maps simple names to full names
+def gen_conv_name_dict(model):
+    simple_names = get_conv_simple_names(model)
+    full_names = get_conv_full_names(model)
+    return dict(zip(simple_names, full_names))
+
+
+#tensors
+
+def unravel_index(indices,shape):
+    r"""Converts flat indices into unraveled coordinates in a target shape.
+
+    This is a `torch` implementation of `numpy.unravel_index`.
+
+    Args:
+        indices: A tensor of (flat) indices, (*, N).
+        shape: The targeted shape, (D,).
+
+    Returns:
+        The unraveled coordinates, (*, N, D).
+    """
+
+    coord = []
+
+    for dim in reversed(shape):
+        coord.append(indices % dim)
+        indices = indices // dim
+
+    coord = torch.stack(coord[::-1], dim=-1)
+
+    return coord
+
+
 def nodeid_2_perlayerid(nodeid,params):    #takes in node unique id outputs tuple of layer and within layer id
 	imgnode_names = params['imgnode_names']
 	layer_nodes = params['layer_nodes']
@@ -179,6 +241,8 @@ def get_nth_element_from_nested_list(l,n):    #this seems to come up with the ne
 	flat_list = [item for sublist in l for item in sublist]
 	return flat_list[n]
   
+def color_vec_2_str(colorvec,a='1'):
+    return 'rgba(%s,%s,%s,%s)'%(str(int(colorvec[0])),str(int(colorvec[1])),str(int(colorvec[2])),a)
 
 def layer_2_dissected_conv2d(target_layer,module, index=0, found=None):
 	for layer, (name, submodule) in enumerate(module._modules.items()):
@@ -189,7 +253,6 @@ def layer_2_dissected_conv2d(target_layer,module, index=0, found=None):
 		elif len(list(submodule.children())) > 0:
 			found, index = layer_2_dissected_conv2d(target_layer,submodule, index=index, found=found)
 	return found, index
-
 
 def get_activations_from_dissected_Conv2d_modules(module,layer_activations=None):     
 	if layer_activations is None:    #initialize the output dictionary if we are not recursing and havent done so yet
@@ -317,7 +380,7 @@ def preprocess_image(image_path,params):
 	if cuda:
 		image = image.cuda()
 	if 'device' in params.keys():
-		image.to(params['device'])
+		image = image.to(params['device'])
 	return image
 
 
@@ -383,6 +446,7 @@ def gen_node_colors(nodes_df,rank_type,params,node_min=None):
 
 #     return df
 
+
 def edge_width_scaling(x):
 	#return max(.4,(x*10)**1.7)
 	return max(.4,np.exp(2.5*x))
@@ -407,7 +471,7 @@ def get_max_edge_widths(edge_widths):
 			maxes.append(None)
 	return maxes
 
-def gen_edge_graphdata(df, node_positions, rank_type, target_category, params, num_hoverpoints=15):
+def gen_edge_graphdata(df, node_positions, rank_type, target_category, params,kernel_colors, num_hoverpoints=15):
 	layer_nodes = params['layer_nodes']
 	layer_colors = params['layer_colors']
 	imgnode_positions = params['imgnode_positions']
@@ -448,9 +512,6 @@ def gen_edge_graphdata(df, node_positions, rank_type, target_category, params, n
 				points.append(start_pos+i*step)
 			points.append(end_pos)
 			edge_positions[row.layer][dim].append(points)
-		#color
-		alpha = edge_color_scaling(row[edges_df_columns.index(rank_type+'_rank')+1])
-		colors[row.layer].append(layer_colors[row.layer%len(layer_colors)]+str(round(alpha,3))+')')
 		#width
 		widths[row.layer].append(edge_width_scaling(row[edges_df_columns.index(rank_type+'_rank')+1]))
 		#weight
@@ -463,6 +524,12 @@ def gen_edge_graphdata(df, node_positions, rank_type, target_category, params, n
 		else:
 			in_node = imgnode_names[row.in_channel]
 		names[row.layer].append(str(in_node)+'-'+str(out_node))
+		#color
+		if kernel_colors is None:
+			alpha = edge_color_scaling(row[edges_df_columns.index(rank_type+'_rank')+1])
+			colors[row.layer].append(layer_colors[row.layer%len(layer_colors)]+str(round(alpha,3))+')')
+		else:
+			colors[row.layer].append(color_vec_2_str(kernel_colors[int(row.layer)][int(row.out_channel)][int(row.in_channel)]))
 	max_width_indices = get_max_edge_widths(widths)
 	while len(names) < num_layers:
 		edge_positions.append({'X':[],'Y':[],'Z':[]})
@@ -693,7 +760,7 @@ def get_model_ranks_for_category(category, target_node, model_dis,params):
 			#	torch.sum(output).backward()    # run backward pass with respect to net outputs rather than loss function
 
 	layer_ranks = get_ranks_from_dissected_Conv2d_modules(model_dis)
-
+	model_dis = clear_ranks_across_model(model_dis)
 	model_dis = set_across_model(model_dis,'clear_ranks',True)
 
 	return layer_ranks

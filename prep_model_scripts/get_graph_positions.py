@@ -29,6 +29,8 @@ import numpy as np
 import pandas as pd
 from sklearn import manifold
 from sklearn.metrics import euclidean_distances
+from sklearn.preprocessing import StandardScaler
+import umap
 
 
 categories_nodes_df = pd.read_csv('../prepped_models/%s/ranks/categories_nodes_ranks.csv'%output_folder)
@@ -382,18 +384,97 @@ def gen_layer_smooth_mds(mds_projections, iterations = 100,init_rate = .0001,ste
     return smooth_mds_projection
 
 
-        
 
+def gen_layer_smooth_no_types(projections, iterations = 100,init_rate = .0001,step_ratio = 10,scale = .25,scale_same_size=True):
+    print('smoothing plots')
+    init_rate = .0001
+    smooth_projection = {}
+    #import pdb; pdb.set_trace()
+
+    for j in range(len(projections)):
+        points = projections[j]
+        for i in range(1,iterations):
+            #move_points 
+            #prev_points = deepcopy(points)
+            points = nonlinear_push_points(points,rate=np.min([init_rate+i*init_rate/step_ratio,init_rate*10]))
+        smooth_projection[j] = points
     
+    max_points = 0
+
+    for i in range(len(projections)):
+        points = projections[i]
+        if points.shape[0] > max_points:
+            max_points = points.shape[0]
+            max_layer = i
+    #get layer with maximum points and scale
+    for i in range(len(projections)):
+        if i == max_layer or scale_same_size:
+            smooth_projection[i] = scale_points(smooth_projection[i],maximum = scale)
+        else:
+            smooth_projection[i] = scale_points(smooth_projection[i],maximum = scale*np.sqrt(float(smooth_projection[i].shape[0])/float(max_points)))
+    #translate points to lie in center
+    for i in range(len(projections)):
+        smooth_projection[i] = translate_points(smooth_projection[i])
+    #rotate plots
+    smooth_rotated = rotate_no_types(smooth_projection)
+    smooth_projection = smooth_rotated
+    
+    return smooth_rotated
+
+
+def rotate_no_types(projections,rank_type='actxgrad',imgnode_positions=imgnode_positions,max_edges = 40,angles_tested=64):
+    print('rotating layers to minimize edge lengths')
+    for layer in range(len(projections)):
+        all_layer_positions = projections[layer]
+        layer_df = overall_edge_df.loc[(overall_edge_df['layer']==layer)].sort_values(rank_type+'_rank',ascending=False).head(max_edges)
+        if layer == 0:
+            all_prev_layer_positions = np.swapaxes(np.array([imgnode_positions['Y'],imgnode_positions['Z']]),0,1)
+        else:
+            all_prev_layer_positions = projections[layer-1]
+        #gen positions matrix for important edges
+        select_layer_positions = []
+        select_prev_layer_positions = []
+        for row in layer_df.itertuples():
+            select_layer_positions.append(all_layer_positions[row.out_channel])
+            select_prev_layer_positions.append(all_prev_layer_positions[row.in_channel])
+        #go through discrete rotations and find min distance
+        min_dist = 10000000
+        min_discrete_angle = 0
+        for p in range(0,angles_tested):
+            test_layer_positions=np.apply_along_axis(rotate_cartesian, 1, select_layer_positions,r=p*2*np.pi/angles_tested)
+            dist = sum(np.diagonal(cdist(test_layer_positions,select_prev_layer_positions)))
+            if dist < min_dist:
+                min_discrete_angle = p
+                min_dist = dist
+        #update layer mds at layer by rotating by optimal angle
+        print('rotating layer %s by %s rads'%(str(layer),str(min_discrete_angle*2*np.pi/angles_tested)))
+        projections[layer] = np.apply_along_axis(rotate_cartesian, 1, projections[layer],r=min_discrete_angle*2*np.pi/angles_tested)
+    return projections
+
+
+gen_layer_umap(points):
+    print('generating umap projection')
+    reducer = umap.UMAP()
+    embeddings = []
+
+    for i, layer in enumerate(points):
+        print(i)
+        layer_scaled = StandardScaler().fit_transform(layer)
+        embedding = reducer.fit_transform(layer_scaled)
+        embeddings.append(embedding)      
 
 
 grid_projections = gen_grid_positions()       
 mds_projections = gen_layer_mds()
 mds_smooth_projections = gen_layer_smooth_mds(mds_projections)
 
+if os.path.exists(params['prepped_model_path']+'/deepviz_activations.pkl'):
+    deepviz_activations = pickle.load(open(params['prepped_model_path']+'/deepviz_activations_for_projection.pkl','rb'))
+    umap_projections = gen_layer_umap(deepviz_activations)
+    umap_smooth_projections = gen_layer_smooth_no_types(umap_projections,iterations=200,scale=.3)
 
 
-all_node_positions_unformatted = {'MDS':mds_projections,'Grid':grid_projections,'MDS smooth':mds_smooth_projections}
+all_node_positions_unformatted = {'MDS':mds_projections,'Grid':grid_projections,'MDS smooth':mds_smooth_projections,'Umap':umap_projections,'Umap smooth':umap_smooth_projections}
 
 def format_node_positions(projection='MDS',rank_type = 'actxgrad'):
     layer_distance = 1   # distance in X direction each layer is separated by
@@ -404,7 +485,7 @@ def format_node_positions(projection='MDS',rank_type = 'actxgrad'):
     elif projection == 'MDS smooth':
         unformatted = all_node_positions_unformatted['MDS smooth'][rank_type]
     else:
-        unformatted = all_node_positions_unformatted['Grid']
+        unformatted = all_node_positions_unformatted[projection]
     for layer in unformatted:
         node_positions.append({})
         node_positions[-1]['X'] = [] 
@@ -427,5 +508,7 @@ for rank_type in ['actxgrad','act','grad']:
     all_node_positions_formatted['MDS smooth'][rank_type] =  format_node_positions(projection = 'MDS smooth',rank_type = rank_type) 
 
 all_node_positions_formatted['Grid'] = format_node_positions(projection = 'Grid') 
+all_node_positions_formatted['Umap'] = format_node_positions(projection = 'Umap')
+all_node_positions_formatted['Umap smooth'] = format_node_positions(projection = 'Umap smooth')  
 
 pickle.dump(all_node_positions_formatted, open('../prepped_models/%s/node_positions.pkl'%output_folder,'wb'))

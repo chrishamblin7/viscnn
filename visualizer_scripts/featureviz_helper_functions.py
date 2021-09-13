@@ -1,8 +1,8 @@
 #functions for using lucent to get visualizations
-from lucent_edited.optvis import render
-from lucent_edited.modelzoo import inceptionv1
-from lucent_edited.modelzoo.util import get_model_layers
-from lucent_edited.optvis import render, param, transform, objectives
+from lucent.optvis import render
+from lucent.modelzoo import inceptionv1
+from lucent.modelzoo.util import get_model_layers
+from lucent.optvis import render, param, transform, objectives
 
 import inspect
 import time
@@ -29,7 +29,7 @@ def gen_visualization(model,image_name,objective,parametrizer,optimizer,transfor
 
 def gen_objective_str(targetid,model,params, neuron=False):
     print('generating feature_viz objective string for %s'%targetid)
-    if '-' in targetid:
+    if '-' in str(targetid):
         within_id = edgename_2_singlenum(model,targetid,params)
         layer_name = nodeid_2_perlayerid(targetid.split('-')[1],params)[2]
         if not neuron:
@@ -149,6 +149,56 @@ def fetch_deepviz_img_for_node_inputs(model,edgeid,params):
         else:
             print('found pregenerated node image')
             image_name = df_sel.iloc[0]['image_name'] 
+
+    if neuron:  
+        return 'neuron/'+image_name
+    else:
+        return 'channel/'+image_name
+
+
+
+def fetch_deepviz_img_for_subgraph(model,layer_name,within_id,targetid,viz_folder,params):
+    model = set_across_model(model,'target_node',None)
+    objective_str = layer_name+':'+str(targetid)
+    neuron = params['deepviz_neuron']
+    #generate objective
+    #objective = gen_objective(targetid,model,params,neuron=neuron)
+    print('generating feature_viz objective string for %s'%targetid)
+
+    if not params['deepviz_neuron']:
+            #return layer_name+':'+str(within_id)
+        objective = objectives.channel(layer_name,int(within_id))
+    else:
+        objective = objectives.neuron(layer_name,int(within_id))
+    file_path = viz_folder+'/images.csv'
+    parametrizer = params['deepviz_param']
+    optimizer = params['deepviz_optim']
+    transforms = params['deepviz_transforms']
+    image_size = params['deepviz_image_size']
+
+    param_str = object_2_str(parametrizer,"params['deepviz_param']=")
+    optimizer_str = object_2_str(optimizer,"params['deepviz_optim']=")
+    transforms_str = object_2_str(transforms,"params['deepviz_transforms']=")
+    df = pd.read_csv(file_path,dtype=str)
+    df_sel = df.loc[(df['targetid'] == str(targetid)) & (df['objective'] == objective_str) & (df['parametrizer'] == param_str) & (df['optimizer'] == optimizer_str) & (df['transforms'] == transforms_str) & (df['neuron'] == str(neuron))]
+    if len(df_sel) == 0:
+        print('deepviz image not found for %s, generating . . .'%targetid)
+        #image_name = 'deepviz_'+str(targetid)+'_'+objective+'_'+str(time.time())+'.jpg'
+        image_name = str(targetid)+'_'+objective_str+'_'+str(time.time())+'.jpg'
+        #gen_visualization(model,image_name,objective,parametrizer,optimizer,transforms,image_size,neuron,params) 
+        if neuron:
+            full_image_path = viz_folder+'/neuron/'+image_name
+        else:
+            full_image_path = viz_folder+'/channel/'+image_name
+        if parametrizer is None:
+            parametrizer = lambda: param.image(image_size)
+        print('generating featviz with objective: %s'%str(objective_str))
+        _ = render.render_vis(model, objective, parametrizer, optimizer, transforms=transforms,save_image=True,image_name=full_image_path, show_inline=True)
+        with open(file_path, 'a') as csv:
+            csv.write(','.join([image_name,str(targetid),objective_str,param_str,optimizer_str,transforms_str,str(neuron)])+'\n')
+    else:
+        print('found pre-generated image')
+        image_name = df_sel.iloc[0]['image_name']  
 
     if neuron:  
         return 'neuron/'+image_name

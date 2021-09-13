@@ -1,4 +1,3 @@
-#get rank with respect to each category in a dataset, do this in a hacky single category way, because for some stupid reason your gpu memory is getting used up otherwise
 import time
 import torch
 from subprocess import call

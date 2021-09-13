@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
  #Dash and other app specific packages
 RUN conda install -y -c anaconda \
     pandas=1.0.5 \ 
-    pillow=7.1.2 \
+    pillow=8.1.2 \
     scikit-learn=0.23.1 \ 
     sympy=1.6.2 \
   && conda install -y -c plotly \
@@ -26,6 +26,7 @@ RUN conda install -y -c anaconda \
      dash=1.13.4 \
      flask-caching=1.7.1 \
      jupyterlab=2.2.0 \
+     umap-learn \
   && conda clean -ya
 
 RUN pip install torch-lucent
