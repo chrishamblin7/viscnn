@@ -1,0 +1,11381 @@
+getting node and edge ranks for all subfolders of /mnt/data/chris/dropbox/Research-Hamblin/Projects/cnn_subgraph_visualizer/image_data/imagenet_200/ranking_images
+Afghan_hound
+skipping Afghan_hound, rank already exists
+African_chameleon
+skipping African_chameleon, rank already exists
+African_crocodile
+skipping African_crocodile, rank already exists
+African_elephant
+skipping African_elephant, rank already exists
+African_grey
+skipping African_grey, rank already exists
+African_hunting_dog
+skipping African_hunting_dog, rank already exists
+Airedale
+skipping Airedale, rank already exists
+American_Staffordshire_terrier
+skipping American_Staffordshire_terrier, rank already exists
+American_alligator
+skipping American_alligator, rank already exists
+American_black_bear
+skipping American_black_bear, rank already exists
+American_chameleon
+skipping American_chameleon, rank already exists
+American_coot
+skipping American_coot, rank already exists
+American_egret
+skipping American_egret, rank already exists
+American_lobster
+skipping American_lobster, rank already exists
+Angora
+skipping Angora, rank already exists
+Appenzeller
+skipping Appenzeller, rank already exists
+Arabian_camel
+skipping Arabian_camel, rank already exists
+Arctic_fox
+skipping Arctic_fox, rank already exists
+Australian_terrier
+skipping Australian_terrier, rank already exists
+Band_Aid
+skipping Band_Aid, rank already exists
+Bedlington_terrier
+skipping Bedlington_terrier, rank already exists
+Bernese_mountain_dog
+skipping Bernese_mountain_dog, rank already exists
+Blenheim_spaniel
+skipping Blenheim_spaniel, rank already exists
+Border_collie
+skipping Border_collie, rank already exists
+Border_terrier
+skipping Border_terrier, rank already exists
+Boston_bull
+skipping Boston_bull, rank already exists
+Bouvier_des_Flandres
+skipping Bouvier_des_Flandres, rank already exists
+Brabancon_griffon
+skipping Brabancon_griffon, rank already exists
+Brittany_spaniel
+skipping Brittany_spaniel, rank already exists
+CD_player
+skipping CD_player, rank already exists
+Cardigan_corgi
+skipping Cardigan_corgi, rank already exists
+Chesapeake_Bay_retriever
+skipping Chesapeake_Bay_retriever, rank already exists
+Chihuahua
+skipping Chihuahua, rank already exists
+Christmas_stocking
+skipping Christmas_stocking, rank already exists
+Crock_Pot
+skipping Crock_Pot, rank already exists
+Dandie_Dinmont
+skipping Dandie_Dinmont, rank already exists
+Doberman
+skipping Doberman, rank already exists
+Dungeness_crab
+skipping Dungeness_crab, rank already exists
+Dutch_oven
+skipping Dutch_oven, rank already exists
+Egyptian_cat
+skipping Egyptian_cat, rank already exists
+English_foxhound
+skipping English_foxhound, rank already exists
+English_setter
+skipping English_setter, rank already exists
+English_springer
+skipping English_springer, rank already exists
+EntleBucher
+skipping EntleBucher, rank already exists
+Eskimo_dog
+skipping Eskimo_dog, rank already exists
+European_fire_salamander
+skipping European_fire_salamander, rank already exists
+European_gallinule
+skipping European_gallinule, rank already exists
+French_bulldog
+skipping French_bulldog, rank already exists
+French_horn
+skipping French_horn, rank already exists
+French_loaf
+skipping French_loaf, rank already exists
+German_shepherd
+skipping German_shepherd, rank already exists
+German_short-haired_pointer
+skipping German_short-haired_pointer, rank already exists
+Gila_monster
+skipping Gila_monster, rank already exists
+Gordon_setter
+skipping Gordon_setter, rank already exists
+Granny_Smith
+skipping Granny_Smith, rank already exists
+Great_Dane
+skipping Great_Dane, rank already exists
+Great_Pyrenees
+skipping Great_Pyrenees, rank already exists
+Greater_Swiss_Mountain_dog
+skipping Greater_Swiss_Mountain_dog, rank already exists
+Ibizan_hound
+skipping Ibizan_hound, rank already exists
+Indian_cobra
+skipping Indian_cobra, rank already exists
+Indian_elephant
+skipping Indian_elephant, rank already exists
+Irish_setter
+skipping Irish_setter, rank already exists
+Irish_terrier
+skipping Irish_terrier, rank already exists
+Irish_water_spaniel
+skipping Irish_water_spaniel, rank already exists
+Irish_wolfhound
+skipping Irish_wolfhound, rank already exists
+Italian_greyhound
+skipping Italian_greyhound, rank already exists
+Japanese_spaniel
+skipping Japanese_spaniel, rank already exists
+Kerry_blue_terrier
+skipping Kerry_blue_terrier, rank already exists
+Komodo_dragon
+skipping Komodo_dragon, rank already exists
+Labrador_retriever
+skipping Labrador_retriever, rank already exists
+Lakeland_terrier
+skipping Lakeland_terrier, rank already exists
+Leonberg
+skipping Leonberg, rank already exists
+Lhasa
+skipping Lhasa, rank already exists
+Loafer
+skipping Loafer, rank already exists
+Madagascar_cat
+skipping Madagascar_cat, rank already exists
+Maltese_dog
+skipping Maltese_dog, rank already exists
+Mexican_hairless
+skipping Mexican_hairless, rank already exists
+Model_T
+skipping Model_T, rank already exists
+Newfoundland
+skipping Newfoundland, rank already exists
+Norfolk_terrier
+skipping Norfolk_terrier, rank already exists
+Norwegian_elkhound
+skipping Norwegian_elkhound, rank already exists
+Norwich_terrier
+skipping Norwich_terrier, rank already exists
+Old_English_sheepdog
+skipping Old_English_sheepdog, rank already exists
+Pekinese
+skipping Pekinese, rank already exists
+Pembroke
+skipping Pembroke, rank already exists
+Persian_cat
+skipping Persian_cat, rank already exists
+Petri_dish
+skipping Petri_dish, rank already exists
+Polaroid_camera
+skipping Polaroid_camera, rank already exists
+Pomeranian
+skipping Pomeranian, rank already exists
+Rhodesian_ridgeback
+skipping Rhodesian_ridgeback, rank already exists
+Rottweiler
+skipping Rottweiler, rank already exists
+Saint_Bernard
+skipping Saint_Bernard, rank already exists
+Saluki
+skipping Saluki, rank already exists
+Samoyed
+skipping Samoyed, rank already exists
+Scotch_terrier
+skipping Scotch_terrier, rank already exists
+Scottish_deerhound
+skipping Scottish_deerhound, rank already exists
+Sealyham_terrier
+skipping Sealyham_terrier, rank already exists
+Shetland_sheepdog
+skipping Shetland_sheepdog, rank already exists
+Shih-Tzu
+skipping Shih-Tzu, rank already exists
+Siamese_cat
+skipping Siamese_cat, rank already exists
+Siberian_husky
+skipping Siberian_husky, rank already exists
+Staffordshire_bullterrier
+skipping Staffordshire_bullterrier, rank already exists
+Sussex_spaniel
+skipping Sussex_spaniel, rank already exists
+Tibetan_mastiff
+skipping Tibetan_mastiff, rank already exists
+Tibetan_terrier
+skipping Tibetan_terrier, rank already exists
+Walker_hound
+skipping Walker_hound, rank already exists
+Weimaraner
+skipping Weimaraner, rank already exists
+Welsh_springer_spaniel
+skipping Welsh_springer_spaniel, rank already exists
+West_Highland_white_terrier
+skipping West_Highland_white_terrier, rank already exists
+Windsor_tie
+skipping Windsor_tie, rank already exists
+Yorkshire_terrier
+skipping Yorkshire_terrier, rank already exists
+abacus
+skipping abacus, rank already exists
+abaya
+skipping abaya, rank already exists
+academic_gown
+skipping academic_gown, rank already exists
+accordion
+skipping accordion, rank already exists
+acorn
+skipping acorn, rank already exists
+acorn_squash
+skipping acorn_squash, rank already exists
+acoustic_guitar
+skipping acoustic_guitar, rank already exists
+admiral
+skipping admiral, rank already exists
+affenpinscher
+skipping affenpinscher, rank already exists
+agama
+skipping agama, rank already exists
+agaric
+skipping agaric, rank already exists
+aircraft_carrier
+skipping aircraft_carrier, rank already exists
+airliner
+skipping airliner, rank already exists
+airship
+skipping airship, rank already exists
+albatross
+skipping albatross, rank already exists
+alligator_lizard
+skipping alligator_lizard, rank already exists
+alp
+skipping alp, rank already exists
+altar
+skipping altar, rank already exists
+ambulance
+skipping ambulance, rank already exists
+amphibian
+skipping amphibian, rank already exists
+analog_clock
+skipping analog_clock, rank already exists
+anemone_fish
+skipping anemone_fish, rank already exists
+ant
+skipping ant, rank already exists
+apiary
+skipping apiary, rank already exists
+apron
+skipping apron, rank already exists
+armadillo
+skipping armadillo, rank already exists
+artichoke
+skipping artichoke, rank already exists
+ashcan
+skipping ashcan, rank already exists
+assault_rifle
+skipping assault_rifle, rank already exists
+axolotl
+skipping axolotl, rank already exists
+baboon
+skipping baboon, rank already exists
+backpack
+skipping backpack, rank already exists
+badger
+skipping badger, rank already exists
+bagel
+skipping bagel, rank already exists
+bakery
+skipping bakery, rank already exists
+balance_beam
+skipping balance_beam, rank already exists
+bald_eagle
+skipping bald_eagle, rank already exists
+balloon
+skipping balloon, rank already exists
+ballplayer
+skipping ballplayer, rank already exists
+ballpoint
+skipping ballpoint, rank already exists
+banana
+skipping banana, rank already exists
+banded_gecko
+skipping banded_gecko, rank already exists
+banjo
+skipping banjo, rank already exists
+bannister
+skipping bannister, rank already exists
+barbell
+skipping barbell, rank already exists
+barber_chair
+skipping barber_chair, rank already exists
+barbershop
+skipping barbershop, rank already exists
+barn
+skipping barn, rank already exists
+barn_spider
+skipping barn_spider, rank already exists
+barometer
+skipping barometer, rank already exists
+barracouta
+skipping barracouta, rank already exists
+barrel
+skipping barrel, rank already exists
+barrow
+skipping barrow, rank already exists
+baseball
+skipping baseball, rank already exists
+basenji
+skipping basenji, rank already exists
+basketball
+skipping basketball, rank already exists
+basset
+skipping basset, rank already exists
+bassinet
+skipping bassinet, rank already exists
+bassoon
+skipping bassoon, rank already exists
+bath_towel
+skipping bath_towel, rank already exists
+bathing_cap
+skipping bathing_cap, rank already exists
+bathtub
+skipping bathtub, rank already exists
+beach_wagon
+skipping beach_wagon, rank already exists
+beacon
+skipping beacon, rank already exists
+beagle
+skipping beagle, rank already exists
+beaker
+skipping beaker, rank already exists
+bearskin
+skipping bearskin, rank already exists
+beaver
+skipping beaver, rank already exists
+bee
+skipping bee, rank already exists
+bee_eater
+skipping bee_eater, rank already exists
+beer_bottle
+skipping beer_bottle, rank already exists
+beer_glass
+skipping beer_glass, rank already exists
+bell_cote
+skipping bell_cote, rank already exists
+bell_pepper
+skipping bell_pepper, rank already exists
+bib
+skipping bib, rank already exists
+bicycle-built-for-two
+skipping bicycle-built-for-two, rank already exists
+bighorn
+skipping bighorn, rank already exists
+bikini
+skipping bikini, rank already exists
+binder
+skipping binder, rank already exists
+binoculars
+skipping binoculars, rank already exists
+birdhouse
+skipping birdhouse, rank already exists
+bison
+skipping bison, rank already exists
+bittern
+skipping bittern, rank already exists
+black-and-tan_coonhound
+skipping black-and-tan_coonhound, rank already exists
+black-footed_ferret
+skipping black-footed_ferret, rank already exists
+black_and_gold_garden_spider
+skipping black_and_gold_garden_spider, rank already exists
+black_grouse
+skipping black_grouse, rank already exists
+black_stork
+skipping black_stork, rank already exists
+black_swan
+skipping black_swan, rank already exists
+black_widow
+skipping black_widow, rank already exists
+bloodhound
+skipping bloodhound, rank already exists
+bluetick
+skipping bluetick, rank already exists
+boa_constrictor
+skipping boa_constrictor, rank already exists
+boathouse
+skipping boathouse, rank already exists
+bobsled
+skipping bobsled, rank already exists
+bolete
+skipping bolete, rank already exists
+bolo_tie
+skipping bolo_tie, rank already exists
+bonnet
+skipping bonnet, rank already exists
+book_jacket
+skipping book_jacket, rank already exists
+bookcase
+skipping bookcase, rank already exists
+bookshop
+skipping bookshop, rank already exists
+borzoi
+skipping borzoi, rank already exists
+bottlecap
+skipping bottlecap, rank already exists
+bow
+skipping bow, rank already exists
+bow_tie
+skipping bow_tie, rank already exists
+box_turtle
+skipping box_turtle, rank already exists
+boxer
+skipping boxer, rank already exists
+brain_coral
+skipping brain_coral, rank already exists
+brambling
+skipping brambling, rank already exists
+brass
+skipping brass, rank already exists
+brassiere
+skipping brassiere, rank already exists
+breakwater
+skipping breakwater, rank already exists
+breastplate
+skipping breastplate, rank already exists
+briard
+skipping briard, rank already exists
+broccoli
+skipping broccoli, rank already exists
+broom
+skipping broom, rank already exists
+brown_bear
+skipping brown_bear, rank already exists
+bubble
+skipping bubble, rank already exists
+bucket
+skipping bucket, rank already exists
+buckeye
+skipping buckeye, rank already exists
+buckle
+skipping buckle, rank already exists
+bulbul
+skipping bulbul, rank already exists
+bull_mastiff
+skipping bull_mastiff, rank already exists
+bullet_train
+skipping bullet_train, rank already exists
+bulletproof_vest
+skipping bulletproof_vest, rank already exists
+bullfrog
+skipping bullfrog, rank already exists
+burrito
+skipping burrito, rank already exists
+bustard
+skipping bustard, rank already exists
+butcher_shop
+skipping butcher_shop, rank already exists
+butternut_squash
+skipping butternut_squash, rank already exists
+cab
+skipping cab, rank already exists
+cabbage_butterfly
+skipping cabbage_butterfly, rank already exists
+cairn
+skipping cairn, rank already exists
+caldron
+skipping caldron, rank already exists
+can_opener
+skipping can_opener, rank already exists
+candle
+skipping candle, rank already exists
+cannon
+skipping cannon, rank already exists
+canoe
+skipping canoe, rank already exists
+capuchin
+skipping capuchin, rank already exists
+car_mirror
+skipping car_mirror, rank already exists
+car_wheel
+skipping car_wheel, rank already exists
+carbonara
+skipping carbonara, rank already exists
+cardigan_sweater
+skipping cardigan_sweater, rank already exists
+cardoon
+skipping cardoon, rank already exists
+carousel
+skipping carousel, rank already exists
+carpenters_kit
+skipping carpenters_kit, rank already exists
+carton
+skipping carton, rank already exists
+cash_machine
+skipping cash_machine, rank already exists
+cassette
+skipping cassette, rank already exists
+cassette_player
+skipping cassette_player, rank already exists
+castle
+skipping castle, rank already exists
+catamaran
+skipping catamaran, rank already exists
+cauliflower
+skipping cauliflower, rank already exists
+cello
+skipping cello, rank already exists
+cellular_telephone
+skipping cellular_telephone, rank already exists
+centipede
+skipping centipede, rank already exists
+chain
+skipping chain, rank already exists
+chain_mail
+skipping chain_mail, rank already exists
+chain_saw
+skipping chain_saw, rank already exists
+chainlink_fence
+skipping chainlink_fence, rank already exists
+chambered_nautilus
+skipping chambered_nautilus, rank already exists
+cheeseburger
+skipping cheeseburger, rank already exists
+cheetah
+skipping cheetah, rank already exists
+chest
+skipping chest, rank already exists
+chickadee
+skipping chickadee, rank already exists
+chiffonier
+skipping chiffonier, rank already exists
+chime
+skipping chime, rank already exists
+chimpanzee
+skipping chimpanzee, rank already exists
+china_cabinet
+skipping china_cabinet, rank already exists
+chiton
+skipping chiton, rank already exists
+chocolate_sauce
+skipping chocolate_sauce, rank already exists
+chow
+skipping chow, rank already exists
+church
+skipping church, rank already exists
+cicada
+skipping cicada, rank already exists
+cinema
+skipping cinema, rank already exists
+cleaver
+skipping cleaver, rank already exists
+cliff
+skipping cliff, rank already exists
+cliff_dwelling
+skipping cliff_dwelling, rank already exists
+cloak
+skipping cloak, rank already exists
+clog
+skipping clog, rank already exists
+clumber
+skipping clumber, rank already exists
+cocker_spaniel
+skipping cocker_spaniel, rank already exists
+cockroach
+skipping cockroach, rank already exists
+cocktail_shaker
+skipping cocktail_shaker, rank already exists
+coffee_mug
+skipping coffee_mug, rank already exists
+coffeepot
+skipping coffeepot, rank already exists
+coho
+skipping coho, rank already exists
+coil
+skipping coil, rank already exists
+collie
+skipping collie, rank already exists
+colobus
+skipping colobus, rank already exists
+combination_lock
+skipping combination_lock, rank already exists
+comic_book
+skipping comic_book, rank already exists
+common_iguana
+skipping common_iguana, rank already exists
+common_newt
+skipping common_newt, rank already exists
+computer_keyboard
+skipping computer_keyboard, rank already exists
+conch
+skipping conch, rank already exists
+confectionery
+skipping confectionery, rank already exists
+consomme
+skipping consomme, rank already exists
+container_ship
+skipping container_ship, rank already exists
+convertible
+skipping convertible, rank already exists
+coral_fungus
+skipping coral_fungus, rank already exists
+coral_reef
+skipping coral_reef, rank already exists
+corkscrew
+skipping corkscrew, rank already exists
+corn
+skipping corn, rank already exists
+cornet
+skipping cornet, rank already exists
+coucal
+skipping coucal, rank already exists
+cougar
+skipping cougar, rank already exists
+cowboy_boot
+skipping cowboy_boot, rank already exists
+cowboy_hat
+skipping cowboy_hat, rank already exists
+coyote
+skipping coyote, rank already exists
+cradle
+skipping cradle, rank already exists
+crane_bird
+skipping crane_bird, rank already exists
+crane_equipment
+skipping crane_equipment, rank already exists
+crash_helmet
+skipping crash_helmet, rank already exists
+crate
+skipping crate, rank already exists
+crayfish
+skipping crayfish, rank already exists
+crib
+skipping crib, rank already exists
+cricket
+skipping cricket, rank already exists
+croquet_ball
+skipping croquet_ball, rank already exists
+crossword_puzzle
+skipping crossword_puzzle, rank already exists
+crutch
+skipping crutch, rank already exists
+cucumber
+skipping cucumber, rank already exists
+cuirass
+skipping cuirass, rank already exists
+cup
+skipping cup, rank already exists
+curly-coated_retriever
+skipping curly-coated_retriever, rank already exists
+custard_apple
+skipping custard_apple, rank already exists
+daisy
+skipping daisy, rank already exists
+dalmatian
+skipping dalmatian, rank already exists
+dam
+skipping dam, rank already exists
+damselfly
+skipping damselfly, rank already exists
+desk
+skipping desk, rank already exists
+desktop_computer
+skipping desktop_computer, rank already exists
+dhole
+skipping dhole, rank already exists
+dial_telephone
+skipping dial_telephone, rank already exists
+diamondback
+skipping diamondback, rank already exists
+diaper
+skipping diaper, rank already exists
+digital_clock
+skipping digital_clock, rank already exists
+digital_watch
+skipping digital_watch, rank already exists
+dingo
+skipping dingo, rank already exists
+dining_table
+skipping dining_table, rank already exists
+dishrag
+skipping dishrag, rank already exists
+dishwasher
+skipping dishwasher, rank already exists
+disk_brake
+skipping disk_brake, rank already exists
+dock
+skipping dock, rank already exists
+dogsled
+skipping dogsled, rank already exists
+dome
+skipping dome, rank already exists
+doormat
+skipping doormat, rank already exists
+dough
+skipping dough, rank already exists
+dowitcher
+skipping dowitcher, rank already exists
+dragonfly
+skipping dragonfly, rank already exists
+drake
+skipping drake, rank already exists
+drilling_platform
+skipping drilling_platform, rank already exists
+drum
+skipping drum, rank already exists
+drumstick
+skipping drumstick, rank already exists
+dugong
+skipping dugong, rank already exists
+dumbbell
+skipping dumbbell, rank already exists
+dung_beetle
+skipping dung_beetle, rank already exists
+ear
+skipping ear, rank already exists
+earthstar
+skipping earthstar, rank already exists
+echidna
+skipping echidna, rank already exists
+eel
+skipping eel, rank already exists
+eft
+skipping eft, rank already exists
+eggnog
+skipping eggnog, rank already exists
+electric_fan
+skipping electric_fan, rank already exists
+electric_guitar
+skipping electric_guitar, rank already exists
+electric_locomotive
+skipping electric_locomotive, rank already exists
+electric_ray
+skipping electric_ray, rank already exists
+entertainment_center
+skipping entertainment_center, rank already exists
+envelope
+skipping envelope, rank already exists
+espresso
+skipping espresso, rank already exists
+espresso_maker
+skipping espresso_maker, rank already exists
+face_powder
+skipping face_powder, rank already exists
+feather_boa
+skipping feather_boa, rank already exists
+fiddler_crab
+skipping fiddler_crab, rank already exists
+fig
+skipping fig, rank already exists
+file
+skipping file, rank already exists
+fire_engine
+skipping fire_engine, rank already exists
+fire_screen
+skipping fire_screen, rank already exists
+fireboat
+skipping fireboat, rank already exists
+flagpole
+skipping flagpole, rank already exists
+flamingo
+skipping flamingo, rank already exists
+flat-coated_retriever
+skipping flat-coated_retriever, rank already exists
+flatworm
+skipping flatworm, rank already exists
+flute
+skipping flute, rank already exists
+fly
+skipping fly, rank already exists
+folding_chair
+skipping folding_chair, rank already exists
+football_helmet
+skipping football_helmet, rank already exists
+forklift
+skipping forklift, rank already exists
+fountain
+skipping fountain, rank already exists
+fountain_pen
+skipping fountain_pen, rank already exists
+four-poster
+skipping four-poster, rank already exists
+fox_squirrel
+skipping fox_squirrel, rank already exists
+freight_car
+skipping freight_car, rank already exists
+frilled_lizard
+skipping frilled_lizard, rank already exists
+frying_pan
+skipping frying_pan, rank already exists
+fur_coat
+skipping fur_coat, rank already exists
+gar
+skipping gar, rank already exists
+garbage_truck
+skipping garbage_truck, rank already exists
+garden_spider
+skipping garden_spider, rank already exists
+garter_snake
+skipping garter_snake, rank already exists
+gas_pump
+skipping gas_pump, rank already exists
+gasmask
+skipping gasmask, rank already exists
+gazelle
+skipping gazelle, rank already exists
+geyser
+skipping geyser, rank already exists
+giant_panda
+skipping giant_panda, rank already exists
+giant_schnauzer
+skipping giant_schnauzer, rank already exists
+gibbon
+skipping gibbon, rank already exists
+go-kart
+skipping go-kart, rank already exists
+goblet
+skipping goblet, rank already exists
+golden_retriever
+skipping golden_retriever, rank already exists
+goldfinch
+skipping goldfinch, rank already exists
+goldfish
+skipping goldfish, rank already exists
+golf_ball
+skipping golf_ball, rank already exists
+golfcart
+skipping golfcart, rank already exists
+gondola
+skipping gondola, rank already exists
+gong
+skipping gong, rank already exists
+goose
+skipping goose, rank already exists
+gorilla
+skipping gorilla, rank already exists
+gown
+skipping gown, rank already exists
+grand_piano
+skipping grand_piano, rank already exists
+grasshopper
+skipping grasshopper, rank already exists
+great_grey_owl
+skipping great_grey_owl, rank already exists
+great_white_shark
+skipping great_white_shark, rank already exists
+green_lizard
+skipping green_lizard, rank already exists
+green_mamba
+skipping green_mamba, rank already exists
+green_snake
+skipping green_snake, rank already exists
+greenhouse
+skipping greenhouse, rank already exists
+grey_fox
+skipping grey_fox, rank already exists
+grey_whale
+skipping grey_whale, rank already exists
+grille
+skipping grille, rank already exists
+grocery_store
+skipping grocery_store, rank already exists
+groenendael
+skipping groenendael, rank already exists
+groom
+skipping groom, rank already exists
+ground_beetle
+skipping ground_beetle, rank already exists
+guacamole
+skipping guacamole, rank already exists
+guenon
+skipping guenon, rank already exists
+guillotine
+skipping guillotine, rank already exists
+guinea_pig
+skipping guinea_pig, rank already exists
+gyromitra
+skipping gyromitra, rank already exists
+hair_slide
+skipping hair_slide, rank already exists
+hair_spray
+skipping hair_spray, rank already exists
+half_track
+skipping half_track, rank already exists
+hammer
+skipping hammer, rank already exists
+hammerhead
+skipping hammerhead, rank already exists
+hamper
+skipping hamper, rank already exists
+hamster
+skipping hamster, rank already exists
+hand-held_computer
+skipping hand-held_computer, rank already exists
+hand_blower
+skipping hand_blower, rank already exists
+handkerchief
+skipping handkerchief, rank already exists
+hard_disc
+skipping hard_disc, rank already exists
+hare
+skipping hare, rank already exists
+harmonica
+skipping harmonica, rank already exists
+harp
+skipping harp, rank already exists
+hartebeest
+skipping hartebeest, rank already exists
+harvesterbatch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.55528998374939
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.73472237586975
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.20345878601074
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.17699098587036
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.282153844833374
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.510727643966675
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.96809935569763
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.417580366134644
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.28131985664368
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 49.37590169906616
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.78927779197693
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.90117168426514
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.21217322349548
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.06305932998657
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.9803261756897
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.36159825325012
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.02866864204407
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.970019578933716
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.21796178817749
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.10724329948425
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.172142028808594
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.71321129798889
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.86759161949158
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.07077097892761
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.3422212600708
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.73089075088501
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.01122570037842
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.271812438964844
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.703619956970215
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.91936492919922
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.4525728225708
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.04454755783081
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.818469762802124
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.91600680351257
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.68173027038574
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.53060960769653
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.35458207130432
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.25387215614319
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.89718961715698
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.02821135520935
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.181474447250366
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.04485511779785
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.34623742103577
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.555766344070435
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.577168703079224
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.103883028030396
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.21813631057739
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.89376401901245
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.96279001235962
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.206881284713745
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.8843412399292
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.65803670883179
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.215516805648804
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.33600187301636
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.039716720581055
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.57171392440796
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.89976716041565
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.48439049720764
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.768150329589844
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.283772230148315
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.77754282951355
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.41185927391052
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.55935573577881
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.70942521095276
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.32104802131653
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.47980976104736
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.91980218887329
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.45520853996277
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.5231499671936
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.55956029891968
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.00531077384949
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.61101412773132
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.997347354888916
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.28665089607239
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.849358320236206
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 49.00362515449524
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.07809042930603
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.54079604148865
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.52882695198059
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.44411897659302
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.39674925804138
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.960800886154175
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.253029108047485
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.58748984336853
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.94260573387146
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.53897285461426
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.22608017921448
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.89179348945618
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.78828048706055
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.605722188949585
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.73916959762573
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.27386212348938
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.05149173736572
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.655349016189575
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.965176820755005
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.346293687820435
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.70496964454651
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 49.29329204559326
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.888060331344604
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.09314155578613
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.91740965843201
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.438263177871704
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.33148741722107
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.55683779716492
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.873480558395386
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.32313799858093
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.56095242500305
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.37335181236267
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.410908699035645
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.969789028167725
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.40763449668884
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.68800234794617
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.5726158618927
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.54359841346741
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.252450466156006
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.21722936630249
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.573858976364136
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.381072759628296
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.299081563949585
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.07517075538635
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.63418006896973
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.92415118217468
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.66404914855957
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.48015856742859
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.725077390670776
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.46296787261963
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.84468960762024
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.06234383583069
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.971898794174194
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.893243074417114
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.62497305870056
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.734534740448
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.97863221168518
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.03387498855591
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.47001004219055
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.119537115097046
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.57461881637573
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.10782337188721
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.4821834564209
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.28713774681091
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.89835977554321
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.55375862121582
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.82909107208252
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.985193967819214
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.082521200180054
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.510902643203735
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.6822292804718
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.904048204422
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.536662101745605
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.33400797843933
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.67329525947571
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.243173599243164
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.06972599029541
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.882139444351196
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.72610425949097
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.08297801017761
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.83920192718506
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.04561376571655
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.85077619552612
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.27009892463684
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.18564462661743
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.43249726295471
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.386338233947754
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.46377754211426
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.0037944316864
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.60335826873779
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.15628504753113
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.38326048851013
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.591246128082275
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.33224558830261
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.9631507396698
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.299453020095825
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.3197078704834
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.9120717048645
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.424091815948486
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 51.09426140785217
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.67976260185242
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.366843461990356
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.85805916786194
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.3638813495636
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.89435791969299
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.90713691711426
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.96139359474182
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.769147872924805
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.95180058479309
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.1563606262207
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 49.73331093788147
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.157756328582764
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.582234382629395
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.98941349983215
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.67379117012024
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.877251863479614
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.78956413269043
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 51.982760429382324
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.670212745666504
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.81074500083923
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.17758870124817
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.177937746047974
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.66820669174194
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.69269013404846
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.403008460998535
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.51085615158081
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.069539308547974
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.109837770462036
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.39622664451599
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.62382173538208
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.49225091934204
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.79911780357361
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.28302073478699
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.622514486312866
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.04691934585571
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.63155770301819
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.450780391693115
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.202338218688965
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.31813836097717
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.934967041015625
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.45682644844055
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.47712302207947
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.597941637039185
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.15717911720276
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.92088437080383
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.61861252784729
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.431143283843994
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.54256820678711
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.925501585006714
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.9331214427948
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.51760768890381
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.901713132858276
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.997246503829956
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.74366736412048
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.79262590408325
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.30421018600464
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.0156524181366
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.49129247665405
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.10463833808899
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.70375442504883
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.28045988082886
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.22512483596802
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.349950313568115
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.93574810028076
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.336061239242554
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.33685564994812
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.79791831970215
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.35601043701172
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.6083664894104
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.61833643913269
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.24522304534912
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.0070538520813
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.18435835838318
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.24234414100647
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.09769940376282
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.78308606147766
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 49.02683877944946
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 49.392741441726685
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.17957329750061
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.863545179367065
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.615864992141724
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.006654500961304
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.68530058860779
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.48172092437744
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.064677000045776
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.83972406387329
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.72709274291992
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.39203858375549
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.2149772644043
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.12889003753662
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.83928442001343
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.028071880340576
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.534796476364136
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.880035161972046
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.25287485122681
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.075177907943726
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.27111887931824
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.54043531417847
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.829341888427734
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.01748776435852
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.06197237968445
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.335301637649536
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.72931718826294
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.58346104621887
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.73088502883911
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.213749170303345
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.283555030822754
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.01922869682312
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.60175180435181
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.27600026130676
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.38625121116638
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.0873749256134
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.92679142951965
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.622010707855225
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.97567439079285
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.112548828125
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.00226664543152
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.38538146018982
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.97216749191284
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.87132430076599
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.20759606361389
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.46344995498657
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.163923501968384
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.590444803237915
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.29613494873047
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.933775186538696
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 49.075751543045044
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.65279459953308
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.07284474372864
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.06498336791992
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.49616599082947
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.2848801612854
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.4316668510437
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.06319522857666
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.82072067260742
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.95649266242981
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.06055736541748
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.683197021484375
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.636839866638184
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.50039219856262
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.602274656295776
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.41323256492615
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.2632942199707
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.17615866661072
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.8445999622345
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.909889459609985
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.167365074157715
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.84838032722473
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 49.663086891174316
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.44533133506775
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.425771713256836
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.6819486618042
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.71764659881592
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.0529944896698
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.21315336227417
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.89936566352844
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.64014506340027
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 49.053839683532715
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.21192812919617
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.17135524749756
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.49427556991577
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.651779651641846
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.89491558074951
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.51437449455261
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.99710774421692
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.59931492805481
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.090351581573486
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.23330044746399
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.28256344795227
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.08503293991089
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.25252938270569
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.17734670639038
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.183449029922485
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.118956089019775
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.56940197944641
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.30476236343384
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.87952756881714
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.872549533843994
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.19974398612976
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.337043046951294
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.551204681396484
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.258955001831055
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.50089502334595
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.69659757614136
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.602741718292236
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.01893949508667
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.20416760444641
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.08954381942749
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.15022015571594
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.730961084365845
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.820780754089355
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.62123918533325
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.149322509765625
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.279478311538696
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.76051306724548
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.752254247665405
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.46296811103821
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.93153762817383
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.5065336227417
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.71932053565979
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.612868547439575
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.82126426696777
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.66796541213989
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.86178708076477
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.276740074157715
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.740504026412964
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.59254574775696
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.69434142112732
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.47125720977783
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.53711295127869
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.492886543273926
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.483036518096924
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.105557441711426
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.33726215362549
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.75031876564026
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.08482503890991
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.92858386039734
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.4234721660614
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.428693771362305
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.1612012386322
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.219659090042114
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.929670095443726
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.36182618141174
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.65248203277588
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.44104814529419
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 50.26659655570984
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.98278045654297
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.332683086395264
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.86579775810242
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.164644718170166
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.84545683860779
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.52284026145935
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.8828444480896
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.01647710800171
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.93222784996033
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.73482370376587
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.59286713600159
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.35278010368347
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.10131812095642
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.764724254608154
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.752357482910156
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.771790742874146
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.207396268844604
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.37198328971863
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.993348598480225
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.30336022377014
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.05362915992737
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.33106732368469
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.27143955230713
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.02941036224365
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.71395564079285
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.343234062194824
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.527206897735596
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.088886737823486
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.91653919219971
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.495975971221924
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.08046817779541
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.069374799728394
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.40304160118103
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.40444540977478
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.38652324676514
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.16926026344299
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.3599054813385
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.19543647766113
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.6601767539978
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.4962956905365
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.8524534702301
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.911543130874634
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.07838034629822
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.76863408088684
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.37062621116638
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.66337585449219
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.81361675262451
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.661937952041626
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.781015157699585
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.79928493499756
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.3601553440094
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.71945381164551
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.23186731338501
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.094372510910034
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.4073920249939
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.483126401901245
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.27887272834778
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.69444537162781
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.84925365447998
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.356674671173096
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 48.227630376815796
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 46.074509143829346
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 44.302042961120605
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.335657596588135
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.89952993392944
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 45.921260356903076
+batch 0
+batch 1
+batch 2
+batch 3
+batch 4
+batch 5
+batch 6
+batch 7
+batch 8
+batch 9
+batch 10
+batch 11
+batch 12
+batch 13
+batch 14
+batch 15
+batch 16
+batch 17
+batch 18
+batch 19
+single class rank time: 47.24310111999512
+
+skipping harvester, rank already exists
+harvestman
+skipping harvestman, rank already exists
+hatchet
+skipping hatchet, rank already exists
+hay
+skipping hay, rank already exists
+head_cabbage
+skipping head_cabbage, rank already exists
+hen
+skipping hen, rank already exists
+hen-of-the-woods
+skipping hen-of-the-woods, rank already exists
+hermit_crab
+skipping hermit_crab, rank already exists
+hip
+skipping hip, rank already exists
+hippopotamus
+skipping hippopotamus, rank already exists
+hog
+skipping hog, rank already exists
+hognose_snake
+skipping hognose_snake, rank already exists
+holster
+skipping holster, rank already exists
+home_theater
+skipping home_theater, rank already exists
+honeycomb
+skipping honeycomb, rank already exists
+hook
+skipping hook, rank already exists
+hoopskirt
+skipping hoopskirt, rank already exists
+horizontal_bar
+skipping horizontal_bar, rank already exists
+hornbill
+skipping hornbill, rank already exists
+horned_viper
+skipping horned_viper, rank already exists
+horse_cart
+skipping horse_cart, rank already exists
+hot_pot
+skipping hot_pot, rank already exists
+hotdog
+skipping hotdog, rank already exists
+hourglass
+skipping hourglass, rank already exists
+house_finch
+skipping house_finch, rank already exists
+howler_monkey
+skipping howler_monkey, rank already exists
+hummingbird
+skipping hummingbird, rank already exists
+hyena
+skipping hyena, rank already exists
+iPod
+skipping iPod, rank already exists
+ibex
+skipping ibex, rank already exists
+ice_bear
+skipping ice_bear, rank already exists
+ice_cream
+skipping ice_cream, rank already exists
+ice_lolly
+skipping ice_lolly, rank already exists
+impala
+skipping impala, rank already exists
+indigo_bunting
+skipping indigo_bunting, rank already exists
+indri
+skipping indri, rank already exists
+iron
+skipping iron, rank already exists
+isopod
+skipping isopod, rank already exists
+jacamar
+skipping jacamar, rank already exists
+jack-o-lantern
+skipping jack-o-lantern, rank already exists
+jackfruit
+skipping jackfruit, rank already exists
+jaguar
+skipping jaguar, rank already exists
+jay
+skipping jay, rank already exists
+jean
+skipping jean, rank already exists
+jeep
+skipping jeep, rank already exists
+jellyfish
+skipping jellyfish, rank already exists
+jersey
+skipping jersey, rank already exists
+jigsaw_puzzle
+skipping jigsaw_puzzle, rank already exists
+jinrikisha
+skipping jinrikisha, rank already exists
+joystick
+skipping joystick, rank already exists
+junco
+skipping junco, rank already exists
+keeshond
+skipping keeshond, rank already exists
+kelpie
+skipping kelpie, rank already exists
+killer_whale
+skipping killer_whale, rank already exists
+kimono
+skipping kimono, rank already exists
+king_crab
+skipping king_crab, rank already exists
+king_penguin
+skipping king_penguin, rank already exists
+king_snake
+skipping king_snake, rank already exists
+kit_fox
+skipping kit_fox, rank already exists
+kite
+skipping kite, rank already exists
+knee_pad
+skipping knee_pad, rank already exists
+knot
+skipping knot, rank already exists
+koala
+skipping koala, rank already exists
+komondor
+skipping komondor, rank already exists
+kuvasz
+skipping kuvasz, rank already exists
+lab_coat
+skipping lab_coat, rank already exists
+lacewing
+ladle
+ladybug
+lakeside
+lampshade
+langur
+laptop
+lawn_mower
+leaf_beetle
+leafhopper
+leatherback_turtle
+lemon
+lens_cap
+leopard
+lesser_panda
+letter_opener
+library
+lifeboat
+lighter
+limousine
+limpkin
+liner
+lion
+lionfish
+lipstick
+little_blue_heron
+llama
+loggerhead
+long-horned_beetle
+lorikeet
+lotion
+loudspeaker
+loupe
+lumbermill
+lycaenid
+lynx
+macaque
+macaw
+magnetic_compass
+magpie
+mailbag
+mailbox
+maillot_1
+maillot_2
+malamute
+malinois
+manhole_cover
+mantis
+maraca
+marimba
+marmoset
+marmot
+mashed_potato
+mask
+matchstick
+maypole
+maze
+measuring_cup
+meat_loaf
+medicine_chest
+meerkat
+megalith
+menu
+microphone
+microwave
+military_uniform
+milk_can
+miniature_pinscher
+miniature_poodle
+miniature_schnauzer
+minibus
+miniskirt
+minivan
+mink
+missile
+mitten
+mixing_bowl
+mobile_home
+modem
+monarch
+monastery
+mongoose
+monitor
+moped
+mortar
+mortarboard
+mosque
+mosquito_net
+motor_scooter
+mountain_bike
+mountain_tent
+mouse
+mousetrap
+moving_van
+mud_turtle
+mushroom
+muzzle
+nail
+neck_brace
+necklace
+nematode
+night_snake
+nipple
+notebook
+obelisk
+oboe
+ocarina
+odometer
+oil_filter
+orange
+orangutan
+organ
+oscilloscope
+ostrich
+otter
+otterhound
+overskirt
+ox
+oxcart
+oxygen_mask
+oystercatcher
+packet
+paddle
+paddlewheel
+padlock
+paintbrush
+pajama
+palace
+panpipe
+paper_towel
+papillon
+parachute
+parallel_bars
+park_bench
+parking_meter
+partridge
+passenger_car
+patas
+patio
+pay-phone
+peacock
+pedestal
+pelican
+pencil_box
+pencil_sharpener
+perfume
+photocopier
+pick
+pickelhaube
+picket_fence
+pickup
+pier
+piggy_bank
+pill_bottle
+pillow
+pineapple
+ping-pong_ball
+pinwheel
+pirate
+pitcher
+pizza
+plane
+planetarium
+plastic_bag
+plate
+plate_rack
+platypus
+plow
+plunger
+pole
+polecat
+police_van
+pomegranate
+poncho
+pool_table
+pop_bottle
+porcupine
+pot
+potpie
+potters_wheel
+power_drill
+prairie_chicken
+prayer_rug
+pretzel
+printer
+prison
+proboscis_monkey
+projectile
+projector
+promontory
+ptarmigan
+puck
+puffer
+pug
+punching_bag
+purse
+quail
+quill
+quilt
+racer
+racket
+radiator
+radio
+radio_telescope
+rain_barrel
+ram
+rapeseed
+recreational_vehicle
+red-backed_sandpiper
+red-breasted_merganser
+red_fox
+red_wine
+red_wolf
+redbone
+redshank
+reel
+reflex_camera
+refrigerator
+remote_control
+restaurant
+revolver
+rhinoceros_beetle
+rifle
+ringlet
+ringneck_snake
+robin
+rock_beauty
+rock_crab
+rock_python
+rocking_chair
+rooster
+rotisserie
+rubber_eraser
+ruddy_turnstone
+ruffed_grouse
+rugby_ball
+rule
+running_shoe
+safe
+safety_pin
+saltshaker
+sandal
+sandbar
+sarong
+sax
+scabbard
+scale
+schipperke
+school_bus
+schooner
+scoreboard
+scorpion
+screen
+screw
+screwdriver
+scuba_diver
+sea_anemone
+sea_cucumber
+sea_lion
+sea_slug
+sea_snake
+sea_urchin
+seashore
+seat_belt
+sewing_machine
+shield
+shoe_shop
+shoji
+shopping_basket
+shopping_cart
+shovel
+shower_cap
+shower_curtain
+siamang
+sidewinder
+silky_terrier
+ski
+ski_mask
+skunk
+sleeping_bag
+slide_rule
+sliding_door
+slot
+sloth_bear
+slug
+snail
+snorkel
+snow_leopard
+snowmobile
+snowplow
+soap_dispenser
+soccer_ball
+sock
+soft-coated_wheaten_terrier
+solar_dish
+sombrero
+sorrel
+soup_bowl
+space_bar
+space_heater
+space_shuttle
+spaghetti_squash
+spatula
+speedboat
+spider_monkey
+spider_web
+spindle
+spiny_lobster
+spoonbill
+sports_car
+spotlight
+spotted_salamander
+squirrel_monkey
+stage
+standard_poodle
+standard_schnauzer
+starfish
+steam_locomotive
+steel_arch_bridge
+steel_drum
+stethoscope
+stingray
+stinkhorn
+stole
+stone_wall
+stopwatch
+stove
+strainer
+strawberry
+street_sign
+streetcar
+stretcher
+studio_couch
+stupa
+sturgeon
+submarine
+suit
+sulphur-crested_cockatoo
+sulphur_butterfly
+sundial
+sunglass
+sunglasses
+sunscreen
+suspension_bridge
+swab
+sweatshirt
+swimming_trunks
+swing
+switch
+syringe
+tabby
+table_lamp
+tailed_frog
+tank
+tape_player
+tarantula
+teapot
+teddy
+television
+tench
+tennis_ball
+terrapin
+thatch
+theater_curtain
+thimble
+three-toed_sloth
+thresher
+throne
+thunder_snake
+tick
+tiger
+tiger_beetle
+tiger_cat
+tiger_shark
+tile_roof
+timber_wolf
+titi
+toaster
+tobacco_shop
+toilet_seat
+toilet_tissue
+torch
+totem_pole
+toucan
+tow_truck
+toy_poodle
+toy_terrier
+toyshop
+tractor
+traffic_light
+trailer_truck
+tray
+tree_frog
+trench_coat
+triceratops
+tricycle
+trifle
+trilobite
+trimaran
+tripod
+triumphal_arch
+trolleybus
+trombone
+tub
+turnstile
+tusker
+typewriter_keyboard
+umbrella
+unicycle
+upright
+vacuum
+valley
+vase
+vault
+velvet
+vending_machine
+vestment
+viaduct
+vine_snake
+violin
+vizsla
+volcano
+volleyball
+vulture
+waffle_iron
+walking_stick
+wall_clock
+wallaby
+wallet
+wardrobe
+warplane
+warthog
+washbasin
+washer
+water_bottle
+water_buffalo
+water_jug
+water_ouzel
+water_snake
+water_tower
+weasel
+web_site
+weevil
+whippet
+whiptail
+whiskey_jug
+whistle
+white_stork
+white_wolf
+wig
+wild_boar
+window_screen
+window_shade
+wine_bottle
+wing
+wire-haired_fox_terrier
+wok
+wolf_spider
+wombat
+wood_rabbit
+wooden_spoon
+wool
+worm_fence
+wreck
+yawl
+yellow_ladys_slipper
+yurt
+zebra
+zucchini

@@ -1,0 +1,2270 @@
+OPTIMIZER
+Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.001
+    weight_decay: 0
+)
+MODEL
+cifar_CNN_prunned(
+  (features): Sequential(
+    (0): Conv2d(3, 45, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+    (1): ReLU()
+    (2): Conv2d(45, 23, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+    (3): ReLU()
+    (4): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (5): Conv2d(23, 49, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+    (6): ReLU()
+    (7): Conv2d(49, 47, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+    (8): ReLU()
+    (9): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=(6, 6))
+  (classifier): Sequential(
+    (0): Dropout(p=0.5, inplace=False)
+    (1): Linear(in_features=1692, out_features=1000, bias=True)
+    (2): ReLU()
+    (3): Dropout(p=0.5, inplace=False)
+    (4): Linear(in_features=1000, out_features=500, bias=True)
+    (5): ReLU()
+    (6): Linear(in_features=500, out_features=10, bias=True)
+  )
+)
+OPTIMIZER
+Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.001
+    weight_decay: 0
+)
+MODEL
+cifar_CNN_prunned(
+  (features): Sequential(
+    (0): Conv2d(3, 45, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+    (1): ReLU()
+    (2): Conv2d(45, 23, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+    (3): ReLU()
+    (4): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (5): Conv2d(23, 49, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+    (6): ReLU()
+    (7): Conv2d(49, 47, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+    (8): ReLU()
+    (9): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=(6, 6))
+  (classifier): Sequential(
+    (0): Dropout(p=0.5, inplace=False)
+    (1): Linear(in_features=1692, out_features=1000, bias=True)
+    (2): ReLU()
+    (3): Dropout(p=0.5, inplace=False)
+    (4): Linear(in_features=1000, out_features=500, bias=True)
+    (5): ReLU()
+    (6): Linear(in_features=500, out_features=10, bias=True)
+  )
+)
+Train Epoch: 1 [0/50000 (0%)]	Loss: 2.307094
+Train Epoch: 1 [12000/50000 (24%)]	Loss: 1.818316
+Train Epoch: 1 [24000/50000 (48%)]	Loss: 1.601699
+Train Epoch: 1 [36000/50000 (72%)]	Loss: 1.476464
+Train Epoch: 1 [48000/50000 (96%)]	Loss: 1.365767
+epoch: 1
+
+Test set: Average loss: 0.0046, Accuracy: 5142/10000 (51.42%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         948        0.572         0.587
+automobile        1000         1229        0.699         0.627
+bird        1000         652        0.247         0.299
+cat        1000         737        0.305         0.351
+deer        1000         1040        0.419         0.411
+dog        1000         675        0.356         0.425
+frog        1000         1569        0.725         0.564
+horse        1000         1083        0.611         0.587
+ship        1000         996        0.623         0.624
+truck        1000         1071        0.585         0.565
+
+
+Train Epoch: 2 [0/50000 (0%)]	Loss: 1.449026
+Train Epoch: 2 [12000/50000 (24%)]	Loss: 1.339309
+Train Epoch: 2 [24000/50000 (48%)]	Loss: 1.433774
+Train Epoch: 2 [36000/50000 (72%)]	Loss: 1.244331
+Train Epoch: 2 [48000/50000 (96%)]	Loss: 1.199023
+epoch: 2
+
+Test set: Average loss: 0.0037, Accuracy: 6166/10000 (61.66%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         795        0.578         0.644
+automobile        1000         991        0.75         0.753
+bird        1000         717        0.406         0.473
+cat        1000         1463        0.545         0.443
+deer        1000         615        0.389         0.482
+dog        1000         1200        0.571         0.519
+frog        1000         1120        0.765         0.722
+horse        1000         911        0.665         0.696
+ship        1000         1179        0.797         0.732
+truck        1000         1009        0.7         0.697
+
+
+Train Epoch: 3 [0/50000 (0%)]	Loss: 1.121948
+Train Epoch: 3 [12000/50000 (24%)]	Loss: 1.124461
+Train Epoch: 3 [24000/50000 (48%)]	Loss: 1.000850
+Train Epoch: 3 [36000/50000 (72%)]	Loss: 0.961862
+Train Epoch: 3 [48000/50000 (96%)]	Loss: 1.139176
+epoch: 3
+
+Test set: Average loss: 0.0032, Accuracy: 6620/10000 (66.20%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1023        0.721         0.713
+automobile        1000         856        0.723         0.779
+bird        1000         1103        0.578         0.55
+cat        1000         1341        0.59         0.504
+deer        1000         762        0.517         0.587
+dog        1000         702        0.462         0.543
+frog        1000         959        0.735         0.75
+horse        1000         1336        0.812         0.695
+ship        1000         750        0.66         0.754
+truck        1000         1168        0.822         0.758
+
+
+Train Epoch: 4 [0/50000 (0%)]	Loss: 0.980758
+Train Epoch: 4 [12000/50000 (24%)]	Loss: 0.937726
+Train Epoch: 4 [24000/50000 (48%)]	Loss: 1.039467
+Train Epoch: 4 [36000/50000 (72%)]	Loss: 0.919828
+Train Epoch: 4 [48000/50000 (96%)]	Loss: 0.991154
+epoch: 4
+
+Test set: Average loss: 0.0029, Accuracy: 7076/10000 (70.76%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1141        0.813         0.759
+automobile        1000         1195        0.907         0.826
+bird        1000         835        0.526         0.573
+cat        1000         545        0.341         0.441
+deer        1000         985        0.635         0.64
+dog        1000         1155        0.665         0.617
+frog        1000         1245        0.857         0.763
+horse        1000         1095        0.8         0.764
+ship        1000         877        0.765         0.815
+truck        1000         927        0.767         0.796
+
+
+Train Epoch: 5 [0/50000 (0%)]	Loss: 0.934266
+Train Epoch: 5 [12000/50000 (24%)]	Loss: 0.879068
+Train Epoch: 5 [24000/50000 (48%)]	Loss: 0.903678
+Train Epoch: 5 [36000/50000 (72%)]	Loss: 0.875423
+Train Epoch: 5 [48000/50000 (96%)]	Loss: 0.758597
+epoch: 5
+
+Test set: Average loss: 0.0026, Accuracy: 7319/10000 (73.19%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         944        0.754         0.776
+automobile        1000         1054        0.882         0.859
+bird        1000         838        0.557         0.606
+cat        1000         1126        0.577         0.543
+deer        1000         918        0.636         0.663
+dog        1000         974        0.626         0.634
+frog        1000         1091        0.826         0.79
+horse        1000         1113        0.81         0.767
+ship        1000         912        0.809         0.846
+truck        1000         1030        0.842         0.83
+
+
+Train Epoch: 6 [0/50000 (0%)]	Loss: 0.779376
+Train Epoch: 6 [12000/50000 (24%)]	Loss: 0.752066
+Train Epoch: 6 [24000/50000 (48%)]	Loss: 0.751473
+Train Epoch: 6 [36000/50000 (72%)]	Loss: 0.761749
+Train Epoch: 6 [48000/50000 (96%)]	Loss: 0.856070
+epoch: 6
+
+Test set: Average loss: 0.0025, Accuracy: 7462/10000 (74.62%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         933        0.761         0.787
+automobile        1000         1124        0.907         0.854
+bird        1000         952        0.618         0.633
+cat        1000         1021        0.566         0.56
+deer        1000         989        0.695         0.699
+dog        1000         1143        0.709         0.662
+frog        1000         1038        0.832         0.816
+horse        1000         988        0.781         0.786
+ship        1000         932        0.814         0.843
+truck        1000         880        0.779         0.829
+
+
+Train Epoch: 7 [0/50000 (0%)]	Loss: 0.703139
+Train Epoch: 7 [12000/50000 (24%)]	Loss: 0.681575
+Train Epoch: 7 [24000/50000 (48%)]	Loss: 0.854664
+Train Epoch: 7 [36000/50000 (72%)]	Loss: 0.718718
+Train Epoch: 7 [48000/50000 (96%)]	Loss: 0.720068
+epoch: 7
+
+Test set: Average loss: 0.0024, Accuracy: 7606/10000 (76.06%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1032        0.805         0.792
+automobile        1000         982        0.878         0.886
+bird        1000         919        0.621         0.647
+cat        1000         847        0.521         0.564
+deer        1000         1063        0.732         0.71
+dog        1000         950        0.639         0.655
+frog        1000         1085        0.849         0.814
+horse        1000         1138        0.844         0.79
+ship        1000         999        0.863         0.863
+truck        1000         985        0.854         0.86
+
+
+Train Epoch: 8 [0/50000 (0%)]	Loss: 0.623844
+Train Epoch: 8 [12000/50000 (24%)]	Loss: 0.769469
+Train Epoch: 8 [24000/50000 (48%)]	Loss: 0.681525
+Train Epoch: 8 [36000/50000 (72%)]	Loss: 0.630377
+Train Epoch: 8 [48000/50000 (96%)]	Loss: 0.776743
+epoch: 8
+
+Test set: Average loss: 0.0024, Accuracy: 7623/10000 (76.23%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         872        0.74         0.791
+automobile        1000         884        0.823         0.874
+bird        1000         891        0.616         0.652
+cat        1000         1034        0.603         0.593
+deer        1000         1179        0.777         0.713
+dog        1000         953        0.659         0.675
+frog        1000         1168        0.865         0.798
+horse        1000         955        0.79         0.808
+ship        1000         1019        0.87         0.862
+truck        1000         1045        0.88         0.861
+
+
+Train Epoch: 9 [0/50000 (0%)]	Loss: 0.668274
+Train Epoch: 9 [12000/50000 (24%)]	Loss: 0.645464
+Train Epoch: 9 [24000/50000 (48%)]	Loss: 0.735497
+Train Epoch: 9 [36000/50000 (72%)]	Loss: 0.733089
+Train Epoch: 9 [48000/50000 (96%)]	Loss: 0.620069
+epoch: 9
+
+Test set: Average loss: 0.0023, Accuracy: 7701/10000 (77.01%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1129        0.847         0.796
+automobile        1000         1031        0.904         0.89
+bird        1000         943        0.66         0.679
+cat        1000         1130        0.633         0.594
+deer        1000         1008        0.739         0.736
+dog        1000         697        0.538         0.634
+frog        1000         1104        0.859         0.817
+horse        1000         874        0.766         0.818
+ship        1000         1067        0.886         0.857
+truck        1000         1017        0.869         0.862
+
+
+Train Epoch: 10 [0/50000 (0%)]	Loss: 0.720536
+Train Epoch: 10 [12000/50000 (24%)]	Loss: 0.583524
+Train Epoch: 10 [24000/50000 (48%)]	Loss: 0.676538
+Train Epoch: 10 [36000/50000 (72%)]	Loss: 0.658688
+Train Epoch: 10 [48000/50000 (96%)]	Loss: 0.654759
+epoch: 10
+
+Test set: Average loss: 0.0021, Accuracy: 7820/10000 (78.20%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1039        0.837         0.821
+automobile        1000         1008        0.897         0.893
+bird        1000         936        0.668         0.69
+cat        1000         957        0.572         0.585
+deer        1000         971        0.731         0.742
+dog        1000         1013        0.701         0.696
+frog        1000         1170        0.884         0.815
+horse        1000         1019        0.831         0.823
+ship        1000         939        0.85         0.877
+truck        1000         948        0.849         0.872
+
+
+Train Epoch: 11 [0/50000 (0%)]	Loss: 0.534884
+Train Epoch: 11 [12000/50000 (24%)]	Loss: 0.654825
+Train Epoch: 11 [24000/50000 (48%)]	Loss: 0.687189
+Train Epoch: 11 [36000/50000 (72%)]	Loss: 0.690224
+Train Epoch: 11 [48000/50000 (96%)]	Loss: 0.680785
+epoch: 11
+
+Test set: Average loss: 0.0021, Accuracy: 7813/10000 (78.13%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         944        0.788         0.811
+automobile        1000         949        0.873         0.896
+bird        1000         760        0.597         0.678
+cat        1000         1134        0.646         0.605
+deer        1000         1134        0.791         0.741
+dog        1000         927        0.653         0.678
+frog        1000         1014        0.837         0.831
+horse        1000         1003        0.839         0.838
+ship        1000         1110        0.91         0.863
+truck        1000         1025        0.879         0.868
+
+
+Train Epoch: 12 [0/50000 (0%)]	Loss: 0.631327
+Train Epoch: 12 [12000/50000 (24%)]	Loss: 0.610658
+Train Epoch: 12 [24000/50000 (48%)]	Loss: 0.537432
+Train Epoch: 12 [36000/50000 (72%)]	Loss: 0.658002
+Train Epoch: 12 [48000/50000 (96%)]	Loss: 0.622873
+epoch: 12
+
+Test set: Average loss: 0.0021, Accuracy: 7895/10000 (78.95%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1062        0.84         0.815
+automobile        1000         982        0.89         0.898
+bird        1000         848        0.651         0.705
+cat        1000         1026        0.61         0.602
+deer        1000         886        0.695         0.737
+dog        1000         1014        0.71         0.705
+frog        1000         1126        0.876         0.824
+horse        1000         971        0.829         0.841
+ship        1000         1033        0.897         0.882
+truck        1000         1052        0.897         0.874
+
+
+Train Epoch: 13 [0/50000 (0%)]	Loss: 0.571973
+Train Epoch: 13 [12000/50000 (24%)]	Loss: 0.578893
+Train Epoch: 13 [24000/50000 (48%)]	Loss: 0.490341
+Train Epoch: 13 [36000/50000 (72%)]	Loss: 0.548515
+Train Epoch: 13 [48000/50000 (96%)]	Loss: 0.574439
+epoch: 13
+
+Test set: Average loss: 0.0021, Accuracy: 7918/10000 (79.18%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         989        0.826         0.831
+automobile        1000         1037        0.911         0.894
+bird        1000         883        0.655         0.696
+cat        1000         1096        0.63         0.601
+deer        1000         951        0.752         0.771
+dog        1000         1012        0.712         0.708
+frog        1000         1089        0.864         0.827
+horse        1000         1000        0.839         0.839
+ship        1000         897        0.834         0.879
+truck        1000         1046        0.895         0.875
+
+
+Train Epoch: 14 [0/50000 (0%)]	Loss: 0.498169
+Train Epoch: 14 [12000/50000 (24%)]	Loss: 0.514960
+Train Epoch: 14 [24000/50000 (48%)]	Loss: 0.521824
+Train Epoch: 14 [36000/50000 (72%)]	Loss: 0.516338
+Train Epoch: 14 [48000/50000 (96%)]	Loss: 0.495611
+epoch: 14
+
+Test set: Average loss: 0.0021, Accuracy: 7846/10000 (78.46%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         956        0.804         0.822
+automobile        1000         924        0.851         0.885
+bird        1000         728        0.589         0.682
+cat        1000         852        0.538         0.581
+deer        1000         1099        0.801         0.763
+dog        1000         1262        0.796         0.704
+frog        1000         1060        0.857         0.832
+horse        1000         1041        0.86         0.843
+ship        1000         883        0.816         0.867
+truck        1000         1195        0.934         0.851
+
+
+Train Epoch: 15 [0/50000 (0%)]	Loss: 0.599323
+Train Epoch: 15 [12000/50000 (24%)]	Loss: 0.580664
+Train Epoch: 15 [24000/50000 (48%)]	Loss: 0.620854
+Train Epoch: 15 [36000/50000 (72%)]	Loss: 0.577035
+Train Epoch: 15 [48000/50000 (96%)]	Loss: 0.546855
+epoch: 15
+
+Test set: Average loss: 0.0019, Accuracy: 8012/10000 (80.12%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1002        0.83         0.829
+automobile        1000         1023        0.917         0.907
+bird        1000         864        0.663         0.711
+cat        1000         960        0.611         0.623
+deer        1000         1003        0.761         0.76
+dog        1000         919        0.689         0.718
+frog        1000         1099        0.886         0.844
+horse        1000         1087        0.878         0.841
+ship        1000         1014        0.887         0.881
+truck        1000         1029        0.89         0.877
+
+
+Train Epoch: 16 [0/50000 (0%)]	Loss: 0.513284
+Train Epoch: 16 [12000/50000 (24%)]	Loss: 0.520368
+Train Epoch: 16 [24000/50000 (48%)]	Loss: 0.488744
+Train Epoch: 16 [36000/50000 (72%)]	Loss: 0.550770
+Train Epoch: 16 [48000/50000 (96%)]	Loss: 0.573940
+epoch: 16
+
+Test set: Average loss: 0.0020, Accuracy: 7985/10000 (79.85%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1072        0.851         0.821
+automobile        1000         960        0.887         0.905
+bird        1000         798        0.638         0.71
+cat        1000         1083        0.65         0.624
+deer        1000         964        0.747         0.761
+dog        1000         924        0.688         0.715
+frog        1000         1016        0.854         0.847
+horse        1000         1023        0.853         0.843
+ship        1000         1074        0.91         0.878
+truck        1000         1086        0.907         0.87
+
+
+Train Epoch: 17 [0/50000 (0%)]	Loss: 0.564186
+Train Epoch: 17 [12000/50000 (24%)]	Loss: 0.493772
+Train Epoch: 17 [24000/50000 (48%)]	Loss: 0.449229
+Train Epoch: 17 [36000/50000 (72%)]	Loss: 0.524858
+Train Epoch: 17 [48000/50000 (96%)]	Loss: 0.564154
+epoch: 17
+
+Test set: Average loss: 0.0019, Accuracy: 8082/10000 (80.82%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1058        0.868         0.844
+automobile        1000         970        0.891         0.905
+bird        1000         862        0.675         0.725
+cat        1000         1002        0.627         0.626
+deer        1000         1070        0.796         0.769
+dog        1000         973        0.709         0.719
+frog        1000         1004        0.847         0.845
+horse        1000         1007        0.864         0.861
+ship        1000         999        0.895         0.895
+truck        1000         1055        0.91         0.886
+
+
+Train Epoch: 18 [0/50000 (0%)]	Loss: 0.419614
+Train Epoch: 18 [12000/50000 (24%)]	Loss: 0.475415
+Train Epoch: 18 [24000/50000 (48%)]	Loss: 0.510064
+Train Epoch: 18 [36000/50000 (72%)]	Loss: 0.428943
+Train Epoch: 18 [48000/50000 (96%)]	Loss: 0.559763
+epoch: 18
+
+Test set: Average loss: 0.0020, Accuracy: 8016/10000 (80.16%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         992        0.843         0.846
+automobile        1000         978        0.889         0.899
+bird        1000         818        0.659         0.725
+cat        1000         938        0.606         0.625
+deer        1000         1156        0.823         0.763
+dog        1000         999        0.712         0.712
+frog        1000         1217        0.91         0.821
+horse        1000         971        0.841         0.853
+ship        1000         914        0.846         0.884
+truck        1000         1017        0.887         0.88
+
+
+Train Epoch: 19 [0/50000 (0%)]	Loss: 0.533775
+Train Epoch: 19 [12000/50000 (24%)]	Loss: 0.519308
+Train Epoch: 19 [24000/50000 (48%)]	Loss: 0.429501
+Train Epoch: 19 [36000/50000 (72%)]	Loss: 0.558400
+Train Epoch: 19 [48000/50000 (96%)]	Loss: 0.464706
+epoch: 19
+
+Test set: Average loss: 0.0020, Accuracy: 7964/10000 (79.64%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         947        0.803         0.825
+automobile        1000         927        0.869         0.902
+bird        1000         833        0.664         0.724
+cat        1000         1137        0.663         0.62
+deer        1000         1107        0.808         0.767
+dog        1000         737        0.596         0.686
+frog        1000         1120        0.877         0.827
+horse        1000         996        0.843         0.845
+ship        1000         1067        0.911         0.881
+truck        1000         1129        0.93         0.874
+
+
+Train Epoch: 20 [0/50000 (0%)]	Loss: 0.507010
+Train Epoch: 20 [12000/50000 (24%)]	Loss: 0.393164
+Train Epoch: 20 [24000/50000 (48%)]	Loss: 0.422486
+Train Epoch: 20 [36000/50000 (72%)]	Loss: 0.463994
+Train Epoch: 20 [48000/50000 (96%)]	Loss: 0.464248
+epoch: 20
+
+Test set: Average loss: 0.0020, Accuracy: 8024/10000 (80.24%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         929        0.804         0.834
+automobile        1000         960        0.883         0.901
+bird        1000         856        0.674         0.726
+cat        1000         1157        0.682         0.632
+deer        1000         983        0.75         0.756
+dog        1000         809        0.652         0.721
+frog        1000         1270        0.924         0.814
+horse        1000         947        0.841         0.864
+ship        1000         1038        0.902         0.885
+truck        1000         1051        0.912         0.889
+
+
+Train Epoch: 21 [0/50000 (0%)]	Loss: 0.493666
+Train Epoch: 21 [12000/50000 (24%)]	Loss: 0.519968
+Train Epoch: 21 [24000/50000 (48%)]	Loss: 0.374520
+Train Epoch: 21 [36000/50000 (72%)]	Loss: 0.417299
+Train Epoch: 21 [48000/50000 (96%)]	Loss: 0.457712
+epoch: 21
+
+Test set: Average loss: 0.0020, Accuracy: 8066/10000 (80.66%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1069        0.861         0.832
+automobile        1000         1053        0.933         0.909
+bird        1000         958        0.716         0.731
+cat        1000         982        0.632         0.638
+deer        1000         805        0.68         0.753
+dog        1000         943        0.718         0.739
+frog        1000         1241        0.916         0.817
+horse        1000         1010        0.853         0.849
+ship        1000         1000        0.89         0.89
+truck        1000         939        0.867         0.894
+
+
+Train Epoch: 22 [0/50000 (0%)]	Loss: 0.411071
+Train Epoch: 22 [12000/50000 (24%)]	Loss: 0.470872
+Train Epoch: 22 [24000/50000 (48%)]	Loss: 0.499460
+Train Epoch: 22 [36000/50000 (72%)]	Loss: 0.417794
+Train Epoch: 22 [48000/50000 (96%)]	Loss: 0.458138
+epoch: 22
+
+Test set: Average loss: 0.0020, Accuracy: 7994/10000 (79.94%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1003        0.837         0.836
+automobile        1000         887        0.843         0.893
+bird        1000         739        0.614         0.706
+cat        1000         1054        0.653         0.636
+deer        1000         1164        0.816         0.754
+dog        1000         892        0.677         0.716
+frog        1000         1150        0.898         0.835
+horse        1000         993        0.85         0.853
+ship        1000         982        0.88         0.888
+truck        1000         1136        0.926         0.867
+
+
+Train Epoch: 23 [0/50000 (0%)]	Loss: 0.422332
+Train Epoch: 23 [12000/50000 (24%)]	Loss: 0.388179
+Train Epoch: 23 [24000/50000 (48%)]	Loss: 0.351559
+Train Epoch: 23 [36000/50000 (72%)]	Loss: 0.425768
+Train Epoch: 23 [48000/50000 (96%)]	Loss: 0.456514
+epoch: 23
+
+Test set: Average loss: 0.0020, Accuracy: 8020/10000 (80.20%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         900        0.796         0.838
+automobile        1000         965        0.895         0.911
+bird        1000         906        0.701         0.736
+cat        1000         1354        0.733         0.623
+deer        1000         949        0.76         0.78
+dog        1000         780        0.614         0.69
+frog        1000         1182        0.906         0.83
+horse        1000         969        0.836         0.849
+ship        1000         992        0.888         0.892
+truck        1000         1003        0.891         0.89
+
+
+Train Epoch: 24 [0/50000 (0%)]	Loss: 0.424812
+Train Epoch: 24 [12000/50000 (24%)]	Loss: 0.447752
+Train Epoch: 24 [24000/50000 (48%)]	Loss: 0.358578
+Train Epoch: 24 [36000/50000 (72%)]	Loss: 0.507830
+Train Epoch: 24 [48000/50000 (96%)]	Loss: 0.469530
+epoch: 24
+
+Test set: Average loss: 0.0020, Accuracy: 8017/10000 (80.17%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1040        0.845         0.828
+automobile        1000         959        0.888         0.907
+bird        1000         878        0.697         0.742
+cat        1000         1439        0.767         0.629
+deer        1000         994        0.77         0.772
+dog        1000         695        0.573         0.676
+frog        1000         989        0.847         0.852
+horse        1000         958        0.833         0.851
+ship        1000         1063        0.914         0.886
+truck        1000         985        0.883         0.89
+
+
+Train Epoch: 25 [0/50000 (0%)]	Loss: 0.407376
+Train Epoch: 25 [12000/50000 (24%)]	Loss: 0.362147
+Train Epoch: 25 [24000/50000 (48%)]	Loss: 0.352666
+Train Epoch: 25 [36000/50000 (72%)]	Loss: 0.372828
+Train Epoch: 25 [48000/50000 (96%)]	Loss: 0.308022
+epoch: 25
+
+Test set: Average loss: 0.0019, Accuracy: 8085/10000 (80.85%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         950        0.813         0.834
+automobile        1000         959        0.896         0.915
+bird        1000         907        0.703         0.737
+cat        1000         913        0.604         0.631
+deer        1000         1230        0.853         0.765
+dog        1000         947        0.713         0.732
+frog        1000         962        0.83         0.846
+horse        1000         962        0.83         0.846
+ship        1000         1131        0.937         0.879
+truck        1000         1039        0.906         0.889
+
+
+Train Epoch: 26 [0/50000 (0%)]	Loss: 0.414799
+Train Epoch: 26 [12000/50000 (24%)]	Loss: 0.411845
+Train Epoch: 26 [24000/50000 (48%)]	Loss: 0.344556
+Train Epoch: 26 [36000/50000 (72%)]	Loss: 0.428960
+Train Epoch: 26 [48000/50000 (96%)]	Loss: 0.301130
+epoch: 26
+
+Test set: Average loss: 0.0019, Accuracy: 8091/10000 (80.91%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1069        0.868         0.839
+automobile        1000         1021        0.919         0.909
+bird        1000         968        0.723         0.735
+cat        1000         949        0.617         0.633
+deer        1000         1089        0.814         0.779
+dog        1000         933        0.699         0.723
+frog        1000         1057        0.87         0.846
+horse        1000         1049        0.863         0.842
+ship        1000         914        0.852         0.89
+truck        1000         951        0.866         0.888
+
+
+Train Epoch: 27 [0/50000 (0%)]	Loss: 0.420398
+Train Epoch: 27 [12000/50000 (24%)]	Loss: 0.415157
+Train Epoch: 27 [24000/50000 (48%)]	Loss: 0.379966
+Train Epoch: 27 [36000/50000 (72%)]	Loss: 0.368735
+Train Epoch: 27 [48000/50000 (96%)]	Loss: 0.382433
+epoch: 27
+
+Test set: Average loss: 0.0019, Accuracy: 8133/10000 (81.33%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         929        0.81         0.84
+automobile        1000         979        0.907         0.917
+bird        1000         982        0.742         0.749
+cat        1000         1096        0.679         0.648
+deer        1000         1184        0.844         0.773
+dog        1000         928        0.701         0.727
+frog        1000         915        0.812         0.848
+horse        1000         1005        0.848         0.846
+ship        1000         955        0.878         0.898
+truck        1000         1027        0.912         0.9
+
+
+Train Epoch: 28 [0/50000 (0%)]	Loss: 0.343844
+Train Epoch: 28 [12000/50000 (24%)]	Loss: 0.379771
+Train Epoch: 28 [24000/50000 (48%)]	Loss: 0.372038
+Train Epoch: 28 [36000/50000 (72%)]	Loss: 0.358475
+Train Epoch: 28 [48000/50000 (96%)]	Loss: 0.369013
+epoch: 28
+
+Test set: Average loss: 0.0019, Accuracy: 8120/10000 (81.20%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1028        0.858         0.846
+automobile        1000         963        0.895         0.912
+bird        1000         960        0.73         0.745
+cat        1000         1197        0.709         0.645
+deer        1000         1089        0.817         0.782
+dog        1000         848        0.672         0.727
+frog        1000         1014        0.855         0.849
+horse        1000         950        0.82         0.841
+ship        1000         981        0.884         0.892
+truck        1000         970        0.88         0.893
+
+
+Train Epoch: 29 [0/50000 (0%)]	Loss: 0.351823
+Train Epoch: 29 [12000/50000 (24%)]	Loss: 0.413437
+Train Epoch: 29 [24000/50000 (48%)]	Loss: 0.365821
+Train Epoch: 29 [36000/50000 (72%)]	Loss: 0.350819
+Train Epoch: 29 [48000/50000 (96%)]	Loss: 0.406916
+epoch: 29
+
+Test set: Average loss: 0.0019, Accuracy: 8146/10000 (81.46%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         973        0.837         0.848
+automobile        1000         1061        0.93         0.902
+bird        1000         889        0.698         0.739
+cat        1000         1086        0.68         0.652
+deer        1000         990        0.785         0.789
+dog        1000         866        0.684         0.733
+frog        1000         1102        0.892         0.849
+horse        1000         1032        0.861         0.847
+ship        1000         962        0.874         0.891
+truck        1000         1039        0.905         0.888
+
+
+Train Epoch: 30 [0/50000 (0%)]	Loss: 0.325883
+Train Epoch: 30 [12000/50000 (24%)]	Loss: 0.376755
+Train Epoch: 30 [24000/50000 (48%)]	Loss: 0.373782
+Train Epoch: 30 [36000/50000 (72%)]	Loss: 0.404780
+Train Epoch: 30 [48000/50000 (96%)]	Loss: 0.372920
+epoch: 30
+
+Test set: Average loss: 0.0019, Accuracy: 8147/10000 (81.47%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         984        0.845         0.852
+automobile        1000         966        0.898         0.914
+bird        1000         1028        0.754         0.744
+cat        1000         1070        0.669         0.646
+deer        1000         867        0.723         0.775
+dog        1000         989        0.735         0.739
+frog        1000         1147        0.901         0.839
+horse        1000         942        0.827         0.852
+ship        1000         969        0.886         0.9
+truck        1000         1038        0.909         0.892
+
+
+Train Epoch: 31 [0/50000 (0%)]	Loss: 0.315185
+Train Epoch: 31 [12000/50000 (24%)]	Loss: 0.437213
+Train Epoch: 31 [24000/50000 (48%)]	Loss: 0.349601
+Train Epoch: 31 [36000/50000 (72%)]	Loss: 0.361911
+Train Epoch: 31 [48000/50000 (96%)]	Loss: 0.349751
+epoch: 31
+
+Test set: Average loss: 0.0019, Accuracy: 8111/10000 (81.11%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         945        0.82         0.843
+automobile        1000         1015        0.919         0.912
+bird        1000         825        0.674         0.739
+cat        1000         927        0.61         0.633
+deer        1000         1017        0.768         0.762
+dog        1000         1008        0.739         0.736
+frog        1000         1093        0.889         0.849
+horse        1000         1047        0.865         0.845
+ship        1000         1058        0.913         0.887
+truck        1000         1065        0.914         0.885
+
+
+Train Epoch: 32 [0/50000 (0%)]	Loss: 0.302733
+Train Epoch: 32 [12000/50000 (24%)]	Loss: 0.324515
+Train Epoch: 32 [24000/50000 (48%)]	Loss: 0.299665
+Train Epoch: 32 [36000/50000 (72%)]	Loss: 0.337833
+Train Epoch: 32 [48000/50000 (96%)]	Loss: 0.346434
+epoch: 32
+
+Test set: Average loss: 0.0020, Accuracy: 8093/10000 (80.93%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         977        0.83         0.84
+automobile        1000         982        0.905         0.913
+bird        1000         875        0.703         0.75
+cat        1000         1160        0.674         0.624
+deer        1000         1005        0.788         0.786
+dog        1000         991        0.724         0.727
+frog        1000         1145        0.896         0.835
+horse        1000         943        0.829         0.853
+ship        1000         948        0.865         0.888
+truck        1000         974        0.879         0.891
+
+
+Train Epoch: 33 [0/50000 (0%)]	Loss: 0.327128
+Train Epoch: 33 [12000/50000 (24%)]	Loss: 0.298070
+Train Epoch: 33 [24000/50000 (48%)]	Loss: 0.287939
+Train Epoch: 33 [36000/50000 (72%)]	Loss: 0.439938
+Train Epoch: 33 [48000/50000 (96%)]	Loss: 0.360129
+epoch: 33
+
+Test set: Average loss: 0.0019, Accuracy: 8163/10000 (81.63%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1033        0.861         0.847
+automobile        1000         988        0.904         0.909
+bird        1000         793        0.659         0.735
+cat        1000         1232        0.739         0.662
+deer        1000         1098        0.813         0.775
+dog        1000         829        0.669         0.732
+frog        1000         991        0.849         0.853
+horse        1000         979        0.852         0.861
+ship        1000         1017        0.906         0.898
+truck        1000         1040        0.911         0.893
+
+
+Train Epoch: 34 [0/50000 (0%)]	Loss: 0.343155
+Train Epoch: 34 [12000/50000 (24%)]	Loss: 0.286581
+Train Epoch: 34 [24000/50000 (48%)]	Loss: 0.327044
+Train Epoch: 34 [36000/50000 (72%)]	Loss: 0.345110
+Train Epoch: 34 [48000/50000 (96%)]	Loss: 0.302417
+epoch: 34
+
+Test set: Average loss: 0.0019, Accuracy: 8156/10000 (81.56%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         956        0.826         0.845
+automobile        1000         1047        0.927         0.906
+bird        1000         849        0.696         0.753
+cat        1000         1184        0.716         0.656
+deer        1000         1079        0.813         0.782
+dog        1000         908        0.696         0.73
+frog        1000         909        0.813         0.852
+horse        1000         990        0.856         0.86
+ship        1000         1021        0.902         0.893
+truck        1000         1057        0.911         0.886
+
+
+Train Epoch: 35 [0/50000 (0%)]	Loss: 0.281387
+Train Epoch: 35 [12000/50000 (24%)]	Loss: 0.337808
+Train Epoch: 35 [24000/50000 (48%)]	Loss: 0.346595
+Train Epoch: 35 [36000/50000 (72%)]	Loss: 0.258228
+Train Epoch: 35 [48000/50000 (96%)]	Loss: 0.344813
+epoch: 35
+
+Test set: Average loss: 0.0019, Accuracy: 8188/10000 (81.88%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1034        0.862         0.848
+automobile        1000         1052        0.925         0.902
+bird        1000         893        0.72         0.761
+cat        1000         896        0.615         0.649
+deer        1000         968        0.773         0.786
+dog        1000         1086        0.782         0.75
+frog        1000         986        0.844         0.85
+horse        1000         1047        0.875         0.855
+ship        1000         963        0.877         0.894
+truck        1000         1075        0.915         0.882
+
+
+Train Epoch: 36 [0/50000 (0%)]	Loss: 0.298519
+Train Epoch: 36 [12000/50000 (24%)]	Loss: 0.331829
+Train Epoch: 36 [24000/50000 (48%)]	Loss: 0.360319
+Train Epoch: 36 [36000/50000 (72%)]	Loss: 0.276608
+Train Epoch: 36 [48000/50000 (96%)]	Loss: 0.301763
+epoch: 36
+
+Test set: Average loss: 0.0020, Accuracy: 8114/10000 (81.14%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         999        0.85         0.85
+automobile        1000         1008        0.909         0.905
+bird        1000         757        0.636         0.724
+cat        1000         977        0.644         0.651
+deer        1000         1135        0.824         0.772
+dog        1000         1005        0.739         0.737
+frog        1000         1202        0.912         0.828
+horse        1000         946        0.829         0.852
+ship        1000         937        0.867         0.895
+truck        1000         1034        0.904         0.889
+
+
+Train Epoch: 37 [0/50000 (0%)]	Loss: 0.390154
+Train Epoch: 37 [12000/50000 (24%)]	Loss: 0.305670
+Train Epoch: 37 [24000/50000 (48%)]	Loss: 0.278949
+Train Epoch: 37 [36000/50000 (72%)]	Loss: 0.323624
+Train Epoch: 37 [48000/50000 (96%)]	Loss: 0.322816
+epoch: 37
+
+Test set: Average loss: 0.0019, Accuracy: 8152/10000 (81.52%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1012        0.848         0.843
+automobile        1000         1040        0.927         0.909
+bird        1000         833        0.686         0.748
+cat        1000         1206        0.722         0.655
+deer        1000         1108        0.821         0.779
+dog        1000         888        0.69         0.731
+frog        1000         940        0.831         0.857
+horse        1000         962        0.838         0.854
+ship        1000         983        0.893         0.901
+truck        1000         1028        0.896         0.884
+
+
+Train Epoch: 38 [0/50000 (0%)]	Loss: 0.295741
+Train Epoch: 38 [12000/50000 (24%)]	Loss: 0.286727
+Train Epoch: 38 [24000/50000 (48%)]	Loss: 0.337819
+Train Epoch: 38 [36000/50000 (72%)]	Loss: 0.295452
+Train Epoch: 38 [48000/50000 (96%)]	Loss: 0.285953
+epoch: 38
+
+Test set: Average loss: 0.0019, Accuracy: 8123/10000 (81.23%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         913        0.817         0.854
+automobile        1000         1025        0.913         0.902
+bird        1000         1047        0.76         0.743
+cat        1000         1206        0.715         0.648
+deer        1000         1000        0.783         0.783
+dog        1000         961        0.716         0.73
+frog        1000         1030        0.86         0.847
+horse        1000         915        0.816         0.852
+ship        1000         935        0.868         0.897
+truck        1000         968        0.875         0.889
+
+
+Train Epoch: 39 [0/50000 (0%)]	Loss: 0.284385
+Train Epoch: 39 [12000/50000 (24%)]	Loss: 0.377538
+Train Epoch: 39 [24000/50000 (48%)]	Loss: 0.288923
+Train Epoch: 39 [36000/50000 (72%)]	Loss: 0.312129
+Train Epoch: 39 [48000/50000 (96%)]	Loss: 0.381750
+epoch: 39
+
+Test set: Average loss: 0.0019, Accuracy: 8192/10000 (81.92%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1007        0.852         0.849
+automobile        1000         915        0.876         0.915
+bird        1000         993        0.754         0.757
+cat        1000         1129        0.701         0.659
+deer        1000         997        0.78         0.781
+dog        1000         956        0.72         0.736
+frog        1000         1007        0.86         0.857
+horse        1000         963        0.839         0.855
+ship        1000         1032        0.911         0.897
+truck        1000         1001        0.899         0.899
+
+
+Train Epoch: 40 [0/50000 (0%)]	Loss: 0.315970
+Train Epoch: 40 [12000/50000 (24%)]	Loss: 0.302456
+Train Epoch: 40 [24000/50000 (48%)]	Loss: 0.306649
+Train Epoch: 40 [36000/50000 (72%)]	Loss: 0.300669
+Train Epoch: 40 [48000/50000 (96%)]	Loss: 0.364002
+epoch: 40
+
+Test set: Average loss: 0.0019, Accuracy: 8176/10000 (81.76%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1044        0.868         0.849
+automobile        1000         1073        0.938         0.905
+bird        1000         979        0.742         0.75
+cat        1000         1082        0.682         0.655
+deer        1000         987        0.78         0.785
+dog        1000         983        0.735         0.741
+frog        1000         935        0.827         0.855
+horse        1000         1027        0.861         0.85
+ship        1000         940        0.879         0.906
+truck        1000         950        0.864         0.886
+
+
+Train Epoch: 41 [0/50000 (0%)]	Loss: 0.266778
+Train Epoch: 41 [12000/50000 (24%)]	Loss: 0.317916
+Train Epoch: 41 [24000/50000 (48%)]	Loss: 0.256476
+Train Epoch: 41 [36000/50000 (72%)]	Loss: 0.362907
+Train Epoch: 41 [48000/50000 (96%)]	Loss: 0.326873
+epoch: 41
+
+Test set: Average loss: 0.0019, Accuracy: 8176/10000 (81.76%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1017        0.853         0.846
+automobile        1000         977        0.903         0.914
+bird        1000         987        0.747         0.752
+cat        1000         1004        0.647         0.646
+deer        1000         1093        0.816         0.78
+dog        1000         942        0.713         0.734
+frog        1000         1026        0.865         0.854
+horse        1000         951        0.838         0.859
+ship        1000         1053        0.921         0.897
+truck        1000         950        0.873         0.895
+
+
+Train Epoch: 42 [0/50000 (0%)]	Loss: 0.331863
+Train Epoch: 42 [12000/50000 (24%)]	Loss: 0.303976
+Train Epoch: 42 [24000/50000 (48%)]	Loss: 0.305316
+Train Epoch: 42 [36000/50000 (72%)]	Loss: 0.257519
+Train Epoch: 42 [48000/50000 (96%)]	Loss: 0.305652
+epoch: 42
+
+Test set: Average loss: 0.0019, Accuracy: 8215/10000 (82.15%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         980        0.845         0.854
+automobile        1000         1004        0.914         0.912
+bird        1000         943        0.743         0.765
+cat        1000         1096        0.687         0.656
+deer        1000         1035        0.805         0.791
+dog        1000         962        0.72         0.734
+frog        1000         1017        0.86         0.853
+horse        1000         1001        0.862         0.862
+ship        1000         1004        0.903         0.901
+truck        1000         958        0.876         0.895
+
+
+Train Epoch: 43 [0/50000 (0%)]	Loss: 0.286077
+Train Epoch: 43 [12000/50000 (24%)]	Loss: 0.269970
+Train Epoch: 43 [24000/50000 (48%)]	Loss: 0.298385
+Train Epoch: 43 [36000/50000 (72%)]	Loss: 0.254241
+Train Epoch: 43 [48000/50000 (96%)]	Loss: 0.284960
+epoch: 43
+
+Test set: Average loss: 0.0019, Accuracy: 8191/10000 (81.91%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         983        0.837         0.844
+automobile        1000         948        0.888         0.912
+bird        1000         839        0.686         0.746
+cat        1000         888        0.603         0.639
+deer        1000         1103        0.828         0.787
+dog        1000         1069        0.774         0.748
+frog        1000         1131        0.892         0.837
+horse        1000         990        0.859         0.863
+ship        1000         1005        0.904         0.902
+truck        1000         1044        0.92         0.9
+
+
+Train Epoch: 44 [0/50000 (0%)]	Loss: 0.261062
+Train Epoch: 44 [12000/50000 (24%)]	Loss: 0.299437
+Train Epoch: 44 [24000/50000 (48%)]	Loss: 0.273780
+Train Epoch: 44 [36000/50000 (72%)]	Loss: 0.265050
+Train Epoch: 44 [48000/50000 (96%)]	Loss: 0.297642
+epoch: 44
+
+Test set: Average loss: 0.0019, Accuracy: 8174/10000 (81.74%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1030        0.853         0.84
+automobile        1000         954        0.89         0.911
+bird        1000         899        0.719         0.757
+cat        1000         1252        0.738         0.655
+deer        1000         1047        0.81         0.791
+dog        1000         857        0.68         0.732
+frog        1000         932        0.819         0.848
+horse        1000         945        0.838         0.862
+ship        1000         1004        0.904         0.902
+truck        1000         1080        0.923         0.887
+
+
+Train Epoch: 45 [0/50000 (0%)]	Loss: 0.271312
+Train Epoch: 45 [12000/50000 (24%)]	Loss: 0.283999
+Train Epoch: 45 [24000/50000 (48%)]	Loss: 0.240152
+Train Epoch: 45 [36000/50000 (72%)]	Loss: 0.259057
+Train Epoch: 45 [48000/50000 (96%)]	Loss: 0.386450
+epoch: 45
+
+Test set: Average loss: 0.0019, Accuracy: 8198/10000 (81.98%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         970        0.83         0.843
+automobile        1000         1023        0.928         0.917
+bird        1000         1081        0.779         0.749
+cat        1000         949        0.628         0.644
+deer        1000         1099        0.836         0.797
+dog        1000         971        0.733         0.744
+frog        1000         1030        0.861         0.848
+horse        1000         975        0.849         0.86
+ship        1000         951        0.875         0.897
+truck        1000         951        0.879         0.901
+
+
+Train Epoch: 46 [0/50000 (0%)]	Loss: 0.268366
+Train Epoch: 46 [12000/50000 (24%)]	Loss: 0.276370
+Train Epoch: 46 [24000/50000 (48%)]	Loss: 0.280612
+Train Epoch: 46 [36000/50000 (72%)]	Loss: 0.329560
+Train Epoch: 46 [48000/50000 (96%)]	Loss: 0.276790
+epoch: 46
+
+Test set: Average loss: 0.0020, Accuracy: 8146/10000 (81.46%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         863        0.772         0.829
+automobile        1000         967        0.895         0.91
+bird        1000         815        0.679         0.748
+cat        1000         1010        0.662         0.659
+deer        1000         1189        0.858         0.784
+dog        1000         894        0.699         0.738
+frog        1000         1110        0.893         0.846
+horse        1000         974        0.845         0.856
+ship        1000         1033        0.908         0.893
+truck        1000         1145        0.935         0.872
+
+
+Train Epoch: 47 [0/50000 (0%)]	Loss: 0.259991
+Train Epoch: 47 [12000/50000 (24%)]	Loss: 0.258507
+Train Epoch: 47 [24000/50000 (48%)]	Loss: 0.265723
+Train Epoch: 47 [36000/50000 (72%)]	Loss: 0.280075
+Train Epoch: 47 [48000/50000 (96%)]	Loss: 0.340334
+epoch: 47
+
+Test set: Average loss: 0.0019, Accuracy: 8187/10000 (81.87%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1004        0.846         0.844
+automobile        1000         1013        0.92         0.914
+bird        1000         975        0.749         0.758
+cat        1000         1127        0.7         0.658
+deer        1000         1008        0.791         0.788
+dog        1000         932        0.708         0.733
+frog        1000         901        0.812         0.854
+horse        1000         980        0.855         0.864
+ship        1000         1055        0.913         0.889
+truck        1000         1005        0.893         0.891
+
+
+Train Epoch: 48 [0/50000 (0%)]	Loss: 0.309495
+Train Epoch: 48 [12000/50000 (24%)]	Loss: 0.229861
+Train Epoch: 48 [24000/50000 (48%)]	Loss: 0.322530
+Train Epoch: 48 [36000/50000 (72%)]	Loss: 0.301277
+Train Epoch: 48 [48000/50000 (96%)]	Loss: 0.349567
+epoch: 48
+
+Test set: Average loss: 0.0020, Accuracy: 8166/10000 (81.66%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1065        0.871         0.844
+automobile        1000         1040        0.922         0.904
+bird        1000         1034        0.771         0.758
+cat        1000         939        0.634         0.654
+deer        1000         1125        0.832         0.783
+dog        1000         854        0.682         0.736
+frog        1000         1035        0.86         0.845
+horse        1000         965        0.837         0.852
+ship        1000         973        0.882         0.894
+truck        1000         970        0.875         0.888
+
+
+Train Epoch: 49 [0/50000 (0%)]	Loss: 0.364443
+Train Epoch: 49 [12000/50000 (24%)]	Loss: 0.261777
+Train Epoch: 49 [24000/50000 (48%)]	Loss: 0.216823
+Train Epoch: 49 [36000/50000 (72%)]	Loss: 0.323842
+Train Epoch: 49 [48000/50000 (96%)]	Loss: 0.293766
+epoch: 49
+
+Test set: Average loss: 0.0019, Accuracy: 8153/10000 (81.53%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         979        0.837         0.846
+automobile        1000         966        0.897         0.913
+bird        1000         967        0.737         0.749
+cat        1000         1171        0.698         0.643
+deer        1000         943        0.76         0.782
+dog        1000         1055        0.758         0.738
+frog        1000         925        0.821         0.853
+horse        1000         932        0.826         0.855
+ship        1000         1007        0.903         0.9
+truck        1000         1055        0.916         0.891
+
+
+Train Epoch: 50 [0/50000 (0%)]	Loss: 0.259791
+Train Epoch: 50 [12000/50000 (24%)]	Loss: 0.226934
+Train Epoch: 50 [24000/50000 (48%)]	Loss: 0.235235
+Train Epoch: 50 [36000/50000 (72%)]	Loss: 0.341101
+Train Epoch: 50 [48000/50000 (96%)]	Loss: 0.295563
+epoch: 50
+
+Test set: Average loss: 0.0019, Accuracy: 8160/10000 (81.60%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1072        0.877         0.847
+automobile        1000         919        0.872         0.909
+bird        1000         903        0.709         0.745
+cat        1000         978        0.638         0.645
+deer        1000         1003        0.791         0.79
+dog        1000         911        0.702         0.735
+frog        1000         1177        0.902         0.829
+horse        1000         1015        0.872         0.866
+ship        1000         1006        0.9         0.897
+truck        1000         1016        0.897         0.89
+
+
+Train Epoch: 51 [0/50000 (0%)]	Loss: 0.271555
+Train Epoch: 51 [12000/50000 (24%)]	Loss: 0.245434
+Train Epoch: 51 [24000/50000 (48%)]	Loss: 0.227091
+Train Epoch: 51 [36000/50000 (72%)]	Loss: 0.256175
+Train Epoch: 51 [48000/50000 (96%)]	Loss: 0.257216
+epoch: 51
+
+Test set: Average loss: 0.0020, Accuracy: 8186/10000 (81.86%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         930        0.82         0.85
+automobile        1000         970        0.901         0.915
+bird        1000         908        0.722         0.757
+cat        1000         1159        0.708         0.656
+deer        1000         1047        0.808         0.789
+dog        1000         1025        0.749         0.74
+frog        1000         1079        0.878         0.845
+horse        1000         928        0.823         0.854
+ship        1000         950        0.874         0.896
+truck        1000         1004        0.903         0.901
+
+
+Train Epoch: 52 [0/50000 (0%)]	Loss: 0.249323
+Train Epoch: 52 [12000/50000 (24%)]	Loss: 0.270812
+Train Epoch: 52 [24000/50000 (48%)]	Loss: 0.294679
+Train Epoch: 52 [36000/50000 (72%)]	Loss: 0.292001
+Train Epoch: 52 [48000/50000 (96%)]	Loss: 0.220204
+epoch: 52
+
+Test set: Average loss: 0.0019, Accuracy: 8212/10000 (82.12%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         951        0.833         0.854
+automobile        1000         1023        0.917         0.907
+bird        1000         881        0.714         0.759
+cat        1000         1074        0.677         0.653
+deer        1000         1109        0.831         0.788
+dog        1000         912        0.711         0.744
+frog        1000         1014        0.856         0.85
+horse        1000         984        0.86         0.867
+ship        1000         1035        0.909         0.893
+truck        1000         1017        0.904         0.896
+
+
+Train Epoch: 53 [0/50000 (0%)]	Loss: 0.230242
+Train Epoch: 53 [12000/50000 (24%)]	Loss: 0.330696
+Train Epoch: 53 [24000/50000 (48%)]	Loss: 0.213439
+Train Epoch: 53 [36000/50000 (72%)]	Loss: 0.340803
+Train Epoch: 53 [48000/50000 (96%)]	Loss: 0.326610
+epoch: 53
+
+Test set: Average loss: 0.0019, Accuracy: 8187/10000 (81.87%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         962        0.839         0.855
+automobile        1000         1010        0.917         0.912
+bird        1000         821        0.695         0.763
+cat        1000         1023        0.649         0.642
+deer        1000         966        0.782         0.796
+dog        1000         1096        0.774         0.739
+frog        1000         1102        0.887         0.844
+horse        1000         1007        0.862         0.859
+ship        1000         950        0.87         0.892
+truck        1000         1063        0.912         0.884
+
+
+Train Epoch: 54 [0/50000 (0%)]	Loss: 0.289330
+Train Epoch: 54 [12000/50000 (24%)]	Loss: 0.294028
+Train Epoch: 54 [24000/50000 (48%)]	Loss: 0.192153
+Train Epoch: 54 [36000/50000 (72%)]	Loss: 0.285604
+Train Epoch: 54 [48000/50000 (96%)]	Loss: 0.215485
+epoch: 54
+
+Test set: Average loss: 0.0019, Accuracy: 8220/10000 (82.20%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1018        0.854         0.846
+automobile        1000         1032        0.923         0.908
+bird        1000         923        0.737         0.767
+cat        1000         1043        0.667         0.653
+deer        1000         1021        0.811         0.803
+dog        1000         1033        0.76         0.748
+frog        1000         980        0.85         0.859
+horse        1000         999        0.858         0.858
+ship        1000         979        0.884         0.893
+truck        1000         972        0.876         0.888
+
+
+Train Epoch: 55 [0/50000 (0%)]	Loss: 0.136921
+Train Epoch: 55 [12000/50000 (24%)]	Loss: 0.250226
+Train Epoch: 55 [24000/50000 (48%)]	Loss: 0.290070
+Train Epoch: 55 [36000/50000 (72%)]	Loss: 0.274451
+Train Epoch: 55 [48000/50000 (96%)]	Loss: 0.222496
+epoch: 55
+
+Test set: Average loss: 0.0019, Accuracy: 8186/10000 (81.86%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1020        0.852         0.844
+automobile        1000         994        0.915         0.918
+bird        1000         904        0.717         0.753
+cat        1000         1153        0.709         0.659
+deer        1000         973        0.775         0.786
+dog        1000         1065        0.763         0.739
+frog        1000         1028        0.868         0.856
+horse        1000         904        0.815         0.856
+ship        1000         980        0.887         0.896
+truck        1000         979        0.885         0.894
+
+
+Train Epoch: 56 [0/50000 (0%)]	Loss: 0.153509
+Train Epoch: 56 [12000/50000 (24%)]	Loss: 0.283613
+Train Epoch: 56 [24000/50000 (48%)]	Loss: 0.304397
+Train Epoch: 56 [36000/50000 (72%)]	Loss: 0.266969
+Train Epoch: 56 [48000/50000 (96%)]	Loss: 0.202524
+epoch: 56
+
+Test set: Average loss: 0.0019, Accuracy: 8195/10000 (81.95%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1025        0.86         0.849
+automobile        1000         1009        0.913         0.909
+bird        1000         929        0.731         0.758
+cat        1000         1007        0.661         0.659
+deer        1000         1166        0.836         0.772
+dog        1000         922        0.72         0.749
+frog        1000         997        0.851         0.852
+horse        1000         942        0.831         0.856
+ship        1000         1036        0.907         0.891
+truck        1000         967        0.885         0.9
+
+
+Train Epoch: 57 [0/50000 (0%)]	Loss: 0.255503
+Train Epoch: 57 [12000/50000 (24%)]	Loss: 0.185537
+Train Epoch: 57 [24000/50000 (48%)]	Loss: 0.252962
+Train Epoch: 57 [36000/50000 (72%)]	Loss: 0.292600
+Train Epoch: 57 [48000/50000 (96%)]	Loss: 0.215695
+epoch: 57
+
+Test set: Average loss: 0.0019, Accuracy: 8228/10000 (82.28%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         972        0.845         0.857
+automobile        1000         1024        0.919         0.908
+bird        1000         961        0.743         0.758
+cat        1000         1107        0.692         0.657
+deer        1000         997        0.788         0.789
+dog        1000         867        0.7         0.75
+frog        1000         1065        0.889         0.861
+horse        1000         994        0.858         0.861
+ship        1000         1009        0.897         0.893
+truck        1000         1004        0.897         0.895
+
+
+Train Epoch: 58 [0/50000 (0%)]	Loss: 0.270199
+Train Epoch: 58 [12000/50000 (24%)]	Loss: 0.277378
+Train Epoch: 58 [24000/50000 (48%)]	Loss: 0.220387
+Train Epoch: 58 [36000/50000 (72%)]	Loss: 0.178805
+Train Epoch: 58 [48000/50000 (96%)]	Loss: 0.215242
+epoch: 58
+
+Test set: Average loss: 0.0020, Accuracy: 8216/10000 (82.16%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         968        0.84         0.854
+automobile        1000         987        0.909         0.915
+bird        1000         847        0.707         0.766
+cat        1000         1004        0.654         0.653
+deer        1000         1181        0.846         0.776
+dog        1000         956        0.733         0.749
+frog        1000         1029        0.863         0.851
+horse        1000         986        0.857         0.863
+ship        1000         1018        0.901         0.893
+truck        1000         1024        0.906         0.895
+
+
+Train Epoch: 59 [0/50000 (0%)]	Loss: 0.182697
+Train Epoch: 59 [12000/50000 (24%)]	Loss: 0.318897
+Train Epoch: 59 [24000/50000 (48%)]	Loss: 0.177813
+Train Epoch: 59 [36000/50000 (72%)]	Loss: 0.261041
+Train Epoch: 59 [48000/50000 (96%)]	Loss: 0.255760
+epoch: 59
+
+Test set: Average loss: 0.0020, Accuracy: 8240/10000 (82.40%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         997        0.854         0.855
+automobile        1000         1020        0.923         0.914
+bird        1000         811        0.677         0.748
+cat        1000         994        0.666         0.668
+deer        1000         1033        0.803         0.79
+dog        1000         986        0.744         0.749
+frog        1000         1122        0.898         0.846
+horse        1000         1003        0.864         0.863
+ship        1000         1002        0.905         0.904
+truck        1000         1032        0.906         0.892
+
+
+Train Epoch: 60 [0/50000 (0%)]	Loss: 0.152784
+Train Epoch: 60 [12000/50000 (24%)]	Loss: 0.276124
+Train Epoch: 60 [24000/50000 (48%)]	Loss: 0.214823
+Train Epoch: 60 [36000/50000 (72%)]	Loss: 0.262096
+Train Epoch: 60 [48000/50000 (96%)]	Loss: 0.211010
+epoch: 60
+
+Test set: Average loss: 0.0020, Accuracy: 8195/10000 (81.95%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         949        0.83         0.852
+automobile        1000         984        0.912         0.919
+bird        1000         940        0.724         0.746
+cat        1000         1097        0.693         0.661
+deer        1000         1042        0.797         0.781
+dog        1000         907        0.708         0.743
+frog        1000         1053        0.865         0.843
+horse        1000         965        0.845         0.86
+ship        1000         1048        0.915         0.894
+truck        1000         1015        0.906         0.899
+
+
+Train Epoch: 61 [0/50000 (0%)]	Loss: 0.179166
+Train Epoch: 61 [12000/50000 (24%)]	Loss: 0.250236
+Train Epoch: 61 [24000/50000 (48%)]	Loss: 0.258037
+Train Epoch: 61 [36000/50000 (72%)]	Loss: 0.229239
+Train Epoch: 61 [48000/50000 (96%)]	Loss: 0.227282
+epoch: 61
+
+Test set: Average loss: 0.0020, Accuracy: 8216/10000 (82.16%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         994        0.837         0.84
+automobile        1000         1006        0.912         0.909
+bird        1000         961        0.736         0.751
+cat        1000         977        0.665         0.673
+deer        1000         1095        0.827         0.789
+dog        1000         1001        0.753         0.753
+frog        1000         1019        0.864         0.856
+horse        1000         1006        0.865         0.862
+ship        1000         972        0.882         0.895
+truck        1000         969        0.875         0.889
+
+
+Train Epoch: 62 [0/50000 (0%)]	Loss: 0.227750
+Train Epoch: 62 [12000/50000 (24%)]	Loss: 0.266853
+Train Epoch: 62 [24000/50000 (48%)]	Loss: 0.240153
+Train Epoch: 62 [36000/50000 (72%)]	Loss: 0.234879
+Train Epoch: 62 [48000/50000 (96%)]	Loss: 0.290146
+epoch: 62
+
+Test set: Average loss: 0.0019, Accuracy: 8271/10000 (82.71%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         981        0.844         0.852
+automobile        1000         990        0.914         0.919
+bird        1000         872        0.716         0.765
+cat        1000         1077        0.695         0.669
+deer        1000         1010        0.802         0.798
+dog        1000         995        0.747         0.749
+frog        1000         988        0.855         0.86
+horse        1000         1039        0.877         0.86
+ship        1000         992        0.904         0.908
+truck        1000         1056        0.917         0.892
+
+
+Train Epoch: 63 [0/50000 (0%)]	Loss: 0.204535
+Train Epoch: 63 [12000/50000 (24%)]	Loss: 0.168671
+Train Epoch: 63 [24000/50000 (48%)]	Loss: 0.231947
+Train Epoch: 63 [36000/50000 (72%)]	Loss: 0.228793
+Train Epoch: 63 [48000/50000 (96%)]	Loss: 0.269803
+epoch: 63
+
+Test set: Average loss: 0.0020, Accuracy: 8173/10000 (81.73%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1030        0.865         0.852
+automobile        1000         999        0.917         0.917
+bird        1000         931        0.73         0.756
+cat        1000         1195        0.717         0.653
+deer        1000         1030        0.79         0.778
+dog        1000         763        0.632         0.717
+frog        1000         1033        0.866         0.852
+horse        1000         954        0.841         0.861
+ship        1000         1076        0.926         0.892
+truck        1000         989        0.889         0.894
+
+
+Train Epoch: 64 [0/50000 (0%)]	Loss: 0.199049
+Train Epoch: 64 [12000/50000 (24%)]	Loss: 0.284782
+Train Epoch: 64 [24000/50000 (48%)]	Loss: 0.209864
+Train Epoch: 64 [36000/50000 (72%)]	Loss: 0.212722
+Train Epoch: 64 [48000/50000 (96%)]	Loss: 0.223490
+epoch: 64
+
+Test set: Average loss: 0.0020, Accuracy: 8202/10000 (82.02%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1012        0.856         0.851
+automobile        1000         1037        0.925         0.908
+bird        1000         915        0.725         0.757
+cat        1000         1127        0.705         0.663
+deer        1000         1085        0.815         0.782
+dog        1000         876        0.695         0.741
+frog        1000         1005        0.857         0.855
+horse        1000         938        0.836         0.863
+ship        1000         967        0.882         0.897
+truck        1000         1038        0.906         0.889
+
+
+Train Epoch: 65 [0/50000 (0%)]	Loss: 0.224642
+Train Epoch: 65 [12000/50000 (24%)]	Loss: 0.230854
+Train Epoch: 65 [24000/50000 (48%)]	Loss: 0.228746
+Train Epoch: 65 [36000/50000 (72%)]	Loss: 0.239529
+Train Epoch: 65 [48000/50000 (96%)]	Loss: 0.244771
+epoch: 65
+
+Test set: Average loss: 0.0020, Accuracy: 8175/10000 (81.75%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         950        0.82         0.841
+automobile        1000         1010        0.912         0.907
+bird        1000         819        0.693         0.762
+cat        1000         1288        0.75         0.656
+deer        1000         964        0.77         0.784
+dog        1000         934        0.714         0.738
+frog        1000         979        0.849         0.858
+horse        1000         987        0.853         0.859
+ship        1000         1064        0.914         0.886
+truck        1000         1005        0.9         0.898
+
+
+Train Epoch: 66 [0/50000 (0%)]	Loss: 0.186994
+Train Epoch: 66 [12000/50000 (24%)]	Loss: 0.234502
+Train Epoch: 66 [24000/50000 (48%)]	Loss: 0.287453
+Train Epoch: 66 [36000/50000 (72%)]	Loss: 0.185602
+Train Epoch: 66 [48000/50000 (96%)]	Loss: 0.246375
+epoch: 66
+
+Test set: Average loss: 0.0021, Accuracy: 8173/10000 (81.73%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         919        0.814         0.848
+automobile        1000         964        0.9         0.916
+bird        1000         788        0.673         0.753
+cat        1000         1104        0.681         0.647
+deer        1000         1030        0.8         0.788
+dog        1000         1169        0.809         0.746
+frog        1000         1098        0.885         0.844
+horse        1000         977        0.847         0.857
+ship        1000         960        0.877         0.895
+truck        1000         991        0.887         0.891
+
+
+Train Epoch: 67 [0/50000 (0%)]	Loss: 0.231700
+Train Epoch: 67 [12000/50000 (24%)]	Loss: 0.224601
+Train Epoch: 67 [24000/50000 (48%)]	Loss: 0.186595
+Train Epoch: 67 [36000/50000 (72%)]	Loss: 0.236234
+Train Epoch: 67 [48000/50000 (96%)]	Loss: 0.244078
+epoch: 67
+
+Test set: Average loss: 0.0020, Accuracy: 8230/10000 (82.30%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         988        0.849         0.854
+automobile        1000         968        0.9         0.915
+bird        1000         902        0.729         0.767
+cat        1000         1034        0.682         0.671
+deer        1000         1113        0.821         0.777
+dog        1000         972        0.745         0.756
+frog        1000         1022        0.854         0.845
+horse        1000         1022        0.861         0.852
+ship        1000         964        0.885         0.901
+truck        1000         1015        0.904         0.897
+
+
+Train Epoch: 68 [0/50000 (0%)]	Loss: 0.151323
+Train Epoch: 68 [12000/50000 (24%)]	Loss: 0.208640
+Train Epoch: 68 [24000/50000 (48%)]	Loss: 0.253922
+Train Epoch: 68 [36000/50000 (72%)]	Loss: 0.253048
+Train Epoch: 68 [48000/50000 (96%)]	Loss: 0.227168
+epoch: 68
+
+Test set: Average loss: 0.0020, Accuracy: 8239/10000 (82.39%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1098        0.885         0.844
+automobile        1000         1021        0.925         0.915
+bird        1000         958        0.743         0.759
+cat        1000         1093        0.696         0.665
+deer        1000         1005        0.794         0.792
+dog        1000         924        0.717         0.745
+frog        1000         990        0.851         0.855
+horse        1000         988        0.86         0.865
+ship        1000         941        0.871         0.897
+truck        1000         982        0.897         0.905
+
+
+Train Epoch: 69 [0/50000 (0%)]	Loss: 0.175636
+Train Epoch: 69 [12000/50000 (24%)]	Loss: 0.215335
+Train Epoch: 69 [24000/50000 (48%)]	Loss: 0.200518
+Train Epoch: 69 [36000/50000 (72%)]	Loss: 0.266726
+Train Epoch: 69 [48000/50000 (96%)]	Loss: 0.262600
+epoch: 69
+
+Test set: Average loss: 0.0020, Accuracy: 8248/10000 (82.48%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         989        0.845         0.85
+automobile        1000         1000        0.92         0.92
+bird        1000         843        0.709         0.769
+cat        1000         1192        0.733         0.669
+deer        1000         1052        0.812         0.791
+dog        1000         863        0.69         0.741
+frog        1000         1071        0.886         0.856
+horse        1000         991        0.853         0.857
+ship        1000         996        0.9         0.902
+truck        1000         1003        0.9         0.899
+
+
+Train Epoch: 70 [0/50000 (0%)]	Loss: 0.244904
+Train Epoch: 70 [12000/50000 (24%)]	Loss: 0.226856
+Train Epoch: 70 [24000/50000 (48%)]	Loss: 0.168670
+Train Epoch: 70 [36000/50000 (72%)]	Loss: 0.265473
+Train Epoch: 70 [48000/50000 (96%)]	Loss: 0.317783
+epoch: 70
+
+Test set: Average loss: 0.0020, Accuracy: 8258/10000 (82.58%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         960        0.837         0.854
+automobile        1000         994        0.922         0.925
+bird        1000         944        0.751         0.773
+cat        1000         939        0.635         0.655
+deer        1000         1085        0.818         0.785
+dog        1000         958        0.748         0.764
+frog        1000         1108        0.895         0.849
+horse        1000         1015        0.856         0.85
+ship        1000         986        0.89         0.896
+truck        1000         1011        0.906         0.901
+
+
+Train Epoch: 71 [0/50000 (0%)]	Loss: 0.181869
+Train Epoch: 71 [12000/50000 (24%)]	Loss: 0.234576
+Train Epoch: 71 [24000/50000 (48%)]	Loss: 0.260197
+Train Epoch: 71 [36000/50000 (72%)]	Loss: 0.247901
+Train Epoch: 71 [48000/50000 (96%)]	Loss: 0.218232
+epoch: 71
+
+Test set: Average loss: 0.0020, Accuracy: 8257/10000 (82.57%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1029        0.856         0.844
+automobile        1000         1034        0.929         0.913
+bird        1000         954        0.761         0.779
+cat        1000         1188        0.73         0.667
+deer        1000         961        0.788         0.804
+dog        1000         872        0.697         0.745
+frog        1000         1014        0.866         0.86
+horse        1000         1002        0.863         0.862
+ship        1000         981        0.883         0.891
+truck        1000         965        0.884         0.9
+
+
+Train Epoch: 72 [0/50000 (0%)]	Loss: 0.155310
+Train Epoch: 72 [12000/50000 (24%)]	Loss: 0.260674
+Train Epoch: 72 [24000/50000 (48%)]	Loss: 0.194863
+Train Epoch: 72 [36000/50000 (72%)]	Loss: 0.197275
+Train Epoch: 72 [48000/50000 (96%)]	Loss: 0.213933
+epoch: 72
+
+Test set: Average loss: 0.0021, Accuracy: 8162/10000 (81.62%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         937        0.817         0.844
+automobile        1000         952        0.897         0.919
+bird        1000         897        0.727         0.766
+cat        1000         988        0.631         0.635
+deer        1000         1054        0.809         0.788
+dog        1000         1271        0.824         0.726
+frog        1000         977        0.845         0.855
+horse        1000         954        0.831         0.851
+ship        1000         961        0.879         0.896
+truck        1000         1009        0.902         0.898
+
+
+Train Epoch: 73 [0/50000 (0%)]	Loss: 0.202452
+Train Epoch: 73 [12000/50000 (24%)]	Loss: 0.286988
+Train Epoch: 73 [24000/50000 (48%)]	Loss: 0.241014
+Train Epoch: 73 [36000/50000 (72%)]	Loss: 0.220712
+Train Epoch: 73 [48000/50000 (96%)]	Loss: 0.272783
+epoch: 73
+
+Test set: Average loss: 0.0020, Accuracy: 8200/10000 (82.00%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         946        0.817         0.84
+automobile        1000         967        0.907         0.922
+bird        1000         933        0.733         0.758
+cat        1000         1107        0.689         0.654
+deer        1000         1003        0.798         0.797
+dog        1000         964        0.723         0.736
+frog        1000         1066        0.879         0.851
+horse        1000         897        0.811         0.855
+ship        1000         1088        0.929         0.89
+truck        1000         1029        0.914         0.901
+
+
+Train Epoch: 74 [0/50000 (0%)]	Loss: 0.242216
+Train Epoch: 74 [12000/50000 (24%)]	Loss: 0.246659
+Train Epoch: 74 [24000/50000 (48%)]	Loss: 0.266609
+Train Epoch: 74 [36000/50000 (72%)]	Loss: 0.224676
+Train Epoch: 74 [48000/50000 (96%)]	Loss: 0.221637
+epoch: 74
+
+Test set: Average loss: 0.0020, Accuracy: 8241/10000 (82.41%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1034        0.863         0.849
+automobile        1000         993        0.913         0.916
+bird        1000         933        0.734         0.759
+cat        1000         1171        0.719         0.662
+deer        1000         1024        0.8         0.791
+dog        1000         890        0.713         0.754
+frog        1000         1005        0.86         0.858
+horse        1000         974        0.847         0.858
+ship        1000         971        0.892         0.905
+truck        1000         1005        0.9         0.898
+
+
+Train Epoch: 75 [0/50000 (0%)]	Loss: 0.314887
+Train Epoch: 75 [12000/50000 (24%)]	Loss: 0.163388
+Train Epoch: 75 [24000/50000 (48%)]	Loss: 0.273237
+Train Epoch: 75 [36000/50000 (72%)]	Loss: 0.249282
+Train Epoch: 75 [48000/50000 (96%)]	Loss: 0.192296
+epoch: 75
+
+Test set: Average loss: 0.0020, Accuracy: 8196/10000 (81.96%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         983        0.846         0.853
+automobile        1000         988        0.907         0.912
+bird        1000         892        0.723         0.764
+cat        1000         1153        0.7         0.65
+deer        1000         1060        0.812         0.788
+dog        1000         968        0.737         0.749
+frog        1000         992        0.845         0.848
+horse        1000         1013        0.859         0.853
+ship        1000         966        0.882         0.897
+truck        1000         985        0.885         0.892
+
+
+Train Epoch: 76 [0/50000 (0%)]	Loss: 0.220132
+Train Epoch: 76 [12000/50000 (24%)]	Loss: 0.266623
+Train Epoch: 76 [24000/50000 (48%)]	Loss: 0.231795
+Train Epoch: 76 [36000/50000 (72%)]	Loss: 0.214980
+Train Epoch: 76 [48000/50000 (96%)]	Loss: 0.176484
+epoch: 76
+
+Test set: Average loss: 0.0020, Accuracy: 8189/10000 (81.89%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1005        0.854         0.852
+automobile        1000         1069        0.936         0.905
+bird        1000         1025        0.77         0.76
+cat        1000         1020        0.662         0.655
+deer        1000         979        0.783         0.791
+dog        1000         888        0.699         0.74
+frog        1000         1076        0.873         0.841
+horse        1000         1018        0.861         0.853
+ship        1000         994        0.895         0.898
+truck        1000         926        0.856         0.889
+
+
+Train Epoch: 77 [0/50000 (0%)]	Loss: 0.203762
+Train Epoch: 77 [12000/50000 (24%)]	Loss: 0.193367
+Train Epoch: 77 [24000/50000 (48%)]	Loss: 0.246412
+Train Epoch: 77 [36000/50000 (72%)]	Loss: 0.215699
+Train Epoch: 77 [48000/50000 (96%)]	Loss: 0.202582
+epoch: 77
+
+Test set: Average loss: 0.0020, Accuracy: 8252/10000 (82.52%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1013        0.857         0.851
+automobile        1000         1023        0.929         0.918
+bird        1000         941        0.746         0.769
+cat        1000         1055        0.68         0.662
+deer        1000         1039        0.815         0.799
+dog        1000         992        0.739         0.742
+frog        1000         1067        0.882         0.853
+horse        1000         903        0.822         0.864
+ship        1000         965        0.884         0.9
+truck        1000         1002        0.898         0.897
+
+
+Train Epoch: 78 [0/50000 (0%)]	Loss: 0.173729
+Train Epoch: 78 [12000/50000 (24%)]	Loss: 0.270703
+Train Epoch: 78 [24000/50000 (48%)]	Loss: 0.244688
+Train Epoch: 78 [36000/50000 (72%)]	Loss: 0.227358
+Train Epoch: 78 [48000/50000 (96%)]	Loss: 0.306948
+epoch: 78
+
+Test set: Average loss: 0.0020, Accuracy: 8245/10000 (82.45%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         986        0.846         0.852
+automobile        1000         971        0.9         0.913
+bird        1000         861        0.716         0.769
+cat        1000         1039        0.671         0.658
+deer        1000         1080        0.828         0.796
+dog        1000         1078        0.78         0.751
+frog        1000         952        0.835         0.856
+horse        1000         1004        0.867         0.865
+ship        1000         963        0.88         0.897
+truck        1000         1066        0.922         0.893
+
+
+Train Epoch: 79 [0/50000 (0%)]	Loss: 0.177639
+Train Epoch: 79 [12000/50000 (24%)]	Loss: 0.252700
+Train Epoch: 79 [24000/50000 (48%)]	Loss: 0.267602
+Train Epoch: 79 [36000/50000 (72%)]	Loss: 0.204124
+Train Epoch: 79 [48000/50000 (96%)]	Loss: 0.194444
+epoch: 79
+
+Test set: Average loss: 0.0020, Accuracy: 8232/10000 (82.32%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         995        0.861         0.863
+automobile        1000         971        0.907         0.92
+bird        1000         840        0.692         0.752
+cat        1000         1108        0.688         0.653
+deer        1000         1051        0.808         0.788
+dog        1000         1006        0.754         0.752
+frog        1000         1069        0.878         0.849
+horse        1000         952        0.836         0.857
+ship        1000         984        0.896         0.903
+truck        1000         1024        0.912         0.901
+
+
+Train Epoch: 80 [0/50000 (0%)]	Loss: 0.167400
+Train Epoch: 80 [12000/50000 (24%)]	Loss: 0.205940
+Train Epoch: 80 [24000/50000 (48%)]	Loss: 0.216398
+Train Epoch: 80 [36000/50000 (72%)]	Loss: 0.218178
+Train Epoch: 80 [48000/50000 (96%)]	Loss: 0.218054
+epoch: 80
+
+Test set: Average loss: 0.0020, Accuracy: 8198/10000 (81.98%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         922        0.816         0.849
+automobile        1000         900        0.865         0.911
+bird        1000         905        0.733         0.77
+cat        1000         1155        0.699         0.649
+deer        1000         1033        0.806         0.793
+dog        1000         972        0.739         0.749
+frog        1000         982        0.85         0.858
+horse        1000         1003        0.858         0.857
+ship        1000         1045        0.912         0.892
+truck        1000         1083        0.92         0.883
+
+
+Train Epoch: 81 [0/50000 (0%)]	Loss: 0.180555
+Train Epoch: 81 [12000/50000 (24%)]	Loss: 0.254205
+Train Epoch: 81 [24000/50000 (48%)]	Loss: 0.192564
+Train Epoch: 81 [36000/50000 (72%)]	Loss: 0.285850
+Train Epoch: 81 [48000/50000 (96%)]	Loss: 0.187032
+epoch: 81
+
+Test set: Average loss: 0.0020, Accuracy: 8217/10000 (82.17%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         990        0.847         0.851
+automobile        1000         1012        0.921         0.916
+bird        1000         1000        0.762         0.762
+cat        1000         985        0.646         0.651
+deer        1000         1011        0.801         0.797
+dog        1000         954        0.727         0.744
+frog        1000         1027        0.867         0.855
+horse        1000         1066        0.888         0.86
+ship        1000         1024        0.899         0.888
+truck        1000         931        0.859         0.89
+
+
+Train Epoch: 82 [0/50000 (0%)]	Loss: 0.261745
+Train Epoch: 82 [12000/50000 (24%)]	Loss: 0.234584
+Train Epoch: 82 [24000/50000 (48%)]	Loss: 0.187311
+Train Epoch: 82 [36000/50000 (72%)]	Loss: 0.280787
+Train Epoch: 82 [48000/50000 (96%)]	Loss: 0.200316
+epoch: 82
+
+Test set: Average loss: 0.0020, Accuracy: 8223/10000 (82.23%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1000        0.854         0.854
+automobile        1000         946        0.893         0.918
+bird        1000         946        0.748         0.769
+cat        1000         1195        0.731         0.666
+deer        1000         1031        0.801         0.789
+dog        1000         926        0.719         0.747
+frog        1000         975        0.833         0.844
+horse        1000         985        0.852         0.858
+ship        1000         1005        0.899         0.897
+truck        1000         991        0.893         0.897
+
+
+Train Epoch: 83 [0/50000 (0%)]	Loss: 0.160572
+Train Epoch: 83 [12000/50000 (24%)]	Loss: 0.190762
+Train Epoch: 83 [24000/50000 (48%)]	Loss: 0.260536
+Train Epoch: 83 [36000/50000 (72%)]	Loss: 0.166053
+Train Epoch: 83 [48000/50000 (96%)]	Loss: 0.186483
+epoch: 83
+
+Test set: Average loss: 0.0020, Accuracy: 8230/10000 (82.30%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         965        0.846         0.861
+automobile        1000         1016        0.921         0.914
+bird        1000         842        0.694         0.754
+cat        1000         1084        0.691         0.663
+deer        1000         1040        0.801         0.785
+dog        1000         936        0.729         0.753
+frog        1000         1036        0.868         0.853
+horse        1000         1025        0.868         0.857
+ship        1000         1030        0.91         0.897
+truck        1000         1026        0.902         0.89
+
+
+Train Epoch: 84 [0/50000 (0%)]	Loss: 0.206942
+Train Epoch: 84 [12000/50000 (24%)]	Loss: 0.200724
+Train Epoch: 84 [24000/50000 (48%)]	Loss: 0.220686
+Train Epoch: 84 [36000/50000 (72%)]	Loss: 0.233497
+Train Epoch: 84 [48000/50000 (96%)]	Loss: 0.273862
+epoch: 84
+
+Test set: Average loss: 0.0020, Accuracy: 8226/10000 (82.26%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         983        0.845         0.852
+automobile        1000         984        0.907         0.914
+bird        1000         891        0.724         0.766
+cat        1000         1037        0.683         0.671
+deer        1000         1119        0.832         0.785
+dog        1000         929        0.72         0.747
+frog        1000         1084        0.883         0.847
+horse        1000         940        0.827         0.853
+ship        1000         1003        0.898         0.897
+truck        1000         1030        0.907         0.894
+
+
+Train Epoch: 85 [0/50000 (0%)]	Loss: 0.203205
+Train Epoch: 85 [12000/50000 (24%)]	Loss: 0.188143
+Train Epoch: 85 [24000/50000 (48%)]	Loss: 0.211456
+Train Epoch: 85 [36000/50000 (72%)]	Loss: 0.149994
+Train Epoch: 85 [48000/50000 (96%)]	Loss: 0.212279
+epoch: 85
+
+Test set: Average loss: 0.0021, Accuracy: 8155/10000 (81.55%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1001        0.845         0.845
+automobile        1000         998        0.909         0.91
+bird        1000         889        0.704         0.745
+cat        1000         1231        0.724         0.649
+deer        1000         995        0.789         0.791
+dog        1000         933        0.709         0.734
+frog        1000         995        0.847         0.849
+horse        1000         917        0.826         0.862
+ship        1000         1056        0.917         0.892
+truck        1000         985        0.885         0.892
+
+
+Train Epoch: 86 [0/50000 (0%)]	Loss: 0.201471
+Train Epoch: 86 [12000/50000 (24%)]	Loss: 0.172249
+Train Epoch: 86 [24000/50000 (48%)]	Loss: 0.248857
+Train Epoch: 86 [36000/50000 (72%)]	Loss: 0.176913
+Train Epoch: 86 [48000/50000 (96%)]	Loss: 0.260096
+epoch: 86
+
+Test set: Average loss: 0.0020, Accuracy: 8204/10000 (82.04%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1054        0.867         0.844
+automobile        1000         1007        0.918         0.915
+bird        1000         925        0.726         0.754
+cat        1000         1038        0.668         0.656
+deer        1000         1060        0.803         0.78
+dog        1000         846        0.69         0.748
+frog        1000         1020        0.854         0.846
+horse        1000         1000        0.863         0.863
+ship        1000         1042        0.913         0.894
+truck        1000         1008        0.902         0.898
+
+
+Train Epoch: 87 [0/50000 (0%)]	Loss: 0.253690
+Train Epoch: 87 [12000/50000 (24%)]	Loss: 0.195456
+Train Epoch: 87 [24000/50000 (48%)]	Loss: 0.208478
+Train Epoch: 87 [36000/50000 (72%)]	Loss: 0.148149
+Train Epoch: 87 [48000/50000 (96%)]	Loss: 0.222864
+epoch: 87
+
+Test set: Average loss: 0.0020, Accuracy: 8233/10000 (82.33%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1019        0.857         0.849
+automobile        1000         985        0.912         0.919
+bird        1000         869        0.709         0.759
+cat        1000         1051        0.675         0.658
+deer        1000         1099        0.826         0.787
+dog        1000         967        0.742         0.754
+frog        1000         1060        0.881         0.855
+horse        1000         1024        0.868         0.858
+ship        1000         962        0.876         0.893
+truck        1000         964        0.887         0.903
+
+
+Train Epoch: 88 [0/50000 (0%)]	Loss: 0.217508
+Train Epoch: 88 [12000/50000 (24%)]	Loss: 0.145397
+Train Epoch: 88 [24000/50000 (48%)]	Loss: 0.181338
+Train Epoch: 88 [36000/50000 (72%)]	Loss: 0.188739
+Train Epoch: 88 [48000/50000 (96%)]	Loss: 0.233935
+epoch: 88
+
+Test set: Average loss: 0.0021, Accuracy: 8173/10000 (81.73%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         977        0.837         0.847
+automobile        1000         922        0.878         0.914
+bird        1000         882        0.715         0.76
+cat        1000         1075        0.682         0.657
+deer        1000         1134        0.834         0.782
+dog        1000         980        0.737         0.744
+frog        1000         977        0.831         0.841
+horse        1000         1020        0.863         0.854
+ship        1000         1012        0.893         0.888
+truck        1000         1021        0.903         0.894
+
+
+Train Epoch: 89 [0/50000 (0%)]	Loss: 0.261304
+Train Epoch: 89 [12000/50000 (24%)]	Loss: 0.257398
+Train Epoch: 89 [24000/50000 (48%)]	Loss: 0.184062
+Train Epoch: 89 [36000/50000 (72%)]	Loss: 0.297607
+Train Epoch: 89 [48000/50000 (96%)]	Loss: 0.231986
+epoch: 89
+
+Test set: Average loss: 0.0020, Accuracy: 8218/10000 (82.18%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         958        0.842         0.86
+automobile        1000         1028        0.928         0.915
+bird        1000         915        0.738         0.771
+cat        1000         1186        0.721         0.66
+deer        1000         1001        0.787         0.787
+dog        1000         918        0.714         0.745
+frog        1000         1032        0.859         0.845
+horse        1000         1016        0.865         0.858
+ship        1000         993        0.896         0.899
+truck        1000         953        0.868         0.889
+
+
+Train Epoch: 90 [0/50000 (0%)]	Loss: 0.246632
+Train Epoch: 90 [12000/50000 (24%)]	Loss: 0.228638
+Train Epoch: 90 [24000/50000 (48%)]	Loss: 0.219299
+Train Epoch: 90 [36000/50000 (72%)]	Loss: 0.240766
+Train Epoch: 90 [48000/50000 (96%)]	Loss: 0.233700
+epoch: 90
+
+Test set: Average loss: 0.0020, Accuracy: 8188/10000 (81.88%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1036        0.865         0.85
+automobile        1000         1005        0.915         0.913
+bird        1000         891        0.715         0.756
+cat        1000         1207        0.723         0.655
+deer        1000         988        0.783         0.788
+dog        1000         780        0.647         0.727
+frog        1000         1099        0.887         0.845
+horse        1000         939        0.837         0.863
+ship        1000         1019        0.901         0.893
+truck        1000         1036        0.915         0.899
+
+
+Train Epoch: 91 [0/50000 (0%)]	Loss: 0.212499
+Train Epoch: 91 [12000/50000 (24%)]	Loss: 0.169064
+Train Epoch: 91 [24000/50000 (48%)]	Loss: 0.193068
+Train Epoch: 91 [36000/50000 (72%)]	Loss: 0.274219
+Train Epoch: 91 [48000/50000 (96%)]	Loss: 0.227093
+epoch: 91
+
+Test set: Average loss: 0.0020, Accuracy: 8213/10000 (82.13%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1028        0.864         0.852
+automobile        1000         1035        0.92         0.904
+bird        1000         917        0.728         0.76
+cat        1000         992        0.647         0.65
+deer        1000         989        0.786         0.79
+dog        1000         1078        0.784         0.755
+frog        1000         1055        0.876         0.853
+horse        1000         1025        0.867         0.856
+ship        1000         951        0.883         0.905
+truck        1000         930        0.858         0.889
+
+
+Train Epoch: 92 [0/50000 (0%)]	Loss: 0.161921
+Train Epoch: 92 [12000/50000 (24%)]	Loss: 0.229748
+Train Epoch: 92 [24000/50000 (48%)]	Loss: 0.275309
+Train Epoch: 92 [36000/50000 (72%)]	Loss: 0.263866
+Train Epoch: 92 [48000/50000 (96%)]	Loss: 0.268462
+epoch: 92
+
+Test set: Average loss: 0.0020, Accuracy: 8205/10000 (82.05%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         965        0.838         0.853
+automobile        1000         1010        0.913         0.908
+bird        1000         884        0.716         0.76
+cat        1000         1019        0.653         0.647
+deer        1000         1054        0.801         0.78
+dog        1000         997        0.747         0.748
+frog        1000         1106        0.89         0.845
+horse        1000         952        0.842         0.863
+ship        1000         1010        0.902         0.898
+truck        1000         1003        0.903         0.902
+
+
+Train Epoch: 93 [0/50000 (0%)]	Loss: 0.175173
+Train Epoch: 93 [12000/50000 (24%)]	Loss: 0.207427
+Train Epoch: 93 [24000/50000 (48%)]	Loss: 0.156370
+Train Epoch: 93 [36000/50000 (72%)]	Loss: 0.129438
+Train Epoch: 93 [48000/50000 (96%)]	Loss: 0.160302
+epoch: 93
+
+Test set: Average loss: 0.0020, Accuracy: 8176/10000 (81.76%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1025        0.861         0.85
+automobile        1000         1001        0.913         0.913
+bird        1000         809        0.681         0.753
+cat        1000         1173        0.706         0.65
+deer        1000         1053        0.807         0.786
+dog        1000         858        0.687         0.74
+frog        1000         1118        0.891         0.841
+horse        1000         990        0.852         0.856
+ship        1000         957        0.876         0.895
+truck        1000         1016        0.902         0.895
+
+
+Train Epoch: 94 [0/50000 (0%)]	Loss: 0.191657
+Train Epoch: 94 [12000/50000 (24%)]	Loss: 0.206559
+Train Epoch: 94 [24000/50000 (48%)]	Loss: 0.221675
+Train Epoch: 94 [36000/50000 (72%)]	Loss: 0.148086
+Train Epoch: 94 [48000/50000 (96%)]	Loss: 0.176794
+epoch: 94
+
+Test set: Average loss: 0.0020, Accuracy: 8234/10000 (82.34%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1023        0.861         0.851
+automobile        1000         963        0.904         0.921
+bird        1000         854        0.712         0.768
+cat        1000         1043        0.668         0.654
+deer        1000         1168        0.849         0.783
+dog        1000         919        0.721         0.751
+frog        1000         1026        0.854         0.843
+horse        1000         987        0.859         0.865
+ship        1000         1019        0.903         0.895
+truck        1000         998        0.903         0.904
+
+
+Train Epoch: 95 [0/50000 (0%)]	Loss: 0.139309
+Train Epoch: 95 [12000/50000 (24%)]	Loss: 0.244720
+Train Epoch: 95 [24000/50000 (48%)]	Loss: 0.217358
+Train Epoch: 95 [36000/50000 (72%)]	Loss: 0.222288
+Train Epoch: 95 [48000/50000 (96%)]	Loss: 0.250961
+epoch: 95
+
+Test set: Average loss: 0.0020, Accuracy: 8159/10000 (81.59%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1056        0.868         0.844
+automobile        1000         965        0.898         0.914
+bird        1000         888        0.712         0.754
+cat        1000         1191        0.704         0.643
+deer        1000         1001        0.783         0.783
+dog        1000         930        0.709         0.735
+frog        1000         1013        0.85         0.845
+horse        1000         928        0.832         0.863
+ship        1000         1024        0.907         0.896
+truck        1000         1004        0.896         0.894
+
+
+Train Epoch: 96 [0/50000 (0%)]	Loss: 0.198260
+Train Epoch: 96 [12000/50000 (24%)]	Loss: 0.232626
+Train Epoch: 96 [24000/50000 (48%)]	Loss: 0.210953
+Train Epoch: 96 [36000/50000 (72%)]	Loss: 0.169503
+Train Epoch: 96 [48000/50000 (96%)]	Loss: 0.209349
+epoch: 96
+
+Test set: Average loss: 0.0020, Accuracy: 8219/10000 (82.19%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         981        0.836         0.844
+automobile        1000         993        0.907         0.91
+bird        1000         859        0.716         0.77
+cat        1000         1155        0.718         0.666
+deer        1000         994        0.794         0.796
+dog        1000         934        0.726         0.751
+frog        1000         1110        0.891         0.845
+horse        1000         959        0.845         0.863
+ship        1000         1038        0.905         0.888
+truck        1000         977        0.881         0.891
+
+
+Train Epoch: 97 [0/50000 (0%)]	Loss: 0.215579
+Train Epoch: 97 [12000/50000 (24%)]	Loss: 0.203103
+Train Epoch: 97 [24000/50000 (48%)]	Loss: 0.187207
+Train Epoch: 97 [36000/50000 (72%)]	Loss: 0.170125
+Train Epoch: 97 [48000/50000 (96%)]	Loss: 0.253514
+epoch: 97
+
+Test set: Average loss: 0.0020, Accuracy: 8172/10000 (81.72%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1068        0.87         0.841
+automobile        1000         1035        0.921         0.905
+bird        1000         813        0.683         0.753
+cat        1000         1000        0.657         0.657
+deer        1000         1184        0.851         0.779
+dog        1000         871        0.693         0.741
+frog        1000         1028        0.861         0.849
+horse        1000         1005        0.857         0.855
+ship        1000         969        0.883         0.897
+truck        1000         1027        0.896         0.884
+
+
+Train Epoch: 98 [0/50000 (0%)]	Loss: 0.227051
+Train Epoch: 98 [12000/50000 (24%)]	Loss: 0.252919
+Train Epoch: 98 [24000/50000 (48%)]	Loss: 0.168028
+Train Epoch: 98 [36000/50000 (72%)]	Loss: 0.204963
+Train Epoch: 98 [48000/50000 (96%)]	Loss: 0.211110
+epoch: 98
+
+Test set: Average loss: 0.0021, Accuracy: 8204/10000 (82.04%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         986        0.84         0.846
+automobile        1000         1023        0.927         0.916
+bird        1000         782        0.666         0.747
+cat        1000         1266        0.746         0.658
+deer        1000         992        0.792         0.795
+dog        1000         926        0.729         0.757
+frog        1000         1075        0.878         0.846
+horse        1000         957        0.841         0.859
+ship        1000         999        0.897         0.897
+truck        1000         994        0.888         0.891
+
+
+Train Epoch: 99 [0/50000 (0%)]	Loss: 0.189562
+Train Epoch: 99 [12000/50000 (24%)]	Loss: 0.207284
+Train Epoch: 99 [24000/50000 (48%)]	Loss: 0.146474
+Train Epoch: 99 [36000/50000 (72%)]	Loss: 0.232339
+Train Epoch: 99 [48000/50000 (96%)]	Loss: 0.184896
+epoch: 99
+
+Test set: Average loss: 0.0021, Accuracy: 8172/10000 (81.72%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         921        0.813         0.846
+automobile        1000         957        0.89         0.91
+bird        1000         799        0.668         0.743
+cat        1000         1034        0.666         0.655
+deer        1000         1082        0.824         0.792
+dog        1000         1084        0.773         0.742
+frog        1000         1034        0.867         0.853
+horse        1000         976        0.841         0.851
+ship        1000         1065        0.918         0.889
+truck        1000         1048        0.912         0.891
+
+
+Train Epoch: 100 [0/50000 (0%)]	Loss: 0.173883
+Train Epoch: 100 [12000/50000 (24%)]	Loss: 0.225862
+Train Epoch: 100 [24000/50000 (48%)]	Loss: 0.177425
+Train Epoch: 100 [36000/50000 (72%)]	Loss: 0.161738
+Train Epoch: 100 [48000/50000 (96%)]	Loss: 0.225209
+epoch: 100
+
+Test set: Average loss: 0.0021, Accuracy: 8166/10000 (81.66%)
+
+class    total     guessed    accuracy    f1-score
+airplane        1000         1016        0.852         0.845
+automobile        1000         1003        0.916         0.915
+bird        1000         882        0.716         0.761
+cat        1000         1256        0.73         0.647
+deer        1000         907        0.754         0.791
+dog        1000         1071        0.766         0.74
+frog        1000         972        0.841         0.853
+horse        1000         923        0.822         0.855
+ship        1000         961        0.877         0.894
+truck        1000         1009        0.892         0.888
+
+
+Total Run Time:
+--- 6121.605254411697 seconds ---
