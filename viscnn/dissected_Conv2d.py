@@ -343,7 +343,7 @@ These functions all deal with dissected_Conv2d modules across an entire model
 '''
 
 # takes a full model and replaces all conv2d instances with dissected conv 2d instances
-def dissect_model(model,mod_names = [],store_activations=True,store_ranks=True,clear_ranks = False,cuda=True,device='cuda'):
+def dissect_model(model,mod_names = [],store_activations=True,store_ranks=True,clear_ranks = False,cuda=True,device='cuda:0'):
 
 	for name, module in reversed(model._modules.items()):
 		if len(list(module.children())) > 0:

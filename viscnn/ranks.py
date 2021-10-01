@@ -5,8 +5,9 @@ import os
 from copy import deepcopy
 import pandas as pd
 import numpy as np
-from prep_model_scripts.dissected_Conv2d import *
-from prep_model_scripts.data_loading_functions import *
+from viscnn.dissected_Conv2d import *
+from viscnn.data_loading import *
+from viscnn.utils import *
 
 
 
@@ -17,9 +18,8 @@ from prep_model_scripts.data_loading_functions import *
 
 def get_model_ranks_for_category(category, target_node, model_dis,params):
 	print('running model to get ranks for "%s" on target "%s"'%(str(category),str(target_node)))
-	device = torch.device("cuda" if params['cuda'] else "cpu")
-	if 'device' in params.keys():
-		device = params['device']
+	device = params['device']
+
 	print('using device %s'%device)
 	criterion = params['criterion']
 	####SET UP MODEL
@@ -35,7 +35,7 @@ def get_model_ranks_for_category(category, target_node, model_dis,params):
 
 
 	####SET UP DATALOADER
-	kwargs = {'num_workers': params['num_workers'], 'pin_memory': True} if params['cuda'] else {}
+	kwargs = {'num_workers': params['num_workers'], 'pin_memory': True} if ('cuda' in params['device']) else {}
 
 	if category =='overall':
 		categories = os.listdir(params['rank_img_path'])
@@ -74,10 +74,8 @@ def get_model_ranks_for_category(category, target_node, model_dis,params):
 def get_model_ranks_from_image(image_path, target_node, model_dis, params): 
 	print('running model to get ranks for image: %s'%str(image_path))
 	#model_dis.clear_ranks_func()  #so ranks dont accumulate
-	cuda = params['cuda']
-	device = torch.device("cuda" if cuda else "cpu")
-	if 'device' in params.keys():
-		device = params['device']
+
+	device = params['device']
 
 	criterion = params['criterion']
 	#image loading 
@@ -106,10 +104,10 @@ def get_model_ranks_from_image(image_path, target_node, model_dis, params):
 
 
 def rank_file_2_df(file_path):      
-    '''
-    takes a node or edge 'rank.pt' file and turns it into a pandas dataframe, 
-    or takes the dict itself not file path
-    '''
+	'''
+	takes a node or edge 'rank.pt' file and turns it into a pandas dataframe, 
+	or takes the dict itself not file path
+	'''
 	file_name = file_path.split('/')[-1]
 	category = file_name.replace('_edges_rank.pt','').replace('_nodes_rank.pt','')
 	ranks = torch.load(file_path)
@@ -162,9 +160,9 @@ def rank_file_2_df(file_path):
 
 
 def rank_dict_2_df(ranks):      
-    '''
-    takes a rank dictionary and turns it into a pandas dataframe
-    '''
+	'''
+	takes a rank dictionary and turns it into a pandas dataframe
+	'''
 	rank_types = list(ranks['nodes'].keys())
 	node_column_names = ['node_num','layer_name','layer','node_num_by_layer','act_rank','grad_rank','actxgrad_rank']
 	edge_column_names = ['edge_num','layer_name','layer','out_channel','in_channel','act_rank','grad_rank','actxgrad_rank']

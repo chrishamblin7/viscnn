@@ -7,11 +7,11 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 import plotly.graph_objs as go
-from visualizer_helper_functions import *
+from viscnn.ablations import *
 import sys
 sys.path.insert(0, os.path.abspath('../prep_model_scripts/'))
-from dissected_Conv2d import *
-from data_loading_functions import *
+from viscnn.dissected_Conv2d import *
+from viscnn.data_loading import *
 
 
 def ablate_model(target,model, params, put_back = False):

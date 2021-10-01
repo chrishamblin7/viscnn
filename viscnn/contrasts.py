@@ -8,10 +8,10 @@ import numpy as np
 from PIL import Image
 import plotly.graph_objs as go
 import sys
-#sys.path.insert(0, os.path.abspath('../prep_model_scripts/'))
-from prep_model_scripts.dissected_Conv2d import *
-from prep_model_scripts.data_loading_functions import *
-from visualizer_scripts.visualizer_helper_functions import *
+
+from viscnn.dissected_Conv2d import *
+from viscnn.data_loading import *
+from viscnn.utils import *
 from sympy import *
 
 def is_number(s):

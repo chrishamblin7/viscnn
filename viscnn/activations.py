@@ -1,5 +1,5 @@
-from utils import preprocess_image
-
+from viscnn.utils import preprocess_image
+from viscnn.dissected_Conv2d import *
 
 #ACTIVATION MAP FUNCTIONS
 
@@ -32,10 +32,10 @@ def act_array_2_imgname_dict(layer_activations, image_names):
 
 def get_model_activations_from_image(image_path, model_dis, params):
 	print('running model to fetch activations')
-	cuda = params['cuda']
+
+	_ = model_dis.to(params['device']).eval()
 	model_dis = set_across_model(model_dis,'target_node',None)
-	if 'device' in params.keys():
-		model_dis.to(params['device'])
+		
 	#image loading 
 	image = preprocess_image(image_path,params)
 	image_name = image_path.split('/')[-1]

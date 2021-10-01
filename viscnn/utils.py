@@ -1,20 +1,35 @@
 #MISC UTILITY FUNCTIONS
+import sys
+import os
+from PIL import Image
+import torch
+from torch import nn
+from viscnn.dissected_Conv2d import *
 
 
 ### IMAGE PROCESSING ###
 
+def get_image_path(image_name,params):
+	found = False
+	path = None
+	if image_name in params['input_image_list']:
+		found = True
+		path = params['input_image_directory']+'/'+image_name
+	elif image_name in os.listdir(params['prepped_model_path']+'/visualizations/images/'):
+		found = True
+		path = params['prepped_model_path']+'/visualizations/images/'+image_name
+	return found, path
+
+
 def preprocess_image(image_path,params):
 	preprocess = params['preprocess']
-	cuda = params['cuda']
+
 	#image loading 
 	image_name = image_path.split('/')[-1]
 	image = Image.open(image_path)
 	image = preprocess(image).float()
 	image = image.unsqueeze(0)
-	if cuda:
-		image = image.cuda()
-	if 'device' in params.keys():
-		image = image.to(params['device'])
+	image = image.to(params['device'])
 	return image
 
 
@@ -80,6 +95,35 @@ def layernum2name(layer,offset=1,title = 'layer'):
 	return title+' '+str(layer+offset)
 
 
+def check_edge_validity(nodestring,params):
+	from_node = nodestring.split('-')[0]
+	to_node = nodestring.split('-')[1]
+	try:
+		from_layer,from_within_id,from_layer_name = nodeid_2_perlayerid(from_node,params)
+		to_layer,to_within_id,to_layer_name = nodeid_2_perlayerid(to_node,params)
+		#check for valid edge
+		valid_edge = False
+		if from_layer=='img':
+			if to_layer== 0:
+				valid_edge = True
+		elif to_layer == from_layer+1:
+			valid_edge = True
+		if not valid_edge:
+			print('invalid edge name')
+			return [False, None, None, None, None]
+		return True, from_layer,to_layer,from_within_id,to_within_id
+	except:
+		#print('exception')
+		return [False, None, None, None, None] 
+
+def edgename_2_singlenum(model,edgename,params):
+	valid, from_layer,to_layer,from_within_id,to_within_id = check_edge_validity(edgename,params)
+	if not valid:
+		raise ValueError('edgename %s is invalid'%edgename)
+	conv_module = layer_2_dissected_conv2d(int(to_layer),model)[0]
+	return conv_module.add_indices[int(to_within_id)][int(from_within_id)]
+
+
 ### TENSORS ###
 
 def unravel_index(indices,shape):
@@ -128,4 +172,25 @@ def color_vec_2_str(colorvec,a='1'):
 def get_nth_element_from_nested_list(l,n):    #this seems to come up with the nested layer lists
 	flat_list = [item for sublist in l for item in sublist]
 	return flat_list[n]
+
+def update_sys_path(path):
+	full_path = os.path.abspath(path)
+	if full_path not in sys.path:
+		sys.path.insert(0,full_path)
+
+def minmax_normalize_between_values(vec,min_v,max_v):
+    return (max_v-min_v)*(vec-np.min(vec))/(np.max(vec)-np.min(vec))+min_v
+    
+def min_distance(x,y,minimum=1):
+    dist = np.linalg.norm(x-y)
+    if dist > minimum:
+        return dist,True
+    else:
+        return dist,False
+    
+def multipoint_min_distance(points):   #takes numpy array of shape (# points, # dimensions)
+    dist_mat = distance_matrix(points,points)
+    dist_mat[np.tril_indices(dist_mat.shape[0], 0)] = 10000
+    print(dist_mat)
+    return np.min(dist_mat)
 

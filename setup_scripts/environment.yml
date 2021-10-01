@@ -24,7 +24,9 @@ dependencies:
   - hdbscan=0.8.27
   - matplotlib=3.4.3
   - seaborn=0.11.2
+  - python-kaleido=0.2.1
   - pip=21.1.2
+
   - pip:
       - torch-lucent==0.1.8
-      - kaleido==0.2.1
+
