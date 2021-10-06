@@ -517,7 +517,7 @@ def launch_cnn_gui(prepped_model,port=8050,params = None,deepviz_neuron=None,dee
 	if not os.path.isdir(prepped_model_path):
 		#try to download prepped_model from gdrive
 		from viscnn.download_from_gdrive import download_from_gdrive
-			download_from_gdrive(prepped_model_folder,dont_download_images = dont_download_images)
+		download_from_gdrive(prepped_model_folder,dont_download_images = dont_download_images)
 
 
 	#get prepped model and params
