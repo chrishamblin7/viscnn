@@ -76,7 +76,7 @@ def download_from_gdrive(model,dont_download_images = False,only_download_images
 				print('Downloading model')
 				file_download(online_models[model]['model'],root_path+'/models/%s'%online_models[model]['model'][1])
 			else:
-				print('not downloading model %s, as it already exists in "models" folder.'%online_models[model]['models'][1])
+				print('not downloading model %s, as it already exists in "models" folder.'%online_models[model]['model'][1])
 			
 
 	if not dont_download_images:
