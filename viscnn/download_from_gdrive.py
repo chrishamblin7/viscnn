@@ -66,7 +66,7 @@ def download_from_gdrive(model,dont_download_images = False,only_download_images
 	if not only_download_images:
 		print('Downloading prepped_model: %s\n\n'%model)
 		tar_download(online_models[model]['prepped_model'],root_path+'/prepped_models/%s.tgz'%model)
-		if not os.path.exists(root_path'/prepped_models/%s/subgraphs'%model):
+		if not os.path.exists(root_path+'/prepped_models/%s/subgraphs'%model):
 			os.mkdir(root_path+'/prepped_models/%s/subgraphs'%model)
 			os.mkdir(root_path+'/prepped_models/%s/subgraphs/info'%model)
 			os.mkdir(root_path+'/prepped_models/%s/subgraphs/models'%model)
