@@ -65,19 +65,19 @@ def download_from_gdrive(model,dont_download_images = False,only_download_images
 
 	if not only_download_images:
 		print('Downloading prepped_model: %s\n\n'%model)
-		tar_download(online_models[model]['prepped_model'],'../prepped_models/%s.tgz'%model)
-		if not os.path.exists('../prepped_models/%s/subgraphs'%model):
-			os.mkdir('../prepped_models/%s/subgraphs'%model)
-			os.mkdir('../prepped_models/%s/subgraphs/info'%model)
-			os.mkdir('../prepped_models/%s/subgraphs/models'%model)
-			os.mkdir('../prepped_models/%s/subgraphs/visualizations'%model)
+		tar_download(online_models[model]['prepped_model'],root_path+'/prepped_models/%s.tgz'%model)
+		if not os.path.exists(root_path'/prepped_models/%s/subgraphs'%model):
+			os.mkdir(root_path+'/prepped_models/%s/subgraphs'%model)
+			os.mkdir(root_path+'/prepped_models/%s/subgraphs/info'%model)
+			os.mkdir(root_path+'/prepped_models/%s/subgraphs/models'%model)
+			os.mkdir(root_path+'/prepped_models/%s/subgraphs/visualizations'%model)
 		if online_models[model]['model'] is not None:
 			print('Downloading model')
-			file_download(online_models[model]['model'],'../models/%s_statedict.pt'%model)
+			file_download(online_models[model]['model'],root_path+'/models/%s_statedict.pt'%model)
 
 	if not dont_download_images:
 		print('Downloading input image data associated with: %s\n\n'%model)
-		tar_download(online_models[model]['images'],'../image_data/%s.tgz'%model)
+		tar_download(online_models[model]['images'],root_path+'/image_data/%s.tgz'%model)
 
 if __name__ == "__main__":
 
