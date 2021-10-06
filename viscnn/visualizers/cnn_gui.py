@@ -424,7 +424,10 @@ def load_cnn_gui_params(prepped_model_path,deepviz_neuron=None,deepviz_edge=Fals
 	params['deepviz_edge'] = deepviz_edge
 
 	#backend
-	params['device'] = prep_model_params.device
+	if device is None:
+		params['device'] = prep_model_params.device
+	else:
+		params['device'] = device
 	params['input_image_directory'] = prep_model_params.input_img_path+'/'
 	params['preprocess'] = prep_model_params.preprocess     #torchvision transfrom to pass input images through
 	params['label_file_path'] = prep_model_params.label_file_path
@@ -478,7 +481,7 @@ def load_cnn_gui_params(prepped_model_path,deepviz_neuron=None,deepviz_edge=Fals
 
 	return params
 
-def launch_cnn_gui(prepped_model,port=8050,params = None,deepviz_neuron=None,deepviz_edge=False,show_ablations=False,show_act_map_means=False,
+def launch_cnn_gui(prepped_model,port=8050,params = None,device = None,deepviz_neuron=None,deepviz_edge=False,show_ablations=False,show_act_map_means=False,
 					show_image_manip = False,colorscale = 'RdBu',node_size=12,edge_size=1,max_node_inputs=20,
 					init_target_category = 'overall',init_rank_type = 'actxgrad',init_projection = 'MDS smooth',
 					init_edge_threshold = [.7,1],init_node_threshold = [.4,1],dont_download_images=False):
@@ -522,7 +525,7 @@ def launch_cnn_gui(prepped_model,port=8050,params = None,deepviz_neuron=None,dee
 
 	#get prepped model and params
 	if params is None:
-		params = load_cnn_gui_params(prepped_model_path,deepviz_neuron=deepviz_neuron,deepviz_edge=deepviz_edge,show_ablations=show_ablations,show_act_map_means=show_act_map_means,
+		params = load_cnn_gui_params(prepped_model_path,device=device,deepviz_neuron=deepviz_neuron,deepviz_edge=deepviz_edge,show_ablations=show_ablations,show_act_map_means=show_act_map_means,
 									 show_image_manip = show_image_manip,colorscale = colorscale,node_size=node_size,edge_size=edge_size,max_node_inputs=max_node_inputs)
 
 
