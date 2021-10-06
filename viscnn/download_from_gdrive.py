@@ -55,8 +55,9 @@ def tar_download(id,dest_path):
 
 def download_from_gdrive(model,dont_download_images = False,only_download_images=False):
 	#make image directories
+	print('downloading %s from googledrive'%model)
 	if not os.path.exists(root_path+'/image_data'):
-		os.mkdir(root_path+'/image_data)
+		os.mkdir(root_path+'/image_data')
 	if not os.path.exists(root_path+'/prepped_models'):
 		os.mkdir(root_path+'/prepped_models')
 	if not os.path.exists(root_path+'/models'):
