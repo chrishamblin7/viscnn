@@ -59,7 +59,7 @@ def get_model_ranks_for_category(category, target_node, model_dis,params):
 				output = model_dis(batch)    #running forward pass sets up hooks and stores activations in each dissected_Conv2d module
 				if target_node == 'loss':
 					target = max_likelihood_for_no_target(target,output) 
-					criterion(output, Variable(target)).backward()    #running backward pass calls all the hooks and calculates the ranks of all edges and nodes in the graph 
+					criterion(output, target).backward()    #running backward pass calls all the hooks and calculates the ranks of all edges and nodes in the graph 
 			except TargetReached:
 				print('target node %s reached, halted forward pass'%str(target_node))
 
@@ -94,7 +94,7 @@ def get_model_ranks_from_image(image_path, target_node, model_dis, params):
 		output = model_dis(image)    #running forward pass sets up hooks and stores activations in each dissected_Conv2d module
 		if target_node == 'loss':
 			target = max_likelihood_for_no_target(target,output) 
-			criterion(output, Variable(target)).backward()    #running backward pass calls all the hooks and calculates the ranks of all edges and nodes in the graph 
+			criterion(output, target).backward()    #running backward pass calls all the hooks and calculates the ranks of all edges and nodes in the graph 
 	except TargetReached:
 		print('target node %s reached, halted forward pass'%str(target_node))
 

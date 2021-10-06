@@ -6,10 +6,10 @@ import os
 from viscnn import root_path
 
 #Dictionary with the online gdrive keys for models image fodler etc.
-online_models = {'mnist':{'prepped_model':'1rRqywhDNIngaOI7wjBNg8ob041k9I1RC','model':'1X6wR6nJ_SguVzd6MVFelvXsH9G2uR4WZ','images':'1rGXi_pWGvz3UsdO1FpkWc2WsU-M42Z3v'},
-				 'cifar10':{'prepped_model':'1GY-u1JC2PQaiXznHQ1nkV6lMDI0laJ7G','model':None,'images':'17pjtPG-MJK7mhTh_KHvHLHUwSButkwLA'},
-				 'alexnet':{'prepped_model':'1Xpirw_Ss_wfOtukJRZDG1VUtVeSAdQpO','model':None,'images':'1NRbJJebFnyuqezFqMQ1qY53w5mXmelEl'},
-				 'alexnet_sparse':{'prepped_model':'1023KCGDFeyYjdB8KOFN_mc57J45Z7yzM','model':'1MMr2LgwQkQIDb8SNwqLaqnezXJOVUHps','images':'1NRbJJebFnyuqezFqMQ1qY53w5mXmelEl'},
+online_models = {'mnist':{'prepped_model':'1rRqywhDNIngaOI7wjBNg8ob041k9I1RC','model':['1X6wR6nJ_SguVzd6MVFelvXsH9G2uR4WZ','mnist_statedict.pt'],'images':['1rGXi_pWGvz3UsdO1FpkWc2WsU-M42Z3v','mnist']},
+				 'cifar10':{'prepped_model':'1GY-u1JC2PQaiXznHQ1nkV6lMDI0laJ7G','model':None,'images':['17pjtPG-MJK7mhTh_KHvHLHUwSButkwLA','cifar10']},
+				 'alexnet':{'prepped_model':'1Xpirw_Ss_wfOtukJRZDG1VUtVeSAdQpO','model':None,'images':['1NRbJJebFnyuqezFqMQ1qY53w5mXmelEl','imagenet_50']},
+				 'alexnet_sparse':{'prepped_model':'15hw1BfJ6JL35Bg7dw2ptKbx7PnA7Fzog','model':['1MMr2LgwQkQIDb8SNwqLaqnezXJOVUHps','alexnet_sparse_statedict.pt'],'images':['1NRbJJebFnyuqezFqMQ1qY53w5mXmelEl','imagenet_50']},
 				}
 
 online_model_names = list(online_models.keys())
@@ -55,7 +55,6 @@ def tar_download(id,dest_path):
 
 def download_from_gdrive(model,dont_download_images = False,only_download_images=False):
 	#make image directories
-	print('downloading %s from googledrive'%model)
 	if not os.path.exists(root_path+'/image_data'):
 		os.mkdir(root_path+'/image_data')
 	if not os.path.exists(root_path+'/prepped_models'):
@@ -71,13 +70,21 @@ def download_from_gdrive(model,dont_download_images = False,only_download_images
 			os.mkdir(root_path+'/prepped_models/%s/subgraphs/info'%model)
 			os.mkdir(root_path+'/prepped_models/%s/subgraphs/models'%model)
 			os.mkdir(root_path+'/prepped_models/%s/subgraphs/visualizations'%model)
+
 		if online_models[model]['model'] is not None:
-			print('Downloading model')
-			file_download(online_models[model]['model'],root_path+'/models/%s_statedict.pt'%model)
+			if not os.path.exists(root_path+'/models/%s'%online_models[model]['model'][1]):
+				print('Downloading model')
+				file_download(online_models[model]['model'],root_path+'/models/%s'%online_models[model]['model'][1])
+			else:
+				print('not downloading model %s, as it already exists in "models" folder.'%online_models[model]['models'][1])
+			
 
 	if not dont_download_images:
-		print('Downloading input image data associated with: %s\n\n'%model)
-		tar_download(online_models[model]['images'],root_path+'/image_data/%s.tgz'%model)
+		if not os.path.exists(root_path+'/image_data/%s'%online_models[model]['images'][1]):
+			print('Downloading input image data associated with %s: %s\n\n'%(model,online_models[model]['images'][1]))
+			tar_download(online_models[model]['images'][0],root_path+'/image_data/%s.tgz'%model)
+		else:
+			print('not downloading image dataset %s, as it already exists in "image_data"'%online_models[model]['images'][1])
 
 if __name__ == "__main__":
 

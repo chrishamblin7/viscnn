@@ -19,7 +19,7 @@ from viscnn.ablations import *
 from viscnn.subgraphs import *
 from viscnn.utils import *
 from viscnn.visualizers.layouts import *
-
+from viscnn.receptive_fields import receptive_field_for_unit
 
 import dash
 import dash_core_components as dcc
