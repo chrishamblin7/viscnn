@@ -9,7 +9,7 @@ from viscnn import root_path
 online_models = {'mnist':{'prepped_model':'1rRqywhDNIngaOI7wjBNg8ob041k9I1RC','model':['1X6wR6nJ_SguVzd6MVFelvXsH9G2uR4WZ','mnist_statedict.pt'],'images':['1rGXi_pWGvz3UsdO1FpkWc2WsU-M42Z3v','mnist']},
 				 'cifar10':{'prepped_model':'1GY-u1JC2PQaiXznHQ1nkV6lMDI0laJ7G','model':None,'images':['17pjtPG-MJK7mhTh_KHvHLHUwSButkwLA','cifar10']},
 				 'alexnet':{'prepped_model':'1Xpirw_Ss_wfOtukJRZDG1VUtVeSAdQpO','model':None,'images':['1NRbJJebFnyuqezFqMQ1qY53w5mXmelEl','imagenet_50']},
-				 'alexnet_sparse':{'prepped_model':'15hw1BfJ6JL35Bg7dw2ptKbx7PnA7Fzog','model':['1MMr2LgwQkQIDb8SNwqLaqnezXJOVUHps','alexnet_sparse_statedict.pt'],'images':['1NRbJJebFnyuqezFqMQ1qY53w5mXmelEl','imagenet_50']},
+				 'alexnet_sparse':{'prepped_model':'1dafdAgYiHwn7yyoP6BvzQQo2_kpJVrvX','model':['1MMr2LgwQkQIDb8SNwqLaqnezXJOVUHps','alexnet_sparse_statedict.pt'],'images':['1NRbJJebFnyuqezFqMQ1qY53w5mXmelEl','imagenet_50']},
 				}
 
 online_model_names = list(online_models.keys())
