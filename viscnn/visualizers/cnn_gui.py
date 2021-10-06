@@ -478,23 +478,52 @@ def load_cnn_gui_params(prepped_model_path,deepviz_neuron=None,deepviz_edge=Fals
 
 	return params
 
-def launch_cnn_gui(prepped_model_path,port=8050,params = None,deepviz_neuron=None,deepviz_edge=False,show_ablations=False,show_act_map_means=False,
+def launch_cnn_gui(prepped_model,port=8050,params = None,deepviz_neuron=None,deepviz_edge=False,show_ablations=False,show_act_map_means=False,
 					show_image_manip = False,colorscale = 'RdBu',node_size=12,edge_size=1,max_node_inputs=20,
 					init_target_category = 'overall',init_rank_type = 'actxgrad',init_projection = 'MDS smooth',
-					init_edge_threshold = [.7,1],init_node_threshold = [.4,1]):
+					init_edge_threshold = [.7,1],init_node_threshold = [.4,1],download_images=True):
 	'''
 	This script generates a dash app for the viscnn exploratory GUI, to be launched 
-	NOTE: Calling this function takes up a looot of memory, might want to clear space up before running it, (for example, with %reset in a jupyter notebook)
+	NOTE: Calling this function takes up a lot of memory, might want to clear space up before running it, (for example, with %reset in a jupyter notebook)
 
 
 	args:
+		prepped_model (required): Use the name of a folder inside the 'prepped_models' folder.
+								  Prepped models available online that have not yet been downloaded
+								  (alexnet, mnist, alexnet_sparse, vgg16) can also be put in this argument
+								  and the appropriate files will be downloaded to the computer.
+								  All this assumes the 'prepped_models' folder is in its 
+								  original location (as downloaded from github), namely, 
+								  in the root directory of the viscnn repo. If the 'prepped_models'
+								  folder has been moved, specify the full path to your target folder
+								  as this argument. 
+
 		deepviz_neuron: if True use 'neuron' level visualizations, if False use 'channel' level
 		deepviz_edge: if True, generate a feature vizualization for the output activations from edges. If False vizualize the node leading into and out of the edge instead
 		device: use 'cuda:0', 'cuda:1' etc if you want to run the model on gpu, use 'cpu' otherwise
 		params: Use 'None' to load params specified in 'prep_model_params_used.py' in the prepped_model folder. Otherwise set this to a custom parameter dictionary.
 
 	'''
-	prepped_model_folder = prepped_model_path.split('/')[-1]
+
+	#figure out where the prepped model is
+	if '/' in prepped_model:
+		prepped_model_path = os.path.abspath(prepped_model)
+		prepped_model_folder = prepped_model.split('/')[-1]
+	else:
+		from viscnn import prepped_models_root_path
+		prepped_model_path = prepped_models_root_path + '/' + prepped_model
+		prepped_model_folder = 
+		
+	if not os.path.isdir(prepped_model_path):
+		#try to download prepped_model from gdrive
+		from subprocess import call
+		if download_images:
+			call('python download_from_gdrive.py %s'%prepped_model_folder,shell=True)
+		else:
+			call('python download_from_gdrive.py %s --dont-download-images'%prepped_model_folder,shell=True)
+
+
+
 
 	#get prepped model and params
 	if params is None:
