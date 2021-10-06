@@ -481,7 +481,7 @@ def load_cnn_gui_params(prepped_model_path,deepviz_neuron=None,deepviz_edge=Fals
 def launch_cnn_gui(prepped_model,port=8050,params = None,deepviz_neuron=None,deepviz_edge=False,show_ablations=False,show_act_map_means=False,
 					show_image_manip = False,colorscale = 'RdBu',node_size=12,edge_size=1,max_node_inputs=20,
 					init_target_category = 'overall',init_rank_type = 'actxgrad',init_projection = 'MDS smooth',
-					init_edge_threshold = [.7,1],init_node_threshold = [.4,1],download_images=True):
+					init_edge_threshold = [.7,1],init_node_threshold = [.4,1],dont_download_images=False):
 	'''
 	This script generates a dash app for the viscnn exploratory GUI, to be launched 
 	NOTE: Calling this function takes up a lot of memory, might want to clear space up before running it, (for example, with %reset in a jupyter notebook)
@@ -512,17 +512,12 @@ def launch_cnn_gui(prepped_model,port=8050,params = None,deepviz_neuron=None,dee
 	else:
 		from viscnn import prepped_models_root_path
 		prepped_model_path = prepped_models_root_path + '/' + prepped_model
-		prepped_model_folder = 
+		prepped_model_folder = prepped_model_path.split('/')[-1]
 		
 	if not os.path.isdir(prepped_model_path):
 		#try to download prepped_model from gdrive
-		from subprocess import call
-		if download_images:
-			call('python download_from_gdrive.py %s'%prepped_model_folder,shell=True)
-		else:
-			call('python download_from_gdrive.py %s --dont-download-images'%prepped_model_folder,shell=True)
-
-
+		from viscnn.download_from_gdrive import download_from_gdrive
+			download_from_gdrive(prepped_model_folder,dont_download_images = dont_download_images)
 
 
 	#get prepped model and params

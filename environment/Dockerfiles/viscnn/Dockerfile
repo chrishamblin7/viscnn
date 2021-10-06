@@ -20,13 +20,16 @@ RUN conda install -y -c anaconda \
     pillow=8.1.2 \
     scikit-learn=0.23.1 \ 
     sympy=1.6.2 \
+    ipykernel=5.3.4 \
   && conda install -y -c plotly \
-     plotly=4.8.2 \
+     plotly=4.14.3 \
   && conda install -y -c conda-forge \
-     dash=1.13.4 \
-     flask-caching=1.7.1 \
-     jupyterlab=2.2.0 \
-     umap-learn \
+     flask-caching=1.10.1 \
+     dash=1.20.0 \
+     dash-daq=0.5.* \
+     jupyterlab=3.0.16 \
+     umap-learn=0.5.1 \
+     hdbscan=0.8.27 \ 
   && conda clean -ya
 
 RUN pip install torch-lucent

@@ -3,7 +3,7 @@
 import requests
 from subprocess import call
 import os
-
+from viscnn import root_path
 
 #Dictionary with the online gdrive keys for models image fodler etc.
 online_models = {'mnist':{'prepped_model':'1rRqywhDNIngaOI7wjBNg8ob041k9I1RC','model':'1X6wR6nJ_SguVzd6MVFelvXsH9G2uR4WZ','images':'1rGXi_pWGvz3UsdO1FpkWc2WsU-M42Z3v'},
@@ -53,6 +53,30 @@ def tar_download(id,dest_path):
 	call('rm %s'%dest_path,shell=True)	
 
 
+def download_from_gdrive(model,dont_download_images = False,only_download_images=False):
+	#make image directories
+	if not os.path.exists(root_path+'/image_data'):
+		os.mkdir(root_path+'/image_data)
+	if not os.path.exists(root_path+'/prepped_models'):
+		os.mkdir(root_path+'/prepped_models')
+	if not os.path.exists(root_path+'/models'):
+		os.mkdir(root_path+'/models')
+
+	if not only_download_images:
+		print('Downloading prepped_model: %s\n\n'%model)
+		tar_download(online_models[model]['prepped_model'],'../prepped_models/%s.tgz'%model)
+		if not os.path.exists('../prepped_models/%s/subgraphs'%model):
+			os.mkdir('../prepped_models/%s/subgraphs'%model)
+			os.mkdir('../prepped_models/%s/subgraphs/info'%model)
+			os.mkdir('../prepped_models/%s/subgraphs/models'%model)
+			os.mkdir('../prepped_models/%s/subgraphs/visualizations'%model)
+		if online_models[model]['model'] is not None:
+			print('Downloading model')
+			file_download(online_models[model]['model'],'../models/%s_statedict.pt'%model)
+
+	if not dont_download_images:
+		print('Downloading input image data associated with: %s\n\n'%model)
+		tar_download(online_models[model]['images'],'../image_data/%s.tgz'%model)
 
 if __name__ == "__main__":
 
@@ -71,25 +95,27 @@ if __name__ == "__main__":
 
 	args = get_args()
 
-	if not os.path.exists('../image_data'):
-		os.mkdir('../image_data')
-	if not os.path.exists('../prepped_models'):
-		os.mkdir('../prepped_models')
-	if not os.path.exists('../models'):
-		os.mkdir('../models')
+	download_from_gdrive(args.model,dont_download_images = args.dont_download_images,only_download_images=args.only_download_images)
 
-	if not args.only_download_images:
-		print('Downloading prepped_model: %s\n\n'%args.model)
-		tar_download(online_models[args.model]['prepped_model'],'../prepped_models/%s.tgz'%args.model)
-		if not os.path.exists('../prepped_models/%s/subgraphs'%args.model):
-			os.mkdir('../prepped_models/%s/subgraphs'%args.model)
-			os.mkdir('../prepped_models/%s/subgraphs/info'%args.model)
-			os.mkdir('../prepped_models/%s/subgraphs/models'%args.model)
-			os.mkdir('../prepped_models/%s/subgraphs/visualizations'%args.model)
-		if online_models[args.model]['model'] is not None:
-			print('Downloading model')
-			file_download(online_models[args.model]['model'],'../models/%s_statedict.pt'%args.model)
+	# if not os.path.exists('../image_data'):
+	# 	os.mkdir('../image_data')
+	# if not os.path.exists('../prepped_models'):
+	# 	os.mkdir('../prepped_models')
+	# if not os.path.exists('../models'):
+	# 	os.mkdir('../models')
 
-	if not args.dont_download_images:
-		print('Downloading input image data associated with: %s\n\n'%args.model)
-		tar_download(online_models[args.model]['images'],'../image_data/%s.tgz'%args.model)
+	# if not args.only_download_images:
+	# 	print('Downloading prepped_model: %s\n\n'%args.model)
+	# 	tar_download(online_models[args.model]['prepped_model'],'../prepped_models/%s.tgz'%args.model)
+	# 	if not os.path.exists('../prepped_models/%s/subgraphs'%args.model):
+	# 		os.mkdir('../prepped_models/%s/subgraphs'%args.model)
+	# 		os.mkdir('../prepped_models/%s/subgraphs/info'%args.model)
+	# 		os.mkdir('../prepped_models/%s/subgraphs/models'%args.model)
+	# 		os.mkdir('../prepped_models/%s/subgraphs/visualizations'%args.model)
+	# 	if online_models[args.model]['model'] is not None:
+	# 		print('Downloading model')
+	# 		file_download(online_models[args.model]['model'],'../models/%s_statedict.pt'%args.model)
+
+	# if not args.dont_download_images:
+	# 	print('Downloading input image data associated with: %s\n\n'%args.model)
+	# 	tar_download(online_models[args.model]['images'],'../image_data/%s.tgz'%args.model)
