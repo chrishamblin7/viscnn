@@ -16,6 +16,13 @@ First things first for all setup methods is to clone this repo:
 
 `git clone https://github.com/chrishamblin7/viscnn.git`
 
+### Conda
+
+Enter into the downloaded git repo: `cd viscnn`
+Create a new conda environment from the environment_file: `conda env create -f environment/environment.yml`
+Activate the new "viscnn" environment: `conda activate viscnn`
+Add the viscnn package itself to the "viscnn" environment: `pip install -e .`
+
 
 ### Docker
 The recommended way of setting up this cnn visualizer tools environment is to use docker. If you dont have docker installed on your computer, you can [download it here](https://docs.docker.com/get-docker/)
@@ -27,6 +34,8 @@ Once you have docker install you can use docker commandline tools, and get the e
 That might take a while to download. Once its done you can launch the tool by running:
 
 `docker run -it -v [full/path/to/cloned/repo]:/workspace -p 8050:8050 chrishamblin7/viscnn`
+
+This command launches an interactive docker shell, with the github repo linked to the '/workspace' folder inside the container. It also links port 8050 inside the docker container to port 8050 on the root machine. You can add other forwarded ports when you launch the tool as well
 
 ## Running Visualizer
 
