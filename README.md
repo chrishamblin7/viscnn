@@ -19,10 +19,14 @@ First things first for all setup methods is to clone this repo:
 ### Conda
 
 Enter into the downloaded git repo: `cd viscnn`
+
 Create a new conda environment from the environment_file: `conda env create -f environment/environment.yml`
+
 Activate the new "viscnn" environment: `conda activate viscnn`
+
 Add the viscnn package itself to the "viscnn" environment: `pip install -e .`
 
+Then, if you want to use jupyter notebooks, add the viscnn environment as a kernel with: `python -m ipykernel install --user --name=viscnn`
 
 ### Docker
 The recommended way of setting up this cnn visualizer tools environment is to use docker. If you dont have docker installed on your computer, you can [download it here](https://docs.docker.com/get-docker/)
