@@ -35,11 +35,19 @@ Once you have docker install you can use docker commandline tools, and get the e
 
 `docker pull chrishamblin7/viscnn:latest`
 
-That might take a while to download. Once its done you can launch the tool by running:
+That might take a while to download. Once its done you can launch the tool by running from the root viscnn folder (of the downloaded repo):
 
-`docker run -it -v [full/path/to/cloned/repo]:/workspace -p 8050:8050 chrishamblin7/viscnn`
+`docker run -it -v $(pwd):/workspace -p 8050:8050 -p 8888:8888 chrishamblin7/viscnn`
 
-This command launches an interactive docker shell, with the github repo linked to the '/workspace' folder inside the container. It also links port 8050 inside the docker container to port 8050 on the root machine. You can add other forwarded ports when you launch the tool as well
+This command launches an interactive docker shell, with the github repo linked to the '/workspace' folder inside the container. It also links port 8050 and 8888 inside the docker container to port 8050 and 8888 on the root machine. You can add other forwarded ports when you launch the tool as well. The first time you launch this docker container run:
+
+`pip install -e .`
+
+from the '/workspace' directory. This will add viscnn as a python module to the docker container environment. You dont have to run this command subsequent times you launch the container
+
+To launch a jupyter notebook inside the container, run:
+
+`jupyter notebook --ip 0.0.0.0 --no-browser --allow-root`
 
 ## Running Visualizer
 

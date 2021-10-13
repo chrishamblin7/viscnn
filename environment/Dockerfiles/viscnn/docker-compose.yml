@@ -1,0 +1,21 @@
+# cd to directory with this file, then run with docker-compose:
+# docker-compose up 
+# or docker-compose up -d
+# docker-compose down
+version: "3"
+
+services:
+  app:
+    image: chrishamblin7/viscnn
+    container_name: viscnn
+    ports:
+      - "8080:8080"
+      - "8877:8877"
+      - "8050:8050"
+      - "8051:8051"
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    volumes:
+      - ../../../:/workspace
+
+    #command: jupyterhub -f /srv/jupyterhub/jupyterhub_config.py --no-ssl --debug --SingleUserNotebookApp.default_url=/lab --SingleUserNotebookApp.disable_user_config=True

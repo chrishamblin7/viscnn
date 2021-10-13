@@ -481,7 +481,7 @@ def load_cnn_gui_params(prepped_model_path,device=None,deepviz_neuron=None,deepv
 
 	return params
 
-def launch_cnn_gui(prepped_model,port=8050,params = None,device = None,deepviz_neuron=None,deepviz_edge=False,show_ablations=False,show_act_map_means=False,
+def launch_cnn_gui(prepped_model,device=None,port=8050,params = None,device = None,deepviz_neuron=None,deepviz_edge=False,show_ablations=False,show_act_map_means=False,
 					show_image_manip = False,colorscale = 'RdBu',node_size=12,edge_size=1,max_node_inputs=20,
 					init_target_category = 'overall',init_rank_type = 'actxgrad',init_projection = 'MDS smooth',
 					init_edge_threshold = [.7,1],init_node_threshold = [.4,1],dont_download_images=False):
@@ -1937,6 +1937,6 @@ def launch_cnn_gui(prepped_model,port=8050,params = None,device = None,deepviz_n
 		torch.save(save_object,'prepped_models/%s/subgraphs/models/%s'%(prepped_model_folder,file_name))
 		print('SHOULD HAVE SAVED')
 
-	app.run_server(port=port)
+	app.run_server(port=port,host='0.0.0.0')
 
 		
