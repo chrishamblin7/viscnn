@@ -3,7 +3,7 @@ import os
 import pickle
 from viscnn.utils import update_sys_path
 
-def load_prepped_model(prepped_model,device=None):
+def load_prepped_model(prepped_model,device=None,dont_download_images=False):
 	'''
 	prepped_model: just a string of a folder within the 'prepped_models' folder
 	device: if None, defaults to the device in 'prepped_model_parameters_used'
@@ -34,7 +34,7 @@ def load_prepped_model(prepped_model,device=None):
 
 	return model
 
-def load_prepped_model_params(prepped_model,device=None,deepviz_neuron=None,deepviz_edge=False):
+def load_prepped_model_params(prepped_model,device=None,deepviz_neuron=None,deepviz_edge=False,dont_download_images=False):
 
 	'''
 	prepped_model: just a string of a folder within the 'prepped_models' folder

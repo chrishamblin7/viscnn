@@ -458,13 +458,13 @@ def launch_cnn_gui(prepped_model,device=None,port=8050,params = None, deepviz_ne
 
 	#get prepped model and params
 	if params is None:
-		params = load_cnn_gui_params(prepped_model,device=device,deepviz_neuron=deepviz_neuron,deepviz_edge=deepviz_edge,show_ablations=show_ablations,show_act_map_means=show_act_map_means,
+		params = load_cnn_gui_params(prepped_model,device=device,dont_download_images=False,deepviz_neuron=deepviz_neuron,deepviz_edge=deepviz_edge,show_ablations=show_ablations,show_act_map_means=show_act_map_means,
 									 show_image_manip = show_image_manip,colorscale = colorscale,node_size=node_size,edge_size=edge_size,max_node_inputs=max_node_inputs)
 	update_sys_path(params['prepped_model_path'])
 
 	#get model
 	from viscnn.model_prep.utils import load_prepped_model
-	model = load_prepped_model(prepped_model,device=params['device'])
+	model = load_prepped_model(prepped_model,device=params['device'],dont_download_images=True)
 	model_dis = dissect_model(deepcopy(model),store_ranks=True,clear_ranks=True,device=params['device'])
 	_ = model_dis.to(params['device']).eval()
 
