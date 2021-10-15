@@ -530,4 +530,4 @@ def launch_circuit_gui(subgraph_dict_path,port=8050,params=None,viz_folder=None)
 			fig['data'][-1]['text'] = 'full'
 		return fig
 
-	app.run_server(port=port)
+	app.run_server(port=port,host='0.0.0.0')
