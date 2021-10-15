@@ -393,7 +393,7 @@ def gen_networkgraph_traces(state,params):
 
 
 
-def load_cnn_gui_params(prepped_model,device=None,deepviz_neuron=None,deepviz_edge=False,show_ablations=False,show_act_map_means=False,show_image_manip = False,
+def load_cnn_gui_params(prepped_model,device=None,dont_download_images=False,deepviz_neuron=None,deepviz_edge=False,show_ablations=False,show_act_map_means=False,show_image_manip = False,
 						colorscale = 'RdBu',node_size=12,edge_size=1,max_node_inputs=20):
 
 	from viscnn.model_prep.utils import load_prepped_model_params
