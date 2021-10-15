@@ -393,51 +393,16 @@ def gen_networkgraph_traces(state,params):
 
 
 
-def load_cnn_gui_params(prepped_model_path,device=None,deepviz_neuron=None,deepviz_edge=False,show_ablations=False,show_act_map_means=False,show_image_manip = False,
+def load_cnn_gui_params(prepped_model,device=None,deepviz_neuron=None,deepviz_edge=False,show_ablations=False,show_act_map_means=False,show_image_manip = False,
 						colorscale = 'RdBu',node_size=12,edge_size=1,max_node_inputs=20):
 
-	full_prepped_model_path = os.path.abspath(prepped_model_path)
-	update_sys_path(full_prepped_model_path)
-	import prep_model_params_used as prep_model_params
-
-	prepped_model_folder = prepped_model_path.split('/')[-1]
-
-	params = {}
-	params['prepped_model'] = prepped_model_folder
-	params['prepped_model_path'] = full_prepped_model_path
+	from viscnn.model_prep.utils import load_prepped_model_params
+	params = load_prepped_model_params(prepped_model,device=device,deepviz_neuron=deepviz_neuron,deepviz_edge=deepviz_edge)
 
 	#modules
 	params['show_ablations'] = show_ablations    #show network ablations modules
 	params['show_act_map_means'] = show_act_map_means #show mean value under activation maps
 	params['show_image_manip'] = show_image_manip
-
-
-	#deepviz
-	if deepviz_neuron is None:
-		params['deepviz_neuron'] = prep_model_params.deepviz_neuron
-	else:
-		params['deepviz_neuron'] = deepviz_neuron
-	params['deepviz_param'] = prep_model_params.deepviz_param
-	params['deepviz_optim'] = prep_model_params.deepviz_optim
-	params['deepviz_transforms'] = prep_model_params.deepviz_transforms
-	params['deepviz_image_size'] = prep_model_params.deepviz_image_size
-	params['deepviz_edge'] = deepviz_edge
-
-	#backend
-	if device is None:
-		params['device'] = prep_model_params.device
-	else:
-		params['device'] = device
-	params['input_image_directory'] = prep_model_params.input_img_path+'/'
-	params['preprocess'] = prep_model_params.preprocess     #torchvision transfrom to pass input images through
-	params['label_file_path'] = prep_model_params.label_file_path
-	params['criterion'] = prep_model_params.criterion
-	params['rank_img_path'] = prep_model_params.rank_img_path
-	params['num_workers'] = prep_model_params.num_workers
-	params['seed'] = prep_model_params.seed
-	params['batch_size'] = prep_model_params.batch_size
-
-
 
 	#aesthetic 
 	params['colorscale'] = colorscale
@@ -448,36 +413,19 @@ def load_cnn_gui_params(prepped_model_path,device=None,deepviz_neuron=None,deepv
 	params['window_size'] = 'large' #this too
 
 	params['layer_colors'] = ['rgba(31,119,180,', 
-                          'rgba(255,127,14,',
-                          'rgba(44,160,44,', 
-                          'rgba(214,39,40,',
-                          'rgba(39, 208, 214,', 
-                          'rgba(242, 250, 17,',
-                          'rgba(196, 94, 255,',
-                          'rgba(193, 245, 5,',
-                          'rgba(245, 85, 5,',
-                          'rgba(5, 165, 245,',
-                          'rgba(245, 5, 105,',
-                          'rgba(218, 232, 23,',
-                          'rgba(148, 23, 232,',
-                          'rgba(23, 232, 166,']
-
-	#misc graph data
-	misc_data = pickle.load(open(full_prepped_model_path+'/misc_graph_data.pkl','rb'))
-	params['layer_nodes'] = misc_data['layer_nodes']
-	params['num_layers'] = misc_data['num_layers']
-	params['num_nodes'] = misc_data['num_nodes']
-	params['categories'] = misc_data['categories']
-	params['num_img_chan'] = misc_data['num_img_chan']
-	params['imgnode_positions'] = misc_data['imgnode_positions']
-	params['imgnode_colors'] = misc_data['imgnode_colors']
-	params['imgnode_names'] = misc_data['imgnode_names']
-	params['ranks_data_path'] = full_prepped_model_path+'/ranks/'
-	
-	#input images
-	params['input_image_directory'] = prep_model_params.input_img_path+'/'
-	params['input_image_list'] = os.listdir(params['input_image_directory'])
-	params['input_image_list'].sort()
+						  'rgba(255,127,14,',
+						  'rgba(44,160,44,', 
+						  'rgba(214,39,40,',
+						  'rgba(39, 208, 214,', 
+						  'rgba(242, 250, 17,',
+						  'rgba(196, 94, 255,',
+						  'rgba(193, 245, 5,',
+						  'rgba(245, 85, 5,',
+						  'rgba(5, 165, 245,',
+						  'rgba(245, 5, 105,',
+						  'rgba(218, 232, 23,',
+						  'rgba(148, 23, 232,',
+						  'rgba(23, 232, 166,']
 
 	return params
 
@@ -508,34 +456,16 @@ def launch_cnn_gui(prepped_model,device=None,port=8050,params = None, deepviz_ne
 
 	'''
 
-	#figure out where the prepped model is
-	if '/' in prepped_model:
-		prepped_model_path = os.path.abspath(prepped_model)
-		prepped_model_folder = prepped_model.split('/')[-1]
-	else:
-		from viscnn import prepped_models_root_path
-		prepped_model_path = prepped_models_root_path + '/' + prepped_model
-		prepped_model_folder = prepped_model_path.split('/')[-1]
-		
-	if not os.path.isdir(prepped_model_path):
-		#try to download prepped_model from gdrive
-		from viscnn.download_from_gdrive import download_from_gdrive
-		download_from_gdrive(prepped_model_folder,dont_download_images = dont_download_images)
-
-
 	#get prepped model and params
 	if params is None:
-		params = load_cnn_gui_params(prepped_model_path,device=device,deepviz_neuron=deepviz_neuron,deepviz_edge=deepviz_edge,show_ablations=show_ablations,show_act_map_means=show_act_map_means,
+		params = load_cnn_gui_params(prepped_model,device=device,deepviz_neuron=deepviz_neuron,deepviz_edge=deepviz_edge,show_ablations=show_ablations,show_act_map_means=show_act_map_means,
 									 show_image_manip = show_image_manip,colorscale = colorscale,node_size=node_size,edge_size=edge_size,max_node_inputs=max_node_inputs)
+	update_sys_path(params['prepped_model_path'])
 
-
-	#load Model
-	update_sys_path(prepped_model_path)
-	import prep_model_params_used as prep_model_params
-	model = prep_model_params.model
-	_ = model.to(params['device']).eval()
-
-	model_dis = dissect_model(deepcopy(prep_model_params.model),store_ranks=True,clear_ranks=True,device=params['device'])
+	#get model
+	from viscnn.model_prep.utils import load_prepped_model
+	model = load_prepped_model(prepped_model,device=params['device'])
+	model_dis = dissect_model(deepcopy(model),store_ranks=True,clear_ranks=True,device=params['device'])
 	_ = model_dis.to(params['device']).eval()
 
 
@@ -549,16 +479,16 @@ def launch_cnn_gui(prepped_model,device=None,port=8050,params = None, deepviz_ne
 	#load nodes df
 	print('loading nodes rank data')
 	target_node = 'loss'
-	categories_nodes_df = pd.read_csv('prepped_models/%s/ranks/categories_nodes_ranks.csv'%prepped_model_folder)
+	categories_nodes_df = pd.read_csv(params['prepped_model_path']+'/ranks/categories_nodes_ranks.csv')
 	target_nodes_df = categories_nodes_df.loc[categories_nodes_df['category']==target_category]
 	target_nodes_df = minmax_normalize_ranks_df(target_nodes_df,params,weight=False)
-	weight_nodes_df = pd.read_csv('prepped_models/%s/ranks/weight_nodes_ranks.csv'%prepped_model_folder)
+	weight_nodes_df = pd.read_csv(params['prepped_model_path']+'/ranks/weight_nodes_ranks.csv')
 	weight_nodes_df = minmax_normalize_ranks_df(weight_nodes_df,params,weight=True)
 	node_colors,node_weights = gen_node_colors(target_nodes_df,rank_type,params) 
 
 	#load node positions
 	print('loading node position data')
-	all_node_positions = pickle.load(open('./prepped_models/%s/node_positions.pkl'%prepped_model_folder,'rb'))
+	all_node_positions = pickle.load(open(params['prepped_model_path']+'/node_positions.pkl','rb'))
 	if projection == 'Grid':
 		node_positions = all_node_positions[projection]
 	else:
@@ -566,14 +496,14 @@ def launch_cnn_gui(prepped_model,device=None,port=8050,params = None, deepviz_ne
 
 	#Load Edge Kernels
 	print('loading convolutional kernels')
-	kernels = torch.load('prepped_models/%s/kernels.pt'%prepped_model_folder)['kernels']
-	kernel_colors = torch.load('prepped_models/%s/kernels.pt'%prepped_model_folder)['kernel_colors']
+	kernels = torch.load(params['prepped_model_path']+'/kernels.pt')['kernels']
+	kernel_colors = torch.load(params['prepped_model_path']+'/kernels.pt')['kernel_colors']
 
 	#load edges
 	print('loading edge data')
 	categories_edges_df = None
-	if os.path.exists('prepped_models/%s/edge_ranks.csv'%prepped_model_folder):
-		categories_edges_df = pd.read_csv('prepped_models/%s/ranks/categories_edges_ranks.csv'%prepped_model_folder)   #load edges
+	if os.path.exists(params['prepped_model_path']+'/edge_ranks.csv'):
+		categories_edges_df = pd.read_csv(params['prepped_model_path']+'/ranks/categories_edges_ranks.csv')   #load edges
 	if categories_edges_df is not None:
 		#overall_edges_df = categories_edges_df.loc[categories_edges_df['category']=='overall']
 		target_edges_df = categories_edges_df.loc[categories_edges_df['category']==target_category]
@@ -581,7 +511,7 @@ def launch_cnn_gui(prepped_model,device=None,port=8050,params = None, deepviz_ne
 		#overall_edges_df = rank_file_2_df(os.path.join(params['ranks_data_path'],'categories_edges','overall_edges_rank.pt'))
 		target_edges_df = rank_file_2_df(os.path.join(params['ranks_data_path'],'categories_edges','%s_edges_rank.pt'%target_category))
 	target_edges_df = minmax_normalize_ranks_df(target_edges_df,params,weight=False)
-	weight_edges_df = pd.read_csv('prepped_models/%s/ranks/weight_edges_ranks.csv'%prepped_model_folder)
+	weight_edges_df = pd.read_csv(params['prepped_model_path']+'/ranks/weight_edges_ranks.csv')
 	weight_edges_df = minmax_normalize_ranks_df(weight_edges_df,params,weight=True)    		
 	edges_thresholded_df = get_thresholded_ranksdf(edge_threshold,rank_type,target_edges_df)	
 	num_edges = len(target_edges_df)
@@ -601,8 +531,8 @@ def launch_cnn_gui(prepped_model,device=None,port=8050,params = None, deepviz_ne
 	print('loading activation maps')
 
 	all_activations = {'nodes':{},'edges_in':{},'edges_out':{}}
-	if os.path.exists('prepped_models/%s/input_img_activations.pt'%prepped_model_folder):
-		all_activations = torch.load('prepped_models/%s/input_img_activations.pt'%prepped_model_folder)
+	if os.path.exists(params['prepped_model_path']+'/input_img_activations.pt'):
+		all_activations = torch.load(params['prepped_model_path']+'/input_img_activations.pt')
 
 	#hidden state, stores python values within the html itself
 	state = {'projection':projection,'rank_type':rank_type,'edge_positions':edge_positions,'edge_colors': edge_colors, 'edge_widths':edge_widths,'edge_names':edge_names,
@@ -616,20 +546,20 @@ def launch_cnn_gui(prepped_model,device=None,port=8050,params = None, deepviz_ne
 	display_dict = {True:'block',False:'none'}
 
 	window_size_dict = {'large':{
-                            'image':('14vw','14vw'),
-                            'standard':('10vw','10vw'),
-                            'standardwbar':('13vw','10vw'),
-                            'kernel':('10vw','8vw'),
-                            'node_inputs':(440,260)
-                            },
-                    'small':{
-                            'image':('12vw','12vw'),
-                            'standard':('8vw','8vw'),
-                            'standardwbar':('6vw','4vw'),
-                            'kernel':('8vw','6vw'),
-                            'node_inputs':(320,200)
-                            }
-                   }
+							'image':('14vw','14vw'),
+							'standard':('10vw','10vw'),
+							'standardwbar':('13vw','10vw'),
+							'kernel':('10vw','8vw'),
+							'node_inputs':(440,260)
+							},
+					'small':{
+							'image':('12vw','12vw'),
+							'standard':('8vw','8vw'),
+							'standardwbar':('6vw','4vw'),
+							'kernel':('8vw','6vw'),
+							'node_inputs':(320,200)
+							}
+				   }
 
 	figure_init = go.Figure()
 	figure_init.add_trace(go.Scatter(
@@ -1920,7 +1850,7 @@ def launch_cnn_gui(prepped_model,device=None,port=8050,params = None, deepviz_ne
 		print('found %s nodes and %s edges'%(str(len(nodes_thresholded_df)),str(len(edges_thresholded_df))))
 		
 		#make subgraph model
-		sub_model = extract_subgraph(model,nodes_thresholded_df,edges_thresholded_df,params)
+		sub_model = extract_subgraph_with_df(model,nodes_thresholded_df,edges_thresholded_df,params)
 		save_object = {'model':sub_model,
 					'node_df':nodes_thresholded_df,
 					'edge_df':edges_thresholded_df,
@@ -1934,7 +1864,7 @@ def launch_cnn_gui(prepped_model,device=None,port=8050,params = None, deepviz_ne
 				file_name+='.pt'
 			else:
 				file_name = '.'.join(file_name_l[:-1])+'.pt'
-		torch.save(save_object,'prepped_models/%s/subgraphs/models/%s'%(prepped_model_folder,file_name))
+		torch.save(save_object,params['prepped_model_path']+'/subgraphs/models/%s'%file_name)
 		print('SHOULD HAVE SAVED')
 
 	app.run_server(port=port,host='0.0.0.0')

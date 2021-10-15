@@ -55,7 +55,7 @@ input_image_layout = go.Layout(#width=200,
                         xaxis=dict(range=(0,10),showline=False,showgrid=False,showticklabels=False),
                         yaxis=dict(range=(0,10),showline=False,showgrid=False,showticklabels=False))
 
-double_image_layout = go.Layout(width=400, 
+double_image_layout = go.Layout(#width=400, 
                     #height=200,
                     uirevision = True,
                     margin=dict(

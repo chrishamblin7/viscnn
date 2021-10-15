@@ -296,7 +296,7 @@ def get_size_thresholded_ranksdf(size,rank_type,df, selection='best'):
 	# 									})
 	return threshold_df
 
-def extract_subgraph(model,thresholded_nodes_df,thresholded_egdes_df,params, save=True):
+def extract_subgraph_with_df(model,thresholded_nodes_df,thresholded_egdes_df,params, save=True):
 	#this is currently hacky only works on models with all nn.sequential or .features module
 	model.to('cpu')
 	l = 0
@@ -373,6 +373,212 @@ def extract_subgraph(model,thresholded_nodes_df,thresholded_egdes_df,params, sav
     
 				
 	return subgraph_model
+
+
+
+# def ranksdf_store(target_category, target_node,ablation_list,model_dis=model_dis):
+# 	print('Updating cached rank dfs with {}'.format(target_category))
+# 	model_dis = clear_ranks_across_model(model_dis)
+# 	target_type = image_category_or_contrast(target_category,params)
+# 	target_category_nodes_df = None
+# 	target_category_edges_df = None
+# 	if target_type == 'category' and target_node == 'loss' and ablation_list == []:
+# 		#edges
+# 		if categories_edges_df is not None:
+# 			if len(categories_edges_df.loc[categories_edges_df['category']==target_category]) > 0:
+# 				target_category_edges_df = categories_edges_df.loc[categories_edges_df['category']==target_category]
+# 		if target_category_edges_df is None:
+# 			target_category_edges_df = rank_file_2_df(os.path.join(params['ranks_data_path'],'categories_edges','%s_edges_rank.pt'%target_category))   
+# 		#node
+# 		if categories_nodes_df is not None:
+# 			if len(categories_nodes_df.loc[categories_nodes_df['category']==target_category]) > 0:
+# 				target_category_nodes_df = categories_nodes_df.loc[categories_nodes_df['category']==target_category]
+# 		if target_category_nodes_df is None:
+# 			target_category_nodes_df = rank_file_2_df(os.path.join(params['ranks_data_path'],'categories_nodes','%s_nodes_rank.pt'%target_category))
+# 	elif target_type == 'category':
+# 		target_category_nodes_df,target_category_edges_df = rank_dict_2_df(get_model_ranks_for_category(target_category, target_node, model_dis,params))
+# 	elif target_type == 'input_image':
+# 		target_category_nodes_df,target_category_edges_df = rank_dict_2_df(get_model_ranks_from_image(get_image_path(target_category,params)[1],target_node, model_dis, params))
+
+# 	else:  #contrast
+# 		target_category_nodes_df,target_category_edges_df = contrast_str_2_dfs(target_category,target_node,model_dis,params,ablation_list)
+# 	print('FROM RANKS DF STORE')
+# 	print(target_category_edges_df)
+# 	return target_category_nodes_df,target_category_edges_df
+
+
+
+
+
+
+
+# def extract_subgraph_call(n_clicks,file_name,target,edge_threshold,node_threshold,rank_type,state,ablation_list,model_dis=model_dis):
+# 	print('CALLED: extract_subgraph_call\n')
+# 	if rank_type != 'hierarchical':
+# 		raise Exception('subgraph criterion must be hierarchical to extract graph') 
+	
+# 	rank_type = 'actxgrad'
+# 	target_category,target_node = target[0],target[1]
+# 	#fetch select edges DF
+
+# 	target_nodes_df,target_edges_df = ranksdf_store(target_category,target_node,ablation_list)
+
+# 	target_edges_df = minmax_normalize_ranks_df(target_edges_df,params)
+# 	target_nodes_df = minmax_normalize_ranks_df(target_nodes_df,params)
+
+# 	print('finding hierarchical subgraph')
+# 	start = time.time()
+# 	nodes_thresholded_df,edges_thresholded_df = hierarchical_accum_threshold(node_threshold[0],edge_threshold[0],rank_type,target_edges_df,target_nodes_df,ascending=False)
+# 	print('time: %s'%str(time.time() - start))
+# 	print('found %s nodes and %s edges'%(str(len(nodes_thresholded_df)),str(len(edges_thresholded_df))))
+	
+# 	#make subgraph model
+# 	sub_model = extract_subgraph_with_df(model,nodes_thresholded_df,edges_thresholded_df,params)
+# 	save_object = {'model':sub_model,
+# 				'node_df':nodes_thresholded_df,
+# 				'edge_df':edges_thresholded_df,
+# 				'gen_params':{'node_thresh':node_threshold[0],
+# 								'edge_thresh':edge_threshold[0],
+# 								'input':target_category,
+# 								'output':str(target_node)}}
+# 	if file_name[-3:] != '.pt':
+# 		file_name_l = file_name.split('.')
+# 		if len(file_name_l) == 1:
+# 			file_name+='.pt'
+# 		else:
+# 			file_name = '.'.join(file_name_l[:-1])+'.pt'
+# 	torch.save(save_object,'prepped_models/%s/subgraphs/models/%s'%(prepped_model_folder,file_name))
+# 	print('SHOULD HAVE SAVED')
+
+# def extract_subgraph(model,inputs,output,edge_threshold,node_threshold,rank_type='actxgrad',state,ablation_list = [],device=None,save=None,image_folder=None):
+
+# 	'''
+# 	model: Use string to default to a model in 'prepped_models'. 
+# 		   Otherwise, should be a dissected pytorch model
+# 	inputs: images fed into model subgraphs are preserving output responses with respect to
+# 	output: The target feature we are generating a subgraph for
+# 	save: Use relative path to save to that path. 
+# 	      Use just a name with no path to save to the 'prepped_models' folder 
+# 		  (second option can only be used if 'model' argument is string)
+# 	rank_type: The importance criterion used  'actxgrad', 'act', 'grad', or 'weight'
+# 	'''
+# 	#Get Model / Params
+# 	prepped_model is None:
+# 	params is None:
+# 	if isinstance(model,str):
+# 		prepped_model = model
+# 		#get params
+# 		from viscnn.model_prep.utils import load_prepped_model_params
+# 		params = load_prepped_model_params(prepped_model,device=device,deepviz_neuron=deepviz_neuron,deepviz_edge=deepviz_edge):
+		
+# 		#get model
+# 		from viscnn.model_prep.utils import load_prepped_model
+# 		model = load_prepped_model(prepped_model,device=params['device'])
+
+# 		model_dis = dissect_model(deepcopy(model),store_ranks=True,clear_ranks=True,device=params['device'])
+# 		_ = model_dis.to(params['device']).eval()
+# 	elif device is None:
+# 		raise ValueError('"device" argument must be specified ("cuda:0","cpu" etc)')
+# 	else:
+# 		model_dis = dissect_model(deepcopy(model),store_ranks=True,clear_ranks=True,device=device)
+# 		_ = model_dis.to(device).eval()
+# 	model_dis = clear_ranks_across_model(model_dis)
+
+# 	#inputs
+# 	if isinstance(inputs,str):
+# 		target_type = image_category_or_contrast(target_category,params)
+# 		target_category_nodes_df = None
+# 		target_category_edges_df = None
+# 		if target_type == 'category' and target_node == 'loss' and ablation_list == []:
+# 			#edges
+# 			if categories_edges_df is not None:
+# 				if len(categories_edges_df.loc[categories_edges_df['category']==target_category]) > 0:
+# 					target_category_edges_df = categories_edges_df.loc[categories_edges_df['category']==target_category]
+# 			if target_category_edges_df is None:
+# 				target_category_edges_df = rank_file_2_df(os.path.join(params['ranks_data_path'],'categories_edges','%s_edges_rank.pt'%target_category))   
+# 			#node
+# 			if categories_nodes_df is not None:
+# 				if len(categories_nodes_df.loc[categories_nodes_df['category']==target_category]) > 0:
+# 					target_category_nodes_df = categories_nodes_df.loc[categories_nodes_df['category']==target_category]
+# 			if target_category_nodes_df is None:
+# 				target_category_nodes_df = rank_file_2_df(os.path.join(params['ranks_data_path'],'categories_nodes','%s_nodes_rank.pt'%target_category))
+# 		elif target_type == 'category':
+# 			target_category_nodes_df,target_category_edges_df = rank_dict_2_df(get_model_ranks_for_category(target_category, target_node, model_dis,params))
+# 		elif target_type == 'input_image':
+# 			target_category_nodes_df,target_category_edges_df = rank_dict_2_df(get_model_ranks_from_image(get_image_path(target_category,params)[1],target_node, model_dis, params))
+
+# 		else:  #contrast
+# 			target_category_nodes_df,target_category_edges_df = contrast_str_2_dfs(target_category,target_node,model_dis,params,ablation_list)
+
+
+
+# 	def ranksdf_store(target_category, target_node,ablation_list,model_dis=model_dis):
+# 	print('Updating cached rank dfs with {}'.format(target_category))
+# 	model_dis = clear_ranks_across_model(model_dis)
+# 	target_type = image_category_or_contrast(target_category,params)
+
+# 	return target_category_nodes_df,target_category_edges_df
+
+	
+
+
+# 	target_category,target_node = target[0],target[1]
+# 	#fetch select edges DF
+
+# 	target_nodes_df,target_edges_df = ranksdf_store(target_category,target_node,ablation_list)
+
+# 	target_edges_df = minmax_normalize_ranks_df(target_edges_df,params)
+# 	target_nodes_df = minmax_normalize_ranks_df(target_nodes_df,params)
+
+# 	print('finding hierarchical subgraph')
+# 	start = time.time()
+# 	nodes_thresholded_df,edges_thresholded_df = hierarchical_accum_threshold(node_threshold[0],edge_threshold[0],rank_type,target_edges_df,target_nodes_df,ascending=False)
+# 	print('time: %s'%str(time.time() - start))
+# 	print('found %s nodes and %s edges'%(str(len(nodes_thresholded_df)),str(len(edges_thresholded_df))))
+	
+# 	#make subgraph model
+# 	sub_model = extract_subgraph_with_df(model,nodes_thresholded_df,edges_thresholded_df,params)
+
+# 	dict_object = {'model':sub_model,
+# 				'node_df':nodes_thresholded_df,
+# 				'edge_df':edges_thresholded_df,
+# 				'gen_params':{'node_thresh':node_threshold[0],
+# 								'edge_thresh':edge_threshold[0],
+# 								'input':target_category,
+# 								'output':str(target_node)}}
+# 	#saving file
+# 	if save is not None:							
+# 		if save[-3:] != '.pt':
+# 			file_name_l = save.split('.')
+# 			if len(file_name_l) == 1:
+# 				save+='.pt'
+# 			else:
+# 				save = '.'.join(file_name_l[:-1])+'.pt'
+# 		if '/' not in save:
+# 			from viscnn import prepped_models_root_path
+# 			torch.save(dict_object,prepped_models_root_path+'/%s/subgraphs/models/%s'%(prepped_model_folder,file_name))
+# 	print('SHOULD HAVE SAVED')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

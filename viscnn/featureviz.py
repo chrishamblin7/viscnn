@@ -249,18 +249,32 @@ def regen_visualization(model,targetid,neuron,params):
     gen_visualization(model,image_name,objective,parametrizer,optimizer,transforms,image_size,neuron,params) 
     return image_name
 
-def combine_images(image_paths):  #list of image paths
+def combine_images(image_paths,heightwise=True):  #list of image paths
     images = [Image.open(x) for x in image_paths]
     widths, heights = zip(*(i.size for i in images))
 
-    total_width = sum(widths)
-    max_height = max(heights)
+    if heightwise:
+        total_height = sum(heights)
+        max_width = max(widths)
 
-    new_im = Image.new('RGB', (total_width, max_height))
+        new_im = Image.new('RGB', (max_width, total_height))
 
-    x_offset = 0
-    for im in images:
-        new_im.paste(im, (x_offset,0))
-        x_offset += im.size[0]
+        y_offset = 0
+        for im in images:
+            new_im.paste(im, (0,y_offset))
+            y_offset += im.size[1]
 
-    return new_im
+        return new_im
+    else:
+        total_width = sum(widths)
+        max_height = max(heights)
+
+        new_im = Image.new('RGB', (total_width, max_height))
+
+        x_offset = 0
+        for im in images:
+            new_im.paste(im, (x_offset,0))
+            x_offset += im.size[0]
+
+        return new_im
+    

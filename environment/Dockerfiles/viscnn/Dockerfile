@@ -28,6 +28,8 @@ RUN conda install -y -c anaconda \
      dash=1.20.0 \
      dash-daq=0.5.* \
      jupyterlab=3.0.16 \
+     jupyterlab_widgets=1.0.2 \
+     ipywidgets=7.6.5 \
      umap-learn=0.5.1 \
      hdbscan=0.8.27 \ 
   && conda clean -ya
