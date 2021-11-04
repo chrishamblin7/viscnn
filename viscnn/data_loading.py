@@ -51,12 +51,22 @@ def single_image_loader(image_path, transform, label_file_path = None, label_dic
 
 class rank_image_data(Dataset):
 
-	def __init__(self, root_dir, transform, label_file_path = None, label_dict_path = None ):
+	def __init__(self, root_dir, transform, label_file_path = None, label_dict_path = None, class_folders=False ):
 		
 		
 		self.root_dir = root_dir
-		self.img_names = os.listdir(self.root_dir)
-		self.img_names.sort()
+		self.class_folders = class_folders
+		if not self.class_folders:
+			self.img_names = os.listdir(self.root_dir)
+			self.img_names.sort()
+		else:
+			self.img_names = []
+			self.classes = os.listdir(self.root_dir)
+			for cl in self.classes:
+				files = os.listdir(self.root_dir+'/'+cl)
+				full_names = [cl+'/'+s for s in files]
+				self.img_names += full_names
+
 
 		self.label_list = None
 		self.label_file_path = label_file_path

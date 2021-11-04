@@ -171,5 +171,16 @@ def contrast_str_2_dfs(contrast_string,target_node,model_dis,params,ablation_lis
     nodes_df, edges_df = rank_dict_2_df(contrast_dict)
     return nodes_df, edges_df 
 
+#utility functions for API
 
+def list_2_contrast_str(elements,coefficients = None):
+    string = ''
+    if coefficients is not None:
+        assert len(elements) == len(coefficients)
+    for i in range(len(elements)):
+        if coefficients is not None:
+            string = string.append(coefficients[i])
+        string.append(elements[i])
+    string.replace('+-','-')
+    return string
 

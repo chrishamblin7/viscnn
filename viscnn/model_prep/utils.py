@@ -23,13 +23,15 @@ def load_prepped_model(prepped_model,device=None,dont_download_images=False):
 		from viscnn.download_from_gdrive import download_from_gdrive
 		download_from_gdrive(prepped_model_folder,dont_download_images = dont_download_images)
 
-	if device is None:
-		device = prep_model_params_used.device
 	
 	#load Model
 	update_sys_path(prepped_model_path)
 	import prep_model_params_used as prep_model_params
 	model = prep_model_params.model
+
+	if device is None:
+		device = prep_model_params.device
+
 	_ = model.to(device).eval()
 
 	return model

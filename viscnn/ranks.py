@@ -12,8 +12,34 @@ from viscnn.utils import *
 
 
 
+def get_model_ranks_from_dataloader(dataloader, target_node, model_dis,params):
+	##RUNNING DATA THROUGH MODEL
+	#Pass data through model in batches
+	model_dis = set_across_model(model_dis,'target_node',None)
+	if target_node != 'loss':
+		target_node_layer,target_node_within_layer_id,target_node_layer_name = nodeid_2_perlayerid(target_node,params)
+		model_dis=set_model_target_node(model_dis,target_node_layer,target_node_within_layer_id)
 
 
+	for i, (batch, target) in enumerate(dataloader):
+		print('batch %s'%i)
+		model_dis.zero_grad()
+		batch, target = batch.to(device), target.to(device)
+		try:
+			output = model_dis(batch)    #running forward pass sets up hooks and stores activations in each dissected_Conv2d module
+			if target_node == 'loss':
+				target = max_likelihood_for_no_target(target,output) 
+				criterion(output, target).backward()    #running backward pass calls all the hooks and calculates the ranks of all edges and nodes in the graph 
+		except TargetReached:
+			print('target node %s reached, halted forward pass'%str(target_node))
+
+		#	torch.sum(output).backward()    # run backward pass with respect to net outputs rather than loss function
+
+	layer_ranks = get_ranks_from_dissected_Conv2d_modules(model_dis)
+	model_dis = clear_ranks_across_model(model_dis)
+	model_dis = set_across_model(model_dis,'clear_ranks',True)
+
+	return layer_ranks
 
 
 def get_model_ranks_for_category(category, target_node, model_dis,params):

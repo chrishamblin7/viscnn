@@ -20,14 +20,13 @@ class TargetReached(ModelBreak):
 
 class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has presum activation maps as intermediate output
 
-	def __init__(self, from_conv,name=None,store_activations=False, store_ranks = False, clear_ranks=False, target_node=None, cuda=True,rank_field = 'image', device='cuda'):      # from conv is normal nn.Conv2d object to pull weights and bias from
+	def __init__(self, from_conv,name=None,store_activations=False, store_ranks = False, clear_ranks=False, target_node=None, rank_field = 'image', device='cuda'):      # from conv is normal nn.Conv2d object to pull weights and bias from
 		super(dissected_Conv2d, self).__init__()
 		#self.from_conv = from_conv
 		self.name = name
 		self.in_channels = from_conv.weight.shape[1]
 		self.out_channels = from_conv.weight.shape[0]
 		self.target_node= target_node
-		self.cuda = cuda
 		self.device = device
 		self.store_activations = store_activations
 		self.store_ranks = store_ranks
@@ -334,6 +333,49 @@ class dissected_Conv2d(torch.nn.Module):       #2d conv Module class that has pr
 		return postbias_out
 
 
+class hooked_Conv2d(torch.nn.Module):       #2d conv Module class that has presum activation maps as intermediate output
+
+	def __init__(self, from_conv,name=None, target_node=None, rank_field = 'image', device='cuda:0'):      # from conv is normal nn.Conv2d object to pull weights and bias from
+		super(hooked_Conv2d, self).__init__()
+		#self.from_conv = from_conv
+		self.name = name
+		self.in_channels = from_conv.weight.shape[1]
+		self.out_channels = from_conv.weight.shape[0]
+		self.target_node= target_node
+		self.device = device
+		self.rank_field = rank_field    #'image' means average over activation map, 'max' means rank with respect to maximum activation
+
+		self.edge_ablations = None
+		self.node_ablations = None
+
+		self.from_conv = from_conv
+
+	def forward(self, x):
+		y = self.from_conv(x)	
+
+		if self.target_node is not None:
+			#print('target reached, breaking model forward pass in %s'%self.name)
+			#print(self.target_node)
+			if self.rank_field == 'image':
+				avg_activations = y.mean(dim=(0, 2, 3))
+				self.optim_target = avg_activations[self.target_node]
+
+			elif self.rank_field == 'max':
+				max_acts = y.view(y.size(0),y.size(1), y.size(2)*y.size(3)).max(dim=-1).values
+				max_acts_target = max_acts[:,self.target_node]
+				self.optim_target = max_acts_target.mean()
+			elif self.rank_field == 'min':
+				min_acts = y.view(y.size(0),y.size(1), y.size(2)*y.size(3)).min(dim=-1).values
+				min_acts_target = min_acts[:,self.target_node]
+				self.optim_target = min_acts_target.mean()
+			elif isinstance(self.rank_field,list):
+				raise Exception('List type rank field not yet implemented, use "min", "max",or "image" as the rank field')
+				#target_acts = 
+				#optim_target = target_acts.mean()
+			#print(optim_target)
+			raise TargetReached
+			
+		return y
 
 
 ### MODEL LEVEL FUNCTIONS ###
@@ -343,17 +385,20 @@ These functions all deal with dissected_Conv2d modules across an entire model
 '''
 
 # takes a full model and replaces all conv2d instances with dissected conv 2d instances
-def dissect_model(model,mod_names = [],store_activations=True,store_ranks=True,clear_ranks = False,cuda=True,device='cuda:0'):
+def dissect_model(model,mod_names = [],store_activations=True,store_ranks=True,clear_ranks = False,rank_field = 'image',dissect=True,device='cuda:0'):
 
 	for name, module in reversed(model._modules.items()):
 		if len(list(module.children())) > 0:
 			mod_names.append(str(name))
 			# recurse
-			model._modules[name] = dissect_model(module,mod_names =mod_names, store_activations=store_activations,store_ranks=store_ranks,clear_ranks=clear_ranks,cuda=cuda,device=device)
+			model._modules[name] = dissect_model(module,mod_names =mod_names, store_activations=store_activations,store_ranks=store_ranks,rank_field=rank_field,clear_ranks=clear_ranks,dissect=dissect,device=device)
 			mod_names.pop()
 
 		if isinstance(module, torch.nn.modules.conv.Conv2d):    # found a 2d conv module to transform
-			new_module = dissected_Conv2d(module, name='_'.join(mod_names+[name]), store_activations=store_activations,store_ranks=store_ranks,clear_ranks=clear_ranks,cuda=cuda,device=device) 
+			if dissect:
+				new_module = dissected_Conv2d(module, name='_'.join(mod_names+[name]), store_activations=store_activations,store_ranks=store_ranks,rank_field=rank_field,clear_ranks=clear_ranks,device=device) 
+			else:
+				new_module = hooked_Conv2d(module, name='_'.join(mod_names+[name]),rank_field=rank_field,device=device) 
 			model._modules[name] = new_module
 
 		elif isinstance(module, torch.nn.modules.Dropout):    #make dropout layers not dropout  #also set batchnorm to eval
@@ -367,6 +412,7 @@ def dissect_model(model,mod_names = [],store_activations=True,store_ranks=True,c
 
 
 
+
 def set_model_target_node(model,target_layer,within_layer_id,layer=0):
  
 	for name, module in model._modules.items():
@@ -374,13 +420,33 @@ def set_model_target_node(model,target_layer,within_layer_id,layer=0):
 			# recurse
 			model._modules[name] = set_model_target_node(module,target_layer,within_layer_id,layer)
 
-		if isinstance(module, dissected_Conv2d):    # found a 2d conv module to transform
-			if layer==target_layer:
+		if isinstance(module, dissected_Conv2d) or isinstance(module, hooked_Conv2d):    # found a 2d conv module to transform
+			if layer==target_layer or module.name ==target_layer:
 				module.target_node = within_layer_id
 				break
 			layer+=1             
 
 	return model
+
+
+def get_optim_target_from_model(model,target_layer,layer=0,optim_target=None):
+ 
+	for name, module in model._modules.items():
+		if len(list(module.children())) > 0:
+			# recurse
+			optim_target = get_optim_target_from_model(module,target_layer,layer,optim_target)
+
+		if isinstance(module, dissected_Conv2d) or isinstance(module, hooked_Conv2d):    # found a 2d conv module to transform
+			if layer==target_layer or module.name ==target_layer:
+
+				return module.optim_target
+
+			layer+=1             
+	return optim_target
+
+
+
+
 
 def set_across_model(model,setting,value):
  
@@ -389,7 +455,7 @@ def set_across_model(model,setting,value):
 			# recurse
 			model._modules[name] = set_across_model(module,setting,value)
 
-		if isinstance(module, dissected_Conv2d):    # found a 2d conv module to transform
+		if isinstance(module, dissected_Conv2d) or isinstance(module, hooked_Conv2d):    # found a 2d conv module to transform
 			if setting == 'target_node':
 				module.target_node = value
 			elif setting == 'clear_ranks':
@@ -448,6 +514,11 @@ def get_activations_from_dissected_Conv2d_modules(module,layer_activations=None)
 			layer_activations = get_activations_from_dissected_Conv2d_modules(submodule,layer_activations=layer_activations)   #module has modules inside it, so recurse on this module
 
 	return layer_activations
+
+
+
+
+
 
 
 

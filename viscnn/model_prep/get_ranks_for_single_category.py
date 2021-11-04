@@ -75,7 +75,7 @@ for param in model_dis.parameters():  #need gradients for grad*activation rank c
 import torch.utils.data as data
 import torchvision.datasets as datasets
 
-kwargs = {'num_workers': params.num_workers, 'pin_memory': True} if params.cuda else {}
+kwargs = {'num_workers': params.num_workers, 'pin_memory': True} if 'cuda' in params.device else {}
 
 image_loader = torch.utils.data.DataLoader(
 			rank_image_data(args.data_path,params.preprocess,params.label_file_path),
